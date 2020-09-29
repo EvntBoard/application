@@ -1,0 +1,22 @@
+appId: fr.evandikt.evntboard
+productName: EvntBoard
+files:
+  - assets/**/*
+  - build/**/*
+  - node_modules/**/*
+  - package.json
+dmg:
+  icon: ./assets/logo.png
+win:
+  icon: ./assets/logo.png
+  target:
+    - nsis
+    - portable
+linux:
+  icon: ./assets/logo.png
+  target:
+    - AppImage
+  category: Utility
+nsis:
+  oneClick: false
+publish: null

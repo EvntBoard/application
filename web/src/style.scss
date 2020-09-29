@@ -1,0 +1,81 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+
+.app-content {
+  display: flex;
+  flex-grow: 1;
+}
+
+body:not(.bp3-dark) {
+  background: #f5f8fa;
+}
+
+body.bp3-dark {
+  background: #30404d;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 56px;
+}
+
+.modal-centered {
+
+  margin: 50px 0;
+  top: 0;
+  left: 15px;
+  right: 15px;
+}
+
+
+// helpers
+
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+// margin and padding values array
+$space-values : (
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        12,
+        24
+) !default;
+
+// margin and padding shorthands
+$space-prefixes : (
+        p  : padding,
+        pt : padding-top,
+        pr : padding-right,
+        pb : padding-bottom,
+        pl : padding-left,
+        m  : margin,
+        mt : margin-top,
+        mr : margin-right,
+        mb : margin-bottom,
+        ml : margin-left,
+) !default;
+
+@each $attr-short, $attr-long in $space-prefixes {
+  @each $value in $space-values {
+    .#{$attr-short}-#{$value} {
+      #{$attr-long}: #{$value}#{'px'};
+    }
+  }
+}

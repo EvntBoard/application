@@ -1,0 +1,79 @@
+stages:
+  - build
+  - package
+
+# Construction du client JS avec une image Docker node officielle
+build:build_web:
+  stage: build
+  image: node:current-alpine
+  script:
+    - cd web
+    - yarn install --network-timeout 1000000 --frozen-lockfile
+    - CI=false
+    - yarn run build
+  artifacts:
+    paths:
+      - web/build/ # Conserve le build pour le déploiement
+    expire_in: 1 day
+
+# Construction du client JS avec une image Docker node officielle
+build:build_client:
+  stage: build
+  image: node:current-alpine
+  script:
+    - cd client
+    - yarn install --network-timeout 1000000 --frozen-lockfile
+    - CI=false
+    - yarn run build
+  artifacts:
+    paths:
+      - client/build/ # Conserve le build pour le déploiement
+    expire_in: 1 day
+
+package:publish_linux:
+  stage: package
+  when: manual
+  image: electronuserland/builder:12
+  script:
+    - npm i -g node-gyp
+    - apt update
+    - apt install -y build-essential libxtst-dev libxmu-dev libxmu-headers freeglut3-dev libxext-dev libxi-dev zlib1g-dev libpng-dev
+    - cd electron
+    - rm -rf yarn.lock
+    - rm -rf node_modules
+    - yarn install --network-timeout 1000000 --frozen-lockfile
+    - yarn run build
+    - mkdir build/web
+    - mkdir build/client
+    - cp -R ../web/build/. build/web
+    - cp -R ../client/build/. build/client
+    - ls -alh build
+    - yarn dist-linux
+  artifacts:
+    paths:
+      - electron/dist/*.AppImage # Conserve le build pour le déploiement
+    expire_in: 7 day
+
+package:publish_windows:
+  stage: package
+#  when: manual
+  image: electronuserland/builder:wine-mono
+  script:
+    - npm i -g node-gyp
+    - apt update
+    - apt install -y build-essential libxtst-dev libxmu-dev libxmu-headers freeglut3-dev libxext-dev libxi-dev zlib1g-dev libpng-dev
+    - cd electron
+    - rm -rf yarn.lock
+    - rm -rf node_modules
+    - yarn install --network-timeout 1000000 --frozen-lockfile
+    - yarn run build
+    - mkdir build/web
+    - mkdir build/client
+    - cp -R ../web/build/. build/web
+    - cp -R ../client/build/. build/client
+    - ls -alh build
+    - yarn dist-windows
+  artifacts:
+    paths:
+      - electron/dist/*.exe # Conserve le build pour le déploiement
+    expire_in: 7 day

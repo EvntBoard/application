@@ -1,0 +1,51 @@
+.template {
+
+  .list {
+    overflow: auto;
+    width: 200px;
+    flex-shrink: 0;
+
+    .search {
+      margin: 4px;
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+
+      .item {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 4px;
+
+        &:hover {
+          background-color: #1b1c1d;
+          cursor: pointer;
+        }
+
+        .tags {
+          flex-wrap: wrap;
+
+          .bp3-tag {
+            margin: 1px;
+          }
+        }
+      }
+    }
+  }
+
+  .form {
+    overflow: auto;
+    flex-grow: 1;
+    padding: 8px;
+
+    .floating {
+      margin-top: 16px;
+      z-index: 10;
+      position: sticky;
+      bottom: 0;
+    }
+  }
+
+}

@@ -1,0 +1,57 @@
+{
+  "name": "evntboard",
+  "version": "0.0.3",
+  "description": "EvntBoard",
+  "license": "proprietary",
+  "author": "Evandikt",
+  "main": "./build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evandikt/evntboard.git"
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "watch": "webpack --watch --config webpack-dev.config.js",
+    "build": "webpack --config webpack-prod.config.js",
+    "pack": "electron-builder --dir",
+    "dist-mac": "electron-builder -m",
+    "dist-windows": "electron-builder -w --x64",
+    "dist-windows-32": "electron-builder -w --ia32",
+    "dist-linux": "electron-builder -l",
+    "dist": "electron-builder -mwl"
+  },
+  "dependencies": {
+    "async-mutex": "^0.2.4",
+    "axios": "^0.20.0",
+    "core-js": "^3.6.5",
+    "electron-is-dev": "^1.2.0",
+    "lodash": "^4.17.20",
+    "lowdb": "^1.0.0",
+    "node-static": "^0.7.11",
+    "obs-websocket-js": "^4.0.1",
+    "one-time": "^1.0.0",
+    "query-string": "^6.13.2",
+    "regenerator-runtime": "^0.13.7",
+    "require-from-string": "^2.0.2",
+    "socket.io": "^2.3.0",
+    "twitch": "^4.2.3",
+    "twitch-auth": "^4.2.3",
+    "twitch-chat-client": "^4.2.3",
+    "uuid": "^8.3.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-syntax-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.1.1",
+    "electron": "^10.1.2",
+    "electron-builder": "^22.8.1",
+    "electron-rebuild": "^2.0.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^2.5.2"
+  }
+}
