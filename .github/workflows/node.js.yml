@@ -18,18 +18,19 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: ls
-    - run: cd ./client
-    - run: ls
-    - run: yarn
-    - run: yarn build
-    - run: cd ../web
-    - run: yarn
-    - run: yarn build
-    - run: cd ../electron
-    - run: yarn
-    - run: yarn build
-    - run: yarn dist-linux
+    - run: |
+      ls
+      cd ./client
+      ls
+      yarn
+      yarn build
+      cd ../web
+      yarn
+      yarn build
+      cd ../electron
+      yarn
+      yarn build
+      yarn dist-linux
 
 
 #  build-win:
