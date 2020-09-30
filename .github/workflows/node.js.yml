@@ -47,7 +47,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: evntboard
-        path: electron/dist/*.appImage
+        path: electron/dist/*.AppImage
 
 
 #  build-win:
