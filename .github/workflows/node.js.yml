@@ -1,12 +1,57 @@
-name: Node.js CI
+name: EvntBoard CI
 
 on:
   push:
     branches: [ master ]
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+#  build-linux:
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [12.x]
+#
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Build client
+#      run: |
+#        cd client
+#        yarn
+#        yarn build
+#      env:
+#        CI: false
+#    - name: Build web
+#      run: |
+#        cd web
+#        yarn
+#        yarn build
+#      env:
+#        CI: false
+#    - name: Build electron
+#      run: |
+#        cd electron
+#        yarn
+#        yarn build
+#    - name: Copy client & web to electron
+#      run: |
+#        cp -R web/build/ electron/build/web
+#        cp -R client/build/ electron/build/client
+#    - name: Build
+#      run: |
+#        cd electron
+#        yarn dist-linux
+#    - name: LOG
+#      run: ls electron/dist/
+#    - name: Upload artefacts
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: evntboard
+#        path: electron/dist/*.AppImage
+
+
+    build-win:
+      runs-on: windows-latest
 
     strategy:
       matrix:
@@ -47,23 +92,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: evntboard
-        path: electron/dist/*.AppImage
+        path: electron/dist/*.exe
 
-
-#  build-win:
-#    runs-on: windows-latest
-#
-#    strategy:
-#      matrix:
-#        node-version: [12.x]
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Use Node.js ${{ matrix.node-version }}
-#        uses: actions/setup-node@v1
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#      - run: ls
 #
 #  build-mac:
 #    runs-on: macos-latest
