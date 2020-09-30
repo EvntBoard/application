@@ -1,5 +1,4 @@
-# Discussed at https://travis-ci.community/t/python-support-on-windows/241/18
-language: node_js            # this works for Linux but is an error on macOS or Windows
+language: node_js
 node_js:
   - 12
 
@@ -45,7 +44,7 @@ matrix:
       os: windows
       script:
         - choco install yarn
-        - yarn upgrade
+        - refreshenv
         - node -v
         - npm -v
         - yarn -v
