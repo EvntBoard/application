@@ -5,8 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  build-linux:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,3 +19,44 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: ls
+    - run: cd client
+    - run: yarn
+    - run: yarn build
+    - run: cd ../web
+    - run: yarn
+    - run: yarn build
+    - run: cd ../electron
+    - run: yarn
+    - run: yarn build
+    - run: yarn dist-linux
+
+
+#  build-win:
+#    runs-on: windows-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [12.x]
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      - run: ls
+#
+#  build-mac:
+#    runs-on: macos-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [12.x]
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      - run: ls
