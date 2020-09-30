@@ -41,6 +41,12 @@ jobs:
       run: |
         cd electron
         yarn dist-linux
+    - name: Upload artefacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: evntboard
+          path: ${{ github.workspace }}/electron/dist/**/*.appImage
+
 
 #  build-win:
 #    runs-on: windows-latest
