@@ -35,8 +35,8 @@ jobs:
         yarn build
     - name: Copy client & web to electron
       run: |
-        cp web/build/ electron/build/web
-        cp client/build/ electron/build/client
+        cp -R web/build/ electron/build/web
+        cp -R client/build/ electron/build/client
     - name: Build
       run: yarn dist-linux
 
