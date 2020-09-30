@@ -19,11 +19,15 @@ jobs:
         cd client
         yarn
         yarn build
+      env:
+        CI: false
     - name: Build web
       run: |
         cd web
         yarn
         yarn build
+      env:
+        CI: false
     - name: Build electron
       run: |
         cd electron
