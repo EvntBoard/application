@@ -38,7 +38,9 @@ jobs:
         cp -R web/build/ electron/build/web
         cp -R client/build/ electron/build/client
     - name: Build
-      run: yarn dist-linux
+      run: |
+        cd electron
+        yarn dist-linux
 
 #  build-win:
 #    runs-on: windows-latest
