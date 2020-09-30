@@ -15,40 +15,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build client
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
       run: |
         cd client
         yarn
         yarn build
     - name: Build web
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
       run: |
         cd web
         yarn
         yarn build
     - name: Build electron
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
       run: |
         cd electron
         yarn
         yarn build
     - name: Copy client & web to electron
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
       run: |
         cp web/build/ electron/build/web
         cp client/build/ electron/build/client
     - name: Build
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
       run: yarn dist-linux
 
 #  build-win:
