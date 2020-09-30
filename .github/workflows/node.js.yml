@@ -41,9 +41,10 @@ jobs:
       run: |
         cd electron
         yarn dist-linux
+    - name: LOG
+      run: ls electron/dist/
     - name: Upload artefacts
       uses: actions/upload-artifact@v2
-      run: ls electron/dist/
       with:
         name: evntboard
         path: electron/dist/*.appImage
