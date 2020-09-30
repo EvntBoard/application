@@ -27,13 +27,13 @@ matrix:
       script:
         - brew install yarn
         - cd client
-        - yarn
+        - yarn --ignore-engines
         - yarn build
         - cd ../web
-        - yarn
+        - yarn --ignore-engines
         - yarn build
         - cd ../electron
-        - yarn
+        - yarn --ignore-engines
         - yarn build
         - yarn dist-mac
     - name: "Windows"
