@@ -25,6 +25,7 @@ matrix:
       osx_image: xcode11  # Python 3.7.2 running on macOS 10.14.3
       language: shell       # 'language: python' is an error on Travis CI macOS
       script:
+        - brew install yarn
         - cd client
         - yarn
         - yarn build
@@ -39,6 +40,7 @@ matrix:
       os: windows           # Windows 10.0.17134 N/A Build 17134
       language: shell       # 'language: python' is an error on Travis CI Windows
       script:
+        - choco install yarn
         - cd client
         - yarn
         - yarn build
