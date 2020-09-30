@@ -43,6 +43,7 @@ jobs:
         yarn dist-linux
     - name: Upload artefacts
         uses: actions/upload-artifact@v2
+        run: ls electron/dist/
         with:
           name: evntboard
           path: ${{ github.workspace }}/electron/dist/**/*.appImage
