@@ -1,7 +1,7 @@
 # Discussed at https://travis-ci.community/t/python-support-on-windows/241/18
 language: node_js            # this works for Linux but is an error on macOS or Windows
 node_js:
-  - lts
+  - 12
 
 env:
   - CI=false
@@ -25,8 +25,7 @@ matrix:
         - yarn dist-linux
     - name: "MacOS"
       os: osx
-      osx_image: xcode11  # Python 3.7.2 running on macOS 10.14.3
-      language: shell       # 'language: python' is an error on Travis CI macOS
+      osx_image: xcode12
       script:
         - brew install yarn
         - node -v
@@ -43,8 +42,7 @@ matrix:
         - yarn build
         - yarn dist-mac
     - name: "Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
+      os: windows
       script:
         - choco install yarn
         - yarn upgrade
