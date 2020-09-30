@@ -6,9 +6,13 @@ matrix:
   include:
     - name: "Linux"
       script:
-        - ls
         - cd client
-        - ls
+        - yarn
+        - yarn build
+        - cd ../web
+        - yarn
+        - yarn build
+        - cd ../electron
         - yarn
 #    - name: "MacOS"
 #      os: osx
