@@ -41,6 +41,7 @@ matrix:
       language: shell       # 'language: python' is an error on Travis CI Windows
       script:
         - choco install yarn
+        - yarn upgrade
         - cd client
         - yarn
         - yarn build
