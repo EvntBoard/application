@@ -50,8 +50,8 @@ jobs:
 #        path: electron/dist/*.AppImage
 
 
-    build-win:
-      runs-on: windows-latest
+  build-win:
+    runs-on: windows-latest
 
     strategy:
       matrix:
