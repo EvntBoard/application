@@ -1,6 +1,7 @@
 appId: fr.evandikt.evntboard
 productName: EvntBoard
 files:
+  - lib/**/*
   - assets/**/*
   - build/**/*
   - node_modules/**/*
@@ -20,3 +21,7 @@ linux:
 nsis:
   oneClick: false
 publish: null
+
+extraResources:
+  lib
+

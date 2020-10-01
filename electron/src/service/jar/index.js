@@ -1,8 +1,10 @@
 import childProcess from 'child_process'
 import path from 'path'
+import electronIsDev from 'electron-is-dev'
+
+export { KEYBOARD } from './constant'
 
 import logger from '../../logger'
-export { KEYBOARD } from './constant'
 
 let jar = null
 
@@ -10,7 +12,18 @@ export const init = () => {
   try {
     let pathLang
 
-    pathLang = path.join(process.cwd(), 'keyboard-0.0.1-SNAPSHOT.jar')
+    if (electronIsDev) {
+      pathLang = path.join(process.cwd(), 'lib', 'keyboard.jar')
+    } else {
+      const newDirname = __dirname.replace('/resources/app.asar/build', '')
+      if (process.platform === 'darwin') {
+        pathLang = path.join(newDirname,'Contents', 'Resources', 'lib', 'keyboard.jar')
+      } else {
+        pathLang = path.join(newDirname, 'resources', 'lib', 'keyboard.jar')
+      }
+    }
+
+    logger.info(process.cwd())
 
     jar = childProcess.spawn('java', ['-jar', pathLang])
 
@@ -25,6 +38,7 @@ export const init = () => {
     logger.info('Jar loaded ! :D')
   } catch (e) {
     logger.error('Error when loading jar ...')
+    logger.error(`${e.name} : ${e.message}`)
   }
 }
 
