@@ -14,9 +14,8 @@ import { connect as createWs } from './service/socketIo'
 import { init as initWorkspace } from './service/workspace'
 import { initTriggers, newEvent } from './service/trigger'
 import { init as initVariable } from './service/variable'
+import { init as initJar } from './service/jar'
 import { createMainWindow } from './window/main'
-
-
 
 app.on('ready', () => {
   logger.info('Evntboard start !')
@@ -26,6 +25,7 @@ app.on('ready', () => {
   registerProtocol()
   initTriggers()
   initVariable()
+  initJar()
   newEvent({ event: 'app-started' })
   createWs()
   connectTwitch()

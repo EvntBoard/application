@@ -4,7 +4,6 @@ import { color, image, text } from '../variable/button'
 import { write, read, append } from '../tmpFile'
 import { play, tts } from '../player'
 import { openExternal, beep, notification, toClipboard } from '../electron'
-import keypress from '../../utils/keypress'
 import {
   getVersion,
   getStats,
@@ -66,12 +65,14 @@ import {
   runCommercial
 } from '../twitch'
 
+import { press, release } from '../jar'
 import sleep from '../../utils/sleep'
 import generateColor from '../../utils/generateColor'
 import logger from '../../logger'
 
 export default {
-  keypress,
+  press,
+  release,
   openExternal,
   notification,
   toClipboard,
