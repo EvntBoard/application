@@ -46,6 +46,7 @@ import {
   filterSetVisibility,
   filterToggleVisibility
 } from '../obs'
+
 import {
   say,
   me,
@@ -65,14 +66,17 @@ import {
   runCommercial
 } from '../twitch'
 
-import { press, release } from '../jar'
+import { press, release, KEYBOARD } from '../jar'
 import sleep from '../../utils/sleep'
 import generateColor from '../../utils/generateColor'
 import logger from '../../logger'
 
 export default {
-  press,
-  release,
+  keyboard: {
+    press,
+    release,
+    KEYBOARD
+  },
   openExternal,
   notification,
   toClipboard,

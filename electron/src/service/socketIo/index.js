@@ -39,7 +39,7 @@ export const connect = () => {
 
     if (electronIsDev) {
       // fonctionne que si le projet est sur le disque principal ...
-      fileServer = new nStatic.Server(path.join(__dirname, 'build', 'web'))
+      fileServer = new nStatic.Server(path.join(process.cwd(), 'build', 'web'))
     } else {
       fileServer = new nStatic.Server(path.join(__dirname, 'web'))
     }

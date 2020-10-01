@@ -1546,6 +1546,46 @@ module.exports = async (data, services) => {
 ```
 ---
 
+## Keyboard
+
+### Press
+
+| Field  | Type  | Required  | Default  | Description  |
+|---|---|---|---|---|
+| key  | number  | :heavy_check_mark:  | none  | [Key code](key_code.md)  |
+
+###### Example
+
+```javascript
+module.exports = async (data, services) => {
+   services.keyboard.press(services.keyboard.KEYBOARD.ALT)
+   services.keyboard.press(services.keyboard.KEYBOARD.TAB)
+   await services.utils.sleep(200)
+   services.keyboard.release(services.keyboard.KEYBOARD.ALT)
+   services.keyboard.release(services.keyboard.KEYBOARD.TAB)
+}
+```
+---
+
+### Release
+
+| Field  | Type  | Required  | Default  | Description  |
+|---|---|---|---|---|
+| key  | number  | :heavy_check_mark:  | none  | [Key code](key_code.md)  |
+
+###### Example
+
+```javascript
+module.exports = async (data, services) => {
+   services.keyboard.press(services.keyboard.KEYBOARD.ALT)
+   services.keyboard.press(services.keyboard.KEYBOARD.TAB)
+   await services.utils.sleep(200)
+   services.keyboard.release(services.keyboard.KEYBOARD.ALT)
+   services.keyboard.release(services.keyboard.KEYBOARD.TAB)
+}
+```
+---
+
 ## Utils
 
 ### External link

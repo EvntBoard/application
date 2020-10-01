@@ -1,8 +1,8 @@
 import childProcess from 'child_process'
 import path from 'path'
-import electronIsDev from 'electron-is-dev'
 
 import logger from '../../logger'
+export { KEYBOARD } from './constant'
 
 let jar = null
 
@@ -10,11 +10,7 @@ export const init = () => {
   try {
     let pathLang
 
-    if (electronIsDev) {
-      pathLang = path.join(process.cwd(), 'keyboard-0.0.1-SNAPSHOT.jar')
-    } else {
-      pathLang = path.join(__dirname, 'keyboard-0.0.1-SNAPSHOT.jar')
-    }
+    pathLang = path.join(process.cwd(), 'keyboard-0.0.1-SNAPSHOT.jar')
 
     jar = childProcess.spawn('java', ['-jar', pathLang])
 
