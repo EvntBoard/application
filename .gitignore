@@ -2,3 +2,4 @@
 evntboard-jar/target
 electron/**/*.jar
 streamdeck-addons/Release/*
+streamdeck-addons/DistributionTool.exe
