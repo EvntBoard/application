@@ -14,10 +14,8 @@ shell.rm('-rf', 'node_modules')
 shell.exec('yarn install')
 shell.exec('yarn build')
 
-shell.cd('../evntboard-jar')
-shell.exec('mvn clean package')
-
 shell.cd('../electron')
+shell.exec('mkdir lib')
 shell.exec('yarn install')
 shell.exec('yarn build')
 

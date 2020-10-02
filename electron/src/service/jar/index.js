@@ -15,7 +15,7 @@ export const init = () => {
     if (electronIsDev) {
       pathLang = path.join(process.cwd(), 'lib', 'keyboard.jar')
     } else {
-      const newDirname = __dirname.replace('/resources/app.asar/build', '')
+      const newDirname = __dirname.replace(path.join('resources', 'app.asar', 'build'), '')
       if (process.platform === 'darwin') {
         pathLang = path.join(newDirname,'Contents', 'Resources', 'lib', 'keyboard.jar')
       } else {

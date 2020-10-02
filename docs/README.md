@@ -50,7 +50,9 @@ Features :
 
 Only compatible with OBS Studio ( Stream Labs OBS is incompatible ) !
 
-You have to install [Obs websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/) addons and start it.
+You have to install [Java](https://www.java.com/download/) and [Obs websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/) addons to use it.
+
+Java is required if you want to simulate keypress ...
 
 ### Installation
 
