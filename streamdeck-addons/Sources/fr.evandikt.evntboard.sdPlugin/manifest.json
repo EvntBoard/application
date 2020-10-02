@@ -1,0 +1,39 @@
+{
+  "Actions": [
+    {
+      "Icon": "action/images/actionimage", 
+      "Name": "Example Action", 
+      "States": [
+        {
+          "Image": "action/images/actionimage"
+        }
+      ],
+      "UUID": "fr.evandikt.evntboard.action"
+    }
+  ], 
+  "SDKVersion": 2,
+  "Author": "Evandikt",
+  "CodePath": "index.html", 
+  "PropertyInspectorPath": "propertyinspector/index.html", 
+  "Description": "StreamDeck on steroid !",
+  "Name": "EvntBoard",
+  "Icon": "action/images/evntboard",
+  "URL": "https://evntboard.io",
+  "Category": "EvntBoard",
+  "CategoryIcon": "action/images/evntboard",
+  "Version": "0.0.3",
+  "OS": [
+    {
+        "Platform": "mac", 
+        "MinimumVersion" : "10.11"
+    },
+    {
+        "Platform": "windows", 
+        "MinimumVersion" : "10"
+    }
+  ],
+  "Software": 
+    {
+        "MinimumVersion" : "4.1"
+  }
+}
