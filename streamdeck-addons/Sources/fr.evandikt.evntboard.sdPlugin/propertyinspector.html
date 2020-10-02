@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>EvntBoard</title>
+        <link rel="stylesheet" href="sdpi.css">
+        <script src="common.js"></script>
+    </head>
+    <body>
+        <div class="sdpi-wrapper">
+            <div class="sdpi-item">
+                <div class="sdpi-item-label">EvntBoard URL</div>
+                <input class="inspector sdpi-item-value" id="url" value="">
+            </div>
+            <div class="sdpi-item">
+                <div class="sdpi-item-label">Trigger</div>
+                <input class="inspector sdpi-item-value" id="trigger" value="">
+            </div>
+            <div class="sdpi-item">
+                <div class="sdpi-item-label">Are you done?</div>
+                <button class="sdpi-item-value" id="save" onclick="save()">Save</button>
+            </div>
+        </div>
+        <script>            
+            if($SD) {
+                $SD.on("connected", function (jsonObj) {
+                    console.log(`[connected] ${JSON.stringify(jsonObj)}`);
+                    if(jsonObj.hasOwnProperty('actionInfo')) {
+                        let settings = Utils.getProp(jsonObj, 'actionInfo.payload.settings', {});
+                        document.getElementById("url").value = settings.url || "https://127.0.0.1:5123";
+                        document.getElementById("trigger").value = settings.trigger || "";
+                        // [].forEach.call(document.querySelectorAll(".inspector"), element => {
+                        //     element.addEventListener("change", () => {
+                        //         var payload = {};
+                        //         [].forEach.call(document.querySelectorAll(".inspector"), element => {
+                        //             payload[element.id] = element.value;
+                        //         });
+                        //         $SD.api.sendToPlugin($SD.uuid, $SD.actionInfo["action"], payload);
+                        //     });
+                        // });
+                    }
+                });
+            };
+            const save = function() {
+                if($SD) {
+                    var payload = {};
+                    [].forEach.call(document.querySelectorAll(".inspector"), element => {
+                        payload[element.id] = element.value;
+                    });
+                    $SD.api.sendToPlugin($SD.uuid, $SD.actionInfo["action"], payload);
+                }
+            }
+        </script>
+    </body>
+</html>

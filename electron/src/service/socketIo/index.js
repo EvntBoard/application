@@ -1,7 +1,7 @@
 import http from 'http'
 import path from 'path'
-import IO from 'socket.io'
 import fs from 'fs'
+import IO from 'socket.io'
 import { isNull, isEmpty } from 'lodash'
 import nStatic from 'node-static'
 import electronIsDev from 'electron-is-dev'

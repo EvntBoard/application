@@ -1,39 +1,41 @@
 {
-  "Actions": [
-    {
-      "Icon": "action/images/actionimage", 
-      "Name": "Example Action", 
-      "States": [
+    "Actions": [
         {
-          "Image": "action/images/actionimage"
+            "Icon": "resources/actionIcon",
+            "Name": "Click",
+            "States": [
+                {
+                    "Image": "resources/actionDefaultImage",
+                    "TitleAlignment": "bottom",
+                    "FontSize": "10"
+                }
+            ],
+            "SupportedInMultiActions": true,
+            "Tooltip": "Send an HTTP request to your EvntBoard.",
+            "UUID": "fr.evandikt.evntboard.action"
         }
-      ],
-      "UUID": "fr.evandikt.evntboard.action"
-    }
-  ], 
-  "SDKVersion": 2,
-  "Author": "Evandikt",
-  "CodePath": "index.html", 
-  "PropertyInspectorPath": "propertyinspector/index.html", 
-  "Description": "StreamDeck on steroid !",
-  "Name": "EvntBoard",
-  "Icon": "action/images/evntboard",
-  "URL": "https://evntboard.io",
-  "Category": "EvntBoard",
-  "CategoryIcon": "action/images/evntboard",
-  "Version": "0.0.3",
-  "OS": [
-    {
-        "Platform": "mac", 
-        "MinimumVersion" : "10.11"
-    },
-    {
-        "Platform": "windows", 
-        "MinimumVersion" : "10"
-    }
-  ],
-  "Software": 
-    {
+    ],
+    "SDKVersion": 2,
+    "Author": "Evandikt",
+    "Category": "EvntBoard",
+    "CodePath": "main.html",
+    "Description": "Send an HTTP request to your EvntBoard.",
+    "Name": "EvntBoard",
+    "Icon": "resources/pluginIcon",
+    "URL": "https://evntboard.io",
+    "PropertyInspectorPath": "propertyinspector.html",
+    "Version": "1.0",
+    "OS": [
+        {
+            "Platform": "mac",
+            "MinimumVersion": "10.11"
+        },
+        {
+            "Platform": "windows",
+            "MinimumVersion": "10"
+        }
+    ],
+    "Software": {
         "MinimumVersion" : "4.1"
-  }
+    }
 }

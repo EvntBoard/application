@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>fr.evandikt.evntboard</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <script src="common.js"></script>
+        <script>
+                $SD.on('connected', (jsonObj) => connected(jsonObj));
+
+                function connected(jsonObj) {
+                    console.log(`[connected] ${JSON.stringify(jsonObj)}`);
+                    $SD.on('fr.evandikt.evntboard.action.willAppear', (jsonObj) => action.onWillAppear(jsonObj));
+                    $SD.on('fr.evandikt.evntboard.action.keyUp', (jsonObj) => action.onKeyUp(jsonObj));
+                    $SD.on('fr.evandikt.evntboard.action.didReceiveSettings', (jsonObj) => action.onDidReceiveSettings(jsonObj));
+                    $SD.on('fr.evandikt.evntboard.action.propertyInspectorDidAppear', (jsonObj) => {});
+                    $SD.on('fr.evandikt.evntboard.action.propertyInspectorDidDisappear', (jsonObj) => {});
+                    $SD.on('fr.evandikt.evntboard.action.sendToPlugin', (jsonObj) => action.onSendToPlugin(jsonObj));
+                };
+
+                const action = {
+                    onDidReceiveSettings: (jsonObj) => {
+                        console.log(`[onDidReceiveMessage] ${JSON.stringify(jsonObj)}`);
+                    },
+                    onWillAppear: (jsonObj) => {
+                        console.log(`[onWillAppear] ${JSON.stringify(jsonObj)}`);
+                        $SD.api.sendToPropertyInspector(jsonObj.context, Utils.getProp(jsonObj, "payload.settings", {}), jsonObj.action);
+                    },
+                    onSendToPlugin: (jsonObj) => {
+                        console.log(`[onSendToPlugin] ${JSON.stringify(jsonObj)}`);
+                        if(jsonObj.payload) {
+                            $SD.api.setSettings(jsonObj.context, jsonObj.payload);
+                        }
+                    },
+                    onKeyUp: (jsonObj) => {
+                        console.log(`[onKeyUp] ${JSON.stringify(jsonObj)}`);
+                        if (!jsonObj.payload.settings || !jsonObj.payload.settings.url) {
+                            $SD.api.showAlert(jsonObj.context);
+                            return;
+                        }
+                        fetch(jsonObj.payload.settings.url, {
+                            "method": "POST",
+                            "headers": {
+                                "content-type": "application/json"
+                            },
+                            "body": {
+                              "id_trigger": jsonObj.payload.settings.trigger
+                            }
+                        }).then(result => $SD.api.showOk(jsonObj.context), error => $SD.api.showAlert(jsonObj.context));
+                    }
+                };
+        </script>
+    </body>
+</html>
