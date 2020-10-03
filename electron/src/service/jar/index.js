@@ -23,9 +23,12 @@ export const init = () => {
       }
     }
 
-    logger.info(process.cwd())
-
     jar = childProcess.spawn('java', ['-jar', pathLang])
+
+    jar.on('error', (e) => {
+      logger.error('Error when loading jar ...')
+      logger.error(`${e.name} : ${e.message}`)
+    })
 
     jar.stdout.on('data', (data) => {
       logger.info(data.toString())
