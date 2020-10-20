@@ -5,14 +5,14 @@ import * as Lowdb from 'lowdb';
 import * as FileAsync from 'lowdb/adapters/FileAsync';
 
 import { createMigration } from '../utils';
-import { GlobalDatabaseSchema } from './types';
+import { GlobalDatabaseSchema } from '../types';
 
 import mig1 from './migrations/01-migration';
 
-export let database: Lowdb.LowdbAsync<GlobalDatabaseSchema>;
+export let database: Lowdb.LowdbSync<GlobalDatabaseSchema>;
 
 export const init = async () => {
-  let adapter: Lowdb.AdapterAsync<GlobalDatabaseSchema> = new FileAsync<GlobalDatabaseSchema>(
+  let adapter: Lowdb.AdapterSync<GlobalDatabaseSchema> = new FileAsync<GlobalDatabaseSchema>(
     path.join(app.getPath('userData'), 'settings.json')
   );
   database = await Lowdb(adapter);

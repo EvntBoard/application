@@ -8,7 +8,8 @@ module.exports = [
   {
     mode: MODE,
     target: 'electron-main',
-    entry: './src/index.js',
+    context: path.resolve(__dirname, 'src'),
+    entry: path.resolve(__dirname, 'src', 'index.ts'),
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'index.js'
@@ -23,17 +24,21 @@ module.exports = [
       ],
     },
     plugins: [
-      new CopyPlugin({
-        patterns: [
-          { from: './src/lang', to: path.resolve(__dirname, 'build', 'lang') }
-        ],
-      }),
+      // new CopyPlugin({
+      //   patterns: [
+      //     { from: './src/lang', to: path.resolve(__dirname, 'build', 'lang') }
+      //   ],
+      // }),
     ],
-    externals: [nodeExternals()]
+    externals: [nodeExternals()],
+    resolve: {
+      extensions: ['.ts', '.js', '.json']
+    }
   }, {
     mode: MODE,
     target: 'electron-preload',
-    entry: './src/preload/index.js',
+    context: path.resolve(__dirname, 'src'),
+    entry: path.join(__dirname, 'src', 'preload', 'index.js'),
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'preload.js'
@@ -47,6 +52,9 @@ module.exports = [
         },
       ],
     },
-    externals: [nodeExternals()]
+    externals: [nodeExternals()],
+    resolve: {
+      extensions: ['.ts', '.js', '.json']
+    }
   }
 ];

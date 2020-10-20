@@ -49,3 +49,12 @@ export interface LocalDatabaseSchema {
   buttons: IButton[];
   mode: IModeOPEN | IModeCLOSE;
 }
+
+export interface IWorkspace {
+  path: string;
+  current: boolean;
+}
+
+export interface GlobalDatabaseSchema {
+  workspaces: IWorkspace[];
+}

@@ -1,7 +1,7 @@
-import { ipcRenderer, contextBridge } from 'electron'
+import { ipcRenderer, contextBridge } from 'electron';
 
 // @ts-ignore
-import { Howl } from './howler.min'
+import { Howl } from './howler.min';
 
 import {
   ACCOUNT,
@@ -14,39 +14,39 @@ import {
   WORKSPACE,
   TEMPLATE,
   WS,
-  OBS
-} from '../../../common/ipc'
+  OBS,
+} from '../../../common/ipc';
 
 contextBridge.exposeInMainWorld('app', {
   config: {
     set: (key, data) => {
       if (key === 'dark') {
         return ipcRenderer.invoke(CONFIG.SET, key, data).then((darkMode) => {
-          const body = document.body
+          const body = document.body;
           if (darkMode) {
             body.classList.add('bp3-dark');
           } else {
             body.classList.remove('bp3-dark');
           }
-          return darkMode
-        })
+          return darkMode;
+        });
       }
-      return ipcRenderer.invoke(CONFIG.SET, key, data)
+      return ipcRenderer.invoke(CONFIG.SET, key, data);
     },
     get: (key) => {
       if (key === 'dark') {
         return ipcRenderer.invoke(CONFIG.GET, 'dark').then((darkMode) => {
-          const body = document.body
+          const body = document.body;
           if (darkMode) {
             body.classList.add('bp3-dark');
           } else {
             body.classList.remove('bp3-dark');
           }
-          return darkMode
-        })
+          return darkMode;
+        });
       }
-      return ipcRenderer.invoke(CONFIG.SET, key)
-    }
+      return ipcRenderer.invoke(CONFIG.SET, key);
+    },
   },
   account: {
     read: (data) => ipcRenderer.invoke(ACCOUNT.READ, data),
@@ -65,7 +65,7 @@ contextBridge.exposeInMainWorld('app', {
     create: (data) => ipcRenderer.invoke(TRIGGER.CREATE, data),
     read: (data) => ipcRenderer.invoke(TRIGGER.READ, data),
     update: (data) => ipcRenderer.invoke(TRIGGER.UPDATE, data),
-    delete: (data) => ipcRenderer.invoke(TRIGGER.DELETE, data)
+    delete: (data) => ipcRenderer.invoke(TRIGGER.DELETE, data),
   },
   template: {
     create: (data) => ipcRenderer.invoke(TEMPLATE.CREATE, data),
@@ -81,22 +81,22 @@ contextBridge.exposeInMainWorld('app', {
   },
   utils: {
     dir: () => ipcRenderer.invoke(UTILS.SELECT_DIR),
-    locale: (locale) => ipcRenderer.invoke(UTILS.LOCALE_GET, locale)
+    locale: (locale) => ipcRenderer.invoke(UTILS.LOCALE_GET, locale),
   },
   workspace: {
     get: () => ipcRenderer.invoke(WORKSPACE.GET),
-    set: (data) => ipcRenderer.invoke(WORKSPACE.SET, data)
+    set: (data) => ipcRenderer.invoke(WORKSPACE.SET, data),
   },
   obs: {
     get: () => ipcRenderer.invoke(OBS.GET),
     set: (data) => ipcRenderer.invoke(OBS.SET, data),
-    reload: () => ipcRenderer.invoke(OBS.RELOAD)
+    reload: () => ipcRenderer.invoke(OBS.RELOAD),
   },
   ws: {
     get: () => ipcRenderer.invoke(WS.GET),
-    set: (data) => ipcRenderer.invoke(WS.SET, data)
-  }
-})
+    set: (data) => ipcRenderer.invoke(WS.SET, data),
+  },
+});
 
 ipcRenderer.on(PLAYER.PLAY, (event, { file, volume, uniqueId }) => {
   new Howl({
@@ -104,13 +104,13 @@ ipcRenderer.on(PLAYER.PLAY, (event, { file, volume, uniqueId }) => {
     autoplay: true,
     volume: volume || 1,
     onend: () => {
-      event.sender.send(`audio-${uniqueId}`)
+      event.sender.send(`audio-${uniqueId}`);
     },
     onplayerror: () => {
-      event.sender.send(`audio-${uniqueId}`)
-    }
-  })
-})
+      event.sender.send(`audio-${uniqueId}`);
+    },
+  });
+});
 
 ipcRenderer.on(PLAYER.TTS, (event, { file, volume, uniqueId }) => {
   new Howl({
@@ -118,10 +118,10 @@ ipcRenderer.on(PLAYER.TTS, (event, { file, volume, uniqueId }) => {
     autoplay: true,
     volume: volume || 1,
     onend: () => {
-      event.sender.send(`tts-${uniqueId}`)
+      event.sender.send(`tts-${uniqueId}`);
     },
     onplayerror: () => {
-      event.sender.send(`tts-${uniqueId}`)
-    }
-  })
-})
+      event.sender.send(`tts-${uniqueId}`);
+    },
+  });
+});
