@@ -16,17 +16,11 @@ module.exports = [
     module: {
       rules: [
         {
-          test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-syntax-class-properties']
-            }
-          }
-        }
-      ]
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
     },
     plugins: [
       new CopyPlugin({
@@ -47,17 +41,11 @@ module.exports = [
     module: {
       rules: [
         {
-          test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-syntax-class-properties']
-            }
-          }
-        }
-      ]
+          test: /\.ts$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
     },
     externals: [nodeExternals()]
   }

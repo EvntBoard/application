@@ -1,5 +1,5 @@
-import path from 'path'
-import electronIsDev from 'electron-is-dev'
+import * as path from 'path'
+import * as electronIsDev from 'electron-is-dev'
 
 export const config = {
   scheme: 'file',

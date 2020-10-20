@@ -1,5 +1,6 @@
 import { ipcRenderer, contextBridge } from 'electron'
 
+// @ts-ignore
 import { Howl } from './howler.min'
 
 import {

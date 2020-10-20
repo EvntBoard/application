@@ -9,7 +9,7 @@ module.exports = [
     mode: MODE,
     node: false,
     target: 'electron-main',
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'index.js'
@@ -17,17 +17,11 @@ module.exports = [
     module: {
       rules: [
         {
-          test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-syntax-class-properties']
-            }
-          }
-        }
-      ]
+          test: /\.ts$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
     },
     plugins: [
       new CopyPlugin({
@@ -40,7 +34,7 @@ module.exports = [
   }, {
     mode: MODE,
     target: 'electron-preload',
-    entry: './src/preload/index.js',
+    entry: './src/preload/index.ts',
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'preload.js'
@@ -48,17 +42,11 @@ module.exports = [
     module: {
       rules: [
         {
-          test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-syntax-class-properties']
-            }
-          }
-        }
-      ]
+          test: /\.ts$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
     },
     externals: [nodeExternals()]
   }

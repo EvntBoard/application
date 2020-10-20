@@ -1,11 +1,11 @@
 import { BrowserWindow } from 'electron'
-import url from 'url'
-import path from 'path'
-import isDev from 'electron-is-dev'
+import * as url from 'url'
+import * as path from 'path'
+import * as isDev from 'electron-is-dev'
 
 import logger from '../logger'
 
-export let mainWindow = null
+export let mainWindow: BrowserWindow = null
 
 export const createMainWindow = () => {
   logger.debug('Load window : Main')

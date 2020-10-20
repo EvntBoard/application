@@ -1,5 +1,5 @@
 // default 5 minutes !
-export default (promise, ms = 5 * 60 * 1000) => {
+export default (promise: Promise<any>, ms = 5 * 60 * 1000) => {
 
   // Create a promise that rejects in <ms> milliseconds
   let timeout = new Promise((resolve, reject) => {

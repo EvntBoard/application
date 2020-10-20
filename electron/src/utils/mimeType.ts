@@ -1,4 +1,4 @@
-import path from 'path'
+import * as path from 'path'
 
 const SUPPORTED_MIMETYPE = {
   ".mp3": "audio/mpeg",
