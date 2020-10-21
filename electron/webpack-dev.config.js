@@ -38,7 +38,7 @@ module.exports = [
     mode: MODE,
     target: 'electron-preload',
     context: path.resolve(__dirname, 'src'),
-    entry: path.join(__dirname, 'src', 'preload', 'index.js'),
+    entry: path.join(__dirname, 'src', 'preload', 'index.ts'),
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'preload.js'

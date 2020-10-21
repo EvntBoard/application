@@ -1,10 +1,10 @@
-import { app } from 'electron';
 import * as path from 'path';
 import * as Umzug from 'umzug';
 import * as Lowdb from 'lowdb';
 import * as FileAsync from 'lowdb/adapters/FileAsync';
 
-import { workspaceSwitchTo, workspaceGetCurrent } from '../../service/WorkspaceService';
+import { workspaceGetCurrent } from '../../service/WorkspaceService';
+import * as logger from '../../service/LoggerService';
 import { createMigration } from '../utils';
 import { LocalDatabaseSchema } from '../types';
 
@@ -14,9 +14,6 @@ export let database: Lowdb.LowdbSync<LocalDatabaseSchema>;
 
 export const init = async () => {
   const currentWorkspace = workspaceGetCurrent();
-  if (!currentWorkspace) {
-    workspaceSwitchTo(path.join(app.getPath('home'), 'new-evntboard'));
-  }
 
   let adapter: Lowdb.AdapterSync<LocalDatabaseSchema> = new FileAsync<LocalDatabaseSchema>(
     path.join(currentWorkspace.path, 'evntboard.json')
@@ -33,5 +30,5 @@ export const init = async () => {
 
   await umzug.up();
 
-  console.debug('Local database loaded !');
+  logger.debug('[DATABASE.LOCAL] => INIT');
 };

@@ -1,5 +1,5 @@
 import * as Lowdb from 'lowdb';
-import { LocalDatabaseSchema } from '../types';
+import { LocalDatabaseSchema } from '../../types';
 
 export default {
   key: '1',

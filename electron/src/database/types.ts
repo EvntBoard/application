@@ -3,9 +3,18 @@ export interface ITriggerEvent {
   condition: string;
 }
 
+export enum ITriggerType {
+  CLASSIC = 1,
+  THROTTLE = 2,
+  QUEUE = 3,
+  QUEUE_LOCK = 4,
+}
+
 export interface ITrigger {
   id: string;
   name: string;
+  locker: string;
+  type: ITriggerType;
   description: string;
   reaction: string;
   events: ITriggerEvent[];

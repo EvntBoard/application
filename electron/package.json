@@ -25,9 +25,11 @@
   },
   "dependencies": {
     "@types/lowdb": "^1.0.9",
+    "@types/require-from-string": "^1.2.0",
     "async-mutex": "^0.2.4",
     "axios": "^0.20.0",
     "electron-is-dev": "^1.2.0",
+    "emittery": "^0.7.2",
     "lodash": "^4.17.20",
     "lowdb": "^1.0.0",
     "node-static": "^0.7.11",

@@ -1,34 +1,16 @@
 import { app, BrowserWindow } from 'electron';
 
-// import logger from './logger'
-
-// import registerIpc from './ipc'
 import { init as initGlobalDB } from './database/global';
 import { init as initLocalDB } from './database/local';
-// import { registerProtocol } from './protocol'
-// import { connect as connectTwitch } from './service/twitch'
-// import { connect as connectObs } from './service/obs'
-// import { connect as createWs } from './service/socketIo'
-// import { init as initWorkspace } from './service/workspace'
-// import { initTriggers, newEvent } from './service/trigger'
-// import { init as initVariable } from './service/variable'
-// import { init as initJar } from './service/jar'
+import { init as initIpc } from './service/IpcService';
 import { createMainWindow } from './window/main';
+import * as logger from './service/LoggerService';
 
 app.on('ready', async () => {
-  // logger.info('Evntboard start !')
-  // initWorkspace()
+  logger.info('[EVNTBOARD] => START');
+  await initIpc();
   await initGlobalDB();
   await initLocalDB();
-  // registerIpc()
-  // registerProtocol()
-  // initTriggers()
-  // initVariable()
-  // initJar()
-  // newEvent({ event: 'app-started' })
-  // createWs()
-  // connectTwitch()
-  // connectObs()
   createMainWindow();
 });
 

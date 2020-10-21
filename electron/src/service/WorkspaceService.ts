@@ -1,3 +1,6 @@
+import * as path from 'path';
+import { app } from 'electron';
+
 import { database } from '../database/global';
 import { IWorkspace } from '../database/types';
 
@@ -20,5 +23,9 @@ export const workspaceFindAll = (): IWorkspace[] => {
 };
 
 export const workspaceGetCurrent = (): IWorkspace => {
+  const currentWorkspace = workspaceGetCurrent();
+  if (!currentWorkspace) {
+    workspaceSwitchTo(path.join(app.getPath('home'), 'new-evntboard'));
+  }
   return database.get('workspaces').find({ current: true }).value();
 };
