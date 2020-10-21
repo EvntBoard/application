@@ -1,12 +1,16 @@
 import { init as initIpcTriggerService } from './IpcTriggerService';
 import { init as initIpcBoardService } from './IpcBoardService';
 import { init as initIpcButtonService } from './IpcButtonService';
+import { init as initIpcMenuService } from './IpcMenuService';
+import { init as initIpcThemeService } from './IpcThemeService';
 
-import * as logger from '../LoggerService';
+import logger from '../LoggerService';
 
 export const init = () => {
-  logger.info('[SERVICE.IPC] => INIT');
+  logger.debug('IPC init');
   initIpcTriggerService();
   initIpcBoardService();
   initIpcButtonService();
+  initIpcMenuService();
+  initIpcThemeService();
 };

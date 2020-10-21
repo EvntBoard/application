@@ -49,15 +49,25 @@ export interface IButton {
   updatedAt: Date;
 }
 
-export type IModeOPEN = true;
-export type IModeCLOSE = false;
+export enum IMenu {
+  CLOSE,
+  OPEN,
+}
+
+export enum ITheme {
+  LIGHT,
+  DARK,
+}
 
 export interface LocalDatabaseSchema {
   triggers: ITrigger[];
   boards: IBoard[];
   buttons: IButton[];
-  mode: IModeOPEN | IModeCLOSE;
+  menu: IMenu;
+  theme: ITheme;
 }
+
+// Global BASE
 
 export interface IWorkspace {
   path: string;

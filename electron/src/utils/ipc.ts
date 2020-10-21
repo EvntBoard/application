@@ -21,3 +21,13 @@ export enum TRIGGER {
   UPDATE = `TRIGGER_UPDATE`,
   DELETE = `TRIGGER_DELETE`,
 }
+
+export enum MENU {
+  GET = `MENU_GET`,
+  SET = `MENU_SET`,
+}
+
+export enum THEME {
+  GET = `THEME_GET`,
+  SET = `THEME_SET`,
+}

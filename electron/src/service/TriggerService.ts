@@ -1,40 +1,47 @@
 import { v4 as uuid } from 'uuid';
 
+import { reload, unload, load } from './TriggerManagerService';
 import { database } from '../database/local';
 import { ITrigger } from '../database/types';
-import * as logger from './LoggerService';
+import logger from './LoggerService';
 
 export const triggerCreate = (trigger: ITrigger): ITrigger => {
-  logger.debug('[SERVICE.TRIGGER] => CREATE');
+  logger.debug('Trigger Service CREATE');
   const id = uuid();
   database
     .get('triggers')
     .push({ id, ...trigger })
     .write();
-  return triggerFindOne(id);
+  const created = triggerFindOne(id);
+  load(created);
+  return created;
 };
 
 export const triggerFindAll = (): ITrigger[] => {
-  logger.debug('[SERVICE.TRIGGER] => FIND ALL');
+  logger.debug('Trigger Service FIND ALL');
   return database.get('triggers').value();
 };
 
 export const triggerFindOne = (id: string): ITrigger => {
-  logger.debug('[SERVICE.TRIGGER] => FIND ONE');
+  logger.debug('Trigger Service FIND ONE');
   return database.get('triggers').find({ id }).value();
 };
 
 export const triggerUpdate = (trigger: Partial<ITrigger>): ITrigger => {
-  logger.debug('[SERVICE.TRIGGER] => UPDATE');
+  logger.debug('Trigger Service UPDATE');
   database
     .get('triggers')
     .find({ id: trigger.id })
     .assign({ ...trigger })
     .write();
-  return triggerFindOne(trigger.id);
+
+  const updated = triggerFindOne(trigger.id);
+  reload(updated);
+  return updated;
 };
 
 export const triggerDelete = (trigger: Partial<ITrigger>): void => {
-  logger.debug('[SERVICE.TRIGGER] => DELETE');
+  logger.debug('Trigger Service DELETE');
+  unload(trigger);
   database.get('triggers').remove({ id: trigger.id }).write();
 };

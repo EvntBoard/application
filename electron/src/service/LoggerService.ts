@@ -1,15 +1,5 @@
-export const log = (log: any) => {
-  console.log(log);
-};
+import log from 'electron-log';
 
-export const info = (log: any) => {
-  console.info(log);
-};
+// if i want to override something ....
 
-export const debug = (debug: any) => {
-  console.debug(debug);
-};
-
-export const error = (debug: any) => {
-  console.error(debug);
-};
+export default log;

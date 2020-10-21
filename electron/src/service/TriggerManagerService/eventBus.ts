@@ -1,7 +1,7 @@
 import * as Emittery from 'emittery';
 import { v4 as uuid } from 'uuid';
 
-import * as logger from '../LoggerService';
+import logger from '../LoggerService';
 
 export const bus = new Emittery();
 
@@ -30,5 +30,4 @@ export const endEvent = (data: any) => {
 export const errorEvent = (data: any, e: Error) => {
   logger.error(`error event [${data.uniqueId}] ${data.event}`);
   logger.error(`${e.name} : ${e.message}`);
-  console.log(e);
 };

@@ -4,7 +4,7 @@ import * as Umzug from 'umzug';
 import * as Lowdb from 'lowdb';
 import * as FileAsync from 'lowdb/adapters/FileAsync';
 
-import * as logger from '../../service/LoggerService';
+import logger from '../../service/LoggerService';
 import { createMigration } from '../utils';
 import { GlobalDatabaseSchema } from '../types';
 
@@ -28,5 +28,5 @@ export const init = async () => {
 
   await umzug.up();
 
-  logger.debug('[DATABASE.GLOBAL] => INIT');
+  logger.debug('Database Globale init');
 };

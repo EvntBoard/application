@@ -10,10 +10,10 @@ import {
 import { TRIGGER } from '../../utils/ipc';
 import { ITrigger } from '../../database/types';
 
-import * as logger from '../LoggerService';
+import logger from '../LoggerService';
 
 export const init = () => {
-  logger.debug('[SERVICE.IPC.TRIGGER] => INIT');
+  logger.debug('IPC TRIGGER init');
   ipcMain.handle(TRIGGER.CREATE, (_, data: ITrigger) => triggerCreate(data));
   ipcMain.handle(TRIGGER.FIND_ALL, () => triggerFindAll());
   ipcMain.handle(TRIGGER.FIND_ONE, (_, id: string) => triggerFindOne(id));

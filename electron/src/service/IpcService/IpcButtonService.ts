@@ -10,10 +10,10 @@ import {
 import { BUTTON } from '../../utils/ipc';
 import { IButton } from '../../database/types';
 
-import * as logger from '../LoggerService';
+import logger from '../LoggerService';
 
 export const init = () => {
-  logger.debug('[SERVICE.IPC.BUTTON] => INIT');
+  logger.debug('IPC BUTTON init');
   ipcMain.handle(BUTTON.CREATE, (_, data: IButton) => buttonCreate(data));
   ipcMain.handle(BUTTON.FIND_ALL, () => buttonFindAll());
   ipcMain.handle(BUTTON.FIND_ONE, (_, id: string) => buttonFindOne(id));

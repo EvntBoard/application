@@ -3,11 +3,12 @@ import { triggerFindAll } from '../TriggerService';
 import { ITriggerRunner } from './types';
 import { ITrigger } from '../../database/types';
 
-import * as logger from '../LoggerService';
+import logger from '../LoggerService';
 
 let triggersRunning: Map<string, ITriggerRunner>;
 
 export const init = () => {
+  logger.debug('Trigger manager init');
   const data: Array<ITrigger> = triggerFindAll();
   triggersRunning = new Map<string, ITriggerRunner>();
   data.map((trigger) => {
@@ -19,14 +20,14 @@ export const load = (trigger: ITrigger) => {
   try {
     const runner = triggerBuilder(trigger);
     triggersRunning.set(trigger.id, runner);
-    logger.debug(`Load trigger [${trigger.id}]`);
+    logger.info(`Load trigger [${trigger.id}]`);
   } catch (e) {
     logger.error(`No module found for ${trigger.id}`);
     logger.error(e);
   }
 };
 
-export const unload = (trigger: { id: string }) => {
+export const unload = (trigger: Partial<ITrigger>) => {
   logger.debug(`Unload trigger [${trigger.id}]`);
   const runner = triggersRunning.get(trigger.id);
   if (runner) {

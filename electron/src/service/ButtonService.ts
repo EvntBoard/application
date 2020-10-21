@@ -2,10 +2,10 @@ import { v4 as uuid } from 'uuid';
 
 import { database } from '../database/local';
 import { IButton } from '../database/types';
-import * as logger from './LoggerService';
+import logger from './LoggerService';
 
 export const buttonCreate = (button: IButton): IButton => {
-  logger.debug('[SERVICE.BUTTON] => CREATE');
+  logger.debug('Button Service CREATE');
   const id = uuid();
   database
     .get('buttons')
@@ -15,17 +15,17 @@ export const buttonCreate = (button: IButton): IButton => {
 };
 
 export const buttonFindAll = (): IButton[] => {
-  logger.debug('[SERVICE.BUTTON] => FIND ALL');
+  logger.debug('Button Service FIND ALL');
   return database.get('buttons').value();
 };
 
 export const buttonFindOne = (id: string): IButton => {
-  logger.debug('[SERVICE.BUTTON] => FIND ONE');
+  logger.debug('Button Service FIND ONE');
   return database.get('buttons').find({ id }).value();
 };
 
 export const buttonUpdate = (button: Partial<IButton>): IButton => {
-  logger.debug('[SERVICE.BUTTON] => UPDATE');
+  logger.debug('Button Service UPDATE');
   database
     .get('buttons')
     .find({ id: button.id })
@@ -35,6 +35,6 @@ export const buttonUpdate = (button: Partial<IButton>): IButton => {
 };
 
 export const buttonDelete = (button: Partial<IButton>): void => {
-  logger.debug('[SERVICE.BUTTON] => DELETE');
+  logger.debug('Button Service DELETE');
   database.get('buttons').remove({ id: button.id }).write();
 };

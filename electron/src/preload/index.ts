@@ -1,7 +1,7 @@
 import { ipcRenderer, contextBridge } from 'electron';
 
-import { BUTTON, TRIGGER, BOARD } from '../utils/ipc';
-import { IBoard, IButton, ITrigger } from '../database/types';
+import { BUTTON, BOARD, TRIGGER } from '../utils/ipc';
+import { IButton, IBoard, ITrigger } from '../database/types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
