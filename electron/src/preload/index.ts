@@ -1,7 +1,7 @@
 import { ipcRenderer, contextBridge } from 'electron';
 
-import { BUTTON, BOARD, TRIGGER } from '../utils/ipc';
-import { IButton, IBoard, ITrigger } from '../database/types';
+import { BUTTON, BOARD, TRIGGER, MENU, THEME } from '../utils/ipc';
+import { IButton, IBoard, ITrigger, ITheme, IMenu } from '../database/types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
@@ -24,6 +24,14 @@ contextBridge.exposeInMainWorld('app', {
     findOne: (id: string) => ipcRenderer.invoke(BOARD.FIND_ONE, id),
     update: (data: IBoard) => ipcRenderer.invoke(BOARD.UPDATE, data),
     delete: (data: IBoard) => ipcRenderer.invoke(BOARD.DELETE, data),
+  },
+  theme: {
+    set: (theme: ITheme) => ipcRenderer.invoke(THEME.SET, theme),
+    get: () => ipcRenderer.invoke(THEME.GET),
+  },
+  menu: {
+    set: (menu: IMenu) => ipcRenderer.invoke(MENU.SET, menu),
+    get: () => ipcRenderer.invoke(MENU.GET),
   },
 });
 
