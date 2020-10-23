@@ -10,5 +10,5 @@ export const themeSet = (theme: ITheme): ITheme => {
 
 export const themeGet = (): ITheme => {
   logger.debug('Theme Service GET');
-  return database.get('theme').write();
+  return database.get('theme').value();
 };

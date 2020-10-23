@@ -31,3 +31,8 @@ export enum THEME {
   GET = `THEME_GET`,
   SET = `THEME_SET`,
 }
+
+export enum LANG {
+  GET = `LANG_GET`,
+  SET = `LANG_SET`,
+}

@@ -10,5 +10,5 @@ export const menuSet = (menu: IMenu): IMenu => {
 
 export const menuGet = (): IMenu => {
   logger.debug('Menu Service GET');
-  return database.get('menu').write();
+  return database.get('menu').value();
 };

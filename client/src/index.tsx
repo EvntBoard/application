@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import Root from './Root'
+
 import * as serviceWorker from './serviceWorker';
+
+import 'normalize.css/normalize.css'
+import '@blueprintjs/icons/lib/css/blueprint-icons.css'
+import '@blueprintjs/core/lib/css/blueprint.css'
+import './assets/style.scss'
+import {LangProvider} from "./components/LangProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LangProvider>
+      <Root />
+    </LangProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
