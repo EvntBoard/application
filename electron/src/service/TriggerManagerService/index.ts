@@ -1,7 +1,7 @@
 import triggerBuilder from './TriggerRunnerBuilder';
 import { triggerFindAll } from '../TriggerService';
 import { ITriggerRunner } from './types';
-import { ITrigger } from '../../database/types';
+import { ITrigger } from '../../types';
 
 import logger from '../LoggerService';
 

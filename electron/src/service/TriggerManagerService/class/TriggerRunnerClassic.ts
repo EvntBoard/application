@@ -3,7 +3,7 @@ import * as Emittery from 'emittery';
 import * as requireFromString from 'require-from-string';
 
 import logger from '../../../service/LoggerService';
-import { ITrigger } from '../../../database/types';
+import { ITrigger } from '../../../types';
 import { ITriggerRunner, ITriggerRunnerEvents } from '../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 

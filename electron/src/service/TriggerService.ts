@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import { reload, unload, load } from './TriggerManagerService';
 import { database } from '../database/local';
-import { ITrigger } from '../database/types';
+import { ITrigger } from '../types';
 import logger from './LoggerService';
 
 export const triggerCreate = (trigger: ITrigger): ITrigger => {

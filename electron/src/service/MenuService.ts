@@ -1,11 +1,11 @@
 import { database } from '../database/local';
-import { IMenu } from '../database/types';
+import { IMenu } from '../types';
 import logger from './LoggerService';
 
 export const menuSet = (menu: IMenu): IMenu => {
   logger.debug('Menu Service SET');
   database.set('menu', menu).write();
-  return menuGet();
+  return database.get('menu').value();
 };
 
 export const menuGet = (): IMenu => {

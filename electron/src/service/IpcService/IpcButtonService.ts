@@ -8,7 +8,7 @@ import {
   buttonFindOne,
 } from '../ButtonService';
 import { BUTTON } from '../../utils/ipc';
-import { IButton } from '../../database/types';
+import { IButton } from '../../types';
 
 import logger from '../LoggerService';
 

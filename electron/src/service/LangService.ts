@@ -1,11 +1,11 @@
 import { database } from '../database/local';
-import { ILang } from '../database/types';
+import { ILang } from '../types';
 import logger from './LoggerService';
 
 export const langSet = (lang: ILang): ILang => {
   logger.debug('Lang Service SET');
   database.set('lang', lang).write();
-  return langGet();
+  return <ILang>database.get('lang').value();
 };
 
 export const langGet = (): ILang => {

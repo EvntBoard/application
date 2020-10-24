@@ -1,3 +1,5 @@
+// copié collé du code electron/src/types.ts
+
 export interface ITriggerEvent {
   event: string;
   condition: string;

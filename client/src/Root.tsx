@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl'
 import Home from './routes/Home'
 import Board from './routes/Board'
 import Trigger from './routes/Trigger'
+import Config from './routes/Config'
 
 import Menu from './components/Menu'
 import { useLangContext } from "./components/LangProvider";
@@ -24,6 +25,9 @@ export default () => {
           </Route>
           <Route path="/trigger">
             <Trigger />
+          </Route>
+          <Route path="/config">
+            <Config />
           </Route>
           <Route path="*">
             How do you get there ?!

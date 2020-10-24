@@ -1,11 +1,11 @@
 import { database } from '../database/local';
-import { ITheme } from '../database/types';
+import { ITheme } from '../types';
 import logger from './LoggerService';
 
 export const themeSet = (theme: ITheme): ITheme => {
   logger.debug('Theme Service SET');
   database.set('theme', theme).write();
-  return themeGet();
+  return database.get('theme').value();
 };
 
 export const themeGet = (): ITheme => {

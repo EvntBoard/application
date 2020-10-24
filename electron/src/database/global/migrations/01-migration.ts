@@ -1,7 +1,7 @@
 import { app } from 'electron';
 import * as path from 'path';
 import * as Lowdb from 'lowdb';
-import { GlobalDatabaseSchema } from '../../types';
+import { GlobalDatabaseSchema } from '../../../types';
 
 export default {
   key: '1',

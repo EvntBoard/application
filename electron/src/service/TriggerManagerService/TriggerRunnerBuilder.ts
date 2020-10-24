@@ -3,7 +3,7 @@ import TriggerRunnerThrottle from './class/TriggerRunnerThrottle';
 import TriggerRunnerQueue from './class/TriggerRunnerQueue';
 import TriggerRunnerQueueLocker from './class/TriggerRunnerQueueLocker';
 
-import { ITrigger, ITriggerType } from '../../database/types';
+import { ITrigger, ITriggerType } from '../../types';
 import { ITriggerRunner } from './types';
 
 export default (triggerEntity: ITrigger): ITriggerRunner => {

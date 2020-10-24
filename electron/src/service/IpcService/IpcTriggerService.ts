@@ -8,7 +8,7 @@ import {
   triggerFindOne,
 } from '../TriggerService';
 import { TRIGGER } from '../../utils/ipc';
-import { ITrigger } from '../../database/types';
+import { ITrigger } from '../../types';
 
 import logger from '../LoggerService';
 

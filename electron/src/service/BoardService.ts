@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import { database } from '../database/local';
-import { IBoard } from '../database/types';
+import { IBoard } from '../types';
 
 import logger from './LoggerService';
 

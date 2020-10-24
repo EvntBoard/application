@@ -1,5 +1,5 @@
 import { database } from '../database/global';
-import { IWorkspace } from '../database/types';
+import { IWorkspace } from '../types';
 
 export const workspaceSwitchTo = (workspace: string): IWorkspace => {
   database.get('workspaces').find({ current: true }).assign({ current: false }).write();

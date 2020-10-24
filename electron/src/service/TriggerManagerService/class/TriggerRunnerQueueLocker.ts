@@ -4,7 +4,7 @@ import * as requireFromString from 'require-from-string';
 import { Mutex, MutexInterface } from 'async-mutex';
 
 import { ITriggerRunner, ITriggerRunnerEvents } from '../types';
-import { ITrigger } from '../../../database/types';
+import { ITrigger } from '../../../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 
 const locker = new Map<string, Mutex>();

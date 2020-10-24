@@ -6,7 +6,7 @@ import * as FileAsync from 'lowdb/adapters/FileAsync';
 
 import logger from '../../service/LoggerService';
 import { createMigration } from '../utils';
-import { GlobalDatabaseSchema } from '../types';
+import { GlobalDatabaseSchema } from '../../types';
 
 import mig1 from './migrations/01-migration';
 

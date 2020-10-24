@@ -7,7 +7,7 @@ import * as FileAsync from 'lowdb/adapters/FileAsync';
 import { workspaceGetCurrent, workspaceSwitchTo } from '../../service/WorkspaceService';
 import logger from '../../service/LoggerService';
 import { createMigration } from '../utils';
-import { LocalDatabaseSchema } from '../types';
+import { LocalDatabaseSchema } from '../../types';
 
 import mig1 from './migrations/01-migration';
 

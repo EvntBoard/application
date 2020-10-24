@@ -1,7 +1,9 @@
-import React, {useContext, useMemo, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 
 import enMessages from '../lang/langEn'
 import frMessages from '../lang/langFr'
+import {langGet, langSet} from '../services/LangService'
+import {ILang} from "../shared/types";
 
 export interface ILangContext {
   messages: any;
@@ -11,7 +13,7 @@ export interface ILangContext {
   availableLocale: string[];
 }
 
-export const LangContext = React.createContext<ILangContext>({ defaultLocale: "en", locale: "en", messages: {}, setLocale: () => null, availableLocale: [] })
+export const LangContext = React.createContext<ILangContext>({ defaultLocale: ILang.EN, locale: ILang.EN, messages: {}, setLocale: () => null, availableLocale: [] })
 export const useLangContext = () => useContext(LangContext)
 
 const allMessages: {[key: string]: object} = {
@@ -20,13 +22,26 @@ const allMessages: {[key: string]: object} = {
 }
 
 export const LangProvider = ({ children }: any) => {
-  const [defaultLocale] = useState("en")
-  const [locale, setLocale] = useState("fr")
+  const [defaultLocale] = useState<string>(ILang.EN)
+  const [locale, setLocale] = useState<string>(ILang.EN)
+
+  useEffect(() => {
+    langGet().then((lang) => {
+      setLocale(lang)
+    })
+  }, [])
+
+  const setLocaleOverrided = (lang: string) => {
+    langSet(lang as ILang).then((newLang) => {
+      setLocale(newLang)
+    })
+  }
 
   const messages = useMemo(() => allMessages[locale], [locale])
 
   return (
-    <LangContext.Provider value={{ messages, defaultLocale, locale, setLocale, availableLocale: Object.keys(allMessages) }}>
+    <LangContext.Provider value={{ messages, defaultLocale, locale, setLocale: setLocaleOverrided
+      , availableLocale: Object.keys(allMessages) }}>
       {children}
     </LangContext.Provider>
   )

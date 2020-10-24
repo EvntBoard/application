@@ -2,7 +2,7 @@ import { ipcMain } from 'electron';
 
 import { boardUpdate, boardDelete, boardCreate, boardFindAll, boardFindOne } from '../BoardService';
 import { BOARD } from '../../utils/ipc';
-import { IBoard } from '../../database/types';
+import { IBoard } from '../../types';
 
 import logger from '../LoggerService';
 

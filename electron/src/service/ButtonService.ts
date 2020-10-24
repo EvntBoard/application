@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import { database } from '../database/local';
-import { IButton } from '../database/types';
+import { IButton } from '../types';
 import logger from './LoggerService';
 
 export const buttonCreate = (button: IButton): IButton => {

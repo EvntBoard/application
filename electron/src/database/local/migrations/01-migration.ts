@@ -1,5 +1,5 @@
 import * as Lowdb from 'lowdb';
-import { ILang, IMenu, ITheme, LocalDatabaseSchema } from '../../types';
+import { ILang, IMenu, ITheme, LocalDatabaseSchema } from '../../../types';
 
 export default {
   key: '1',
