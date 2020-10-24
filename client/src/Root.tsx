@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import { IntlProvider } from 'react-intl'
 
@@ -9,9 +9,16 @@ import Config from './routes/Config'
 
 import Menu from './components/Menu'
 import { useLangContext } from "./components/LangProvider";
+import {themeGet} from "./services/ThemeService";
 
 export default () => {
   const { messages, locale, defaultLocale }: any = useLangContext()
+
+  useEffect(() => {
+    // init theme :)
+    themeGet()
+  }, [])
+
   return (
     <IntlProvider messages={messages} locale={locale} defaultLocale={defaultLocale}>
       <Router>
