@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import AppProvider from './context';
-import App from './routes/App';
+import Root from './Root';
 
 ReactDOM.render(
   <React.StrictMode>
     <AppProvider>
-      <App />
+      <Root />
     </AppProvider>
   </React.StrictMode>,
   document.getElementById('root')

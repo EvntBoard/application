@@ -5,9 +5,11 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "clsx": "^1.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-intl": "^5.8.8",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0"
   },
   "scripts": {

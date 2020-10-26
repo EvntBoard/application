@@ -2,11 +2,14 @@ import React from 'react'
 
 import { LangProvider } from './lang'
 import { ThemeProvider } from './theme'
+import { MenuProvider } from './menu'
 
 const Provider = ({ children }) => (
   <ThemeProvider>
     <LangProvider>
-      {children}
+      <MenuProvider>
+        {children}
+      </MenuProvider>
     </LangProvider>
   </ThemeProvider>
 )
