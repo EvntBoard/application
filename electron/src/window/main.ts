@@ -9,7 +9,7 @@ export const createMainWindow = () => {
   // logger.debug('Load window : Main')
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1400,
     height: 600,
     show: false,
     webPreferences: {
@@ -28,7 +28,8 @@ export const createMainWindow = () => {
   if (isDev) {
     mainWindow.show();
     mainWindow.loadURL('http://localhost:4123');
-    mainWindow.webContents.openDevTools({ mode: 'detach' });
+    // mainWindow.webContents.openDevTools({ mode: 'detach' });
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(
       url.format({

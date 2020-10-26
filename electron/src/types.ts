@@ -49,14 +49,9 @@ export interface IButton {
   updatedAt: Date;
 }
 
-export enum IMenu {
-  CLOSE,
-  OPEN,
-}
-
 export enum ITheme {
-  LIGHT,
-  DARK,
+  LIGHT= "light",
+  DARK= "dark",
 }
 
 export enum ILang {
@@ -68,7 +63,7 @@ export interface LocalDatabaseSchema {
   triggers: ITrigger[];
   boards: IBoard[];
   buttons: IButton[];
-  menu: IMenu;
+  menu: boolean;
   theme: ITheme;
   lang: ILang;
 }

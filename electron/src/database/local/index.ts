@@ -1,4 +1,5 @@
 import { app } from 'electron';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as Umzug from 'umzug';
 import * as Lowdb from 'lowdb';
@@ -18,6 +19,10 @@ export const init = async () => {
   if (!currentWorkspace) {
     workspaceSwitchTo(path.join(app.getPath('home'), 'new-evntboard'));
     currentWorkspace = workspaceGetCurrent();
+  }
+
+  if (!fs.existsSync(currentWorkspace.path)){
+    fs.mkdirSync(currentWorkspace.path);
   }
 
   let adapter: Lowdb.AdapterSync<LocalDatabaseSchema> = new FileAsync<LocalDatabaseSchema>(

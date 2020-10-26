@@ -1,7 +1,7 @@
 import { ipcRenderer, contextBridge } from 'electron';
 
 import { BUTTON, BOARD, TRIGGER, MENU, THEME, LANG } from '../utils/ipc';
-import { IButton, IBoard, ITrigger, ITheme, IMenu, ILang } from '../types';
+import { IButton, IBoard, ITrigger, ITheme, ILang } from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
@@ -30,7 +30,7 @@ contextBridge.exposeInMainWorld('app', {
     get: () => ipcRenderer.invoke(THEME.GET),
   },
   menu: {
-    set: (menu: IMenu) => ipcRenderer.invoke(MENU.SET, menu),
+    set: (menu: boolean) => ipcRenderer.invoke(MENU.SET, menu),
     get: () => ipcRenderer.invoke(MENU.GET),
   },
   lang: {
