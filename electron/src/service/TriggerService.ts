@@ -10,7 +10,7 @@ export const triggerCreate = (trigger: ITrigger): ITrigger => {
   const id = uuid();
   database
     .get('triggers')
-    .push({ id, ...trigger })
+    .push({ ...trigger, id })
     .write();
   const created = triggerFindOne(id);
   load(created);

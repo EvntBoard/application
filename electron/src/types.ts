@@ -50,13 +50,19 @@ export interface IButton {
 }
 
 export enum ITheme {
-  LIGHT= "light",
-  DARK= "dark",
+  LIGHT = 'light',
+  DARK = 'dark',
 }
 
 export enum ILang {
   EN = 'en',
   FR = 'fr',
+}
+
+export interface IApp {
+  host: string;
+  port: number;
+  password: string;
 }
 
 export interface LocalDatabaseSchema {
@@ -66,6 +72,7 @@ export interface LocalDatabaseSchema {
   menu: boolean;
   theme: ITheme;
   lang: ILang;
+  app: IApp;
 }
 
 // Global BASE

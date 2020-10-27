@@ -1,12 +1,13 @@
 import { ipcRenderer, contextBridge } from 'electron';
 
-import { BUTTON, BOARD, TRIGGER, MENU, THEME, LANG } from '../utils/ipc';
-import { IButton, IBoard, ITrigger, ITheme, ILang } from '../types';
+import { BUTTON, BOARD, TRIGGER, MENU, THEME, LANG, APP, WORKSPACE } from '../utils/ipc';
+import { IButton, IBoard, ITrigger, ITheme, ILang, IApp } from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
     create: (data: IButton) => ipcRenderer.invoke(BUTTON.CREATE, data),
     findAll: () => ipcRenderer.invoke(BUTTON.FIND_ALL),
+    findAllForBoardId: (idBoard: string) => ipcRenderer.invoke(BUTTON.FIND_ALL_BOARD_ID, idBoard),
     findOne: (id: string) => ipcRenderer.invoke(BUTTON.FIND_ONE, id),
     update: (data: IButton) => ipcRenderer.invoke(BUTTON.UPDATE, data),
     delete: (data: IButton) => ipcRenderer.invoke(BUTTON.DELETE, data),
@@ -36,6 +37,17 @@ contextBridge.exposeInMainWorld('app', {
   lang: {
     set: (lang: ILang) => ipcRenderer.invoke(LANG.SET, lang),
     get: () => ipcRenderer.invoke(LANG.GET),
+  },
+  appConfig: {
+    set: (appConfig: IApp) => ipcRenderer.invoke(APP.SET, appConfig),
+    get: () => ipcRenderer.invoke(APP.GET),
+  },
+  workspace: {
+    getCurrent: () => ipcRenderer.invoke(WORKSPACE.GET_CURRENT),
+    getAll: () => ipcRenderer.invoke(WORKSPACE.GET_ALL),
+    switch: (workspace: string) => ipcRenderer.invoke(WORKSPACE.SWITCH, workspace),
+    openCurrent: () => ipcRenderer.invoke(WORKSPACE.OPEN_CURENT),
+    selectNew: () => ipcRenderer.invoke(WORKSPACE.SELECT_NEW),
   },
 });
 

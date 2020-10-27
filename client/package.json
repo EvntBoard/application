@@ -5,9 +5,16 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "ace-builds": "^1.4.12",
     "clsx": "^1.1.1",
+    "final-form": "^4.20.1",
+    "grid-template-parser": "^0.3.2",
     "react": "^17.0.1",
+    "react-ace": "^9.2.0",
+    "react-color": "^2.18.1",
     "react-dom": "^17.0.1",
+    "react-dropzone": "^11.2.1",
+    "react-final-form": "^6.5.2",
     "react-intl": "^5.8.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0"
@@ -34,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.1"
   }
 }

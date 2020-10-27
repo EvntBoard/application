@@ -10,7 +10,7 @@ export const createMainWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1400,
-    height: 600,
+    height: 700,
     show: false,
     webPreferences: {
       preload: isDev

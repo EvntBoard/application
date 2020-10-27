@@ -9,7 +9,7 @@ export const buttonCreate = (button: IButton): IButton => {
   const id = uuid();
   database
     .get('buttons')
-    .push({ id, ...button })
+    .push({ ...button, id })
     .write();
   return buttonFindOne(id);
 };
@@ -17,6 +17,11 @@ export const buttonCreate = (button: IButton): IButton => {
 export const buttonFindAll = (): IButton[] => {
   logger.debug('Button Service FIND ALL');
   return database.get('buttons').value();
+};
+
+export const buttonFindAllByBoardId = (idBoard: string): IButton[] => {
+  logger.debug('Button Service FIND ALL BY BOARD ID');
+  return database.get('buttons').filter({ idBoard }).value();
 };
 
 export const buttonFindOne = (id: string): IButton => {

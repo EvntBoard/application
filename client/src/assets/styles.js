@@ -10,7 +10,8 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    padding: 0,
+    height: '100%',
+    width: '100%',
   }
 }));

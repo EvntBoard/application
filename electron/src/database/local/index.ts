@@ -21,7 +21,7 @@ export const init = async () => {
     currentWorkspace = workspaceGetCurrent();
   }
 
-  if (!fs.existsSync(currentWorkspace.path)){
+  if (!fs.existsSync(currentWorkspace.path)) {
     fs.mkdirSync(currentWorkspace.path);
   }
 

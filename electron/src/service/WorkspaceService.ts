@@ -1,7 +1,12 @@
 import { database } from '../database/global';
 import { IWorkspace } from '../types';
+import { init as initLocalDB } from '../database/local';
+import {
+  init as initTriggerManager,
+  unloadAll as triggerManagerUnloadAll,
+} from './TriggerManagerService';
 
-export const workspaceSwitchTo = (workspace: string): IWorkspace => {
+export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> => {
   database.get('workspaces').find({ current: true }).assign({ current: false }).write();
 
   const index: number = database.get('workspaces').findIndex({ path: workspace }).value();
@@ -12,7 +17,14 @@ export const workspaceSwitchTo = (workspace: string): IWorkspace => {
     database.get('workspaces').get(index).assign({ current: true }).write();
   }
 
-  return database.get('workspaces').find({ current: true }).value();
+  const newWorkspace = database.get('workspaces').find({ current: true }).value();
+
+  // reload database
+  await triggerManagerUnloadAll();
+  await initLocalDB();
+  await initTriggerManager();
+
+  return newWorkspace;
 };
 
 export const workspaceFindAll = (): IWorkspace[] => {

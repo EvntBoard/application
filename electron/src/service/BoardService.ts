@@ -10,7 +10,7 @@ export const boardCreate = (board: IBoard): IBoard => {
   const id = uuid();
   database
     .get('boards')
-    .push({ id, ...board })
+    .push({ ...board, id })
     .write();
   return boardFindOne(id);
 };
