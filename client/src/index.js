@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 
-import AppProvider from './context';
 import Root from './Root';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AppProvider>
-      <Root />
-    </AppProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Router>
+    <Root />
+  </Router>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );

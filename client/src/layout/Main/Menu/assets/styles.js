@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-    }),
+    })
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -24,8 +24,14 @@ export const useStyles = makeStyles((theme) => ({
   fullgrow: {
     flexGrow: 1
   },
+  logoContainer: {
+    textAlign: 'center'
+  },
   logo: {
-    height: 24,
-    width: 24
+    height: 50,
+    width: 50
+  },
+  menuItemColor: {
+    color: theme.palette.common.white
   }
 }));

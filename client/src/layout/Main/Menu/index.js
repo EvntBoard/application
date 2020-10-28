@@ -16,8 +16,11 @@ import HomeIcon from '@material-ui/icons/Home';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 
-import M from '../../context/lang/messages/constants'
-import { useMenuContext } from '../../context/menu'
+import M from '../../../context/lang/messages/constants'
+import { useMenuContext } from '../../../context/menu'
+
+import Logo from '../../../assets/logo.png'
+
 import { useStyles } from './assets/styles'
 
 const Menu = () => {
@@ -49,38 +52,41 @@ const Menu = () => {
       }}
       open={open}
     >
+      <div className={classes.logoContainer}>
+        <img className={classes.logo} src={Logo} alt='logo' />
+      </div>
       <List className={clsx(classes.fullgrow)}>
         <ListItem button component={Link} to="/" selected={activeItem === 'home'}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.menuItemColor}>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary={intl.formatMessage({ id: M.AppMenuHome })} />
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuHome })} />
         </ListItem>
         <ListItem button component={Link} to="/board" selected={activeItem === 'board'}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.menuItemColor}>
             <GridOnIcon />
           </ListItemIcon>
-          <ListItemText primary={intl.formatMessage({ id: M.AppMenuBoard })} />
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuBoard })} />
         </ListItem>
         <ListItem button component={Link} to="/trigger" selected={activeItem === 'trigger'}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.menuItemColor}>
             <SettingsInputAntennaIcon />
           </ListItemIcon>
-          <ListItemText primary={intl.formatMessage({ id: M.AppMenuBoard })} />
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuBoard })} />
         </ListItem>
       </List>
       <List>
         <ListItem button component={Link} to="/config" selected={activeItem === 'config'}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.menuItemColor}>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={intl.formatMessage({ id: M.AppMenuSettings })} />
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuSettings })} />
         </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem button onClick={handleDrawerClose}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.menuItemColor}>
             { open ? <ChevronLeftIcon /> : <ChevronRightIcon />  }
           </ListItemIcon>
         </ListItem>
