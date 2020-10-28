@@ -33,5 +33,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   menuItemColor: {
     color: theme.palette.common.white
+  },
+  divider: {
+    backgroundColor: 'rgba(255, 255, 255, 0.12)'
+  },
+  listItemColor: {
+    backgroundColor: 'rgba(255, 255, 255, 0.16)'
   }
 }));

@@ -36,8 +36,8 @@ function Config() {
   const { theme, setTheme } = useThemeContext()
   const { locale, setLocale } = useLangContext()
   const [ value, setValue ] = useState(0)
-  const [ appConfig, setAppConfig ] = useState({ host: undefined, port: undefined, password: undefined })
-  const [ currentWorkspace, setCurrentWorkspace ] = useState(undefined)
+  const [ appConfig, setAppConfig ] = useState({ host: "", port: "", password: "" })
+  const [ currentWorkspace, setCurrentWorkspace ] = useState("")
   const [ allWorkspace, setAllWorkspace ] = useState([])
 
   useEffect(() => {

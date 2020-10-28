@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useIntl } from 'react-intl'
-
 import clsx from 'clsx';
+
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -21,7 +21,7 @@ import { useMenuContext } from '../../../context/menu'
 
 import Logo from '../../../assets/logo.png'
 
-import { useStyles } from './assets/styles'
+import { useStyles } from './styles'
 
 const Menu = () => {
   const classes = useStyles();
@@ -56,34 +56,34 @@ const Menu = () => {
         <img className={classes.logo} src={Logo} alt='logo' />
       </div>
       <List className={clsx(classes.fullgrow)}>
-        <ListItem button component={Link} to="/" selected={activeItem === 'home'}>
+        <ListItem classes={{ selected: classes.listItemColor }} button component={Link} to="/" selected={activeItem === 'home'}>
           <ListItemIcon className={classes.menuItemColor}>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuHome })} />
         </ListItem>
-        <ListItem button component={Link} to="/board" selected={activeItem === 'board'}>
+        <ListItem classes={{ selected: classes.listItemColor }} button component={Link} to="/board" selected={activeItem === 'board'}>
           <ListItemIcon className={classes.menuItemColor}>
             <GridOnIcon />
           </ListItemIcon>
           <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuBoard })} />
         </ListItem>
-        <ListItem button component={Link} to="/trigger" selected={activeItem === 'trigger'}>
+        <ListItem classes={{ selected: classes.listItemColor }} button component={Link} to="/trigger" selected={activeItem === 'trigger'}>
           <ListItemIcon className={classes.menuItemColor}>
             <SettingsInputAntennaIcon />
           </ListItemIcon>
-          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuBoard })} />
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuTrigger })} />
         </ListItem>
       </List>
       <List>
-        <ListItem button component={Link} to="/config" selected={activeItem === 'config'}>
+        <ListItem classes={{ selected: classes.listItemColor }} button component={Link} to="/config" selected={activeItem === 'config'}>
           <ListItemIcon className={classes.menuItemColor}>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuSettings })} />
         </ListItem>
       </List>
-      <Divider />
+      <Divider className={classes.divider} />
       <List>
         <ListItem button onClick={handleDrawerClose}>
           <ListItemIcon className={classes.menuItemColor}>
