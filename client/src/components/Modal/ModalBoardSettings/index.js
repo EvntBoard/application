@@ -14,7 +14,13 @@ const ModalBoardSettings = ({ open, setOpen, onSubmit, onReset, current }) => {
   }
 
   return (
-    <Dialog open={open} onClose={innerOnClose} disableBackdropClick>
+    <Dialog
+      open={open}
+      onClose={innerOnClose}
+      disableBackdropClick
+      fullWidth
+      maxWidth="sm"
+    >
       <Form
         setOpen={setOpen}
         initialValues={current}
