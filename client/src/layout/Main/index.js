@@ -8,9 +8,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
     display: 'flex',
-    height: '100%',
     overflow: 'hidden',
-    width: '100%'
+    flexGrow: 1
   },
   contentContainer: {
     display: 'flex',
@@ -18,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden'
   },
   content: {
+    display: 'flex',
     flex: '1 1 auto',
-    height: '100%',
-    overflow: 'auto'
-  }
+    overflow: 'auto',
+    flexDirection: 'column'
+  },
 }));
 
 const MainLayout = () => {

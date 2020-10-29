@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { SketchPicker } from 'react-color'
+import { Portal } from 'react-portal'
 
 export default ({ label, input, meta: { touched, error } }) => {
   const [displayColorPicker, setdisplayColorPicker] = useState(false)

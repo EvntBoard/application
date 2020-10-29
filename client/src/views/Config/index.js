@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useIntl} from 'react-intl'
 import { size, get } from 'lodash'
 
-import {Button, Tab, Tabs} from '@material-ui/core'
+import {Button, Container, Grid, Tab, Tabs} from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -15,13 +15,16 @@ import {useThemeContext} from '../../context/theme'
 import {useLangContext} from '../../context/lang'
 import M from '../../context/lang/messages/constants'
 import TabPanel from './components/TabPanel'
-import useStyles from './assets/styles'
 import {
   workspaceGetAll,
   workspaceGetCurrent,
   workspaceOpenCurrent,
   workspaceSelectNew, workspaceSwitch
 } from '../../service/workspaceService'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
 
 function a11yProps(index) {
   return {
@@ -32,7 +35,6 @@ function a11yProps(index) {
 
 function Config() {
   const intl = useIntl()
-  const classes = useStyles()
   const { theme, setTheme } = useThemeContext()
   const { locale, setLocale } = useLangContext()
   const [ value, setValue ] = useState(0)
@@ -95,21 +97,15 @@ function Config() {
   }
 
   return (
-    <div className="Config">
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-      >
-        <Tab label={intl.formatMessage({ id: M.AppSettingsMenuGlobal })} {...a11yProps(0)} />
-        <Tab label={intl.formatMessage({ id: M.AppSettingsMenuModule })} {...a11yProps(1)} />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        <div>
-          <Card className={classes.cardItem}>
+    <Container maxWidth='md'>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Card>
             <CardContent style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsLanguage })}</Typography>
               <Select
+                label={<div>Rea</div>}
+                variant='filled'
                 value={locale}
                 onChange={(e) => setLocale(e.target.value)}
               >
@@ -118,12 +114,14 @@ function Config() {
               </Select>
             </CardContent>
           </Card>
-          <Card className={classes.cardItem}>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Card>
             <CardContent  style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsTheme })}</Typography>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                label='current'
+                variant='filled'
                 value={theme}
                 onChange={(e) => setTheme(e.target.value)}
               >
@@ -132,7 +130,9 @@ function Config() {
               </Select>
             </CardContent>
           </Card>
-          <Card className={classes.cardItem}>
+        </Grid>
+        <Grid item xs={12}>
+          <Card>
             <CardContent  style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsWorkspace })}</Typography>
               <div style={{ display: "flex" }}>
@@ -146,23 +146,20 @@ function Config() {
               </div>
             </CardContent>
           </Card>
-          <Card className={classes.cardItem}>
+        </Grid>
+        <Grid item xs={12}>
+          <Card>
             <CardContent style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobal })}</Typography>
               <Typography variant='subtitle2' color='error'>{intl.formatMessage({ id: M.AppSettingsGlobalAdvice })}</Typography>
-              <TextField value={appConfig.host} onChange={onChangeHost} label={intl.formatMessage({ id: M.AppSettingsGlobalHost })} />
-              <TextField value={appConfig.port} onChange={onChangePort} label={intl.formatMessage({ id: M.AppSettingsGlobalPort })} />
-              <TextField value={appConfig.password} onChange={onChangePassword} disabled label={intl.formatMessage({ id: M.AppSettingsGlobalPassword })} />
+              <TextField variant='filled' value={appConfig.host} onChange={onChangeHost} label={intl.formatMessage({ id: M.AppSettingsGlobalHost })} />
+              <TextField variant='filled' value={appConfig.port} onChange={onChangePort} label={intl.formatMessage({ id: M.AppSettingsGlobalPort })} />
+              <TextField variant='filled' value={appConfig.password} onChange={onChangePassword} disabled label={intl.formatMessage({ id: M.AppSettingsGlobalPassword })} />
             </CardContent>
           </Card>
-        </div>
-      </TabPanel>
-
-      <TabPanel value={value} index={1}>
-        other ...
-      </TabPanel>
-
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
