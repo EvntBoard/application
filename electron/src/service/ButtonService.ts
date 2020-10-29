@@ -1,12 +1,11 @@
-import { v4 as uuid } from 'uuid';
-
 import { database } from '../database/local';
 import { IButton } from '../types';
+import generateStringId from '../utils/generateStringId';
 import logger from './LoggerService';
 
 export const buttonCreate = (button: IButton): IButton => {
   logger.debug('Button Service CREATE');
-  const id = uuid();
+  const id = generateStringId();
   database
     .get('buttons')
     .push({ ...button, id })

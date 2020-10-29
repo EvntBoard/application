@@ -262,6 +262,7 @@ const Preview = ({ setButtons, buttons, board }) => {
   }
 
   const onUpdate = (button) => {
+    console.log(button)
     buttonUpdate({ ...SAMPLE_BUTTON, ...button }).then((data) => {
       setButtons([
         ...filter(buttons, (i) => i.id !== data.id),
