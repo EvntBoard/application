@@ -273,14 +273,11 @@ const Preview = ({ setButtons, buttons, board }) => {
   }
 
   const onDelete = async (button) => {
-    buttonDelete(button).then((data) => {
-      if (data) {
-        setCurrent(null)
-        setOpenDelete(false)
-        setButtons(filter(buttons, i => i.id !== button.id))
-      }
+    buttonDelete(button).then(() => {
+      setCurrent(null)
+      setOpenDelete(false)
+      setButtons(filter(buttons, i => i.id !== button.id))
     })
-    return true
   }
 
   const onCreateOrUpdate = async (button) => {
