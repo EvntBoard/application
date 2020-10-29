@@ -1,24 +1,30 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import { size, get, find, remove } from 'lodash'
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import { IconButton, Menu, MenuItem, Toolbar, AppBar, Typography, Divider } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import {boardCreate, boardFindAll, boardUpdate} from '../../service/boardService'
 import Grid from './Grid'
 import Preview from './Preview'
+import ModalBoardSettings from '../../components/Modal/ModalBoardSettings'
+import { boardCreate, boardFindAll, boardUpdate } from '../../service/boardService'
+import { buttonFindAllForBoardId } from '../../service/buttonService'
 
 import './assets/style.scss'
-import { buttonFindAllForBoardId } from '../../service/buttonService'
-import ModalBoardSettings from '../../components/Modal/ModalBoardSettings'
 
 const GridManager = () => {
   const [boards, setBoards] = useState([])
   const [currentBoardId, setCurrentBoardId] = useState()
   const [buttons, setButtons] = useState([])
   const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     boardFindAll().then((data) => {
@@ -62,6 +68,22 @@ const GridManager = () => {
     setOpen(false)
   }
 
+  const handleBoardUpdate = () => {
+    handleClose()
+    setOpen(true)
+  }
+
+  const handleBoardDelete = () => {
+    handleClose()
+    setOpen(true)
+  }
+
+  const handleAddBoard = () => {
+    console.log('add a board')
+    handleClose()
+    setOpen(true)
+  }
+
   if (!currentBoard) {
     return null
   }
@@ -75,9 +97,20 @@ const GridManager = () => {
             <Typography variant="h5">
               {currentBoard.name}
             </Typography>
-            <IconButton onClick={() => { setOpen(true) }}>
-              <EditIcon />
+            <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
+              <ExpandMoreIcon />
             </IconButton>
+            <Menu
+              id="menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleBoardUpdate}>Edit current board</MenuItem>
+              <MenuItem onClick={handleBoardDelete}>Delete current board</MenuItem>
+              <Divider />
+              <MenuItem onClick={handleAddBoard}>Add board</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
         <div className='grid-main'>

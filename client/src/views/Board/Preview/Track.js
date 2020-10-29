@@ -46,12 +46,14 @@ const Track = ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdate
   const innerOnClickUpdate = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    setState(initialState)
     onClickUpdate(button)
   }
 
   const innerOnClickDelete = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    setState(initialState)
     onClickDelete(button)
   }
 
@@ -77,7 +79,6 @@ const Track = ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdate
       >
         <div onContextMenu={handleClick} className='preview-track-content-context'>
           <Menu
-            keepMounted
             open={state.mouseY !== null}
             onClose={handleClose}
             anchorReference="anchorPosition"

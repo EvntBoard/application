@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { area, template } from 'grid-template-parser'
 import { debounce, find, filter } from 'lodash'
+import { area, template } from 'grid-template-parser'
 
 import Track from './Track'
 import ModalButton from '../../../components/Modal/ModalButton'
-import ModalDeleteButton from '../../../components/Modal/ModalDeleteButton'
+import ModalButtonDelete from '../../../components/Modal/ModalButtonDelete'
 import { clamp, generateColor, newToOld } from '../utils'
 import { useEventListener } from '../../../utils/hooks'
 import { buttonCreate, buttonDelete, buttonUpdate } from '../../../service/buttonService'
@@ -312,7 +312,7 @@ const Preview = ({ setButtons, buttons, board }) => {
   return (
     <>
       <ModalButton open={open} setOpen={setOpen} onSubmit={onCreateOrUpdate} onReset={onReset} current={current} />
-      <ModalDeleteButton open={openDelete} setOpen={setOpenDelete} onSubmit={onDelete} onReset={onReset} current={current} />
+      <ModalButtonDelete open={openDelete} setOpen={setOpenDelete} onSubmit={onDelete} onReset={onReset} current={current} />
       <div
         id='preview'
         className='preview'
