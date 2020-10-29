@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 
 import { init as initGlobalDB } from './database/global';
 import { init as initLocalDB } from './database/local';
+import { registerProtocol as initRegisterProtocol } from './protocol';
 import { init as initIpc } from './service/IpcService';
 import { init as initTriggerManager } from './service/TriggerManagerService';
 import { createMainWindow } from './window/main';
@@ -11,6 +12,7 @@ app.on('ready', async () => {
   logger.info('Application init');
   await initGlobalDB();
   await initLocalDB();
+  await initRegisterProtocol();
   await initIpc();
   await initTriggerManager();
   createMainWindow();

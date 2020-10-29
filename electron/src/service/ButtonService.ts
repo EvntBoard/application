@@ -1,14 +1,44 @@
+import * as path from 'path';
+import * as fs from 'fs';
+
 import { database } from '../database/local';
 import { IButton } from '../types';
 import generateStringId from '../utils/generateStringId';
 import logger from './LoggerService';
+import { workspaceGetCurrent } from './WorkspaceService';
+
+const moveFileToWorkspace = (file: string, type: string) => {
+  const workspace = workspaceGetCurrent();
+
+  if (file && !file.startsWith('workspace') && !file.startsWith('http')) {
+    if (file.includes(workspace.path)) {
+      return `workspace://${file.replace(workspace.path, '')}`;
+    } else {
+      const fileName = path.basename(file);
+      const dir = path.join(workspace.path, type);
+
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+
+      const newFilePath = path.join(dir, fileName);
+      fs.copyFileSync(file, newFilePath);
+      return `workspace://${type}/${fileName}`;
+    }
+  }
+  return file;
+};
 
 export const buttonCreate = (button: IButton): IButton => {
   logger.debug('Button Service CREATE');
   const id = generateStringId();
   database
     .get('buttons')
-    .push({ ...button, id })
+    .push({
+      ...button,
+      id,
+      image: moveFileToWorkspace(button.image, 'image'),
+    })
     .write();
   return database.get('buttons').find({ id }).value();
 };
@@ -33,7 +63,10 @@ export const buttonUpdate = (button: Partial<IButton>): IButton => {
   database
     .get('buttons')
     .find({ id: button.id })
-    .assign({ ...button })
+    .assign({
+      ...button,
+      image: moveFileToWorkspace(button.image, 'image'),
+    })
     .write();
   return database.get('buttons').find({ id: button.id }).value();
 };

@@ -155,7 +155,7 @@ const GridManager = () => {
             >
               <MenuItem onClick={handleAddBoard}><AddIcon /> {intl.formatMessage({ id: M.AppBoardActionCreate })}</MenuItem>
               <Divider />
-              <MenuItem onClick={handleBoardUpdate}><PublishIcon /> {intl.formatMessage({ id: M.AppBoardActionSetDefault })}</MenuItem>
+              <MenuItem disabled onClick={handleBoardUpdate}><PublishIcon /> {intl.formatMessage({ id: M.AppBoardActionSetDefault })}</MenuItem>
               <MenuItem onClick={handleBoardUpdate}><EditIcon /> {intl.formatMessage({ id: M.AppBoardActionUpdate })}</MenuItem>
               <MenuItem disabled={size(boards) <= 1} onClick={handleBoardDelete}><DeleteIcon /> {intl.formatMessage({ id: M.AppBoardActionDelete })}</MenuItem>
               <Divider />
