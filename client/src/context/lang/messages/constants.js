@@ -5,6 +5,10 @@ const messages = {
   AppMenuTrigger: 'app.menu.trigger',
   AppMenuSettings: 'app.menu.settings',
 
+  // Field
+  FieldDropzoneDropHere: 'app.field.dropzone.drop_here',
+  FieldDropzoneDragOrClick: 'app.field.dropzone.drag_or_click',
+
   // SETTINGS
   AppSettingsMenuGlobal: 'app.settings.menu.global',
   AppSettingsMenuModule: 'app.settings.menu.module',
@@ -51,6 +55,24 @@ const messages = {
 
   ModalBoardSettingsButtonCancel: 'modal.board.settings.button.cancel',
   ModalBoardSettingsButtonSave: 'modal.board.settings.button.save',
+
+  // MODAL - BUTTON SETTINGS
+  ModalButtonSettingsCreate: 'modal.button.settings.create',
+  ModalButtonSettingsUpdate: 'modal.button.settings.update',
+
+  ModalButtonSettingsTextLabel: 'modal.button.settings.text.label',
+  ModalButtonSettingsTextPlaceholder: 'modal.button.setting.text.placeholder',
+
+  ModalButtonSettingsColorLabel: 'modal.button.settings.color.label',
+
+  ModalButtonSettingsImageInternalLabel: 'modal.button.settings.image_internal.label',
+
+  ModalButtonSettingsImageExternalLabel: 'modal.button.settings.image_external.label',
+
+  ModalButtonSettingsTriggerLabel: 'modal.button.settings.trigger.label',
+
+  ModalButtonSettingsButtonCancel: 'modal.button.settings.button.cancel',
+  ModalButtonSettingsButtonSave: 'modal.button.settings.button.save',
 
 
 

@@ -1,12 +1,12 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import { size, get, find } from 'lodash'
+import { size, get, find, remove } from 'lodash'
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import { boardFindAll } from '../../service/boardService'
+import {boardCreate, boardFindAll, boardUpdate} from '../../service/boardService'
 import Grid from './Grid'
 import Preview from './Preview'
 
@@ -40,14 +40,24 @@ const GridManager = () => {
 
   const currentBoard = useMemo(() => {
     return find(boards, { id: currentBoardId })
-  }, [currentBoardId])
+  }, [currentBoardId, boards])
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    let result
+    if (data.id) {
+      result = await boardUpdate(data)
+    } else {
+      result = await boardCreate(data)
+    }
+    setBoards([
+      ...remove(boards, (i) => i.id !== result.id),
+      result
+    ])
+    setOpen(false)
   }
 
-  const onReset = (data) => {
-    console.log(data)
+  const onReset = () => {
+    setOpen(false)
   }
 
   if (!currentBoard) {

@@ -7,6 +7,10 @@ const messagesEN = {
   [M.AppMenuTrigger]: 'Trigger',
   [M.AppMenuSettings]: 'Settings',
 
+  // FIELD
+  [M.FieldDropzoneDropHere]: 'Drop the files here ...',
+  [M.FieldDropzoneDragOrClick]: 'Drag \'n\' drop some files here, or click to select files',
+
   // SETTINGGS
   [M.AppSettingsMenuModule]: 'Module',
   [M.AppSettingsMenuGlobal]: 'Global',
@@ -53,6 +57,25 @@ const messagesEN = {
 
   [M.ModalBoardSettingsButtonCancel]: 'Cancel',
   [M.ModalBoardSettingsButtonSave]: 'Save',
+
+
+  // MODAL - BUTTON SETTINGS
+  [M.ModalButtonSettingsCreate]: 'Create a button',
+  [M.ModalButtonSettingsUpdate]: 'Update a button',
+
+  [M.ModalButtonSettingsTextLabel]: 'Text',
+  [M.ModalButtonSettingsTextPlaceholder]: 'Example: Mute\nMic',
+
+  [M.ModalButtonSettingsColorLabel]: 'Color',
+
+  [M.ModalButtonSettingsImageInternalLabel]: 'Image',
+
+  [M.ModalButtonSettingsImageExternalLabel]: 'Image URL',
+
+  [M.ModalButtonSettingsTriggerLabel]: 'Linked Trigger',
+
+  [M.ModalButtonSettingsButtonCancel]: 'Cancel',
+  [M.ModalButtonSettingsButtonSave]: 'Save',
 }
 
 export default messagesEN

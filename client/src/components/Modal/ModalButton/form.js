@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Field, useField } from 'react-final-form'
 import { isNull, isEmpty, isString } from 'lodash'
-import { Button, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core'
+import { useIntl } from 'react-intl'
+import {Button, DialogTitle, DialogContent, DialogActions, IconButton, Grid, Typography} from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
+import M from '../../../context/lang/messages/constants'
 import { triggerFindAll } from '../../../service/triggerService'
 import TextArea from '../../Field/TextArea'
 import ColorPicker from '../../Field/ColorPicker'
@@ -16,6 +18,7 @@ const required = (value) => isNull(value) || isEmpty(value)
 const acceptedFormat = ["image/apng", "image/bmp", "image/gif", "image/x-icon", "image/jpeg", "image/svg+xml", "image/tiff", "image/webp"]
 
 export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
+  const intl = useIntl()
   const [triggers, setTriggers] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -46,7 +49,7 @@ export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { 
   }
 
   const imageUrl = useMemo(() => {
-    if (isString(imageField.input.value) && imageField.input.value.startsWith('http') && imageField.input.value.startsWith('workspace')) {
+    if (isString(imageField.input.value) && (imageField.input.value.startsWith('http') || imageField.input.value.startsWith('workspace'))) {
       return imageField.input.value
     }
     return null
@@ -59,32 +62,66 @@ export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { 
   return (
     <form onSubmit={innerOnSubmit}>
       <DialogTitle style={{ display: 'flex' }}>
-        {idField.input.value && idField.input.value ? ('app.modal.button.form.title_update') : ('app.modal.button.form.title_create')}
+        {idField.input.value && idField.input.value ? intl.formatMessage({ id: M.ModalButtonSettingsUpdate }) : intl.formatMessage({ id: M.ModalButtonSettingsCreate })}
         <IconButton onClick={onClickClose}><CloseIcon /></IconButton>
       </DialogTitle>
 
       <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
-        { idField.input.value && (<div className='mb-8'>ID : { idField.input.value }</div>) }
-        <Field name="text" label={('app.modal.button.form.text_label')} component={TextArea} placeholder={('app.modal.button.form.text_placeholder')} />
-        <Field validate={required} name="color" label={('app.modal.button.form.color_label')} component={ColorPicker} />
-        <div style={{ display: 'flex' }}>
-          <div style={{ display: 'flex', flexGrow: 1, flexDirection: "column" }}>
-            <Field name="image" label={('app.modal.button.form.image_internal_label')} component={FilePicker} acceptedFormat={acceptedFormat} />
-            <Field name="image" label={('app.modal.button.form.image_external_label')} component={Input} />
-          </div>
-          <div style={{ flexShrink: 0 }} className='m-8'>
-            { imageUrl && (<img src={imageUrl} height={150} alt='button-2' />) }
-          </div>
-        </div>
-        <Field name="id_trigger" label={('app.modal.button.form.trigger_label')} component={Select} options={options} />
-      </DialogContent>
+        { idField.input.value && (<Typography>ID : { idField.input.value }</Typography>) }
+        <Grid container spacing={2}>
+          <Grid container item xs={12}>
+            <Field
+              name="text"
+              label={intl.formatMessage({ id: M.ModalButtonSettingsTextLabel })}
+              component={TextArea}
+              placeholder={intl.formatMessage({ id: M.ModalButtonSettingsTextPlaceholder })}
+            />
+          </Grid>
+          <Grid container item xs={12}>
+            <Field
+              validate={required}
+              name="color"
+              label={intl.formatMessage({ id: M.ModalButtonSettingsColorLabel })}
+              component={ColorPicker}
+            />
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <Field
+                name="image"
+                label={intl.formatMessage({ id: M.ModalButtonSettingsImageInternalLabel })}
+                component={FilePicker}
+                acceptedFormat={acceptedFormat}
+              />
+            </Grid>
+            <Grid item container xs={12} sm={6}>
+              <Field
+                name="image"
+                label={intl.formatMessage({ id: M.ModalButtonSettingsImageExternalLabel })}
+                component={Input}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              { imageUrl && (<img src={imageUrl} height={150} alt='button-2' />) }
+            </Grid>
+          </Grid>
+          <Grid container item xs={12}>
+            <Field
+              name="id_trigger"
+              label={intl.formatMessage({ id: M.ModalButtonSettingsTriggerLabel })}
+              component={Select}
+              options={options}
+            />
+          </Grid>
+        </Grid>
+        </DialogContent>
 
       <DialogActions>
         <Button onClick={innerOnReset}>
-          {('app.modal.button.form.button.reset')}
+          {intl.formatMessage({ id: M.ModalButtonSettingsButtonCancel })}
         </Button>
-        <Button type="submit" disabled={submitting || pristine}>
-          {('app.modal.button.form.button.submit')}
+        <Button type="submit" variant="contained" color="primary" disabled={submitting || pristine}>
+          {intl.formatMessage({ id: M.ModalButtonSettingsButtonSave })}
         </Button>
       </DialogActions>
     </form>

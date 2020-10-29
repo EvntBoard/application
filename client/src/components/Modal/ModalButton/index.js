@@ -2,7 +2,7 @@ import React from 'react'
 import { Form } from 'react-final-form'
 import { Dialog } from '@material-ui/core'
 
-import FormName from './form'
+import FormButton from './form'
 
 const ModalButton = ({ open, setOpen, onSubmit, onReset, current, triggers }) => {
   if (!open) {
@@ -13,14 +13,20 @@ const ModalButton = ({ open, setOpen, onSubmit, onReset, current, triggers }) =>
   }
 
   return (
-    <Dialog open={open} onClose={innerOnClose} disableBackdropClick>
+    <Dialog
+      open={open}
+      onClose={innerOnClose}
+      disableBackdropClick
+      fullWidth
+      maxWidth="sm"
+    >
       <Form
         initialValues={current}
         onReset={onReset}
         onSubmit={onSubmit}
         open={open}
         setOpen={setOpen}
-        component={FormName}
+        component={FormButton}
         triggers={triggers}
       />
     </Dialog>

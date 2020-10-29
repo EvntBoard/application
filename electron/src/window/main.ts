@@ -9,6 +9,8 @@ export const createMainWindow = () => {
   // logger.debug('Load window : Main')
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    minWidth: 800,
+    minHeight: 600,
     width: 1400,
     height: 700,
     show: false,

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { useIntl } from 'react-intl'
+
+import M from '../../context/lang/messages/constants'
 
 export default ({ label, input, meta: { touched, error }, acceptedFormat = [] }) => {
+  const intl = useIntl()
   const [file, setFile] = useState(null)
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({ onDrop: acceptedFiles => {
@@ -25,9 +29,7 @@ export default ({ label, input, meta: { touched, error }, acceptedFormat = [] })
             accept={acceptedFormat.join(', ')}
           />
           {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag 'n' drop some files here, or click to select files</p>
+            isDragActive ? <p>{intl.formatMessage({ id: M.FieldDropzoneDropHere })}</p> : <p>{intl.formatMessage({ id: M.FieldDropzoneDragOrClick })}</p>
           }
         </div>
       </div>

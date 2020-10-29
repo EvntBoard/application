@@ -23,7 +23,7 @@ export default ({ handleSubmit, onReset, setOpen, submitting }) => {
         <Button onClick={onReset}>
           {('app.modal.button_delete.button_reset')}
         </Button>
-        <Button type="submit" disabled={submitting}>
+        <Button type="submit" variant="contained" color="primary" disabled={submitting}>
           {('app.modal.button_delete.button_delete')}
         </Button>
       </DialogActions>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useIntl} from 'react-intl'
 import { size, get } from 'lodash'
 
-import {Button, Container, Grid, Tab, Tabs} from '@material-ui/core'
+import {Button, Container, Grid} from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -14,24 +14,12 @@ import {appConfigGet, appConfigSet} from '../../service/appConfigService'
 import {useThemeContext} from '../../context/theme'
 import {useLangContext} from '../../context/lang'
 import M from '../../context/lang/messages/constants'
-import TabPanel from './components/TabPanel'
 import {
   workspaceGetAll,
   workspaceGetCurrent,
   workspaceOpenCurrent,
   workspaceSelectNew, workspaceSwitch
 } from '../../service/workspaceService'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import EditIcon from '@material-ui/icons/Edit'
-
-function a11yProps(index) {
-  return {
-    id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
-  };
-}
 
 function Config() {
   const intl = useIntl()
@@ -97,9 +85,9 @@ function Config() {
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='sm'>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <Card>
             <CardContent style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsLanguage })}</Typography>
@@ -115,7 +103,7 @@ function Config() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <Card>
             <CardContent  style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsTheme })}</Typography>
