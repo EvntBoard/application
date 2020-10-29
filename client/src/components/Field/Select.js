@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField, MenuItem } from '@material-ui/core'
 
-export default ({ label, placeholder, input, disabled, required, options }) => {
+const FieldSelect = ({ label, placeholder, input, disabled, required, options }) => {
   return (
     <TextField style={{ flexGrow: 1 }} variant="filled" disabled={disabled} required={required} placeholder={placeholder} value={input.value} onChange={input.onChange} select>
       {options.map((option) => (
@@ -12,3 +12,5 @@ export default ({ label, placeholder, input, disabled, required, options }) => {
     </TextField>
   )
 }
+
+export default FieldSelect

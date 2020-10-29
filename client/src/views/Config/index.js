@@ -15,7 +15,6 @@ import {useThemeContext} from '../../context/theme'
 import {useLangContext} from '../../context/lang'
 import M from '../../context/lang/messages/constants'
 import {
-  workspaceGetAll,
   workspaceGetCurrent,
   workspaceOpenCurrent,
   workspaceSelectNew, workspaceSwitch
@@ -25,10 +24,8 @@ function Config() {
   const intl = useIntl()
   const { theme, setTheme } = useThemeContext()
   const { locale, setLocale } = useLangContext()
-  const [ value, setValue ] = useState(0)
   const [ appConfig, setAppConfig ] = useState({ host: "", port: "", password: "" })
   const [ currentWorkspace, setCurrentWorkspace ] = useState("")
-  const [ allWorkspace, setAllWorkspace ] = useState([])
 
   useEffect(() => {
     appConfigGet().then((data) => {
@@ -37,14 +34,7 @@ function Config() {
     workspaceGetCurrent().then((workspace) => {
       setCurrentWorkspace(workspace)
     })
-    workspaceGetAll().then((workspaces) => {
-      setAllWorkspace(workspaces)
-    })
   }, [])
-
-  const handleChange = (e, d) => {
-    setValue(d)
-  }
 
   const onChangeHost = (e) => {
     const newAppConfig = { ...appConfig, host: e.target.value }

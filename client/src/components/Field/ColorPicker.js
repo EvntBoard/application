@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SketchPicker } from 'react-color'
 
-export default ({ label, input, meta: { touched, error } }) => {
+const FieldColorPicker = ({ label, input, meta: { touched, error } }) => {
   const [displayColorPicker, setdisplayColorPicker] = useState(false)
 
   const onChange = (color) => {
@@ -62,3 +62,5 @@ export default ({ label, input, meta: { touched, error } }) => {
     </div>
   )
 }
+
+export default FieldColorPicker

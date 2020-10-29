@@ -1,4 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
 
-export default ({position, onMouseDown}) => (<div className={clsx('preview-handler', position)} onMouseDown={onMouseDown} />)
+const Handler = ({position, onMouseDown}) => (<div className={clsx('preview-handler', position)} onMouseDown={onMouseDown} />)
+
+export default Handler

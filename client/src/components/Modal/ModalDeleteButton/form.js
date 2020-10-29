@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
-export default ({ handleSubmit, onReset, setOpen, submitting }) => {
+const FormModalButtonDelete = ({ handleSubmit, onReset, setOpen, submitting }) => {
 
   const onClickClose = () => {
     setOpen(false)
@@ -30,3 +30,5 @@ export default ({ handleSubmit, onReset, setOpen, submitting }) => {
     </form>
   )
 }
+
+export default FormModalButtonDelete

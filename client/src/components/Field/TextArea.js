@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 
-export default ({ disabled, required, label, placeholder, input }) => {
+const FieldTextArea = ({ disabled, required, label, placeholder, input }) => {
   return (
     <TextField
       variant="filled"
@@ -17,3 +17,5 @@ export default ({ disabled, required, label, placeholder, input }) => {
     />
   )
 }
+
+export default FieldTextArea

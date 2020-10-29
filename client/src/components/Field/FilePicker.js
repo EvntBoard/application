@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 
 import M from '../../context/lang/messages/constants'
 
-export default ({ label, input, meta: { touched, error }, acceptedFormat = [] }) => {
+const FieldFilePicker = ({ label, input, meta: { touched, error }, acceptedFormat = [] }) => {
   const intl = useIntl()
   const [file, setFile] = useState(null)
 
@@ -39,3 +39,5 @@ export default ({ label, input, meta: { touched, error }, acceptedFormat = [] })
     </div>
   )
 }
+
+export default FieldFilePicker

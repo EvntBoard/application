@@ -17,7 +17,7 @@ const required = (value) => isNull(value) || isEmpty(value)
 
 const acceptedFormat = ["image/apng", "image/bmp", "image/gif", "image/x-icon", "image/jpeg", "image/svg+xml", "image/tiff", "image/webp"]
 
-export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
+const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
   const intl = useIntl()
   const [triggers, setTriggers] = useState([])
   const [loading, setLoading] = useState(false)
@@ -127,3 +127,5 @@ export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { 
     </form>
   )
 }
+
+export default FormModalButton

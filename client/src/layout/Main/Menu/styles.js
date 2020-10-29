@@ -28,8 +28,8 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   logo: {
-    height: 50,
-    width: 50
+    height: 42,
+    width: 42
   },
   menuItemColor: {
     color: theme.palette.common.white

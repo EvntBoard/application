@@ -1,29 +1,47 @@
 import React, { useMemo } from 'react'
 import { isEmpty } from 'lodash'
+import { Menu, MenuItem } from '@material-ui/core'
 
 import Handler from './Handler'
-import { getContrastYIQ } from '../utils'
-import { IconButton, Popover } from '@material-ui/core'
-import { MoreHoriz as MoreHorizIcon } from '@material-ui/icons'
 import text2png from '../../../utils/txtToPng'
+import { getContrastYIQ } from '../utils'
 
-export default ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdate, onClickDelete}) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const initialState = {
+  mouseX: null,
+  mouseY: null,
+};
 
-  if (!button) {
+const Track = ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdate, onClickDelete}) => {
+  const [state, setState] = React.useState(initialState);
+
+  const url = useMemo(() => {
+    if (button.image && !isEmpty(button.image)) {
+      return button.image
+    }
     return null
-  }
+  }, [button?.image])
+
+  const color = useMemo(() => button.color ? getContrastYIQ(button.color) : 'black', [button?.color])
+
+  const textImage = useMemo(() => {
+    if (button.text && !isEmpty(button.text)) {
+      const border = color === 'white' ? 'black' : 'white'
+      return text2png(button.text, { strokeWidth: 2, strokeColor: border, color, padding: 15 })
+    }
+    return null
+  }, [button?.text, color])
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    event.preventDefault();
+    setState({
+      mouseX: event.clientX - 2,
+      mouseY: event.clientY - 4,
+    });
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setState(initialState);
   };
-
-  const openPop = Boolean(anchorEl);
-  const id = openPop ? 'simple-popover' : undefined;
 
   const innerOnClickUpdate = (e) => {
     e.preventDefault()
@@ -37,22 +55,9 @@ export default ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdat
     onClickDelete(button)
   }
 
-  const url = useMemo(() => {
-    if (button.image && !isEmpty(button.image)) {
-      return button.image
-    }
+  if (!button) {
     return null
-  }, [button.image])
-
-  const color = useMemo(() => button.color ? getContrastYIQ(button.color) : 'black', [button.color])
-
-  const textImage = useMemo(() => {
-    if (button.text && !isEmpty(button.text)) {
-      const border = color === 'white' ? 'black' : 'white'
-      return text2png(button.text, { strokeWidth: 2, strokeColor: border, color, padding: 15 })
-    }
-    return null
-  }, [button.text, color])
+  }
 
   return (
     <div
@@ -70,27 +75,21 @@ export default ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdat
           color: button.color ? getContrastYIQ(button.color) : null
         }}
       >
-        <div className='preview-track-content-context'>
-          <IconButton aria-describedby={id} color="primary" onClick={handleClick}>
-            <MoreHorizIcon />
-          </IconButton>
-          <Popover
-            id={id}
-            open={openPop}
-            anchorEl={anchorEl}
+        <div onContextMenu={handleClick} className='preview-track-content-context'>
+          <Menu
+            keepMounted
+            open={state.mouseY !== null}
             onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
+            anchorReference="anchorPosition"
+            anchorPosition={
+              state.mouseY !== null && state.mouseX !== null
+                ? { top: state.mouseY, left: state.mouseX }
+                : undefined
+            }
           >
-            <div onClick={innerOnClickUpdate}>Edit</div>
-            <div onClick={innerOnClickDelete}>Delete</div>
-          </Popover>
+            <MenuItem onClick={innerOnClickUpdate}>Edit</MenuItem>
+            <MenuItem onClick={innerOnClickDelete}>Delete</MenuItem>
+          </Menu>
         </div>
         { url && <img src={url}  alt='' /> }
         { textImage && <img className='preview-track-content-text' src={textImage} alt='' /> }
@@ -102,3 +101,5 @@ export default ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdat
     </div>
   );
 }
+
+export default Track

@@ -6,7 +6,7 @@ import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/ext-language_tools'
 
-export default ({ label, placeholder, input, height, width }) => {
+const FieldIde = ({ label, placeholder, input, height, width }) => {
   const id = `ide-${Math.random()}`
 
   const onChange = (data) => {
@@ -41,3 +41,5 @@ export default ({ label, placeholder, input, height, width }) => {
     </div>
   )
 }
+
+export default FieldIde

@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, useField } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import { isNull, isEmpty } from 'lodash'
-import { Button, DialogTitle, DialogContent, DialogActions, IconButton, Typography, Grid } from '@material-ui/core'
+import { Button, DialogTitle, DialogContent, DialogActions, Typography, Grid, IconButton } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
 import M from '../../../context/lang/messages/constants'
@@ -17,7 +17,7 @@ const requiredNumber = (value) => isNull(value) || value <= 0
 
 const parse = value => (isNaN(parseInt(value, 10)) ? "" : parseInt(value, 10));
 
-export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
+const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
   const intl = useIntl()
   const idField = useField('id')
 
@@ -38,7 +38,7 @@ export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { 
     <form onSubmit={innerOnSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
       <DialogTitle style={{ display: 'flex' }}>
         { idField.input.value && idField.input.value ? intl.formatMessage({ id: M.ModalBoardSettingsUpdate }) : intl.formatMessage({ id: M.ModalBoardSettingsCreate })}
-        {/*<IconButton onClick={onClickClose}><CloseIcon /></IconButton>*/}
+        <IconButton onClick={onClickClose}><CloseIcon /></IconButton>
       </DialogTitle>
       <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
         { idField.input.value && <Typography>{idField.input.value}</Typography>}
@@ -113,3 +113,5 @@ export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { 
     </form>
   )
 }
+
+export default FormModalBoardSettings
