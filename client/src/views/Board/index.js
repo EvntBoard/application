@@ -33,9 +33,11 @@ const GridManager = () => {
   }, [])
 
   useEffect(() => {
-    buttonFindAllForBoardId(currentBoardId).then((data) => {
-      setButtons(data)
-    })
+    if (currentBoardId) {
+      buttonFindAllForBoardId(currentBoardId).then((data) => {
+        setButtons(data)
+      })
+    }
   }, [currentBoardId])
 
   const currentBoard = useMemo(() => {

@@ -7,14 +7,14 @@ export const integer = (value, previous, min, max) => {
 
 export const newToOld = (b) => ({
   column: {
-    start: b.column_start,
-    end: b.column_end,
-    span: b.column_end - b.column_start,
+    start: b.columnStart,
+    end: b.columnEnd,
+    span: b.columnEnd - b.columnStart,
   },
   row: {
-    start: b.row_start,
-    end: b.row_end,
-    span: b.row_end - b.row_start,
+    start: b.rowStart,
+    end: b.rowEnd,
+    span: b.rowEnd - b.rowStart,
   }
 })
 

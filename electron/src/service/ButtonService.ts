@@ -11,7 +11,7 @@ export const buttonCreate = (button: IButton): IButton => {
     .get('buttons')
     .push({ ...button, id })
     .write();
-  return buttonFindOne(id);
+  return database.get('buttons').find({ id }).value();
 };
 
 export const buttonFindAll = (): IButton[] => {
@@ -36,7 +36,7 @@ export const buttonUpdate = (button: Partial<IButton>): IButton => {
     .find({ id: button.id })
     .assign({ ...button })
     .write();
-  return buttonFindOne(button.id);
+  return database.get('buttons').find({ id: button.id }).value();
 };
 
 export const buttonDelete = (button: Partial<IButton>): void => {

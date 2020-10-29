@@ -3,23 +3,25 @@ import { area, template } from 'grid-template-parser'
 import { debounce, find, filter } from 'lodash'
 
 import Track from './Track'
-import { clamp, generateColor, newToOld } from '../utils'
-import { useEventListener } from '../../../utils/hooks'
 import ModalButton from '../../../components/Modal/ModalButton'
 import ModalDeleteButton from '../../../components/Modal/ModalDeleteButton'
-import {buttonCreate, buttonDelete, buttonUpdate} from '../../../service/buttonService'
+import { clamp, generateColor, newToOld } from '../utils'
+import { useEventListener } from '../../../utils/hooks'
+import { buttonCreate, buttonDelete, buttonUpdate } from '../../../service/buttonService'
 
 const SAMPLE_BUTTON = {
   id: null,
-  id_trigger: null,
-  id_board: null,
+  idBoard: null,
+  idTrigger: null,
   text: null,
   image: null,
   color: null,
-  column_start: null,
-  column_end: null,
-  row_start: null,
-  row_end: null
+  columnStart: null,
+  columnEnd: null,
+  rowStart: null,
+  rowEnd: null,
+  createdAt: null,
+  updatedAt: null
 }
 
 const Preview = ({ setButtons, buttons, board }) => {
@@ -88,26 +90,26 @@ const Preview = ({ setButtons, buttons, board }) => {
 
     const columnStart = clamp(
       x - dx + 1,
-      buttonLeft ? buttonLeft.column_end : 1,
-      (buttonRight ? buttonRight.column_start : width + 1) - (button.column_end - button.column_start),
+      buttonLeft ? buttonLeft.columnEnd : 1,
+      (buttonRight ? buttonRight.columnStart : width + 1) - (button.columnEnd - button.columnStart),
     );
 
     const rowStart = clamp(
       y - dy + 1,
-      buttonTop ? buttonTop.row_end : 1,
-      (buttonBottom ? buttonBottom.row_start : height + 1) - (button.row_end - button.row_start),
+      buttonTop ? buttonTop.rowEnd : 1,
+      (buttonBottom ? buttonBottom.rowStart : height + 1) - (button.rowEnd - button.rowStart),
     );
 
-    if (columnStart !== button.column_start || rowStart !== button.row_start) {
-      const columnEnd = columnStart + (button.column_end - button.column_start);
-      const rowEnd = rowStart + (button.row_end - button.row_start);
+    if (columnStart !== button.columnStart || rowStart !== button.rowStart) {
+      const columnEnd = columnStart + (button.columnEnd - button.columnStart);
+      const rowEnd = rowStart + (button.rowEnd - button.rowStart);
 
       return moveArea({
         ...button,
-        column_start: columnStart,
-        column_end: columnEnd,
-        row_start: rowStart,
-        row_end: rowEnd
+        columnStart: columnStart,
+        columnEnd: columnEnd,
+        rowStart: rowStart,
+        rowEnd: rowEnd
       });
     }
   };
@@ -118,8 +120,8 @@ const Preview = ({ setButtons, buttons, board }) => {
     const x = Math.round((evt.clientX - rect.left) / rect.width * width);
     const y = Math.round((evt.clientY - rect.top) / rect.height * height);
 
-    setDx( x - button.column_start + 1)
-    setDy(y - button.row_start + 1)
+    setDx( x - button.columnStart + 1)
+    setDy(y - button.rowStart + 1)
 
     setIsDragging(true)
     setDraggedArea(button.id)
@@ -143,31 +145,31 @@ const Preview = ({ setButtons, buttons, board }) => {
       case 'top':
         start = clamp(
           y + 1,
-          adjTrigger ? adjTrigger.row_end : 1,
-          button.row_end - 1,
+          adjTrigger ? adjTrigger.rowEnd : 1,
+          button.rowEnd - 1,
         );
-        return moveArea({ ...button, row_start: start });
+        return moveArea({ ...button, rowStart: start });
       case 'right':
         end = clamp(
           x + 1,
-          button.column_start + 1,
-          adjTrigger ? adjTrigger.column_start : width + 1,
+          button.columnStart + 1,
+          adjTrigger ? adjTrigger.columnStart : width + 1,
         );
-        return moveArea({ ...button, column_end: end });
+        return moveArea({ ...button, columnEnd: end });
       case 'bottom':
         end = clamp(
           y + 1,
-          button.row_start + 1,
-          adjTrigger ? adjTrigger.row_start : height + 1,
+          button.rowStart + 1,
+          adjTrigger ? adjTrigger.rowStart : height + 1,
         );
-        return moveArea({ ...button, row_end: end });
+        return moveArea({ ...button, rowEnd: end });
       case 'left':
         start = clamp(
           x + 1,
-          adjTrigger ? adjTrigger.column_end : 1,
-          button.column_end - 1,
+          adjTrigger ? adjTrigger.columnEnd : 1,
+          button.columnEnd - 1,
         );
-        return moveArea({ ...button, column_start: start });
+        return moveArea({ ...button, columnStart: start });
       default:
         throw new Error('WTF ?!?')
     }
@@ -197,11 +199,11 @@ const Preview = ({ setButtons, buttons, board }) => {
     setCurrent({
       ...SAMPLE_BUTTON,
       color: generateColor(),
-      id_board: board.id,
-      column_start: newArea.column.start,
-      column_end: newArea.column.end,
-      row_start: newArea.row.start,
-      row_end: newArea.row.end,
+      idBoard: board.id,
+      columnStart: newArea.column.start,
+      columnEnd: newArea.column.end,
+      rowStart: newArea.row.start,
+      rowEnd: newArea.row.end,
     })
     setOpen(true)
   }
@@ -216,32 +218,32 @@ const Preview = ({ setButtons, buttons, board }) => {
   }
 
   const findAdjacentArea = (button, direction) => {
-    const { column_start, column_end, row_start, row_end } = button;
+    const { columnStart, columnEnd, rowStart, rowEnd } = button;
 
     switch (direction) {
       case 'top':
         return find(buttons, i =>
-          i.row_end === row_start &&
-          i.column_start < column_end &&
-          i.column_end > column_start
+          i.rowEnd === rowStart &&
+          i.columnStart < columnEnd &&
+          i.columnEnd > columnStart
         )
       case 'right':
         return find(buttons, i =>
-          i.column_start === column_end &&
-          i.row_start < row_end &&
-          i.row_end > row_start
+          i.columnStart === columnEnd &&
+          i.rowStart < rowEnd &&
+          i.rowEnd > rowStart
         )
       case 'bottom':
         return find(buttons, i =>
-          i.row_start === row_end &&
-          i.column_start < column_end &&
-          i.column_end > column_start
+          i.rowStart === rowEnd &&
+          i.columnStart < columnEnd &&
+          i.columnEnd > columnStart
         )
       case 'left':
         return find(buttons, i =>
-          i.column_end === column_start &&
-          i.row_start < row_end &&
-          i.row_end > row_start
+          i.columnEnd === columnStart &&
+          i.rowStart < rowEnd &&
+          i.rowEnd > rowStart
         )
       default:
         throw new Error('WTF !?')

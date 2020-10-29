@@ -107,7 +107,7 @@ export default ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { 
           </Grid>
           <Grid container item xs={12}>
             <Field
-              name="id_trigger"
+              name="idTrigger"
               label={intl.formatMessage({ id: M.ModalButtonSettingsTriggerLabel })}
               component={Select}
               options={options}
