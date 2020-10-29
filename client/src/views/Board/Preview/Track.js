@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react'
 import { isEmpty } from 'lodash'
 import { Menu, MenuItem } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Handler from './Handler'
 import text2png from '../../../utils/txtToPng'
@@ -88,8 +90,8 @@ const Track = ({button, grabbing, onMouseDown, onHandlerMouseDown, onClickUpdate
                 : undefined
             }
           >
-            <MenuItem onClick={innerOnClickUpdate}>Edit</MenuItem>
-            <MenuItem onClick={innerOnClickDelete}>Delete</MenuItem>
+            <MenuItem onClick={innerOnClickUpdate}><EditIcon /> Edit</MenuItem>
+            <MenuItem onClick={innerOnClickDelete}><DeleteIcon /> Delete</MenuItem>
           </Menu>
         </div>
         { url && <img src={url}  alt='' /> }

@@ -1,21 +1,31 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import { size, get, find, remove } from 'lodash'
+import { useIntl } from 'react-intl'
+import { size, get, find, remove, filter, first } from 'lodash'
 import { IconButton, Menu, MenuItem, Toolbar, AppBar, Typography, Divider } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import GridOnIcon from '@material-ui/icons/GridOn';
+import PublishIcon from '@material-ui/icons/Publish';
+import M from '../../context/lang/messages/constants';
 
 import Grid from './Grid'
 import Preview from './Preview'
-import ModalBoardSettings from '../../components/Modal/ModalBoardSettings'
-import { boardCreate, boardFindAll, boardUpdate } from '../../service/boardService'
-import { buttonFindAllForBoardId } from '../../service/buttonService'
+import ModalBoard from '../../components/Modal/ModalBoard'
+import ModalBoardDelete from '../../components/Modal/ModalBoardDelete'
+import {boardCreate, boardDelete, boardFindAll, boardUpdate} from '../../service/boardService'
+import {buttonFindAllForBoardId} from '../../service/buttonService'
 
 import './assets/style.scss'
 
 const GridManager = () => {
+  const intl = useIntl()
   const [boards, setBoards] = useState([])
   const [currentBoardId, setCurrentBoardId] = useState()
   const [buttons, setButtons] = useState([])
   const [open, setOpen] = useState(false)
+  const [openDelete, setOpenDelete] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -64,8 +74,23 @@ const GridManager = () => {
     setOpen(false)
   }
 
+  const onDelete = async (data) => {
+    handleClose()
+    boardDelete(data).then(() => {
+      setOpenDelete(false)
+      const newBoards = filter(boards, i => i.id !== data.id)
+      setBoards(newBoards)
+      setCurrentBoardId(get(first(newBoards), 'id'))
+    })
+  }
+
   const onReset = () => {
+    handleClose()
     setOpen(false)
+  }
+
+  const onResetDelete = () => {
+    setOpenDelete(false)
   }
 
   const handleBoardUpdate = () => {
@@ -75,13 +100,34 @@ const GridManager = () => {
 
   const handleBoardDelete = () => {
     handleClose()
-    setOpen(true)
+    setOpenDelete(true)
   }
 
   const handleAddBoard = () => {
-    console.log('add a board')
     handleClose()
-    setOpen(true)
+    boardCreate({
+      id: null,
+      name: `Board #${size(boards)}`,
+      description: "",
+      image: null,
+      color: null,
+      width: 5,
+      height: 5,
+      createdAt: null,
+      updatedAt: null,
+    }).then((data) => {
+      setBoards([
+        ...boards,
+        data
+      ])
+      setCurrentBoardId(data.id)
+    })
+  }
+
+  const handleSwitchBoard = (board) => {
+    if (board.id) {
+      setCurrentBoardId(board.id)
+    }
   }
 
   if (!currentBoard) {
@@ -90,12 +136,13 @@ const GridManager = () => {
 
   return (
     <>
-      <ModalBoardSettings open={open} setOpen={setOpen} onSubmit={onSubmit} onReset={onReset} current={currentBoard} />
+      <ModalBoard open={open} setOpen={setOpen} onSubmit={onSubmit} onReset={onReset} current={currentBoard} />
+      <ModalBoardDelete open={openDelete} setOpen={setOpenDelete} onSubmit={onDelete} onReset={onResetDelete} current={currentBoard} />
       <div className='grid-manager'>
         <AppBar position="static">
           <Toolbar variant="dense">
             <Typography variant="h5">
-              {currentBoard.name}
+              {intl.formatMessage({ id: M.AppBoardTitle })} {currentBoard.name}
             </Typography>
             <IconButton aria-controls="menu" aria-haspopup="true" onClick={handleClick}>
               <ExpandMoreIcon />
@@ -106,10 +153,23 @@ const GridManager = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleBoardUpdate}>Edit current board</MenuItem>
-              <MenuItem onClick={handleBoardDelete}>Delete current board</MenuItem>
+              <MenuItem onClick={handleAddBoard}><AddIcon /> {intl.formatMessage({ id: M.AppBoardActionCreate })}</MenuItem>
               <Divider />
-              <MenuItem onClick={handleAddBoard}>Add board</MenuItem>
+              <MenuItem onClick={handleBoardUpdate}><PublishIcon /> {intl.formatMessage({ id: M.AppBoardActionSetDefault })}</MenuItem>
+              <MenuItem onClick={handleBoardUpdate}><EditIcon /> {intl.formatMessage({ id: M.AppBoardActionUpdate })}</MenuItem>
+              <MenuItem disabled={size(boards) <= 1} onClick={handleBoardDelete}><DeleteIcon /> {intl.formatMessage({ id: M.AppBoardActionDelete })}</MenuItem>
+              <Divider />
+              {
+                boards.map(i => {
+                  const innerHandleSwitchBoard = () => {
+                    handleClose()
+                    handleSwitchBoard(i)
+                  }
+                  return (
+                    <MenuItem key={i.id} onClick={innerHandleSwitchBoard}><GridOnIcon/> {i.name}</MenuItem>
+                  )
+                })
+              }
             </Menu>
           </Toolbar>
         </AppBar>

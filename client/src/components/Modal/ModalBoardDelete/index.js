@@ -4,7 +4,7 @@ import { Dialog } from '@material-ui/core'
 
 import FormName from './form'
 
-const ModalDeleteBoard = ({ open, setOpen, onSubmit, onReset, current }) => {
+const ModalDeleteButton = ({ open, setOpen, onSubmit, onReset, current }) => {
   if (!open) {
     return null
   }
@@ -26,4 +26,4 @@ const ModalDeleteBoard = ({ open, setOpen, onSubmit, onReset, current }) => {
   )
 }
 
-export default ModalDeleteBoard
+export default ModalDeleteButton

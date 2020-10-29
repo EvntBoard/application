@@ -75,6 +75,14 @@ const messagesFR = {
 
   [M.ModalButtonSettingsButtonCancel]: 'Annuler',
   [M.ModalButtonSettingsButtonSave]: 'Sauvegarder',
+
+  // BOARD
+  [M.AppBoardTitle]: 'Board : ',
+  [M.AppBoardActionCreate]: 'Nouvelle board',
+  [M.AppBoardActionUpdate]: 'Modifier',
+  [M.AppBoardActionDelete]: 'Supprimer',
+  [M.AppBoardActionSetDefault]: 'Définir comme par défaut',
+
 }
 
 export default messagesFR

@@ -74,7 +74,12 @@ const messages = {
   ModalButtonSettingsButtonCancel: 'modal.button.settings.button.cancel',
   ModalButtonSettingsButtonSave: 'modal.button.settings.button.save',
 
-
+  // BOARD
+  AppBoardTitle: 'app.board.title',
+  AppBoardActionCreate: 'app.board.action.create',
+  AppBoardActionUpdate: 'app.board.action.update',
+  AppBoardActionDelete: 'app.board.action.delete',
+  AppBoardActionSetDefault: 'app.board.action.set_default',
 
 }
 
