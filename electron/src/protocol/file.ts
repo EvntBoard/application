@@ -10,7 +10,10 @@ export const config = {
 };
 
 // TODO PATH
-export const requestHandler = (request: { url: string; }, callback: (arg0: { path: string; }) => void) => {
+export const requestHandler = (
+  request: { url: string },
+  callback: (arg0: { path: string }) => void
+) => {
   const url = request.url.substr(7); /* all urls start with 'file://' */
 
   let newPath;

@@ -1,10 +1,14 @@
 import React from 'react'
+import { Container, Typography } from '@material-ui/core'
 
 function App() {
   return (
-    <div className="App">
-      Main
-    </div>
+    <Container className="App">
+      <Typography>Main</Typography>
+      <div>
+        aze
+      </div>
+    </Container>
   );
 }
 

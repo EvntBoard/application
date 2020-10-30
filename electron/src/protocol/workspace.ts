@@ -13,7 +13,10 @@ export const config = {
   },
 };
 
-export const requestHandler = (request: { url: string; }, callback: (arg0: { data: fs.ReadStream; }) => void) => {
+export const requestHandler = (
+  request: { url: string },
+  callback: (arg0: { data: fs.ReadStream }) => void
+) => {
   let url = request.url.substr(12);
   if (url[url.length - 1] === '/') {
     url = url.slice(0, -1);
