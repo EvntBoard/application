@@ -6,6 +6,7 @@ import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
 import logger from '../LoggerService';
+import { router as apiRoute } from './Api'
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -18,11 +19,12 @@ export const init = () => {
   app = express();
 
   if (electronIsDev) {
-    // fonctionne que si le projet est sur le disque principal ...
     app.use(express.static(path.join(process.cwd(), 'build', 'web')));
   } else {
     app.use(express.static(path.join(__dirname, 'web')));
   }
+
+  app.use('/api', apiRoute);
 
   wsServer = new ws.Server({ noServer: true });
 
