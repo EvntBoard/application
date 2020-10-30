@@ -28,6 +28,8 @@ const messagesEN = {
   [M.AppSettingsGlobalHost]: 'Host',
   [M.AppSettingsGlobalPort]: 'Port',
   [M.AppSettingsGlobalPassword]: 'Password',
+  [M.AppSettingsGlobalButtonCancel]: 'Cancel',
+  [M.AppSettingsGlobalButtonSave]: 'Save',
 
   [M.AppSettingsWorkspace]: 'Workspace',
   [M.AppSettingsWorkspaceCurrent]: 'Current',

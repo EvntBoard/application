@@ -26,6 +26,8 @@ const messages = {
   AppSettingsGlobalHost: 'app.settings.global.host',
   AppSettingsGlobalPort: 'app.settings.global.port',
   AppSettingsGlobalPassword: 'app.settings.global.password',
+  AppSettingsGlobalButtonCancel: 'app.settings.global.button.cancel',
+  AppSettingsGlobalButtonSave: 'app.settings.global.button.save',
 
   AppSettingsWorkspace: 'app.settings.workspace',
   AppSettingsWorkspaceCurrent: 'app.settings.workspace.current',

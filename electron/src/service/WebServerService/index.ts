@@ -13,31 +13,44 @@ let httpServer: http.Server;
 let wsServer: ws.Server;
 
 export const init = () => {
-  logger.debug('WebServer init');
-  const appConfig = appGet();
+  try {
+    logger.debug('WebServer init');
+    const appConfig = appGet();
 
-  app = express();
+    app = express();
 
-  if (electronIsDev) {
-    app.use(express.static(path.join(process.cwd(), 'build', 'web')));
-  } else {
-    app.use(express.static(path.join(__dirname, 'web')));
-  }
+    if (electronIsDev) {
+      app.use(express.static(path.join(process.cwd(), 'build', 'web')));
+    } else {
+      app.use(express.static(path.join(__dirname, 'web')));
+    }
 
-  app.use('/api', apiRoute);
+    app.use('/api', apiRoute);
 
-  wsServer = new ws.Server({ noServer: true });
+    wsServer = new ws.Server({noServer: true});
 
-  wsServer.on('connection', (socket) => {
-    logger.debug('WS connection');
-    socket.on('message', (message) => console.log(message));
-  });
-
-  httpServer = app.listen(appConfig.port, appConfig.host);
-
-  httpServer.on('upgrade', (request, socket, head) => {
-    wsServer.handleUpgrade(request, socket, head, (socket) => {
-      wsServer.emit('connection', socket, request);
+    wsServer.on('connection', (socket) => {
+      logger.debug('WS connection');
+      socket.on('message', (message) => console.log(message));
     });
-  });
+
+    httpServer = app.listen(appConfig.port, appConfig.host);
+
+    httpServer.on('error', logger.error)
+
+    httpServer.on('upgrade', (request, socket, head) => {
+      wsServer.handleUpgrade(request, socket, head, (socket) => {
+        wsServer.emit('connection', socket, request);
+      });
+    });
+  } catch (e) {
+    logger.error(e)
+  }
 };
+
+export const reload = () => {
+  if (httpServer) {
+    httpServer.close()
+  }
+  init()
+}

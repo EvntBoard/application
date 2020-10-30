@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useIntl} from 'react-intl'
 import { size, get } from 'lodash'
+import { Form } from 'react-final-form'
 
 import {Button, Container, Grid} from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,6 +11,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
+import FormApp from './FormApp'
 import {appConfigGet, appConfigSet} from '../../service/appConfigService'
 import {useThemeContext} from '../../context/theme'
 import {useLangContext} from '../../context/lang'
@@ -36,27 +38,6 @@ function Config() {
     })
   }, [])
 
-  const onChangeHost = (e) => {
-    const newAppConfig = { ...appConfig, host: e.target.value }
-    appConfigSet(newAppConfig).then((data) => {
-      setAppConfig(data)
-    })
-  }
-
-  const onChangePort = (e) => {
-    const newAppConfig = { ...appConfig, port: e.target.value }
-    appConfigSet(newAppConfig).then((data) => {
-      setAppConfig(data)
-    })
-  }
-
-  const onChangePassword = (e) => {
-    const newAppConfig = { ...appConfig, password: e.target.value }
-    appConfigSet(newAppConfig).then((data) => {
-      setAppConfig(data)
-    })
-  }
-
   const onOpenCurrentWorkspace = () => {
     workspaceOpenCurrent()
   }
@@ -72,6 +53,11 @@ function Config() {
         }
       }
     })
+  }
+
+  const handleSubmit = async (data) => {
+    const result = await appConfigSet(data)
+    setAppConfig(result)
   }
 
   return (
@@ -130,9 +116,11 @@ function Config() {
             <CardContent style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobal })}</Typography>
               <Typography variant='subtitle2' color='error'>{intl.formatMessage({ id: M.AppSettingsGlobalAdvice })}</Typography>
-              <TextField variant='filled' value={appConfig.host} onChange={onChangeHost} label={intl.formatMessage({ id: M.AppSettingsGlobalHost })} />
-              <TextField variant='filled' value={appConfig.port} onChange={onChangePort} label={intl.formatMessage({ id: M.AppSettingsGlobalPort })} />
-              <TextField variant='filled' value={appConfig.password} onChange={onChangePassword} disabled label={intl.formatMessage({ id: M.AppSettingsGlobalPassword })} />
+              <Form
+                onSubmit={handleSubmit}
+                initialValues={appConfig}
+                component={FormApp}
+              />
             </CardContent>
           </Card>
         </Grid>
