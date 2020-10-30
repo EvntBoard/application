@@ -13,7 +13,7 @@ const options = {
   4: 'QUEUE LOCK',
 }
 
-export default ({ trigger, onClick, onDupplicate, onDelete, active }) => {
+const TriggerItem = ({ trigger, onClick, onDupplicate, onDelete, active }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -61,3 +61,5 @@ export default ({ trigger, onClick, onDupplicate, onDelete, active }) => {
     </div>
   )
 }
+
+export default TriggerItem

@@ -6,9 +6,9 @@ import { Button, TextField } from '@material-ui/core'
 
 import FormTrigger from './form'
 import Item from './Item'
+import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate } from "../../service/triggerService";
 
 import './assets/style.scss'
-import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate } from "../../service/triggerService";
 
 const SAMPLE_TRIGGER = {
   id: null,
@@ -20,7 +20,7 @@ const SAMPLE_TRIGGER = {
   reaction: `module.exports = async (data, services) => {\n  services.utils.log('test')\n}`
 }
 
-export default () => {
+const Trigger = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [triggers, setTriggers] = useState([])
   const [current, setCurrent] = useState(null)
@@ -109,7 +109,7 @@ export default () => {
           />)}
         </div>
         <div className='actions'>
-          <Button onClick={onClickCreate}>Créer un trigger</Button>
+          <Button style={{ flexGrow: 1 }} onClick={onClickCreate}>Créer un trigger</Button>
         </div>
       </div>
       <div className='form'>
@@ -128,3 +128,5 @@ export default () => {
     </div>
   )
 }
+
+export default Trigger

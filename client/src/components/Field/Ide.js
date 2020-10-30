@@ -14,7 +14,7 @@ const FieldIde = ({ label, placeholder, input, height, width }) => {
   }
 
   return (
-    <div>
+    <div style={{ flexGrow: 1 }}>
       <label htmlFor={id}>{label}</label>
       <AceEditor
         placeholder={placeholder}
