@@ -1,6 +1,16 @@
 import { ipcRenderer, contextBridge } from 'electron';
 
-import { BUTTON, BOARD, TRIGGER, MENU, THEME, LANG, APP, WORKSPACE } from '../utils/ipc';
+import {
+  BUTTON,
+  BOARD,
+  TRIGGER,
+  MENU,
+  THEME,
+  LANG,
+  APP,
+  WORKSPACE,
+  WEB_SERVER,
+} from '../utils/ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp } from '../types';
 
 contextBridge.exposeInMainWorld('app', {
@@ -41,6 +51,13 @@ contextBridge.exposeInMainWorld('app', {
   appConfig: {
     set: (appConfig: IApp) => ipcRenderer.invoke(APP.SET, appConfig),
     get: () => ipcRenderer.invoke(APP.GET),
+  },
+  webServer: {
+    getStatus: () => ipcRenderer.invoke(WEB_SERVER.GET_STATUS),
+    listenStatusChange: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(WEB_SERVER.STATUS_CHANGE, callback)
+    },
+    unlistenStatusChange: () => ipcRenderer.removeAllListeners(WEB_SERVER.STATUS_CHANGE)
   },
   workspace: {
     getCurrent: () => ipcRenderer.invoke(WORKSPACE.GET_CURRENT),

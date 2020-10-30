@@ -7,7 +7,7 @@ export const appSet = (app: IApp): IApp => {
   logger.debug('App Service SET');
   database.set('app', app).write();
   // reload API server
-  reloadWebServer()
+  reloadWebServer();
   return <IApp>database.get('app').value();
 };
 

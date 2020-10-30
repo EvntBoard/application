@@ -24,6 +24,8 @@ const messagesFR = {
   [M.AppSettingsThemeDark]: '🌙 Sombre',
 
   [M.AppSettingsGlobal]: 'Application',
+  [M.AppSettingsGlobalOnline]: 'En ligne',
+  [M.AppSettingsGlobalOffline]: 'Hors ligne',
   [M.AppSettingsGlobalAdvice]: '⚠️ Uniquement si tu sais ce que tu fais ... ⚠️',
   [M.AppSettingsGlobalHost]: 'Hôte',
   [M.AppSettingsGlobalPort]: 'Port',

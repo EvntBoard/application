@@ -6,6 +6,7 @@ import { init as initIpcThemeService } from './IpcThemeService';
 import { init as initIpcLangService } from './IpcLangService';
 import { init as initIpcAppConfigService } from './IpcAppConfigService';
 import { init as initIpcWorkspaceService } from './IpcWorkspaceService';
+import { init as initIpcWebServerService } from './IpcWebServerService';
 
 import logger from '../LoggerService';
 
@@ -19,4 +20,5 @@ export const init = () => {
   initIpcLangService();
   initIpcAppConfigService();
   initIpcWorkspaceService();
+  initIpcWebServerService();
 };

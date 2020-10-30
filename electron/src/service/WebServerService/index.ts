@@ -6,7 +6,9 @@ import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
 import logger from '../LoggerService';
-import { router as apiRoute } from './Api'
+import { router as apiRoute } from './Api';
+import {mainWindowsSend} from "../MainWindowService";
+import {WEB_SERVER} from "../../utils/ipc";
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -27,7 +29,7 @@ export const init = () => {
 
     app.use('/api', apiRoute);
 
-    wsServer = new ws.Server({noServer: true});
+    wsServer = new ws.Server({ noServer: true });
 
     wsServer.on('connection', (socket) => {
       logger.debug('WS connection');
@@ -36,7 +38,18 @@ export const init = () => {
 
     httpServer = app.listen(appConfig.port, appConfig.host);
 
-    httpServer.on('error', logger.error)
+    httpServer.on('listening', () => {
+      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, true)
+    })
+
+    httpServer.on('error', (...args) => {
+      logger.error(args)
+      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false)
+    });
+
+    httpServer.on('close', () => {
+      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false)
+    })
 
     httpServer.on('upgrade', (request, socket, head) => {
       wsServer.handleUpgrade(request, socket, head, (socket) => {
@@ -44,13 +57,18 @@ export const init = () => {
       });
     });
   } catch (e) {
-    logger.error(e)
+    logger.error(e);
+    mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false)
   }
 };
 
 export const reload = () => {
   if (httpServer) {
-    httpServer.close()
+    httpServer.close();
   }
-  init()
-}
+  init();
+};
+
+export const getStatus = (): boolean => {
+  return httpServer && httpServer.listening;
+};

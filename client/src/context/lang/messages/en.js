@@ -24,6 +24,8 @@ const messagesEN = {
   [M.AppSettingsThemeDark]: '🌙 Dark',
 
   [M.AppSettingsGlobal]: 'Application',
+  [M.AppSettingsGlobalOnline]: 'Online',
+  [M.AppSettingsGlobalOffline]: 'Offline',
   [M.AppSettingsGlobalAdvice]: '⚠️ Only if you know what you\'re doing ... ⚠️',
   [M.AppSettingsGlobalHost]: 'Host',
   [M.AppSettingsGlobalPort]: 'Port',

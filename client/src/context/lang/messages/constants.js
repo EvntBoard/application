@@ -22,6 +22,8 @@ const messages = {
   AppSettingsThemeLight: 'app.settings.theme.light',
 
   AppSettingsGlobal: 'app.settings.global',
+  AppSettingsGlobalOnline: 'app.settings.global.online',
+  AppSettingsGlobalOffline: 'app.settings.global.offline',
   AppSettingsGlobalAdvice: 'app.settings.global.advice',
   AppSettingsGlobalHost: 'app.settings.global.host',
   AppSettingsGlobalPort: 'app.settings.global.port',

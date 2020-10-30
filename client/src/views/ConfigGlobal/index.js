@@ -3,9 +3,8 @@ import { useIntl} from 'react-intl'
 import { size, get } from 'lodash'
 import { Form } from 'react-final-form'
 
-import {Button, Container, Grid} from '@material-ui/core'
+import {Button, Chip, Container, Grid} from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,12 +14,18 @@ import FormApp from './FormApp'
 import {appConfigGet, appConfigSet} from '../../service/appConfigService'
 import {useThemeContext} from '../../context/theme'
 import {useLangContext} from '../../context/lang'
-import M from '../../context/lang/messages/constants'
 import {
   workspaceGetCurrent,
   workspaceOpenCurrent,
   workspaceSelectNew, workspaceSwitch
 } from '../../service/workspaceService'
+import {
+  listenWebServerStatusChange,
+  unlistenWebServerStatusChange,
+  webServerGetStatus
+} from '../../service/webServerService'
+
+import M from '../../context/lang/messages/constants'
 
 function Config() {
   const intl = useIntl()
@@ -28,14 +33,28 @@ function Config() {
   const { locale, setLocale } = useLangContext()
   const [ appConfig, setAppConfig ] = useState({ host: "", port: "", password: "" })
   const [ currentWorkspace, setCurrentWorkspace ] = useState("")
+  const [ webServerStatus, setWebServerStatus ] = useState(false)
 
   useEffect(() => {
     appConfigGet().then((data) => {
       setAppConfig(data)
     })
+
     workspaceGetCurrent().then((workspace) => {
       setCurrentWorkspace(workspace)
     })
+
+    webServerGetStatus().then((data) => {
+      setWebServerStatus(data)
+    })
+
+    listenWebServerStatusChange((evt, data) => {
+      setWebServerStatus(data)
+    })
+
+    return () => {
+      unlistenWebServerStatusChange()
+    }
   }, [])
 
   const onOpenCurrentWorkspace = () => {
@@ -114,8 +133,21 @@ function Config() {
         <Grid item xs={12}>
           <Card>
             <CardContent style={{ display: "flex", flexDirection: "column" }}>
-              <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobal })}</Typography>
-              <Typography variant='subtitle2' color='error'>{intl.formatMessage({ id: M.AppSettingsGlobalAdvice })}</Typography>
+              <Grid container spacing={2}>
+                <Grid container item xs={12}>
+                  <Typography style={{ flexGrow: 1 }} variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobal })}</Typography>
+                  {
+                    webServerStatus ? (
+                      <Chip label={intl.formatMessage({ id: M.AppSettingsGlobalOnline })} color='primary' />
+                    ) : (
+                      <Chip label={intl.formatMessage({ id: M.AppSettingsGlobalOffline })} />
+                    )
+                  }
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant='subtitle2' color='error'>{intl.formatMessage({ id: M.AppSettingsGlobalAdvice })}</Typography>
+                </Grid>
+              </Grid>
               <Form
                 onSubmit={handleSubmit}
                 initialValues={appConfig}

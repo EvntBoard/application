@@ -11,13 +11,13 @@ import logger from './service/LoggerService';
 
 app.on('ready', async () => {
   logger.info('Application init');
+  createMainWindow();
   await initGlobalDB();
   await initLocalDB();
   await initRegisterProtocol();
   await initIpc();
   await initTriggerManager();
   await initWebServer();
-  createMainWindow();
 });
 
 app.on('window-all-closed', () => {
