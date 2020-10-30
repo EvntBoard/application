@@ -62,7 +62,7 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
   return (
     <form onSubmit={innerOnSubmit}>
       <DialogTitle style={{ display: 'flex' }}>
-        {idField.input.value && idField.input.value ? intl.formatMessage({ id: M.ModalButtonSettingsUpdate }) : intl.formatMessage({ id: M.ModalButtonSettingsCreate })}
+        {idField.input.value && idField.input.value ? intl.formatMessage({ id: M.ModalButtonUpdate }) : intl.formatMessage({ id: M.ModalButtonCreate })}
         <IconButton onClick={onClickClose}><CloseIcon /></IconButton>
       </DialogTitle>
 
@@ -72,16 +72,16 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
           <Grid container item xs={12}>
             <Field
               name="text"
-              label={intl.formatMessage({ id: M.ModalButtonSettingsTextLabel })}
+              label={intl.formatMessage({ id: M.ModalButtonTextLabel })}
               component={TextArea}
-              placeholder={intl.formatMessage({ id: M.ModalButtonSettingsTextPlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalButtonTextPlaceholder })}
             />
           </Grid>
           <Grid container item xs={12}>
             <Field
               validate={required}
               name="color"
-              label={intl.formatMessage({ id: M.ModalButtonSettingsColorLabel })}
+              label={intl.formatMessage({ id: M.ModalButtonColorLabel })}
               component={ColorPicker}
             />
           </Grid>
@@ -89,7 +89,7 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
             <Grid item xs={12} sm={6}>
               <Field
                 name="image"
-                label={intl.formatMessage({ id: M.ModalButtonSettingsImageInternalLabel })}
+                label={intl.formatMessage({ id: M.ModalButtonImageInternalLabel })}
                 component={FilePicker}
                 acceptedFormat={acceptedFormat}
               />
@@ -97,7 +97,7 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
             <Grid item container xs={12} sm={6}>
               <Field
                 name="image"
-                label={intl.formatMessage({ id: M.ModalButtonSettingsImageExternalLabel })}
+                label={intl.formatMessage({ id: M.ModalButtonImageExternalLabel })}
                 component={Input}
               />
             </Grid>
@@ -108,7 +108,7 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
           <Grid container item xs={12}>
             <Field
               name="idTrigger"
-              label={intl.formatMessage({ id: M.ModalButtonSettingsTriggerLabel })}
+              label={intl.formatMessage({ id: M.ModalButtonTriggerLabel })}
               component={Select}
               options={options}
             />
@@ -118,10 +118,10 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
 
       <DialogActions>
         <Button onClick={innerOnReset}>
-          {intl.formatMessage({ id: M.ModalButtonSettingsButtonCancel })}
+          {intl.formatMessage({ id: M.ModalButtonButtonCancel })}
         </Button>
         <Button type="submit" variant="contained" color="primary" disabled={submitting || pristine}>
-          {intl.formatMessage({ id: M.ModalButtonSettingsButtonSave })}
+          {intl.formatMessage({ id: M.ModalButtonButtonSave })}
         </Button>
       </DialogActions>
     </form>

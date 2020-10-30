@@ -34,47 +34,59 @@ const messagesFR = {
   [M.AppSettingsWorkspaceChange]: 'Changer',
 
   // MODAL SETTINGS
-  [M.ModalBoardSettingsCreate]: 'Créer une board',
-  [M.ModalBoardSettingsUpdate]: 'Modifier une board',
+  [M.ModalBoardCreate]: 'Créer une board',
+  [M.ModalBoardUpdate]: 'Modifier une board',
 
-  [M.ModalBoardSettingsNameLabel]: 'Nom',
-  [M.ModalBoardSettingsNamePlaceholder]: 'Exemple: Gestion de mes scenes OBS',
+  [M.ModalBoardNameLabel]: 'Nom',
+  [M.ModalBoardNamePlaceholder]: 'Exemple: Gestion de mes scenes OBS',
 
-  [M.ModalBoardSettingsDescriptionLabel]: 'Description',
-  [M.ModalBoardSettingsDescriptionPlaceholder]: 'Exemple: Changement scene OBS BRB et just chatting',
+  [M.ModalBoardDescriptionLabel]: 'Description',
+  [M.ModalBoardDescriptionPlaceholder]: 'Exemple: Changement scene OBS BRB et just chatting',
 
-  [M.ModalBoardSettingsWidthLabel]: 'Largeur',
-  [M.ModalBoardSettingsWidthPlaceholder]: 'Exemple: 5',
+  [M.ModalBoardWidthLabel]: 'Largeur',
+  [M.ModalBoardWidthPlaceholder]: 'Exemple: 5',
 
-  [M.ModalBoardSettingsHeightLabel]: 'Hauteur',
-  [M.ModalBoardSettingsHeightPlaceholder]: 'Exemple: 5',
+  [M.ModalBoardHeightLabel]: 'Hauteur',
+  [M.ModalBoardHeightPlaceholder]: 'Exemple: 5',
 
-  [M.ModalBoardSettingsColorLabel]: 'Couleur',
-  [M.ModalBoardSettingsColorPlaceholder]: 'Exemple: #fff',
+  [M.ModalBoardColorLabel]: 'Couleur',
+  [M.ModalBoardColorPlaceholder]: 'Exemple: #fff',
 
-  [M.ModalBoardSettingsImageLabel]: 'Image',
-  [M.ModalBoardSettingsImagePlaceholder]: 'Exemple: workspace://test.png',
+  [M.ModalBoardImageLabel]: 'Image',
+  [M.ModalBoardImagePlaceholder]: 'Exemple: workspace://test.png',
 
-  [M.ModalBoardSettingsButtonCancel]: 'Annuler',
-  [M.ModalBoardSettingsButtonSave]: 'Sauvegarder',
+  [M.ModalBoardButtonCancel]: 'Annuler',
+  [M.ModalBoardButtonSave]: 'Sauvegarder',
+
+  // MODAL - BOARD DELETE
+  [M.ModalBoardDeleteTitle]: 'Delete a board',
+  [M.ModalBoardDeleteInfo]: '...',
+  [M.ModalBoardDeleteButtonCancel]: 'Cancel',
+  [M.ModalBoardDeleteButtonSave]: 'Delete',
 
   // MODAL - BUTTON SETTINGS
-  [M.ModalButtonSettingsCreate]: 'Créer un button',
-  [M.ModalButtonSettingsUpdate]: 'Modifier un button',
+  [M.ModalButtonCreate]: 'Créer un button',
+  [M.ModalButtonUpdate]: 'Modifier un button',
 
-  [M.ModalButtonSettingsTextLabel]: 'Texte',
-  [M.ModalButtonSettingsTextPlaceholder]: 'Exemple: Mute\nMic',
+  [M.ModalButtonTextLabel]: 'Texte',
+  [M.ModalButtonTextPlaceholder]: 'Exemple: Mute\nMic',
 
-  [M.ModalButtonSettingsColorLabel]: 'Couleur',
+  [M.ModalButtonColorLabel]: 'Couleur',
 
-  [M.ModalButtonSettingsImageInternalLabel]: 'Image',
+  [M.ModalButtonImageInternalLabel]: 'Image',
 
-  [M.ModalButtonSettingsImageExternalLabel]: 'Image URL',
+  [M.ModalButtonImageExternalLabel]: 'Image URL',
 
-  [M.ModalButtonSettingsTriggerLabel]: 'Trigger lié',
+  [M.ModalButtonTriggerLabel]: 'Trigger lié',
 
-  [M.ModalButtonSettingsButtonCancel]: 'Annuler',
-  [M.ModalButtonSettingsButtonSave]: 'Sauvegarder',
+  [M.ModalButtonButtonCancel]: 'Annuler',
+  [M.ModalButtonButtonSave]: 'Sauvegarder',
+
+  // MODAL - BUTTON DELETE
+  [M.ModalButtonDeleteTitle]: 'Delete a button',
+  [M.ModalButtonDeleteInfo]: '...',
+  [M.ModalButtonDeleteButtonCancel]: 'Cancel',
+  [M.ModalButtonDeleteButtonSave]: 'Delete',
 
   // BOARD
   [M.AppBoardTitle]: 'Board : ',

@@ -31,48 +31,60 @@ const messages = {
   AppSettingsWorkspaceCurrent: 'app.settings.workspace.current',
   AppSettingsWorkspaceChange: 'app.settings.workspace.change',
 
-  // MODAL - BOARD SETTINGS
-  ModalBoardSettingsCreate: 'modal.board.settings.create',
-  ModalBoardSettingsUpdate: 'modal.board.settings.update',
+  // MODAL - BOARD
+  ModalBoardCreate: 'modal.board.settings.create',
+  ModalBoardUpdate: 'modal.board.settings.update',
 
-  ModalBoardSettingsNameLabel: 'modal.board.settings.name.label',
-  ModalBoardSettingsNamePlaceholder: 'modal.board.setting.name.placeholder',
+  ModalBoardNameLabel: 'modal.board.settings.name.label',
+  ModalBoardNamePlaceholder: 'modal.board.setting.name.placeholder',
 
-  ModalBoardSettingsDescriptionLabel: 'modal.board.settings.description.label',
-  ModalBoardSettingsDescriptionPlaceholder: 'modal.board.settings.description.placeholder',
+  ModalBoardDescriptionLabel: 'modal.board.settings.description.label',
+  ModalBoardDescriptionPlaceholder: 'modal.board.settings.description.placeholder',
 
-  ModalBoardSettingsWidthLabel: 'modal.board.settings.width.label',
-  ModalBoardSettingsWidthPlaceholder: 'modal.board.settings.width.placeholder',
+  ModalBoardWidthLabel: 'modal.board.settings.width.label',
+  ModalBoardWidthPlaceholder: 'modal.board.settings.width.placeholder',
 
-  ModalBoardSettingsHeightLabel: 'modal.board.settings.height.label',
-  ModalBoardSettingsHeightPlaceholder: 'modal.board.settings.height.placeholder',
+  ModalBoardHeightLabel: 'modal.board.settings.height.label',
+  ModalBoardHeightPlaceholder: 'modal.board.settings.height.placeholder',
 
-  ModalBoardSettingsColorLabel: 'modal.board.settings.color.label',
-  ModalBoardSettingsColorPlaceholder: 'modal.board.settings.color.placeholder',
+  ModalBoardColorLabel: 'modal.board.settings.color.label',
+  ModalBoardColorPlaceholder: 'modal.board.settings.color.placeholder',
 
-  ModalBoardSettingsImageLabel: 'modal.board.settings.image.label',
-  ModalBoardSettingsImagePlaceholder: 'modal.board.settings.image.placeholder',
+  ModalBoardImageLabel: 'modal.board.settings.image.label',
+  ModalBoardImagePlaceholder: 'modal.board.settings.image.placeholder',
 
-  ModalBoardSettingsButtonCancel: 'modal.board.settings.button.cancel',
-  ModalBoardSettingsButtonSave: 'modal.board.settings.button.save',
+  ModalBoardButtonCancel: 'modal.board.settings.button.cancel',
+  ModalBoardButtonSave: 'modal.board.settings.button.save',
 
-  // MODAL - BUTTON SETTINGS
-  ModalButtonSettingsCreate: 'modal.button.settings.create',
-  ModalButtonSettingsUpdate: 'modal.button.settings.update',
+  // MODAL - BOARD DELETE
+  ModalBoardDeleteTitle: 'modal.board.delete.title',
+  ModalBoardDeleteInfo: 'modal.board.delete.info',
+  ModalBoardDeleteButtonCancel: 'modal.board.delete.cancel',
+  ModalBoardDeleteButtonSave: 'modal.board.delete.save',
 
-  ModalButtonSettingsTextLabel: 'modal.button.settings.text.label',
-  ModalButtonSettingsTextPlaceholder: 'modal.button.setting.text.placeholder',
+  // MODAL - BUTTON
+  ModalButtonCreate: 'modal.button.create',
+  ModalButtonUpdate: 'modal.button.update',
 
-  ModalButtonSettingsColorLabel: 'modal.button.settings.color.label',
+  ModalButtonTextLabel: 'modal.button.text.label',
+  ModalButtonTextPlaceholder: 'modal.button.setting.text.placeholder',
 
-  ModalButtonSettingsImageInternalLabel: 'modal.button.settings.image_internal.label',
+  ModalButtonColorLabel: 'modal.button.color.label',
 
-  ModalButtonSettingsImageExternalLabel: 'modal.button.settings.image_external.label',
+  ModalButtonImageInternalLabel: 'modal.button.image_internal.label',
 
-  ModalButtonSettingsTriggerLabel: 'modal.button.settings.trigger.label',
+  ModalButtonImageExternalLabel: 'modal.button.image_external.label',
 
-  ModalButtonSettingsButtonCancel: 'modal.button.settings.button.cancel',
-  ModalButtonSettingsButtonSave: 'modal.button.settings.button.save',
+  ModalButtonTriggerLabel: 'modal.button.trigger.label',
+
+  ModalButtonButtonCancel: 'modal.button.button.cancel',
+  ModalButtonButtonSave: 'modal.button.button.save',
+
+  // MODAL - BUTTON DELETE
+  ModalButtonDeleteTitle: 'modal.button.delete.title',
+  ModalButtonDeleteInfo: 'modal.button.delete.info',
+  ModalButtonDeleteButtonCancel: 'modal.button.delete.cancel',
+  ModalButtonDeleteButtonSave: 'modal.button.delete.save',
 
   // BOARD
   AppBoardTitle: 'app.board.title',

@@ -17,7 +17,7 @@ const requiredNumber = (value) => isNull(value) || value <= 0
 
 const parse = value => (isNaN(parseInt(value, 10)) ? "" : parseInt(value, 10));
 
-const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
+const FormModalBoard = ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
   const intl = useIntl()
   const idField = useField('id')
 
@@ -37,7 +37,7 @@ const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pr
   return (
     <form onSubmit={innerOnSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
       <DialogTitle style={{ display: 'flex' }}>
-        { idField.input.value && idField.input.value ? intl.formatMessage({ id: M.ModalBoardSettingsUpdate }) : intl.formatMessage({ id: M.ModalBoardSettingsCreate })}
+        { idField.input.value && idField.input.value ? intl.formatMessage({ id: M.ModalBoardUpdate }) : intl.formatMessage({ id: M.ModalBoardCreate })}
         <IconButton onClick={onClickClose}><CloseIcon /></IconButton>
       </DialogTitle>
       <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
@@ -47,9 +47,9 @@ const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pr
             <Field
               validate={required}
               name="name"
-              label={intl.formatMessage({ id: M.ModalBoardSettingsNameLabel })}
+              label={intl.formatMessage({ id: M.ModalBoardNameLabel })}
               component={InputField}
-              placeholder={intl.formatMessage({ id: M.ModalBoardSettingsNamePlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalBoardNamePlaceholder })}
             />
           </Grid>
           <Grid item xs={12} sm={2}>
@@ -57,9 +57,9 @@ const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pr
               parse={parse}
               validate={requiredNumber}
               name="width"
-              label={intl.formatMessage({ id: M.ModalBoardSettingsWidthLabel })}
+              label={intl.formatMessage({ id: M.ModalBoardWidthLabel })}
               component={InputField}
-              placeholder={intl.formatMessage({ id: M.ModalBoardSettingsWidthPlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalBoardWidthPlaceholder })}
               type='number'
             />
           </Grid>
@@ -68,35 +68,35 @@ const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pr
               parse={parse}
               validate={requiredNumber}
               name="height"
-              label={intl.formatMessage({ id: M.ModalBoardSettingsHeightLabel })}
+              label={intl.formatMessage({ id: M.ModalBoardHeightLabel })}
               component={InputField}
-              placeholder={intl.formatMessage({ id: M.ModalBoardSettingsHeightPlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalBoardHeightPlaceholder })}
               type='number'
             />
           </Grid>
           <Grid item xs={12} sm={2}>
             <Field
               name="color"
-              label={intl.formatMessage({ id: M.ModalBoardSettingsColorLabel })}
+              label={intl.formatMessage({ id: M.ModalBoardColorLabel })}
               component={ColorPicker}
-              placeholder={intl.formatMessage({ id: M.ModalBoardSettingsColorPlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalBoardColorPlaceholder })}
             />
           </Grid>
           <Grid container item xs={12}>
             <Field
               maxLength={255}
               name="description"
-              label={intl.formatMessage({ id: M.ModalBoardSettingsDescriptionLabel })}
+              label={intl.formatMessage({ id: M.ModalBoardDescriptionLabel })}
               component={TextAreaField}
-              placeholder={intl.formatMessage({ id: M.ModalBoardSettingsDescriptionPlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalBoardDescriptionPlaceholder })}
             />
           </Grid>
           <Grid item xs={12}>
             <Field
               name="image"
-              label={intl.formatMessage({ id: M.ModalBoardSettingsImageLabel })}
+              label={intl.formatMessage({ id: M.ModalBoardImageLabel })}
               component={FilePicker}
-              placeholder={intl.formatMessage({ id: M.ModalBoardSettingsImagePlaceholder })}
+              placeholder={intl.formatMessage({ id: M.ModalBoardImagePlaceholder })}
             />
           </Grid>
         </Grid>
@@ -104,14 +104,14 @@ const FormModalBoardSettings = ({ handleSubmit, onReset, setOpen, submitting, pr
 
       <DialogActions>
         <Button onClick={innerOnReset}>
-          {intl.formatMessage({ id: M.ModalBoardSettingsButtonCancel })}
+          {intl.formatMessage({ id: M.ModalBoardButtonCancel })}
         </Button>
         <Button variant="contained" color="primary" type="submit" disabled={submitting || pristine}>
-          {intl.formatMessage({ id: M.ModalBoardSettingsButtonSave })}
+          {intl.formatMessage({ id: M.ModalBoardButtonSave })}
         </Button>
       </DialogActions>
     </form>
   )
 }
 
-export default FormModalBoardSettings
+export default FormModalBoard
