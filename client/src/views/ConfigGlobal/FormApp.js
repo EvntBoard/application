@@ -1,9 +1,8 @@
 import React from 'react'
-import { Field, useField } from 'react-final-form'
+import { Field } from 'react-final-form'
 import { useIntl } from 'react-intl'
 import { isNull, isEmpty } from 'lodash'
-import { Button, DialogTitle, DialogContent, DialogActions, Typography, Grid, IconButton } from '@material-ui/core'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { Button, Grid } from '@material-ui/core'
 
 import M from '../../context/lang/messages/constants'
 import InputField from '../../components/Field/Input'

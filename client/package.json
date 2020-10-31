@@ -11,6 +11,7 @@
     "final-form-arrays": "^3.0.2",
     "grid-template-parser": "^0.3.2",
     "history": "^5.0.0",
+    "qrcode.react": "^1.0.0",
     "react": "^17.0.1",
     "react-ace": "^9.2.0",
     "react-color": "^2.18.1",

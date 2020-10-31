@@ -9,3 +9,11 @@ export const listenWebServerStatusChange = (callback) => {
 export const unlistenWebServerStatusChange = () => {
   window.app.webServer.unlistenStatusChange()
 }
+
+export const webServerOpenApp = () => {
+  window.app.webServer.openApp()
+}
+
+export const webServerGetUrl = async () => {
+  return await window.app.webServer.getUrl()
+}

@@ -1,14 +1,17 @@
+import { shell } from 'electron';
 import * as express from 'express';
 import * as ws from 'ws';
 import * as http from 'http';
 import * as path from 'path';
+import * as dns from 'dns'
+import * as os from 'os'
 import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
 import logger from '../LoggerService';
 import { router as apiRoute } from './Api';
-import {mainWindowsSend} from "../MainWindowService";
-import {WEB_SERVER} from "../../utils/ipc";
+import { mainWindowsSend } from '../MainWindowService';
+import { WEB_SERVER } from '../../utils/ipc';
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -39,17 +42,17 @@ export const init = () => {
     httpServer = app.listen(appConfig.port, appConfig.host);
 
     httpServer.on('listening', () => {
-      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, true)
-    })
+      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, true);
+    });
 
     httpServer.on('error', (...args) => {
-      logger.error(args)
-      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false)
+      logger.error(args);
+      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false);
     });
 
     httpServer.on('close', () => {
-      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false)
-    })
+      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false);
+    });
 
     httpServer.on('upgrade', (request, socket, head) => {
       wsServer.handleUpgrade(request, socket, head, (socket) => {
@@ -58,7 +61,7 @@ export const init = () => {
     });
   } catch (e) {
     logger.error(e);
-    mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false)
+    mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false);
   }
 };
 
@@ -72,3 +75,23 @@ export const reload = () => {
 export const getStatus = (): boolean => {
   return httpServer && httpServer.listening;
 };
+
+export const openApp = () => {
+  const appConfig = appGet();
+  dns.lookup(os.hostname(), (err, add) => {
+    shell.openExternal(`http://${add}:${appConfig.port}`)
+  });
+}
+
+export const getUrl = async () => {
+  const appConfig = appGet();
+  return new Promise<string>(((resolve, reject) => {
+    dns.lookup(os.hostname(), (err, add) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(`http://${add}:${appConfig.port}`)
+      }
+    });
+  }))
+}
