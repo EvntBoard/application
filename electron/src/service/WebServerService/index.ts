@@ -9,7 +9,7 @@ import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
 import logger from '../LoggerService';
-import { router as apiRoute } from './Api';
+import apiRoute from './api';
 import { mainWindowsSend } from '../MainWindowService';
 import { WEB_SERVER } from '../../utils/ipc';
 

@@ -1,23 +1,20 @@
 import React from 'react'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-import Provider from './context'
+import GlobalStyles from './components/GlobalStyles'
+import App from './views/App'
 
-import Home from './routes/Home'
+import store from './store';
 
-export default () => {
+const Root = () => {
   return (
-    <Provider>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="*">
-            404
-          </Route>
-        </Switch>
-      </Router>
+    <Provider store={store}>
+      <>
+        <GlobalStyles />
+        <App />
+      </>
     </Provider>
   )
 }
+
+export default Root
