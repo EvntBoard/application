@@ -16,7 +16,8 @@ import { langGet, langSet } from '../../store/feature/lang'
 import { themeGet, themeSet } from '../../store/feature/theme'
 import { configGet, configSet } from '../../store/feature/config'
 import { workspaceGet, workspaceSet } from '../../store/feature/workspace'
-import {workspaceOpenCurrent, workspaceSelectNew} from '../../service/workspaceService'
+import { getStatus as webServerGetStatus } from '../../store/feature/webserver'
+import { workspaceOpenCurrent, workspaceSelectNew } from '../../service/workspaceService'
 import M from '../../messages/constants'
 
 function Config() {
@@ -26,12 +27,14 @@ function Config() {
   const lang = useSelector(state => state.lang)
   const config = useSelector(state => state.config)
   const workspace = useSelector(state => state.workspace)
+  const webServerStatus = useSelector(state => state.webserver.connected)
 
   useEffect(() => {
     dispatch(langGet())
     dispatch(themeGet())
     dispatch(configGet())
     dispatch(workspaceGet())
+    dispatch(webServerGetStatus())
   }, [])
 
   const onOpenCurrentWorkspace = () => {
@@ -118,7 +121,7 @@ function Config() {
                 <Grid container item xs={12}>
                   <Typography style={{ flexGrow: 1 }} variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobal })}</Typography>
                   {
-                    true ? (
+                    webServerStatus ? (
                       <Chip label={intl.formatMessage({ id: M.AppSettingsGlobalOnline })} color='primary' />
                     ) : (
                       <Chip label={intl.formatMessage({ id: M.AppSettingsGlobalOffline })} />

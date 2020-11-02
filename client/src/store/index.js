@@ -2,15 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 
 import rootReducer from './reducer'
-import WebSocketMiddleware from './middleware/WebSocket'
 
 const logger = createLogger({
-  // ...options
 });
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(WebSocketMiddleware).concat(logger)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+  .concat(logger)
 })
 
 if (process.env.NODE_ENV === 'development' && module.hot) {

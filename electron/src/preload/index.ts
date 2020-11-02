@@ -56,10 +56,15 @@ contextBridge.exposeInMainWorld('app', {
     openApp: () => ipcRenderer.invoke(WEB_SERVER.OPEN),
     getUrl: () => ipcRenderer.invoke(WEB_SERVER.GET_URL),
     getStatus: () => ipcRenderer.invoke(WEB_SERVER.GET_STATUS),
-    listenStatusChange: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(WEB_SERVER.STATUS_CHANGE, callback);
+    onOpen: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(WEB_SERVER.ON_OPEN, callback);
     },
-    unlistenStatusChange: () => ipcRenderer.removeAllListeners(WEB_SERVER.STATUS_CHANGE),
+    onClose: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(WEB_SERVER.ON_CLOSE, callback);
+    },
+    onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(WEB_SERVER.ON_ERROR, callback);
+    },
   },
   workspace: {
     getCurrent: () => ipcRenderer.invoke(WORKSPACE.GET_CURRENT),

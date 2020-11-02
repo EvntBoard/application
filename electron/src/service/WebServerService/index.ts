@@ -42,16 +42,25 @@ export const init = () => {
     httpServer = app.listen(appConfig.port, appConfig.host);
 
     httpServer.on('listening', () => {
-      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, true);
+      mainWindowsSend(WEB_SERVER.ON_OPEN, {
+        connected: true,
+        error: null
+      });
     });
 
-    httpServer.on('error', (...args) => {
-      logger.error(args);
-      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false);
+    httpServer.on('error', (e: Error) => {
+      logger.error(e);
+      mainWindowsSend(WEB_SERVER.ON_ERROR, {
+        connected: false,
+        error: e.name
+      });
     });
 
     httpServer.on('close', () => {
-      mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false);
+      mainWindowsSend(WEB_SERVER.ON_CLOSE, {
+        connected: false,
+        error: null
+      });
     });
 
     httpServer.on('upgrade', (request, socket, head) => {
@@ -61,7 +70,10 @@ export const init = () => {
     });
   } catch (e) {
     logger.error(e);
-    mainWindowsSend(WEB_SERVER.STATUS_CHANGE, false);
+    mainWindowsSend(WEB_SERVER.ON_ERROR, {
+      connected: false,
+      error: e.name
+    });
   }
 };
 

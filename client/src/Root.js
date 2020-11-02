@@ -8,12 +8,18 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import allMessages from './messages'
 import routes from './routes'
 import { darkTheme, lightTheme } from './themes'
+import useOnData from './utils/useOnData'
 
 const Root = () => {
   const currentLocale = useSelector(state => state.lang)
   const currentTheme = useSelector(state => state.theme)
   const routing = useRoutes(routes)
+
   const messages = useMemo(() => allMessages[currentLocale], [currentLocale])
+
+  // reactive data :)
+  useOnData()
+
   return (
     <MuiThemeProvider theme={createMuiTheme(currentTheme === 'light' ? lightTheme : darkTheme)}>
       <CssBaseline />

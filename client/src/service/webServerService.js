@@ -2,12 +2,16 @@ export const webServerGetStatus = async () => {
   return await window.app.webServer.getStatus()
 }
 
-export const listenWebServerStatusChange = (callback) => {
-  window.app.webServer.listenStatusChange(callback)
+export const webServerOnOpen = (callback) => {
+  window.app.webServer.onOpen(callback)
 }
 
-export const unlistenWebServerStatusChange = () => {
-  window.app.webServer.unlistenStatusChange()
+export const webServerOnClose = (callback) => {
+  window.app.webServer.onClose(callback)
+}
+
+export const webServerOnError = (callback) => {
+  window.app.webServer.onError(callback)
 }
 
 export const webServerOpenApp = () => {
