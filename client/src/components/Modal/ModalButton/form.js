@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl'
 import {Button, DialogTitle, DialogContent, DialogActions, IconButton, Grid, Typography} from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
-import M from '../../../context/lang/messages/constants'
+import M from '../../../messages/constants'
 import { triggerFindAll } from '../../../service/triggerService'
 import TextArea from '../../Field/TextArea'
 import ColorPicker from '../../Field/ColorPicker'

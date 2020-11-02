@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { Link as MuiLink } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 
-import M from '../../context/lang/messages/constants'
+import M from '../../messages/constants'
 
 const useStyles = makeStyles((theme) => ({
   header: {

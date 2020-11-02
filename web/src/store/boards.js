@@ -1,21 +1,30 @@
-import { createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const fetchUserById = createAsyncThunk(
-  'users/fetchByIdStatus',
-  async (userId, { getState, requestId }) => {
-    const { currentRequestId, loading } = getState().users
-    if (loading !== 'pending' || requestId !== currentRequestId) {
-      return
+  'users/update',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await userAPI.updateById(id, fields)
+      return response.data.user
+    } catch (err) {
+      let error = err // cast the error for access
+      if (!error.response) {
+        throw err
+      }
+      // We got validation errors, let's return those so we can reference in our component and set form errors
+      return rejectWithValue(error.response.data)
     }
-    // const response = await userAPI.userAPI(userId)
-    return {}
   }
 )
 
 
 const todosSlice = createSlice({
-  name: 'todos',
-  initialState: [],
+  name: 'boards',
+  initialState: {
+    boards: [],
+    loading: false,
+    error: {},
+  },
   reducers: {
     addTodo(state, action) {
       const { id, text } = action.payload

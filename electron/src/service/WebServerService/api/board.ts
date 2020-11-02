@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { boardFindAll, boardFindOne } from '../../BoardService'
+import { boardFindAll, boardFindOne } from '../../BoardService';
 
 const router = express.Router();
 
@@ -12,4 +12,4 @@ router.get('/:id', (req, res) => {
   res.send(boardFindOne(req.params.id));
 });
 
-export default router
+export default router;

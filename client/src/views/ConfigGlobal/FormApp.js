@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 import { isNull, isEmpty } from 'lodash'
 import { Button, Grid } from '@material-ui/core'
 
-import M from '../../context/lang/messages/constants'
+import M from '../../messages/constants'
 import InputField from '../../components/Field/Input'
 
 const required = (value) => isNull(value) || isEmpty(value)

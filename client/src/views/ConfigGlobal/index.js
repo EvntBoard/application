@@ -2,59 +2,36 @@ import React, {useEffect, useState} from 'react'
 import { useIntl} from 'react-intl'
 import { size, get } from 'lodash'
 import { Form } from 'react-final-form'
+import { useDispatch, useSelector } from 'react-redux'
 
-import {Button, Chip, Container, Grid} from '@material-ui/core'
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { Button, Chip, Container, Grid } from '@material-ui/core'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 
 import FormApp from './FormApp'
-import {appConfigGet, appConfigSet} from '../../service/appConfigService'
-import {useThemeContext} from '../../context/theme'
-import {useLangContext} from '../../context/lang'
-import {
-  workspaceGetCurrent,
-  workspaceOpenCurrent,
-  workspaceSelectNew, workspaceSwitch
-} from '../../service/workspaceService'
-import {
-  listenWebServerStatusChange,
-  unlistenWebServerStatusChange,
-  webServerGetStatus
-} from '../../service/webServerService'
-
-import M from '../../context/lang/messages/constants'
+import { langGet, langSet } from '../../store/feature/lang'
+import { themeGet, themeSet } from '../../store/feature/theme'
+import { configGet, configSet } from '../../store/feature/config'
+import { workspaceGet, workspaceSet } from '../../store/feature/workspace'
+import {workspaceOpenCurrent, workspaceSelectNew} from '../../service/workspaceService'
+import M from '../../messages/constants'
 
 function Config() {
   const intl = useIntl()
-  const { theme, setTheme } = useThemeContext()
-  const { locale, setLocale } = useLangContext()
-  const [ appConfig, setAppConfig ] = useState({ host: "", port: "", password: "" })
-  const [ currentWorkspace, setCurrentWorkspace ] = useState("")
-  const [ webServerStatus, setWebServerStatus ] = useState(false)
+  const dispatch = useDispatch()
+  const theme = useSelector(state => state.theme)
+  const lang = useSelector(state => state.lang)
+  const config = useSelector(state => state.config)
+  const workspace = useSelector(state => state.workspace)
 
   useEffect(() => {
-    appConfigGet().then((data) => {
-      setAppConfig(data)
-    })
-
-    workspaceGetCurrent().then((workspace) => {
-      setCurrentWorkspace(workspace)
-    })
-
-    webServerGetStatus().then((data) => {
-      setWebServerStatus(data)
-    })
-
-    listenWebServerStatusChange((evt, data) => {
-      setWebServerStatus(data)
-    })
-
-    return () => {
-      unlistenWebServerStatusChange()
-    }
+    dispatch(langGet())
+    dispatch(themeGet())
+    dispatch(configGet())
+    dispatch(workspaceGet())
   }, [])
 
   const onOpenCurrentWorkspace = () => {
@@ -66,17 +43,22 @@ function Config() {
       if (!canceled && size(filePaths) > 0) {
         const newWorkspace = get(filePaths, 0)
         if (newWorkspace) {
-          workspaceSwitch(newWorkspace).then((workspace) => {
-            setCurrentWorkspace(workspace)
-          })
+          dispatch(workspaceSet(newWorkspace))
         }
       }
     })
   }
 
-  const handleSubmit = async (data) => {
-    const result = await appConfigSet(data)
-    setAppConfig(result)
+  const onChangeTheme = (theme) => {
+    dispatch(themeSet(theme))
+  }
+
+  const onChangeLang = (lang) => {
+    dispatch(langSet(lang))
+  }
+
+  const onChangeConfig = async (data) => {
+    dispatch(configSet(data))
   }
 
   return (
@@ -87,10 +69,9 @@ function Config() {
             <CardContent style={{ display: "flex", flexDirection: "column" }}>
               <Typography variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsLanguage })}</Typography>
               <Select
-                label={<div>Rea</div>}
                 variant='filled'
-                value={locale}
-                onChange={(e) => setLocale(e.target.value)}
+                value={lang}
+                onChange={(e) => onChangeLang(e.target.value)}
               >
                 <MenuItem value='fr'>{intl.formatMessage({ id: M.AppSettingsLanguageFR })}</MenuItem>
                 <MenuItem value='en'>{intl.formatMessage({ id: M.AppSettingsLanguageEN })}</MenuItem>
@@ -106,7 +87,7 @@ function Config() {
                 label='current'
                 variant='filled'
                 value={theme}
-                onChange={(e) => setTheme(e.target.value)}
+                onChange={(e) => onChangeTheme(e.target.value)}
               >
                 <MenuItem value='dark'>{intl.formatMessage({ id: M.AppSettingsThemeDark })}</MenuItem>
                 <MenuItem value='light'>{intl.formatMessage({ id: M.AppSettingsThemeLight })}</MenuItem>
@@ -122,7 +103,7 @@ function Config() {
                 <Typography style={{ flexGrow: 1, alignSelf: 'center' }}>
                   {intl.formatMessage({ id: M.AppSettingsWorkspaceCurrent })} :
                   <code style={{ cursor: 'pointer' }} onClick={onOpenCurrentWorkspace}>
-                    {currentWorkspace && currentWorkspace.path}
+                    {workspace && workspace.path}
                   </code>
                 </Typography>
                 <Button  variant='contained' onClick={onChangeWorkspace} >{intl.formatMessage({ id: M.AppSettingsWorkspaceChange })}</Button>
@@ -137,7 +118,7 @@ function Config() {
                 <Grid container item xs={12}>
                   <Typography style={{ flexGrow: 1 }} variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobal })}</Typography>
                   {
-                    webServerStatus ? (
+                    true ? (
                       <Chip label={intl.formatMessage({ id: M.AppSettingsGlobalOnline })} color='primary' />
                     ) : (
                       <Chip label={intl.formatMessage({ id: M.AppSettingsGlobalOffline })} />
@@ -149,8 +130,8 @@ function Config() {
                 </Grid>
               </Grid>
               <Form
-                onSubmit={handleSubmit}
-                initialValues={appConfig}
+                onSubmit={onChangeConfig}
+                initialValues={config}
                 component={FormApp}
               />
             </CardContent>

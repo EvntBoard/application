@@ -1,7 +1,7 @@
 import * as express from 'express';
 
-import boardRouter from './board'
-import buttonRouter from './button'
+import boardRouter from './board';
+import buttonRouter from './button';
 
 const router = express.Router();
 
@@ -12,4 +12,4 @@ router.get('/', (req, res) => {
 router.use('/board', boardRouter);
 router.use('/button', buttonRouter);
 
-export default router
+export default router;

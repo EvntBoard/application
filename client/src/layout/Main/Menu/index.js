@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'
 import { useIntl } from 'react-intl'
-import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -16,19 +17,22 @@ import HomeIcon from '@material-ui/icons/Home';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 
-import M from '../../../context/lang/messages/constants'
-import { useMenuContext } from '../../../context/menu'
-
+import { menuSet, menuGet } from '../../../store/feature/menu'
+import M from '../../../messages/constants'
 import Logo from '../../../assets/logo.png'
-
 import { useStyles } from './styles'
 
 const Menu = () => {
-  const classes = useStyles();
+  const dispatch = useDispatch()
+  const open = useSelector(state => state.menu)
+  const classes = useStyles()
   const intl = useIntl()
-  const { menu: open, setMenu } = useMenuContext()
   const { pathname } = useLocation()
   const [activeItem, setActiveItem] = useState('home')
+
+  useEffect(() => {
+    dispatch(menuGet())
+  }, [])
 
   useEffect(() => {
     let pathnameNormalize = pathname.split('/').filter((i) => i !== null && i !== "")[0]
@@ -41,7 +45,7 @@ const Menu = () => {
   }, [pathname])
 
   const handleDrawerClose = () => {
-    setMenu(!open);
+    dispatch(menuSet(!open));
   };
 
   return (

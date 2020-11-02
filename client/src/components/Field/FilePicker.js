@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useIntl } from 'react-intl'
 
-import M from '../../context/lang/messages/constants'
+import M from '../../messages/constants'
 
 const FieldFilePicker = ({ label, input, meta: { touched, error }, acceptedFormat = [] }) => {
   const intl = useIntl()

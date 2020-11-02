@@ -11,7 +11,7 @@ const messagesEN = {
   [M.FieldDropzoneDropHere]: 'Drop the files here ...',
   [M.FieldDropzoneDragOrClick]: 'Drag \'n\' drop some files here, or click to select files',
 
-  // SETTINGGS
+  // SETTINGS
   [M.AppSettingsMenuModule]: 'Module',
   [M.AppSettingsMenuGlobal]: 'Global',
 

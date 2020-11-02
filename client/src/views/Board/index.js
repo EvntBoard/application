@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import PublishIcon from '@material-ui/icons/Publish';
-import M from '../../context/lang/messages/constants';
+import M from '../../messages/constants';
 
 import Grid from './Grid'
 import Preview from './Preview'

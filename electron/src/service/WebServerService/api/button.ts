@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { buttonFindAll, buttonFindOne, buttonFindAllByBoardId } from '../../ButtonService'
+import { buttonFindAll, buttonFindOne, buttonFindAllByBoardId } from '../../ButtonService';
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.get('/board/:id', (req, res) => {
   res.send(buttonFindAllByBoardId(req.params.id));
 });
 
-export default router
+export default router;

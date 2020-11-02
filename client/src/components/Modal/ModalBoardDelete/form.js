@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { Button, DialogTitle, DialogContent, DialogActions, IconButton } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
-import M from '../../../context/lang/messages/constants'
+import M from '../../../messages/constants'
 
 const FormModalBoardDelete = ({ handleSubmit, onReset, setOpen, submitting }) => {
   const intl = useIntl()

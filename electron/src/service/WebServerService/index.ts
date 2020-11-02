@@ -3,8 +3,8 @@ import * as express from 'express';
 import * as ws from 'ws';
 import * as http from 'http';
 import * as path from 'path';
-import * as dns from 'dns'
-import * as os from 'os'
+import * as dns from 'dns';
+import * as os from 'os';
 import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
@@ -76,22 +76,26 @@ export const getStatus = (): boolean => {
   return httpServer && httpServer.listening;
 };
 
-export const openApp = () => {
+export const openApp = async (): Promise<void> => {
   const appConfig = appGet();
-  dns.lookup(os.hostname(), (err, add) => {
-    shell.openExternal(`http://${add}:${appConfig.port}`)
-  });
-}
+  const ip = await getLocalIp();
+  await shell.openExternal(`http://${ip}:${appConfig.port}`);
+};
 
-export const getUrl = async () => {
+export const getUrl = async (): Promise<String> => {
   const appConfig = appGet();
-  return new Promise<string>(((resolve, reject) => {
+  const ip = await getLocalIp();
+  return `http://${ip}:${appConfig.port}`;
+};
+
+const getLocalIp = async (): Promise<string> => {
+  return new Promise<string>((resolve, reject) => {
     dns.lookup(os.hostname(), (err, add) => {
       if (err) {
-        reject(err)
+        reject(err);
       } else {
-        resolve(`http://${add}:${appConfig.port}`)
+        resolve(add);
       }
     });
-  }))
-}
+  });
+};

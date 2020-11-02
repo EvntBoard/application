@@ -5,7 +5,7 @@ import { isNull, isEmpty } from 'lodash'
 import { Button, DialogTitle, DialogContent, DialogActions, Typography, Grid, IconButton } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
-import M from '../../../context/lang/messages/constants'
+import M from '../../../messages/constants'
 import InputField from '../../Field/Input'
 import TextAreaField from '../../Field/TextArea'
 import ColorPicker from '../../Field/ColorPicker'
