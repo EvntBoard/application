@@ -7,6 +7,8 @@ import {
 } from './TriggerManagerService';
 
 import { reload as reloadWebServer } from './WebServerService';
+import { mainWindowsSend } from './MainWindowService';
+import { WORKSPACE } from '../utils/ipc';
 
 export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> => {
   database.get('workspaces').find({ current: true }).assign({ current: false }).write();
@@ -26,6 +28,8 @@ export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> 
   await initLocalDB();
   await initTriggerManager();
   await reloadWebServer();
+
+  mainWindowsSend(WORKSPACE.ON_CHANGE, {});
 
   return newWorkspace;
 };

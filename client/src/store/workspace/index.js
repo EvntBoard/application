@@ -5,6 +5,8 @@ export * as selectors from './selector'
 
 const PATH = 'WORKSPACE'
 
+export const workspaceOnChange = createAction(`${PATH}_ON_CHANGE`)
+
 export const workspaceGet = createAction(`${PATH}_GET`)
 export const workspaceGetSuccess = createAction(`${PATH}_GET_SUCCESS`)
 export const workspaceGetFailed = createAction(`${PATH}_GET_FAILED`)

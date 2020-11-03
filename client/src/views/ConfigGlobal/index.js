@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect } from 'react'
 import { useIntl} from 'react-intl'
 import { size, get } from 'lodash'
 import { Form } from 'react-final-form'
