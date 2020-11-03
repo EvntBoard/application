@@ -26,6 +26,7 @@ export interface IBoard {
   id: string;
   name: string;
   description: string;
+  current: boolean;
   image: string;
   color: string;
   width: number;

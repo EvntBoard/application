@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { database } from '../database/local';
 import { IBoard } from '../types';
 
+import { buttonDeleteForBoard } from './ButtonService';
 import logger from './LoggerService';
 
 export const boardCreate = (board: IBoard): IBoard => {
@@ -37,5 +38,6 @@ export const boardUpdate = (board: Partial<IBoard>): IBoard => {
 
 export const boardDelete = (board: Partial<IBoard>): void => {
   logger.debug('Board Service DELETE');
+  buttonDeleteForBoard(board)
   database.get('boards').remove({ id: board.id }).write();
 };

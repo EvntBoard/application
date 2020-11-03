@@ -58,8 +58,9 @@ const GridManager = () => {
   }
 
   const onDelete = async (data) => {
-    handleClose()
     dispatch(boardDelete(data))
+    setOpenDelete(false)
+    handleClose()
   }
 
   const onReset = () => {

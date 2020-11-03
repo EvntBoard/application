@@ -1,5 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { remove } from 'lodash'
+import { filter } from 'lodash'
 
 export { saga as buttonSaga } from './saga'
 export * as selectors from './selector'
@@ -101,7 +101,7 @@ const reducer = createReducer(INITIAL_STATE, {
     state.buttonUpdateLoading = false
     state.buttonUpdateSuccess = true
     state.buttons = [
-      ...remove(state.buttons, (i) => i === action.payload.id),
+      ...filter(state.buttons, i => i.id !== action.payload.id),
       action.payload
     ]
   },
@@ -121,7 +121,7 @@ const reducer = createReducer(INITIAL_STATE, {
   [buttonDeleteSuccess]: (state, action) => {
     state.buttonDeleteLoading = false
     state.buttonDeleteSuccess = true
-    state.buttons = remove(state.buttons, (i) => i === action.payload.id)
+    state.buttons = filter(state.buttons, i => i.id !== action.payload.id)
   },
   [buttonDeleteFailed]: (state, action) => {
     state.buttonDeleteLoading = false

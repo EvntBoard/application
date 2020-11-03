@@ -1,5 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { remove } from 'lodash'
+import { filter } from 'lodash'
 
 export { saga as boardSaga } from './saga'
 export * as selectors from './selector'
@@ -109,7 +109,7 @@ const reducer = createReducer(INITIAL_STATE, {
     state.boardUpdateLoading = false
     state.boardUpdateSuccess = true
     state.boards = [
-      ...remove(state.boards, (i) => i === action.payload.id),
+      ...filter(state.boards, i => i.id !== action.payload.id),
       action.payload
     ]
   },
@@ -129,7 +129,7 @@ const reducer = createReducer(INITIAL_STATE, {
   [boardDeleteSuccess]: (state, action) => {
     state.boardDeleteLoading = false
     state.boardDeleteSuccess = true
-    state.boards = remove(state.boards, (i) => i === action.payload.id)
+    state.boards = filter(state.boards, i => i.id !== action.payload.id)
   },
   [boardDeleteFailed]: (state, action) => {
     state.boardDeleteLoading = false

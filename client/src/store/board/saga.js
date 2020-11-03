@@ -1,4 +1,4 @@
-import { put, takeEvery, all, call } from 'redux-saga/effects'
+import { put, takeEvery, all, call, select } from 'redux-saga/effects'
 import { first } from 'lodash'
 
 import {
@@ -27,9 +27,9 @@ import {
 function* onBoardFindAll() {
   try {
     const data = yield call(IPCboardFindAll)
-    const current = first(data)
     yield put(boardFindAllSuccess(data))
-    yield put(boardChangeCurrentBoard(current))
+    // TODO CURRENT BOARD
+    yield put(boardChangeCurrentBoard(first(data)))
   } catch (e) {
     yield put(boardFindAllFailed(e))
   }
@@ -39,6 +39,7 @@ function* onBoardCreate({ payload }) {
   try {
     const data = yield call(IPCboardCreate, payload)
     yield put(boardCreateSuccess(data))
+    yield put(boardChangeCurrentBoard(data))
   } catch (e) {
     yield put(boardCreateFailed(e))
   }
@@ -57,6 +58,9 @@ function* onBoardDelete({ payload }) {
   try {
     yield call(IPCboardDelete, payload)
     yield put(boardDeleteSuccess(payload))
+    // TODO CURRENT BOARD
+    const allBoards = yield select((state) => state.board.boards)
+    yield put(boardChangeCurrentBoard(first(allBoards)))
   } catch (e) {
     yield put(boardDeleteFailed(e))
   }

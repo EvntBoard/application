@@ -1,5 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { remove } from 'lodash'
+import { filter } from 'lodash'
 
 export { saga as triggerSaga } from './saga'
 export * as selectors from './selector'
@@ -101,7 +101,7 @@ const reducer = createReducer(INITIAL_STATE, {
     state.triggerUpdateLoading = false
     state.triggerUpdateSuccess = true
     state.triggers = [
-      ...remove(state.triggers, (i) => i === action.payload.id),
+      ...filter(state.triggers, i => i.id !== action.payload.id),
       action.payload
     ]
   },
@@ -121,7 +121,7 @@ const reducer = createReducer(INITIAL_STATE, {
   [triggerDeleteSuccess]: (state, action) => {
     state.triggerDeleteLoading = false
     state.triggerDeleteSuccess = true
-    state.triggers = remove(state.triggers, (i) => i === action.payload.id)
+    state.triggers = filter(state.triggers, i => i.id !== action.payload.id)
   },
   [triggerDeleteFailed]: (state, action) => {
     state.triggerDeleteLoading = false

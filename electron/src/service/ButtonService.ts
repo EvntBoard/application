@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 import { database } from '../database/local';
-import { IButton } from '../types';
+import {IBoard, IButton} from '../types';
 import generateStringId from '../utils/generateStringId';
 import logger from './LoggerService';
 import { workspaceGetCurrent } from './WorkspaceService';
@@ -74,4 +74,9 @@ export const buttonUpdate = (button: Partial<IButton>): IButton => {
 export const buttonDelete = (button: Partial<IButton>): void => {
   logger.debug('Button Service DELETE');
   database.get('buttons').remove({ id: button.id }).write();
+};
+
+export const buttonDeleteForBoard = (board: Partial<IBoard>): void => {
+  logger.debug('Button Service DELETE for board');
+  database.get('buttons').remove({ idBoard: board.id }).write();
 };
