@@ -1,5 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { filter } from 'lodash'
+import { filter, map } from 'lodash'
 
 export { saga as boardSaga } from './saga'
 export * as selectors from './selector'
@@ -19,6 +19,10 @@ export const boardCreateFailed = createAction(`${PATH}_CREATE_FAILED`)
 export const boardUpdate = createAction(`${PATH}_UPDATE`)
 export const boardUpdateSuccess = createAction(`${PATH}_UPDATE_SUCCESS`)
 export const boardUpdateFailed = createAction(`${PATH}_UPDATE_FAILED`)
+
+export const boardSetDefault = createAction(`${PATH}_SET_DEFAULT`)
+export const boardSetDefaultSuccess = createAction(`${PATH}_SET_DEFAULT_SUCCESS`)
+export const boardSetDefaultFailed = createAction(`${PATH}_SET_DEFAULT_FAILED`)
 
 export const boardDelete = createAction(`${PATH}_DELETE`)
 export const boardDeleteSuccess = createAction(`${PATH}_DELETE_SUCCESS`)
@@ -54,6 +58,12 @@ const INITIAL_STATE = {
   boardDeleteSuccess: false,
   boardDeleteFailed: false,
   boardDeleteError: {},
+
+  // setDefault
+  boardSetDefaultLoading: false,
+  boardSetDefaultSuccess: false,
+  boardSetDefaultFailed: false,
+  boardSetDefaultError: {},
 }
 
 const reducer = createReducer(INITIAL_STATE, {
@@ -117,6 +127,28 @@ const reducer = createReducer(INITIAL_STATE, {
     state.boardUpdateLoading = false
     state.boardUpdateFailed = true
     state.boardUpdateError = action.payload
+  },
+
+  // SET DEFAULT
+  [boardSetDefault]: (state) => {
+    state.boardSetDefaultLoading = true
+    state.boardSetDefaultSuccess = false
+    state.boardSetDefaultFailed = false
+    state.boardSetDefaultError = {}
+  },
+  [boardSetDefaultSuccess]: (state, action) => {
+    state.boardSetDefaultLoading = false
+    state.boardSetDefaultSuccess = true
+    //
+    state.boards = [
+      ...map(filter(state.boards, i => i.id !== action.payload.id), (i) => ({...i, default: false})),
+      action.payload
+    ]
+  },
+  [boardSetDefaultFailed]: (state, action) => {
+    state.boardSetDefaultLoading = false
+    state.boardSetDefaultFailed = true
+    state.boardSetDefaultError = action.payload
   },
 
   // DELETE

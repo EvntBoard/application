@@ -38,6 +38,17 @@ export const boardUpdate = (board: Partial<IBoard>): IBoard => {
 
 export const boardDelete = (board: Partial<IBoard>): void => {
   logger.debug('Board Service DELETE');
-  buttonDeleteForBoard(board)
+  buttonDeleteForBoard(board);
   database.get('boards').remove({ id: board.id }).write();
+};
+
+export const boardSetDefault = (board: Partial<IBoard>): IBoard => {
+  logger.debug('Board Service SET_DEFAULT');
+  // reset current
+  database.get('boards').find({ default: true }).assign({ default: false }).write();
+
+  // set current to new :)
+  database.get('boards').find({ id: board.id }).assign({ default: true }).write();
+
+  return database.get('boards').find({ default: true }).value();
 };

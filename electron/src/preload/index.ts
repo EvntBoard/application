@@ -34,6 +34,7 @@ contextBridge.exposeInMainWorld('app', {
     findAll: () => ipcRenderer.invoke(BOARD.FIND_ALL),
     findOne: (id: string) => ipcRenderer.invoke(BOARD.FIND_ONE, id),
     update: (data: IBoard) => ipcRenderer.invoke(BOARD.UPDATE, data),
+    setDefault: (data: IBoard) => ipcRenderer.invoke(BOARD.SET_DEFAULT, data),
     delete: (data: IBoard) => ipcRenderer.invoke(BOARD.DELETE, data),
   },
   theme: {

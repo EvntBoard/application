@@ -1,6 +1,13 @@
 import { ipcMain } from 'electron';
 
-import { boardUpdate, boardDelete, boardCreate, boardFindAll, boardFindOne } from '../BoardService';
+import {
+  boardUpdate,
+  boardDelete,
+  boardCreate,
+  boardFindAll,
+  boardFindOne,
+  boardSetDefault,
+} from '../BoardService';
 import { BOARD } from '../../utils/ipc';
 import { IBoard } from '../../types';
 
@@ -12,5 +19,6 @@ export const init = () => {
   ipcMain.handle(BOARD.FIND_ALL, () => boardFindAll());
   ipcMain.handle(BOARD.FIND_ONE, (_, id: string) => boardFindOne(id));
   ipcMain.handle(BOARD.UPDATE, (_, data: IBoard) => boardUpdate(data));
+  ipcMain.handle(BOARD.SET_DEFAULT, (_, data: IBoard) => boardSetDefault(data));
   ipcMain.handle(BOARD.DELETE, (evt, data: IBoard) => boardDelete(data));
 };

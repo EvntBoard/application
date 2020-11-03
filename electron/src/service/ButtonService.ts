@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 import { database } from '../database/local';
-import {IBoard, IButton} from '../types';
+import { IBoard, IButton } from '../types';
 import generateStringId from '../utils/generateStringId';
 import logger from './LoggerService';
 import { workspaceGetCurrent } from './WorkspaceService';

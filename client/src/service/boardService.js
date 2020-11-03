@@ -14,6 +14,10 @@ export const boardUpdate = async (board) => {
   return await window.app.board.update(board)
 }
 
+export const boardSetDefault = async (board) => {
+  return await window.app.board.setDefault(board)
+}
+
 export const boardDelete = async (board) => {
   return await window.app.board.delete(board)
 }

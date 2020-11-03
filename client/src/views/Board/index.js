@@ -16,10 +16,31 @@ import Preview from './Preview'
 import ModalBoard from '../../components/Modal/ModalBoard'
 import ModalBoardDelete from '../../components/Modal/ModalBoardDelete'
 
-import { boardFindAll, boardDelete, boardCreate, boardUpdate, boardChangeCurrentBoard, selectors as boardSelectors } from '../../store/board'
+import {
+  boardFindAll,
+  boardDelete,
+  boardCreate,
+  boardUpdate,
+  boardChangeCurrentBoard,
+  selectors as boardSelectors,
+  boardSetDefault
+} from '../../store/board'
 import { buttonFindAll, selectors as btnSelectors } from '../../store/button'
 
 import './assets/style.scss'
+
+const SAMPLE_BOARD = {
+  id: null,
+  name: '',
+  description: '',
+  default: false,
+  image: null,
+  color: null,
+  width: 5,
+  height: 5,
+  createdAt: null,
+  updatedAt: null,
+}
 
 const GridManager = () => {
   const intl = useIntl()
@@ -50,9 +71,9 @@ const GridManager = () => {
 
   const onSubmit = async (data) => {
     if (data.id) {
-      dispatch(boardUpdate(data))
+      dispatch(boardUpdate({...SAMPLE_BOARD, ...data}))
     } else {
-      dispatch(boardCreate(data))
+      dispatch(boardCreate({...SAMPLE_BOARD, ...data}))
     }
     setOpen(false)
   }
@@ -77,6 +98,11 @@ const GridManager = () => {
     setOpen(true)
   }
 
+  const handleBoardUpdateDefault = () => {
+    handleClose()
+    dispatch(boardSetDefault(currentBoard))
+  }
+
   const handleBoardDelete = () => {
     handleClose()
     setOpenDelete(true)
@@ -85,15 +111,8 @@ const GridManager = () => {
   const handleAddBoard = () => {
     handleClose()
     dispatch(boardCreate({
-      id: null,
+      ...SAMPLE_BOARD,
       name: `Board #${size(boards)}`,
-      description: "",
-      image: null,
-      color: null,
-      width: 5,
-      height: 5,
-      createdAt: null,
-      updatedAt: null,
     }))
   }
 
@@ -126,7 +145,7 @@ const GridManager = () => {
             >
               <MenuItem onClick={handleAddBoard}><AddIcon /> {intl.formatMessage({ id: M.AppBoardActionCreate })}</MenuItem>
               <Divider />
-              <MenuItem disabled onClick={handleBoardUpdate}><PublishIcon /> {intl.formatMessage({ id: M.AppBoardActionSetDefault })}</MenuItem>
+              <MenuItem disabled={currentBoard.default} onClick={handleBoardUpdateDefault}><PublishIcon /> {intl.formatMessage({ id: M.AppBoardActionSetDefault })}</MenuItem>
               <MenuItem onClick={handleBoardUpdate}><EditIcon /> {intl.formatMessage({ id: M.AppBoardActionUpdate })}</MenuItem>
               <MenuItem disabled={size(boards) <= 1} onClick={handleBoardDelete}><DeleteIcon /> {intl.formatMessage({ id: M.AppBoardActionDelete })}</MenuItem>
               <Divider />
@@ -137,7 +156,7 @@ const GridManager = () => {
                     handleSwitchBoard(i)
                   }
                   return (
-                    <MenuItem key={i.id} onClick={innerHandleSwitchBoard}><GridOnIcon/> {i.name}</MenuItem>
+                    <MenuItem key={i.id} onClick={innerHandleSwitchBoard} selected={i?.id === currentBoard?.id}><GridOnIcon color={i.default ? 'primary' : 'default'}/> {i.name}</MenuItem>
                   )
                 })
               }

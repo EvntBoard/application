@@ -27,6 +27,7 @@ export default {
         id: uuid(),
         color: null,
         name: 'First board',
+        default: true,
         image: null,
         description: 'My default board',
         height: 5,

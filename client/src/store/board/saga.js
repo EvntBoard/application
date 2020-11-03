@@ -1,11 +1,12 @@
 import { put, takeEvery, all, call, select } from 'redux-saga/effects'
-import { first } from 'lodash'
+import { first, find } from 'lodash'
 
 import {
   boardFindAll as IPCboardFindAll,
   boardCreate as IPCboardCreate,
   boardDelete as IPCboardDelete,
   boardUpdate as IPCboardUpdate,
+  boardSetDefault as IPCboardSetDefault,
 } from '../../service/boardService'
 
 import {
@@ -22,16 +23,40 @@ import {
   boardDeleteSuccess,
   boardDeleteFailed,
   boardChangeCurrentBoard,
+  boardSetDefault,
+  boardSetDefaultSuccess,
+  boardSetDefaultFailed,
 } from './'
 
 function* onBoardFindAll() {
   try {
     const data = yield call(IPCboardFindAll)
     yield put(boardFindAllSuccess(data))
-    // TODO CURRENT BOARD
-    yield put(boardChangeCurrentBoard(first(data)))
+
+    // on set la current a celle par défaut
+    const defaultBoard = find(data, { default: true })
+    console.log({ data, defaultBoard })
+    if (defaultBoard) {
+      yield put(boardChangeCurrentBoard(defaultBoard))
+    } else {
+      // malencontreusement il n'y a pas de default ...
+      // on prend la first et on la set comme default
+      const newDefault = first(data)
+      yield put(boardChangeCurrentBoard(newDefault))
+      yield put(boardSetDefault(newDefault))
+    }
+
   } catch (e) {
     yield put(boardFindAllFailed(e))
+  }
+}
+
+function* onBoardSetDefault({ payload }) {
+  try {
+    const data = yield call(IPCboardSetDefault, payload)
+    yield put(boardSetDefaultSuccess(data))
+  } catch (e) {
+    yield put(boardSetDefaultFailed(e))
   }
 }
 
@@ -58,9 +83,21 @@ function* onBoardDelete({ payload }) {
   try {
     yield call(IPCboardDelete, payload)
     yield put(boardDeleteSuccess(payload))
-    // TODO CURRENT BOARD
+
+    // c'était la board par défaut ! on va donc faire que la premiere de la liste
+    // soit la nouvelle defaut
+
     const allBoards = yield select((state) => state.board.boards)
-    yield put(boardChangeCurrentBoard(first(allBoards)))
+
+    if (payload.default) {
+      const newDefault = first(allBoards)
+      yield put(boardChangeCurrentBoard(newDefault))
+      yield put(boardSetDefault(newDefault))
+    } else {
+      const defaultBoard = find(allBoards, { default: true })
+      yield put(boardChangeCurrentBoard(defaultBoard))
+    }
+
   } catch (e) {
     yield put(boardDeleteFailed(e))
   }
@@ -73,5 +110,6 @@ export function* saga() {
     takeEvery(boardCreate.type, onBoardCreate),
     takeEvery(boardUpdate.type, onBoardUpdate),
     takeEvery(boardDelete.type, onBoardDelete),
+    takeEvery(boardSetDefault.type, onBoardSetDefault),
   ])
 }
