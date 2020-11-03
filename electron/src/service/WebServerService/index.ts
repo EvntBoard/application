@@ -44,7 +44,7 @@ export const init = () => {
     httpServer.on('listening', () => {
       mainWindowsSend(WEB_SERVER.ON_OPEN, {
         connected: true,
-        error: null
+        error: null,
       });
     });
 
@@ -52,14 +52,14 @@ export const init = () => {
       logger.error(e);
       mainWindowsSend(WEB_SERVER.ON_ERROR, {
         connected: false,
-        error: e.name
+        error: e.name,
       });
     });
 
     httpServer.on('close', () => {
       mainWindowsSend(WEB_SERVER.ON_CLOSE, {
         connected: false,
-        error: null
+        error: null,
       });
     });
 
@@ -72,7 +72,7 @@ export const init = () => {
     logger.error(e);
     mainWindowsSend(WEB_SERVER.ON_ERROR, {
       connected: false,
-      error: e.name
+      error: e.name,
     });
   }
 };

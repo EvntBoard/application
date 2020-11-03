@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { debounce, find, filter } from 'lodash'
 import { area, template } from 'grid-template-parser'
 
@@ -7,7 +8,7 @@ import ModalButton from '../../../components/Modal/ModalButton'
 import ModalButtonDelete from '../../../components/Modal/ModalButtonDelete'
 import { clamp, generateColor, newToOld } from '../utils'
 import { useEventListener } from '../../../utils/hooks'
-import { buttonCreate, buttonDelete, buttonUpdate } from '../../../service/buttonService'
+import { buttonCreate, buttonDelete, buttonUpdate } from '../../../store/button'
 
 const SAMPLE_BUTTON = {
   id: null,
@@ -24,9 +25,11 @@ const SAMPLE_BUTTON = {
   updatedAt: null
 }
 
-const Preview = ({ setButtons, buttons, board }) => {
+const Preview = ({ buttons: boardButtons, board }) => {
   const ref = useRef()
+  const dispatch = useDispatch()
 
+  const [ buttons, setButtons ] = useState(boardButtons)
   const [dx, setDx] = useState(0)
   const [dy, setDy] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
@@ -35,6 +38,10 @@ const Preview = ({ setButtons, buttons, board }) => {
   const [current, setCurrent] = useState(null)
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
+
+  useEffect(() => {
+    setButtons(boardButtons)
+  }, [boardButtons])
 
   const width = useMemo(() => {
     if (board) {
@@ -209,7 +216,7 @@ const Preview = ({ setButtons, buttons, board }) => {
   }
 
   const onlyUpdate = useCallback(debounce((button) => {
-    buttonUpdate(button)
+    dispatch(buttonUpdate(button))
   }, 500), [])
 
   const moveArea = (button) => {
@@ -251,33 +258,21 @@ const Preview = ({ setButtons, buttons, board }) => {
   }
 
   const onCreate = (button) => {
-    buttonCreate({ ...SAMPLE_BUTTON, ...button }).then((data) => {
-      setButtons([
-        ...buttons,
-        data
-      ])
-      setCurrent(null)
-      setOpen(false)
-    })
+    dispatch(buttonCreate({ ...SAMPLE_BUTTON, ...button }))
+    setCurrent(null)
+    setOpen(false)
   }
 
   const onUpdate = (button) => {
-    buttonUpdate({ ...SAMPLE_BUTTON, ...button }).then((data) => {
-      setButtons([
-        ...filter(buttons, (i) => i.id !== data.id),
-        data
-      ])
-      setCurrent(null)
-      setOpen(false)
-    })
+    dispatch(buttonUpdate({ ...SAMPLE_BUTTON, ...button }))
+    setCurrent(null)
+    setOpen(false)
   }
 
   const onDelete = async (button) => {
-    buttonDelete(button).then(() => {
-      setCurrent(null)
-      setOpenDelete(false)
-      setButtons(filter(buttons, i => i.id !== button.id))
-    })
+    dispatch(buttonDelete(button))
+    setCurrent(null)
+    setOpenDelete(false)
   }
 
   const onCreateOrUpdate = async (button) => {

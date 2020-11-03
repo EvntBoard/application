@@ -11,8 +11,8 @@ import { darkTheme, lightTheme } from './themes'
 import useOnData from './utils/useOnData'
 
 const Root = () => {
-  const currentLocale = useSelector(state => state.lang)
-  const currentTheme = useSelector(state => state.theme)
+  const currentLocale = 'fr'// useSelector(state => state.lang)
+  const currentTheme = 'dark' // useSelector(state => state.theme)
   const routing = useRoutes(routes)
 
   const messages = useMemo(() => allMessages[currentLocale], [currentLocale])

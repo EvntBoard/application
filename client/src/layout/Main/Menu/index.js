@@ -17,14 +17,14 @@ import HomeIcon from '@material-ui/icons/Home';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 
-import { menuSet, menuGet } from '../../../store/feature/menu'
+import { menuGet, menuSet, selectors as menuSelectors } from '../../../store/menu'
 import M from '../../../messages/constants'
 import Logo from '../../../assets/logo.png'
 import { useStyles } from './styles'
 
 const Menu = () => {
   const dispatch = useDispatch()
-  const open = useSelector(state => state.menu)
+  const open = useSelector(menuSelectors.open)
   const classes = useStyles()
   const intl = useIntl()
   const { pathname } = useLocation()

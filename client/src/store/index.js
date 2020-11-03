@@ -1,22 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { applyMiddleware, createStore } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 import { createLogger } from 'redux-logger'
 
 import rootReducer from './reducer'
+import rootSaga from './saga'
 
-const logger = createLogger({
-});
+const logger = createLogger();
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-  .concat(logger)
-})
+const sagaMiddleware = createSagaMiddleware()
 
-if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./reducer', () => {
-    const newRootReducer = require('./reducer').default
-    store.replaceReducer(newRootReducer)
-  })
-}
+const store = createStore(
+  rootReducer,
+  {},
+  applyMiddleware(sagaMiddleware, logger)
+)
+
+sagaMiddleware.run(rootSaga)
 
 export default store

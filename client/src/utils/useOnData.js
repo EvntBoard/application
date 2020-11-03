@@ -2,20 +2,19 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { webServerOnClose, webServerOnError, webServerOnOpen } from '../service/webServerService'
-import { onClose, onError, onOpen } from '../store/feature/webserver'
 
 const useOnData = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
     webServerOnOpen(() => {
-      dispatch(onOpen())
+      // dispatch(onOpen())
     })
     webServerOnClose(() => {
-      dispatch(onClose())
+      // dispatch(onClose())
     })
     webServerOnError((evt, ...rest) => {
-      dispatch(onError(rest))
+      // dispatch(onError(rest))
     })
   }, [])
 }

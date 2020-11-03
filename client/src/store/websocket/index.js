@@ -1,12 +1,14 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-export const wsConnect = createAction('ws:connect')
-export const wsDisconnect = createAction('ws:disconnect')
-export const wsSend = createAction('ws:send')
-export const wsOnOpen = createAction('ws:onopen')
-export const wsOnError = createAction('ws:onerror')
-export const wsOnClose = createAction('ws:onclose')
-export const wsOnMessage = createAction('ws:onmessage')
+const PATH = 'WEBSOCKET'
+
+export const wsConnect = createAction(`${PATH}_CONNECT`)
+export const wsDisconnect = createAction(`${PATH}_DISCONNECT`)
+export const wsSend = createAction(`${PATH}_SEND`)
+export const wsOnOpen = createAction(`${PATH}_ON_OPEN`)
+export const wsOnError = createAction(`${PATH}_ON_ERROR`)
+export const wsOnClose = createAction(`${PATH}_ON_CLOSE`)
+export const wsOnMessage = createAction(`${PATH}_ON_MESSAGE`)
 
 const INITIAL_STATE = {
   connected: false,

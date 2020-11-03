@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import { useIntl } from 'react-intl'
+import { useDispatch, useSelector } from 'react-redux'
 import { size, get, find, remove, filter, first } from 'lodash'
 import { IconButton, Menu, MenuItem, Toolbar, AppBar, Typography, Divider } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -8,25 +9,36 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import PublishIcon from '@material-ui/icons/Publish';
-import M from '../../messages/constants';
 
+import M from '../../messages/constants';
 import Grid from './Grid'
 import Preview from './Preview'
 import ModalBoard from '../../components/Modal/ModalBoard'
 import ModalBoardDelete from '../../components/Modal/ModalBoardDelete'
-import {boardCreate, boardDelete, boardFindAll, boardUpdate} from '../../service/boardService'
-import {buttonFindAllForBoardId} from '../../service/buttonService'
+
+import { boardFindAll, boardDelete, boardCreate, boardUpdate, boardChangeCurrentBoard, selectors as boardSelectors } from '../../store/board'
+import { buttonFindAll, selectors as btnSelectors } from '../../store/button'
 
 import './assets/style.scss'
 
 const GridManager = () => {
   const intl = useIntl()
-  const [boards, setBoards] = useState([])
-  const [currentBoardId, setCurrentBoardId] = useState()
-  const [buttons, setButtons] = useState([])
+  const dispatch = useDispatch()
+  const boards = useSelector(boardSelectors.boards)
+  const currentBoard = useSelector(boardSelectors.getCurrent)
+  const loadingBoard = useSelector(boardSelectors.findAllLoading)
+
+  const buttons = useSelector(btnSelectors.buttonsGetCurrent)
+  const loadingButton = useSelector(btnSelectors.findAllLoading)
+
   const [open, setOpen] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    dispatch(boardFindAll())
+    dispatch(buttonFindAll())
+  }, [])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,52 +48,18 @@ const GridManager = () => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    boardFindAll().then((data) => {
-      setBoards(data)
-      if (size(data) > 0) {
-        const currentBoard = get(data, 0)
-        if (currentBoard) {
-          setCurrentBoardId(currentBoard.id)
-        }
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    if (currentBoardId) {
-      buttonFindAllForBoardId(currentBoardId).then((data) => {
-        setButtons(data)
-      })
-    }
-  }, [currentBoardId])
-
-  const currentBoard = useMemo(() => {
-    return find(boards, { id: currentBoardId })
-  }, [currentBoardId, boards])
-
   const onSubmit = async (data) => {
-    let result
     if (data.id) {
-      result = await boardUpdate(data)
+      dispatch(boardUpdate(data))
     } else {
-      result = await boardCreate(data)
+      dispatch(boardCreate(data))
     }
-    setBoards([
-      ...remove(boards, (i) => i.id !== result.id),
-      result
-    ])
     setOpen(false)
   }
 
   const onDelete = async (data) => {
     handleClose()
-    boardDelete(data).then(() => {
-      setOpenDelete(false)
-      const newBoards = filter(boards, i => i.id !== data.id)
-      setBoards(newBoards)
-      setCurrentBoardId(get(first(newBoards), 'id'))
-    })
+    dispatch(boardDelete(data))
   }
 
   const onReset = () => {
@@ -105,7 +83,7 @@ const GridManager = () => {
 
   const handleAddBoard = () => {
     handleClose()
-    boardCreate({
+    dispatch(boardCreate({
       id: null,
       name: `Board #${size(boards)}`,
       description: "",
@@ -115,22 +93,14 @@ const GridManager = () => {
       height: 5,
       createdAt: null,
       updatedAt: null,
-    }).then((data) => {
-      setBoards([
-        ...boards,
-        data
-      ])
-      setCurrentBoardId(data.id)
-    })
+    }))
   }
 
   const handleSwitchBoard = (board) => {
-    if (board.id) {
-      setCurrentBoardId(board.id)
-    }
+    dispatch(boardChangeCurrentBoard(board))
   }
 
-  if (!currentBoard) {
+  if (loadingBoard || loadingButton || !currentBoard) {
     return null
   }
 
@@ -183,7 +153,6 @@ const GridManager = () => {
               <Preview
                 board={currentBoard}
                 buttons={buttons}
-                setButtons={setButtons}
               />
             )
           }

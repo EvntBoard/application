@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from '@reduxjs/toolkit'
 
-import configReducer from './feature/config'
-import boardReducer from './feature/board'
-import buttonReducer from './feature/button'
-import langReducer from './feature/lang'
-import menuReducer from './feature/menu'
-import themeReducer from './feature/theme'
-import triggerReducer from './feature/trigger'
-import websocketReducer from './feature/websocket'
-import webserverReducer from './feature/webserver'
-import workspaceReducer from './feature/workspace'
+import configReducer from './config'
+import boardReducer from './board'
+import buttonReducer from './button'
+import langReducer from './lang'
+import menuReducer from './menu'
+import themeReducer from './theme'
+import triggerReducer from './trigger'
+import websocketReducer from './websocket'
+import webserverReducer from './webserver'
+import workspaceReducer from './workspace'
 
 export default combineReducers({
   config: configReducer,

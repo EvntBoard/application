@@ -6,7 +6,7 @@ import {
   unloadAll as triggerManagerUnloadAll,
 } from './TriggerManagerService';
 
-import { reload as reloadWebServer } from './WebServerService'
+import { reload as reloadWebServer } from './WebServerService';
 
 export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> => {
   database.get('workspaces').find({ current: true }).assign({ current: false }).write();
@@ -25,7 +25,7 @@ export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> 
   await triggerManagerUnloadAll();
   await initLocalDB();
   await initTriggerManager();
-  await reloadWebServer()
+  await reloadWebServer();
 
   return newWorkspace;
 };
