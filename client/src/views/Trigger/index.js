@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { remove, toUpper } from 'lodash'
+import { useDispatch, useSelector } from 'react-redux'
+import { toUpper } from 'lodash'
 import { Form } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
 import { Button, TextField } from '@material-ui/core'
 
 import FormTrigger from './form'
 import Item from './Item'
-import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate } from "../../service/triggerService";
+import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate, selectors as triggerSelectors } from "../../store/trigger";
 
 import './assets/style.scss'
 
@@ -21,55 +22,31 @@ const SAMPLE_TRIGGER = {
 }
 
 const Trigger = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [triggers, setTriggers] = useState([])
+  const dispatch = useDispatch()
+  const triggers = useSelector(triggerSelectors.triggerSelector)
   const [current, setCurrent] = useState(null)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    setIsLoading(true)
-    triggerFindAll().then((data) => {
-      setTriggers(data)
-      setIsLoading(false)
-    })
+    dispatch(triggerFindAll())
   }, [])
 
   const onSubmitFormTrigger = async (data) => {
-    triggerUpdate(data).then((result) => {
-      const refresh = remove(triggers, (i) => i.id !== result.id)
-      setTriggers([
-        ...refresh,
-        result
-      ])
-      setCurrent(null)
-    })
+    dispatch(triggerUpdate(data))
     return true
   }
 
   const onClickCreate = () => {
-    triggerCreate({...SAMPLE_TRIGGER, }).then((result) => {
-      setTriggers([
-        ...triggers,
-        result
-      ])
-    })
+    dispatch(triggerCreate({...SAMPLE_TRIGGER, }))
   }
 
   const onDeleteTrigger = (data) => {
-    triggerDelete(data).then(() => {
-      const refresh = remove(triggers, (i) => i.id !== data.id)
-      setTriggers([...refresh])
-      setCurrent(null)
-    })
+    dispatch(triggerDelete(data))
+    setCurrent(null)
   }
 
   const onDupplicateTrigger = (data) => {
-    triggerCreate({...data, id: null, name: `DUP-${data.name}` }).then((result) => {
-      setTriggers([
-        ...triggers,
-        result
-      ])
-    })
+    dispatch(triggerCreate({...data, id: null, name: `DUP-${data.name}` }))
   }
 
   const onReset = () => {
@@ -87,10 +64,6 @@ const Trigger = () => {
   const searchFilter = useCallback((i) => {
    return (toUpper(i.name).includes(toUpper(search))) || (toUpper(i.description).includes(search))
   }, [search])
-
-  if (isLoading) {
-    return <div>Loading ..</div>
-  }
 
   return (
     <div className='trigger app-content'>
