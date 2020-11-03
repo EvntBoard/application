@@ -23,9 +23,9 @@ function* onWorkspaceGet() {
   }
 }
 
-function* onWorkspaceSet({ workspace }) {
+function* onWorkspaceSet({ payload }) {
   try {
-    const data = yield call(IPCworkspaceSwitch, workspace)
+    const data = yield call(IPCworkspaceSwitch, payload)
     yield put(workspaceSetSuccess(data))
   } catch (e) {
     yield put(workspaceSetFailed(e))

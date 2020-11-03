@@ -21,7 +21,7 @@ const FormApp = ({ handleSubmit, submitting, pristine, form: { reset } }) => {
   }
 
   const innerOnSubmit = event => {
-    handleSubmit(event).then(reset)
+    handleSubmit(event)
   }
 
   return (

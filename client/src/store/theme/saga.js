@@ -23,9 +23,9 @@ function* onLangGet() {
   }
 }
 
-function* onLangSet({ theme }) {
+function* onLangSet({ payload }) {
   try {
-    const data = yield call(IPCthemeSet, theme)
+    const data = yield call(IPCthemeSet, payload)
     yield put(themeSetSuccess(data))
   } catch (e) {
     yield put(themeSetFailed(e))

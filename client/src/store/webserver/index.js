@@ -9,6 +9,10 @@ export const webserverGet = createAction(`${PATH}_GET`)
 export const webserverGetSuccess = createAction(`${PATH}_GET_SUCCESS`)
 export const webserverGetFailed = createAction(`${PATH}_GET_FAILED`)
 
+export const webserverOnOpen = createAction(`${PATH}_ON_OPEN`)
+export const webserverOnClose = createAction(`${PATH}_ON_CLOSE`)
+export const webserverOnError = createAction(`${PATH}_ON_ERROR`)
+
 const INITIAL_STATE = {
   // REAL DATA
   connected: false,
@@ -23,6 +27,16 @@ const INITIAL_STATE = {
 }
 
 const reducer = createReducer(INITIAL_STATE, {
+
+  [webserverOnOpen]: (state) => {
+    state.connected = true
+  },
+  [webserverOnClose]: (state) => {
+    state.connected = false
+  },
+  [webserverOnError]: (state) => {
+    state.connected = false
+  },
   // GET
   [webserverGet]: (state) => {
     state.webserverGetLoading = true

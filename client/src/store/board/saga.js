@@ -35,28 +35,28 @@ function* onBoardFindAll() {
   }
 }
 
-function* onBoardCreate({ devis }) {
+function* onBoardCreate({ payload }) {
   try {
-    const data = yield call(IPCboardCreate, devis)
+    const data = yield call(IPCboardCreate, payload)
     yield put(boardCreateSuccess(data))
   } catch (e) {
     yield put(boardCreateFailed(e))
   }
 }
 
-function* onBoardUpdate({ devis }) {
+function* onBoardUpdate({ payload }) {
   try {
-    const data = yield call(IPCboardUpdate, devis)
+    const data = yield call(IPCboardUpdate, payload)
     yield put(boardUpdateSuccess(data))
   } catch (e) {
     yield put(boardUpdateFailed(e))
   }
 }
 
-function* onBoardDelete({ devis }) {
+function* onBoardDelete({ payload }) {
   try {
-    yield call(IPCboardDelete, devis)
-    yield put(boardDeleteSuccess(devis))
+    yield call(IPCboardDelete, payload)
+    yield put(boardDeleteSuccess(payload))
   } catch (e) {
     yield put(boardDeleteFailed(e))
   }

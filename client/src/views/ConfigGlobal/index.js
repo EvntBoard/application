@@ -13,23 +13,28 @@ import Typography from '@material-ui/core/Typography'
 
 import FormApp from './FormApp'
 import { workspaceOpenCurrent, workspaceSelectNew } from '../../service/workspaceService'
+import { themeGet, themeSet, selectors as themeSelectors } from '../../store/theme'
+import { langGet, langSet, selectors as langSelectors } from '../../store/lang'
+import { configGet, configSet, selectors as configSelectors } from '../../store/config'
+import { workspaceGet, workspaceSet, selectors as workspaceSelectors } from '../../store/workspace'
+import { webserverGet, selectors as webserverSelectors } from '../../store/webserver'
 import M from '../../messages/constants'
 
 function Config() {
   const intl = useIntl()
   const dispatch = useDispatch()
-  const theme = 'dark' // useSelector(state => state.theme)
-  const lang = 'fr' // useSelector(state => state.lang)
-  const config = {} // useSelector(state => state.config)
-  const workspace = null // useSelector(state => state.workspace)
-  const webServerStatus = null // useSelector(state => state.webserver.connected)
+  const theme = useSelector(themeSelectors.theme)
+  const lang = useSelector(langSelectors.lang)
+  const config = useSelector(configSelectors.config)
+  const workspace = useSelector(workspaceSelectors.workspace)
+  const webServerStatus = useSelector(webserverSelectors.webserverIsConnectedSelector)
 
   useEffect(() => {
-    // dispatch(langGet())
-    // dispatch(themeGet())
-    // dispatch(configGet())
-    // dispatch(workspaceGet())
-    // dispatch(webServerGetStatus())
+    dispatch(langGet())
+    dispatch(themeGet())
+    dispatch(configGet())
+    dispatch(workspaceGet())
+    dispatch(webserverGet())
   }, [])
 
   const onOpenCurrentWorkspace = () => {
@@ -41,22 +46,22 @@ function Config() {
       if (!canceled && size(filePaths) > 0) {
         const newWorkspace = get(filePaths, 0)
         if (newWorkspace) {
-          // dispatch(workspaceSet(newWorkspace))
+          dispatch(workspaceSet(newWorkspace))
         }
       }
     })
   }
 
   const onChangeTheme = (theme) => {
-    // dispatch(themeSet(theme))
+    dispatch(themeSet(theme))
   }
 
   const onChangeLang = (lang) => {
-    // dispatch(langSet(lang))
+    dispatch(langSet(lang))
   }
 
-  const onChangeConfig = async (data) => {
-    // dispatch(configSet(data))
+  const onChangeConfig = (data) => {
+    dispatch(configSet(data))
   }
 
   return (

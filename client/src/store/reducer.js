@@ -7,7 +7,6 @@ import langReducer from './lang'
 import menuReducer from './menu'
 import themeReducer from './theme'
 import triggerReducer from './trigger'
-import websocketReducer from './websocket'
 import webserverReducer from './webserver'
 import workspaceReducer from './workspace'
 
@@ -21,5 +20,4 @@ export default combineReducers({
   trigger: triggerReducer,
   workspace: workspaceReducer,
   webserver: webserverReducer,
-  websocket: websocketReducer
 })

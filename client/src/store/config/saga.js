@@ -23,9 +23,9 @@ function* onConfigGet() {
   }
 }
 
-function* onConfigSet({ config }) {
+function* onConfigSet({ payload }) {
   try {
-    const data = yield call(IPCappConfigSet, config)
+    const data = yield call(IPCappConfigSet, payload)
     yield put(configSetSuccess(data))
   } catch (e) {
     yield put(configSetFailed(e))

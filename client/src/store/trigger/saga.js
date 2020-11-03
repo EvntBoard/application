@@ -31,28 +31,28 @@ function* onTriggerFindAll() {
   }
 }
 
-function* onTriggerCreate({ devis }) {
+function* onTriggerCreate({ payload }) {
   try {
-    const data = yield call(IPCtriggerCreate, devis)
+    const data = yield call(IPCtriggerCreate, payload)
     yield put(triggerCreateSuccess(data))
   } catch (e) {
     yield put(triggerCreateFailed(e))
   }
 }
 
-function* onTriggerUpdate({ devis }) {
+function* onTriggerUpdate({ payload }) {
   try {
-    const data = yield call(IPCtriggerUpdate, devis)
+    const data = yield call(IPCtriggerUpdate, payload)
     yield put(triggerUpdateSuccess(data))
   } catch (e) {
     yield put(triggerUpdateFailed(e))
   }
 }
 
-function* onTriggerDelete({ devis }) {
+function* onTriggerDelete({ payload }) {
   try {
-    yield call(IPCtriggerDelete, devis)
-    yield put(triggerDeleteSuccess(devis))
+    yield call(IPCtriggerDelete, payload)
+    yield put(triggerDeleteSuccess(payload))
   } catch (e) {
     yield put(triggerDeleteFailed(e))
   }

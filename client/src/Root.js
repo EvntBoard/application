@@ -1,18 +1,28 @@
-import React, { useMemo } from 'react'
+import React, {useEffect, useMemo} from 'react'
 import { useRoutes } from 'react-router-dom'
 import { IntlProvider } from 'react-intl'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import allMessages from './messages'
 import routes from './routes'
 import { darkTheme, lightTheme } from './themes'
+import { langGet, selectors as langSelectors } from './store/lang'
+import { themeGet, selectors as themeSelectors } from './store/theme'
 import useOnData from './utils/useOnData'
 
 const Root = () => {
-  const currentLocale = 'fr'// useSelector(state => state.lang)
-  const currentTheme = 'dark' // useSelector(state => state.theme)
+  const dispatch = useDispatch()
+
+  const currentLocale = useSelector(langSelectors.lang)
+  const currentTheme = useSelector(themeSelectors.theme)
+
+  useEffect(() => {
+    dispatch(langGet())
+    dispatch(themeGet())
+  }, [])
+
   const routing = useRoutes(routes)
 
   const messages = useMemo(() => allMessages[currentLocale], [currentLocale])

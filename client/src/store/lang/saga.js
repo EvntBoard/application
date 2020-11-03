@@ -23,9 +23,9 @@ function* onLangGet() {
   }
 }
 
-function* onLangSet({ lang }) {
+function* onLangSet({ payload }) {
   try {
-    const data = yield call(IPClangSet, lang)
+    const data = yield call(IPClangSet, payload)
     yield put(langSetSuccess(data))
   } catch (e) {
     yield put(langSetFailed(e))
