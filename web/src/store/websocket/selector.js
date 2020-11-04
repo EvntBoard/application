@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-const basic = state => state.theme
+const basic = state => state.websocket
 
-export const theme = createSelector(
+export const connected = createSelector(
   basic,
-  state => state.theme
+  state => state.connected
 )

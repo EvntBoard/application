@@ -6,3 +6,8 @@ export const buttons = createSelector(
   basic,
   state => state.buttons
 )
+
+export const loading = createSelector(
+  basic,
+  state => state.buttonFindAllLoading
+)

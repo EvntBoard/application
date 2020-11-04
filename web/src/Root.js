@@ -10,6 +10,7 @@ import { langGet, selectors as langSelectors } from './store/lang'
 import { themeGet, selectors as themeSelectors } from './store/theme'
 import { buttonFindAll } from './store/button'
 import { boardFindAll } from './store/board'
+import { wsConnect } from './store/websocket'
 import allMessages from './messages'
 import routes from './routes'
 
@@ -24,6 +25,7 @@ const Root = () => {
     dispatch(themeGet())
     dispatch(buttonFindAll())
     dispatch(boardFindAll())
+    dispatch(wsConnect({ url: 'ws://localhost:5123/ws' }))
   }, [dispatch])
 
   const routing = useRoutes(routes)
