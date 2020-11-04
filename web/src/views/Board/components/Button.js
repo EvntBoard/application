@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react'
-import { get, isString } from 'lodash'
+import { isString } from 'lodash'
 import { Card } from '@blueprintjs/core'
 
 import { getContrastYIQ } from '../../../utils/utils'
 import text2png from '../../../utils/txtToPng'
 
-export default ({ button: buttonP, onClick }) => {
+const Button = ({ button: buttonP, onClick }) => {
   const [clicked, setClicked] = useState(false)
 
   const button = { ...buttonP } // custom state
@@ -68,3 +68,5 @@ export default ({ button: buttonP, onClick }) => {
     </div>
   );
 }
+
+export default Button
