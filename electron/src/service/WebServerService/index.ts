@@ -9,10 +9,10 @@ import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
 import { mainWindowsSend } from '../MainWindowService';
+import { newEvent } from '../TriggerManagerService/eventBus';
 import { WEB_SERVER } from '../../utils/ipc';
 import apiRoute from './api';
 import logger from '../LoggerService';
-import { newEvent } from "../TriggerManagerService/eventBus";
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -62,8 +62,13 @@ export const init = () => {
     wsServer.on('connection', (socket) => {
       logger.debug('WS connection');
       socket.on('message', (message: any) => {
-        if (message.event) {
-          newEvent(message)
+        try {
+          const data = JSON.parse(message)
+          if (data.event) {
+            newEvent(data);
+          }
+        } catch (e) {
+          logger.error(e)
         }
       });
     });
