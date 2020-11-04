@@ -9,7 +9,7 @@ import {
   LANG,
   APP,
   WORKSPACE,
-  WEB_SERVER,
+  WEB_SERVER, TRIGGER_MANAGER,
 } from '../utils/ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp } from '../types';
 
@@ -77,32 +77,18 @@ contextBridge.exposeInMainWorld('app', {
       ipcRenderer.on(WORKSPACE.ON_CHANGE, callback);
     },
   },
+  triggerManager: {
+    onNew: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(TRIGGER_MANAGER.ON_NEW, callback);
+    },
+    onStart: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(TRIGGER_MANAGER.ON_START, callback);
+    },
+    onEnd: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(TRIGGER_MANAGER.ON_END, callback);
+    },
+    onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(TRIGGER_MANAGER.ON_ERROR, callback);
+    },
+  }
 });
-
-// ipcRenderer.on(PLAYER.PLAY, (event, { file, volume, uniqueId }) => {
-//   new Howl({
-//     src: [file],
-//     autoplay: true,
-//     volume: volume || 1,
-//     onend: () => {
-//       event.sender.send(`audio-${uniqueId}`);
-//     },
-//     onplayerror: () => {
-//       event.sender.send(`audio-${uniqueId}`);
-//     },
-//   });
-// });
-//
-// ipcRenderer.on(PLAYER.TTS, (event, { file, volume, uniqueId }) => {
-//   new Howl({
-//     src: [file],
-//     autoplay: true,
-//     volume: volume || 1,
-//     onend: () => {
-//       event.sender.send(`tts-${uniqueId}`);
-//     },
-//     onplayerror: () => {
-//       event.sender.send(`tts-${uniqueId}`);
-//     },
-//   });
-// });

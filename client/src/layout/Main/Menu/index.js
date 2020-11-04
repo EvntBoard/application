@@ -16,6 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 
 import { menuGet, menuSet, selectors as menuSelectors } from '../../../store/menu'
 import M from '../../../messages/constants'
@@ -77,6 +78,12 @@ const Menu = () => {
             <SettingsInputAntennaIcon />
           </ListItemIcon>
           <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuTrigger })} />
+        </ListItem>
+        <ListItem classes={{ selected: classes.listItemColor }} button component={Link} to="/debug" selected={activeItem === 'debug'}>
+          <ListItemIcon className={classes.menuItemColor}>
+            <ImportExportIcon />
+          </ListItemIcon>
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuDebug })} />
         </ListItem>
       </List>
       <List>

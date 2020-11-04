@@ -3,6 +3,7 @@ const messages = {
   AppMenuHome: 'app.menu.home',
   AppMenuBoard: 'app.menu.board',
   AppMenuTrigger: 'app.menu.trigger',
+  AppMenuDebug: 'app.menu.debug',
   AppMenuSettings: 'app.menu.settings',
 
   // Field

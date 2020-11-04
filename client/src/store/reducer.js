@@ -9,6 +9,7 @@ import themeReducer from './theme'
 import triggerReducer from './trigger'
 import webserverReducer from './webserver'
 import workspaceReducer from './workspace'
+import triggerManagerReducer from './triggerManager'
 
 export default combineReducers({
   config: configReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
   trigger: triggerReducer,
   workspace: workspaceReducer,
   webserver: webserverReducer,
+  triggerManager: triggerManagerReducer,
 })

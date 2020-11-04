@@ -37,7 +37,7 @@ export default class TriggerRunnerQueue implements ITriggerRunner {
   }
 
   processEvent(data: any) {
-    this.queue.push(data.uniqueId);
+    this.queue.push(data);
     if (!this.running) {
       this.process();
     }
