@@ -85,7 +85,7 @@ const Trigger = () => {
           />)}
         </div>
         <div className='actions'>
-          <Button style={{ flexGrow: 1 }} onClick={onClickCreate}>{intl.formatMessage({ id: M.AppTriggerButtonCreate })}</Button>
+          <Button variant='contained' style={{ flexGrow: 1 }} onClick={onClickCreate}>{intl.formatMessage({ id: M.AppTriggerButtonCreate })}</Button>
         </div>
       </div>
       <div className='form'>

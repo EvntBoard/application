@@ -10,7 +10,12 @@ export const triggerCreate = (trigger: ITrigger): ITrigger => {
   const id = uuid();
   database
     .get('triggers')
-    .push({ ...trigger, id })
+    .push({
+      ...trigger,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
     .write();
   const created = triggerFindOne(id);
   load(created);
@@ -32,7 +37,10 @@ export const triggerUpdate = (trigger: Partial<ITrigger>): ITrigger => {
   database
     .get('triggers')
     .find({ id: trigger.id })
-    .assign({ ...trigger })
+    .assign({
+      ...trigger,
+      updatedAt: new Date()
+    })
     .write();
 
   const updated = triggerFindOne(trigger.id);

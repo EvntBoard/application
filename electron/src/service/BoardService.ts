@@ -15,6 +15,8 @@ export const boardCreate = (board: IBoard): IBoard => {
       ...board,
       id,
       image: moveFileToWorkspace(board.image, 'image'),
+      createdAt: new Date(),
+      updatedAt: new Date()
     })
     .write();
   return boardFindOne(id);
@@ -38,6 +40,7 @@ export const boardUpdate = (board: Partial<IBoard>): IBoard => {
     .assign({
       ...board,
       image: moveFileToWorkspace(board.image, 'image'),
+      updatedAt: new Date()
     })
     .write();
   return boardFindOne(board.id);

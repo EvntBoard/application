@@ -18,9 +18,22 @@ export const newToOld = (b) => ({
   }
 })
 
-export const generateColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`
+export const generateColor = () => {
+  const o = Math.round, r = Math.random, s = 255;
+  return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
 
-export const getContrastYIQ = (hexcolor) => {
+const RGBToHex = (rgb) => {
+  rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+  return (rgb && rgb.length === 4) ? "#" +
+    ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
+
+
+export const getContrastYIQ = (rgb) => {
+  let hexcolor = RGBToHex(rgb)
 // If a leading # is provided, remove it
   if (hexcolor.slice(0, 1) === '#') {
     hexcolor = hexcolor.slice(1);
