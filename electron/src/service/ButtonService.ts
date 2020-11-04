@@ -14,7 +14,7 @@ export const buttonCreate = (button: IButton): IButton => {
       id,
       image: moveFileToWorkspace(button.image, 'image'),
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     })
     .write();
   return database.get('buttons').find({ id }).value();
@@ -43,7 +43,7 @@ export const buttonUpdate = (button: Partial<IButton>): IButton => {
     .assign({
       ...button,
       image: moveFileToWorkspace(button.image, 'image'),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     })
     .write();
   return database.get('buttons').find({ id: button.id }).value();

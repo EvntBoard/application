@@ -14,7 +14,7 @@ export const triggerCreate = (trigger: ITrigger): ITrigger => {
       ...trigger,
       id,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     })
     .write();
   const created = triggerFindOne(id);
@@ -39,7 +39,7 @@ export const triggerUpdate = (trigger: Partial<ITrigger>): ITrigger => {
     .find({ id: trigger.id })
     .assign({
       ...trigger,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     })
     .write();
 

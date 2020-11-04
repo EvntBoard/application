@@ -1,18 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
+import createSagaMiddleware from 'redux-saga'
 
 import rootReducer from './reducer'
-import WebSocketMiddleware from './WebSocketMiddleware'
+import rootSaga from './saga'
+import webSocketMiddleware from './middleware/WebSocketMiddleware'
+
+const sagaMiddleware = createSagaMiddleware()
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(WebSocketMiddleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware).concat(webSocketMiddleware)
 })
 
-if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./reducer', () => {
-    const newRootReducer = require('./reducer').default
-    store.replaceReducer(newRootReducer)
-  })
-}
+sagaMiddleware.run(rootSaga)
 
 export default store

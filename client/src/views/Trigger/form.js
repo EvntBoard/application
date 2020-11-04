@@ -51,7 +51,7 @@ const TriggerForm = ({ handleSubmit, onReset, submitting, pristine, form: { rese
   }
 
   const onClickAddEvent = () => {
-    mutators.push('events', { event: 'click', condition: `module.exports = (triggerId, evntData) => triggerId === evntData.id_trigger` })
+    mutators.push('events', { event: 'click', condition: `module.exports = (idTrigger, evntData) => idTrigger === evntData.idTrigger` })
   }
 
   return (

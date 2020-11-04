@@ -9,7 +9,8 @@ import {
   LANG,
   APP,
   WORKSPACE,
-  WEB_SERVER, TRIGGER_MANAGER,
+  WEB_SERVER,
+  TRIGGER_MANAGER,
 } from '../utils/ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp } from '../types';
 
@@ -90,5 +91,5 @@ contextBridge.exposeInMainWorld('app', {
     onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
       ipcRenderer.on(TRIGGER_MANAGER.ON_ERROR, callback);
     },
-  }
+  },
 });

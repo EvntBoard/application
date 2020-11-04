@@ -1,13 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Container } from '@material-ui/core'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { FormattedDate, FormattedTime } from 'react-intl';
+import { Container, Tooltip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
+import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
+import AlarmOffIcon from '@material-ui/icons/AlarmOff';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import AlarmIcon from '@material-ui/icons/Alarm';
 
 import { selectors as tmSelectors } from '../../store/triggerManager'
 
@@ -17,25 +15,45 @@ const Debug = () => {
 
   return (
     <Container maxWidth={false} className="Debug">
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+      <TableContainer component={Paper} >
+        <Table aria-label="simple table" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell align="right">Date</TableCell>
-              <TableCell align="right">Event</TableCell>
-              <TableCell align="right">Status</TableCell>
-              <TableCell align="right">Error</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Event</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.meta.uniqueId}>
-                <TableCell align="right">{JSON.stringify(row.meta.newDate)}</TableCell>
-                <TableCell align="right">{row.event}</TableCell>
-                <TableCell align="right">{row.meta.status}</TableCell>
-                <TableCell align="right"><code>{JSON.stringify(row?.meta?.error?.message)}</code></TableCell>
-              </TableRow>
-            ))}
+            {data.map((row) => {
+              let StatusComponent
+              switch (row.meta.status) {
+                case 'start':
+                  StatusComponent = () => <AlarmIcon />
+                  break
+                case 'end':
+                  StatusComponent = () => <AlarmOffIcon />
+                  break
+                case 'error':
+                  StatusComponent = () => <Tooltip title={<code>{JSON.stringify(row?.meta?.error?.message)}</code>} aria-label="error"><ErrorOutlineIcon /></Tooltip>
+                  break
+                case 'new':
+                default:
+                  StatusComponent = () => <AlarmAddIcon />
+                  break
+              }
+              return (
+                <TableRow key={row.meta.uniqueId}>
+                  <TableCell>
+                    <FormattedDate value={row.meta.newDate} />
+                    &nbsp;
+                    <FormattedTime value={row.meta.newDate} hour='numeric' minute='numeric' second='numeric' />
+                  </TableCell>
+                  <TableCell>{row.event}</TableCell>
+                  <TableCell><StatusComponent /></TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>

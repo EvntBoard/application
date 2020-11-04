@@ -19,8 +19,8 @@ const SAMPLE_TRIGGER = {
   locker: null,
   name: 'New Trigger',
   description: null,
-  events: [{ event: 'click', condition: `module.exports = (triggerId, evntData) => triggerId === evntData.id_trigger` }],
-  reaction: `module.exports = async (data, services) => {\n  services.utils.log('test')\n}`
+  events: [{ event: 'click', condition: `module.exports = (idTrigger, evntData) => triggerId === evntData.idTrigger` }],
+  reaction: `module.exports = async (evntData, services) => {\n  services.utils.log('test')\n}`
 }
 
 const Trigger = () => {

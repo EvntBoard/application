@@ -1,11 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { MemoryRouter as Router } from 'react-router-dom'
 
-import Root from './Root';
+import GlobalStyles from './components/GlobalStyles'
+import Root from './Root'
+import store from './store'
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <Root />,
-  // </React.StrictMode>,
+  <Provider store={store}>
+    <>
+      <GlobalStyles />
+      <Router>
+        <Root />
+      </Router>
+    </>
+  </Provider>,
   document.getElementById('root')
 );

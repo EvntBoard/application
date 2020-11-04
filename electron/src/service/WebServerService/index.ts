@@ -8,10 +8,10 @@ import * as os from 'os';
 import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
-import logger from '../LoggerService';
-import apiRoute from './api';
 import { mainWindowsSend } from '../MainWindowService';
 import { WEB_SERVER } from '../../utils/ipc';
+import apiRoute from './api';
+import logger from '../LoggerService';
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -31,13 +31,6 @@ export const init = () => {
     }
 
     app.use('/api', apiRoute);
-
-    wsServer = new ws.Server({ noServer: true });
-
-    wsServer.on('connection', (socket) => {
-      logger.debug('WS connection');
-      socket.on('message', (message) => console.log(message));
-    });
 
     httpServer = app.listen(appConfig.port, appConfig.host);
 
@@ -63,10 +56,11 @@ export const init = () => {
       });
     });
 
-    httpServer.on('upgrade', (request, socket, head) => {
-      wsServer.handleUpgrade(request, socket, head, (socket) => {
-        wsServer.emit('connection', socket, request);
-      });
+    wsServer = new ws.Server({ server: httpServer, path: "/ws" });
+
+    wsServer.on('connection', (socket) => {
+      logger.debug('WS connection');
+      socket.on('message', (message) => console.log(message));
     });
   } catch (e) {
     logger.error(e);
