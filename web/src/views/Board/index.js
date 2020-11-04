@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { isString } from 'lodash'
 
-import { selectors as wsSelectors } from '../../store/websocket'
+import { selectors as wsSelectors, wsSend } from '../../store/websocket'
 import { selectors as boardSelectors } from '../../store/board'
 import { selectors as buttonSelectors } from '../../store/button'
 
@@ -13,6 +13,7 @@ import './assets/style.scss'
 
 const Board = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const connected = useSelector(wsSelectors.connected)
   const currentBoard = useSelector(boardSelectors.getCurrent)
   const currentButtons = useSelector(buttonSelectors.buttonsForCurrentBoards)
@@ -31,7 +32,7 @@ const Board = () => {
   }, [currentBoard])
 
   const onClick = (data) => {
-    console.log('on click', data)
+    dispatch(wsSend({ event: 'click', idButton: data.id }))
   }
 
   if (!currentBoard) {

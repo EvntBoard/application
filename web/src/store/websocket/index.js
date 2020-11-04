@@ -18,11 +18,6 @@ const INITIAL_STATE = {
 }
 
 const reducer = createReducer(INITIAL_STATE, {
-  [wsSend]: (state) => {
-    state.loading = true
-    state.connected = false
-    state.error = {}
-  },
   [wsConnect]: (state) => {
     state.loading = false
     state.connected = true

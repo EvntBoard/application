@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { isString } from 'lodash'
-import { Card } from '@blueprintjs/core'
+import { Paper } from '@material-ui/core'
 
 import { getContrastYIQ } from '../../../utils/utils'
 import text2png from '../../../utils/txtToPng'
@@ -50,9 +50,9 @@ const Button = ({ button: buttonP, onClick }) => {
       style={{ gridArea: button.id, cursor: button.idTrigger ? 'pointer' : null  }}
     >
       <div className='button-wrapper'>
-        <Card
+        <Paper
           interactive={button.idTrigger}
-          elevation={(button.idTrigger && clicked) ? 4 : 0}
+          elevation={(button.idTrigger && clicked) ? 10 : 5}
           className='button-content'
           style={{
             padding: 0,
@@ -63,7 +63,7 @@ const Button = ({ button: buttonP, onClick }) => {
           { image && <img src={image}  alt='' /> }
           { textImage && <img className='button-content-text' src={textImage} alt='' /> }
           <div className='layer' onClick={onClickButton} onMouseDown={onMouseDown} onMouseUp={onMouseUp} />
-        </Card>
+        </Paper>
       </div>
     </div>
   );

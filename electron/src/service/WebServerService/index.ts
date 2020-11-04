@@ -12,6 +12,7 @@ import { mainWindowsSend } from '../MainWindowService';
 import { WEB_SERVER } from '../../utils/ipc';
 import apiRoute from './api';
 import logger from '../LoggerService';
+import { newEvent } from "../TriggerManagerService/eventBus";
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -56,11 +57,15 @@ export const init = () => {
       });
     });
 
-    wsServer = new ws.Server({ server: httpServer, path: "/ws" });
+    wsServer = new ws.Server({ server: httpServer, path: '/ws' });
 
     wsServer.on('connection', (socket) => {
       logger.debug('WS connection');
-      socket.on('message', (message) => console.log(message));
+      socket.on('message', (message: any) => {
+        if (message.event) {
+          newEvent(message)
+        }
+      });
     });
   } catch (e) {
     logger.error(e);
