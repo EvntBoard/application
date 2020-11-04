@@ -217,7 +217,7 @@ const Preview = ({ buttons: boardButtons, board }) => {
 
   const onlyUpdate = useCallback(debounce((button) => {
     dispatch(buttonUpdate(button))
-  }, 500), [])
+  }, 500), [dispatch])
 
   const moveArea = (button) => {
     setButtons([...filter(buttons, i => i.id !== button.id), button ])

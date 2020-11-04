@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useIntl } from 'react-intl'
 import { toUpper } from 'lodash'
 import { Form } from 'react-final-form'
 import arrayMutators from 'final-form-arrays'
@@ -8,6 +9,7 @@ import { Button, TextField } from '@material-ui/core'
 import FormTrigger from './form'
 import Item from './Item'
 import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate, selectors as triggerSelectors } from "../../store/trigger";
+import M from '../../messages/constants'
 
 import './assets/style.scss'
 
@@ -22,6 +24,7 @@ const SAMPLE_TRIGGER = {
 }
 
 const Trigger = () => {
+  const intl = useIntl()
   const dispatch = useDispatch()
   const triggers = useSelector(triggerSelectors.triggerSelector)
   const [current, setCurrent] = useState(null)
@@ -29,7 +32,7 @@ const Trigger = () => {
 
   useEffect(() => {
     dispatch(triggerFindAll())
-  }, [])
+  }, [dispatch])
 
   const onSubmitFormTrigger = async (data) => {
     dispatch(triggerUpdate(data))
@@ -69,7 +72,7 @@ const Trigger = () => {
     <div className='trigger app-content'>
       <div className='list'>
         <div className='search'>
-          <TextField value={search} onChange={onChangeSearch} placeholder='Recherche ...' />
+          <TextField value={search} onChange={onChangeSearch} placeholder={intl.formatMessage({ id: M.AppTriggerSearch })} />
         </div>
         <div className='items'>
           {triggers.filter(searchFilter).map(i => <Item
@@ -82,7 +85,7 @@ const Trigger = () => {
           />)}
         </div>
         <div className='actions'>
-          <Button style={{ flexGrow: 1 }} onClick={onClickCreate}>Créer un trigger</Button>
+          <Button style={{ flexGrow: 1 }} onClick={onClickCreate}>{intl.formatMessage({ id: M.AppTriggerButtonCreate })}</Button>
         </div>
       </div>
       <div className='form'>

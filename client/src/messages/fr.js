@@ -99,6 +99,40 @@ const messagesFR = {
   [M.AppBoardActionDelete]: 'Supprimer',
   [M.AppBoardActionSetDefault]: 'Définir comme par défaut',
 
+  // TRIGGER
+  [M.AppTriggerSearch]: 'Recherche',
+  [M.AppTriggerButtonCreate]: 'Nouveau trigger',
+
+  [M.AppTriggerOptionsClassic]: 'Classique',
+  [M.AppTriggerOptionsThrottle]: 'Throttle',
+  [M.AppTriggerOptionsQueue]: 'File d\'attente',
+  [M.AppTriggerOptionsQueueLock]: 'File d\'attente partagé',
+
+  [M.AppTriggerMenuDupplicate]: 'Dupliquer',
+  [M.AppTriggerMenuEdit]: 'Modifier',
+  [M.AppTriggerMenuDelete]: 'Supprimer',
+
+  [M.AppTriggerCreate]: 'Creation d\'un trigger',
+  [M.AppTriggerUpdate]: 'Modification d\'un trigger',
+
+  [M.AppTriggerNameLabel]: 'Nom',
+  [M.AppTriggerNamePlaceholder]: 'Exemple: un nom au hasard',
+  [M.AppTriggerTypeLabel]: 'Type',
+  [M.AppTriggerTypePlaceholder]: 'Exemple: Classique',
+  [M.AppTriggerLockerLabel]: 'Nom de la file partagé',
+  [M.AppTriggerLockerPlaceholder]: 'Exemple: channel-twitch',
+  [M.AppTriggerDescriptionLabel]: 'Description',
+  [M.AppTriggerDescriptionPlaceholder]: 'Exemple: Gestion des follows twitch',
+  [M.AppTriggerEvent]: 'Evénement',
+  [M.AppTriggerEventLabel]: 'Evénement',
+  [M.AppTriggerEventPlaceholder]: 'Exemple: click',
+  [M.AppTriggerConditionLabel]: 'Condition',
+  [M.AppTriggerConditionPlaceholder]: 'Exemple: une fonction ...',
+  [M.AppTriggerReactionLabel]: 'Réaction',
+  [M.AppTriggerReactionPlaceholder]: 'Exemple: une fonction ...',
+  [M.AppTriggerButtonAddEvent]: 'Créer un nouvel événement',
+  [M.AppTriggerButtonCancel]: 'Annuler',
+  [M.AppTriggerButtonSave]: 'Enregistrer',
 }
 
 export default messagesFR

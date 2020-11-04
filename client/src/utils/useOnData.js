@@ -22,6 +22,6 @@ const useOnData = () => {
     workspaceOnChange(() => {
       dispatch(actionWorkspaceOnChange())
     })
-  }, [])
+  }, [dispatch])
 }
 export default useOnData

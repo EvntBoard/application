@@ -21,7 +21,7 @@ const Root = () => {
   useEffect(() => {
     dispatch(langGet())
     dispatch(themeGet())
-  }, [])
+  }, [dispatch])
 
   const routing = useRoutes(routes)
 

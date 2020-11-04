@@ -5,6 +5,9 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import cx from 'clsx'
+import { useIntl } from 'react-intl'
+
+import M from '../../messages/constants'
 
 const options = {
   1: 'CLASSIC',
@@ -14,6 +17,7 @@ const options = {
 }
 
 const TriggerItem = ({ trigger, onClick, onDupplicate, onDelete, active }) => {
+  const intl = useIntl()
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -53,9 +57,9 @@ const TriggerItem = ({ trigger, onClick, onDupplicate, onDelete, active }) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={innerOnDupplicate}><FileCopyIcon /><Typography>Dupplicate</Typography></MenuItem>
-          <MenuItem onClick={innerOnClick}><EditIcon />Edit</MenuItem>
-          <MenuItem onClick={innerOnClickDelete}><DeleteIcon />Trash</MenuItem>
+          <MenuItem onClick={innerOnDupplicate}><FileCopyIcon /><Typography>{intl.formatMessage({ id: M.AppTriggerMenuDupplicate })}</Typography></MenuItem>
+          <MenuItem onClick={innerOnClick}><EditIcon />{intl.formatMessage({ id: M.AppTriggerMenuEdit })}</MenuItem>
+          <MenuItem onClick={innerOnClickDelete}><DeleteIcon />{intl.formatMessage({ id: M.AppTriggerMenuDelete })}</MenuItem>
         </Menu>
       </div>
     </div>

@@ -35,7 +35,7 @@ function Config() {
     dispatch(configGet())
     dispatch(workspaceGet())
     dispatch(webserverGet())
-  }, [])
+  }, [dispatch])
 
   const onOpenCurrentWorkspace = () => {
     workspaceOpenCurrent()

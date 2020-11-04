@@ -32,7 +32,7 @@ const Menu = () => {
 
   useEffect(() => {
     dispatch(menuGet())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     let pathnameNormalize = pathname.split('/').filter((i) => i !== null && i !== "")[0]

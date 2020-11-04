@@ -97,6 +97,41 @@ const messages = {
   AppBoardActionDelete: 'app.board.action.delete',
   AppBoardActionSetDefault: 'app.board.action.set_default',
 
+  // TRIGGER
+  AppTriggerSearch: 'app.trigger.search',
+  AppTriggerButtonCreate: 'app.trigger.button.create',
+
+  AppTriggerOptionsClassic: 'app.trigger.options.classic',
+  AppTriggerOptionsThrottle: 'app.trigger.options.throttle',
+  AppTriggerOptionsQueue: 'app.trigger.options.queue',
+  AppTriggerOptionsQueueLock: 'app.trigger.options.queuelock',
+
+  AppTriggerMenuDupplicate: 'app.trigger.menu.dupplicate',
+  AppTriggerMenuEdit: 'app.trigger.menu.update',
+  AppTriggerMenuDelete: 'app.trigger.menu.delete',
+
+  AppTriggerCreate: 'app.trigger.create',
+  AppTriggerUpdate: 'app.trigger.update',
+
+  AppTriggerNameLabel: 'app.trigger.name.label',
+  AppTriggerNamePlaceholder: 'app.trigger.name.placeholder',
+  AppTriggerTypeLabel: 'app.trigger.type.label',
+  AppTriggerTypePlaceholder: 'app.trigger.type.placeholder',
+  AppTriggerLockerLabel: 'app.trigger.locker.label',
+  AppTriggerLockerPlaceholder: 'app.trigger.locker.placeholder',
+  AppTriggerDescriptionLabel: 'app.trigger.description.label',
+  AppTriggerDescriptionPlaceholder: 'app.trigger.description.placeholder',
+  AppTriggerEvent: 'app.trigger.event',
+  AppTriggerEventLabel: 'app.trigger.event.label',
+  AppTriggerEventPlaceholder: 'app.trigger.event.placeholder',
+  AppTriggerConditionLabel: 'app.trigger.condition.label',
+  AppTriggerConditionPlaceholder: 'app.trigger.condition.placeholder',
+  AppTriggerReactionLabel: 'app.trigger.reaction.label',
+  AppTriggerReactionPlaceholder: 'app.trigger.reaction.placeholder',
+  AppTriggerButtonAddEvent: 'app.trigger.event.button.create',
+  AppTriggerButtonCancel: 'app.trigger.event.button.cancel',
+  AppTriggerButtonSave: 'app.trigger.event.button.save',
+
 }
 
 export default messages

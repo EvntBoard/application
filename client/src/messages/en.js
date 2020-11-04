@@ -99,6 +99,41 @@ const messagesEN = {
   [M.AppBoardActionUpdate]: 'Edit',
   [M.AppBoardActionDelete]: 'Delete',
   [M.AppBoardActionSetDefault]: 'Set as default',
+
+  // TRIGGER
+  [M.AppTriggerSearch]: 'Search',
+  [M.AppTriggerButtonCreate]: 'New trigger',
+
+  [M.AppTriggerOptionsClassic]: 'Classoc',
+  [M.AppTriggerOptionsThrottle]: 'Throttle',
+  [M.AppTriggerOptionsQueue]: 'Queue',
+  [M.AppTriggerOptionsQueueLock]: 'Queue Lock',
+
+  [M.AppTriggerMenuDupplicate]: 'Dupplicate',
+  [M.AppTriggerMenuEdit]: 'Edit',
+  [M.AppTriggerMenuDelete]: 'Delete',
+
+  [M.AppTriggerCreate]: 'Create a trigger',
+  [M.AppTriggerUpdate]: 'Update a trigger',
+
+  [M.AppTriggerNameLabel]: 'Name',
+  [M.AppTriggerNamePlaceholder]: 'Example: a sample name',
+  [M.AppTriggerTypeLabel]: 'Type',
+  [M.AppTriggerTypePlaceholder]: 'Example: Classic',
+  [M.AppTriggerLockerLabel]: 'Locker',
+  [M.AppTriggerLockerPlaceholder]: 'Example: channel-twitch',
+  [M.AppTriggerDescriptionLabel]: 'Description',
+  [M.AppTriggerDescriptionPlaceholder]: 'Example: manage twitch follow',
+  [M.AppTriggerEvent]: 'Event',
+  [M.AppTriggerEventLabel]: 'Event',
+  [M.AppTriggerEventPlaceholder]: 'Example: click',
+  [M.AppTriggerConditionLabel]: 'Condition',
+  [M.AppTriggerConditionPlaceholder]: 'Example: a function ...',
+  [M.AppTriggerReactionLabel]: 'Reaction',
+  [M.AppTriggerReactionPlaceholder]: 'Example: a function ...',
+  [M.AppTriggerButtonAddEvent]: 'New event',
+  [M.AppTriggerButtonCancel]: 'Cancel',
+  [M.AppTriggerButtonSave]: 'Save',
 }
 
 export default messagesEN

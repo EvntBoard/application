@@ -59,7 +59,7 @@ const GridManager = () => {
   useEffect(() => {
     dispatch(boardFindAll())
     dispatch(buttonFindAll())
-  }, [])
+  }, [dispatch])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -112,7 +112,7 @@ const GridManager = () => {
     handleClose()
     dispatch(boardCreate({
       ...SAMPLE_BOARD,
-      name: `Board #${size(boards)}`,
+      name: `Board #${size(boards) + 1}`,
     }))
   }
 
@@ -156,7 +156,7 @@ const GridManager = () => {
                     handleSwitchBoard(i)
                   }
                   return (
-                    <MenuItem key={i.id} onClick={innerHandleSwitchBoard} selected={i?.id === currentBoard?.id}><GridOnIcon color={i.default ? 'primary' : 'default'}/> {i.name}</MenuItem>
+                    <MenuItem key={i.id} onClick={innerHandleSwitchBoard} selected={i?.id === currentBoard?.id}><GridOnIcon color={i.default ? 'primary' : 'inherit'}/> {i.name}</MenuItem>
                   )
                 })
               }

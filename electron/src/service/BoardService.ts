@@ -17,7 +17,7 @@ export const boardCreate = (board: IBoard): IBoard => {
 };
 
 export const boardFindAll = (): IBoard[] => {
-  logger.debug('Board Service FIND');
+  logger.debug('Board Service FIND ALL');
   return database.get('boards').value();
 };
 
