@@ -22,20 +22,14 @@
 
     .bg-color {
       @extend .center;
-
-      &-line {
-        stroke: #636363;
-        stroke-width: 1px;
-      }
+      height: 100%;
+      width: 100%;
     }
 
     .bg-image {
       @extend .center;
-
-      &-line {
-        stroke: #636363;
-        stroke-width: 1px;
-      }
+      height: 100%;
+      width: 100%;
     }
 
     .grid {

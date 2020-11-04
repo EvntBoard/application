@@ -169,7 +169,7 @@ const GridManager = () => {
           </Toolbar>
         </AppBar>
         <div className='grid-main'>
-          { currentBoard?.color && (<div className='bg-color' style={{ height: '100%', width: '100%', backgroundColor: currentBoard.color }} />)}
+          { currentBoard?.color && (<div className='bg-color' style={{ backgroundColor: currentBoard.color }} />)}
           { currentBoard?.image && (<img className='bg-image' src={currentBoard.image}  alt='bg-grid' />)}
           <Grid
             width={currentBoard.width}
