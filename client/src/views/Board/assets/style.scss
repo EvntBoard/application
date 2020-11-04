@@ -20,6 +20,24 @@
       min-width: 0;
     }
 
+    .bg-color {
+      @extend .center;
+
+      &-line {
+        stroke: #636363;
+        stroke-width: 1px;
+      }
+    }
+
+    .bg-image {
+      @extend .center;
+
+      &-line {
+        stroke: #636363;
+        stroke-width: 1px;
+      }
+    }
+
     .grid {
       @extend .center;
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import { Field, useField } from 'react-final-form'
 import { useIntl } from 'react-intl'
-import { isNull, isEmpty } from 'lodash'
+import { isNull, isEmpty, isString } from 'lodash'
 import { Button, DialogTitle, DialogContent, DialogActions, Typography, Grid, IconButton } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
@@ -10,6 +10,7 @@ import InputField from '../../Field/Input'
 import TextAreaField from '../../Field/TextArea'
 import ColorPicker from '../../Field/ColorPicker'
 import FilePicker from '../../Field/FilePicker'
+import Input from '../../Field/Input'
 
 const required = (value) => isNull(value) || isEmpty(value)
 
@@ -17,9 +18,19 @@ const requiredNumber = (value) => isNull(value) || value <= 0
 
 const parse = value => (isNaN(parseInt(value, 10)) ? "" : parseInt(value, 10));
 
+const acceptedFormat = ["image/apng", "image/bmp", "image/gif", "image/x-icon", "image/jpeg", "image/svg+xml", "image/tiff", "image/webp"]
+
 const FormModalBoard = ({ handleSubmit, onReset, setOpen, submitting, pristine, form: { reset } }) => {
   const intl = useIntl()
   const idField = useField('id')
+  const imageField = useField('image')
+
+  const imageUrl = useMemo(() => {
+    if (isString(imageField.input.value) && (imageField.input.value.startsWith('http') || imageField.input.value.startsWith('workspace'))) {
+      return imageField.input.value
+    }
+    return null
+  }, [imageField.input.value])
 
   const onClickClose = () => {
     setOpen(false)
@@ -91,13 +102,25 @@ const FormModalBoard = ({ handleSubmit, onReset, setOpen, submitting, pristine, 
               placeholder={intl.formatMessage({ id: M.ModalBoardDescriptionPlaceholder })}
             />
           </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <Field
+                name="image"
+                label={intl.formatMessage({ id: M.ModalButtonImageInternalLabel })}
+                component={FilePicker}
+                acceptedFormat={acceptedFormat}
+              />
+            </Grid>
+            <Grid item container xs={12} sm={6}>
+              <Field
+                name="image"
+                label={intl.formatMessage({ id: M.ModalButtonImageExternalLabel })}
+                component={Input}
+              />
+            </Grid>
+          </Grid>
           <Grid item xs={12}>
-            <Field
-              name="image"
-              label={intl.formatMessage({ id: M.ModalBoardImageLabel })}
-              component={FilePicker}
-              placeholder={intl.formatMessage({ id: M.ModalBoardImagePlaceholder })}
-            />
+            { imageUrl && (<img src={imageUrl} height={150} alt='image' />) }
           </Grid>
         </Grid>
       </DialogContent>

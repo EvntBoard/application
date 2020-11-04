@@ -2,8 +2,8 @@ import { v4 as uuid } from 'uuid';
 
 import { database } from '../database/local';
 import { IBoard } from '../types';
-
 import { buttonDeleteForBoard } from './ButtonService';
+import { moveFileToWorkspace } from '../utils/moveFileToWorkspace';
 import logger from './LoggerService';
 
 export const boardCreate = (board: IBoard): IBoard => {
@@ -11,7 +11,11 @@ export const boardCreate = (board: IBoard): IBoard => {
   const id = uuid();
   database
     .get('boards')
-    .push({ ...board, id })
+    .push({
+      ...board,
+      id,
+      image: moveFileToWorkspace(board.image, 'image'),
+    })
     .write();
   return boardFindOne(id);
 };
@@ -31,7 +35,10 @@ export const boardUpdate = (board: Partial<IBoard>): IBoard => {
   database
     .get('boards')
     .find({ id: board.id })
-    .assign({ ...board })
+    .assign({
+      ...board,
+      image: moveFileToWorkspace(board.image, 'image'),
+    })
     .write();
   return boardFindOne(board.id);
 };

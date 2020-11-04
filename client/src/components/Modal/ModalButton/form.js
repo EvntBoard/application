@@ -101,9 +101,9 @@ const FormModalButton = ({ handleSubmit, onReset, setOpen, submitting, pristine,
                 component={Input}
               />
             </Grid>
-            <Grid item xs={12}>
-              { imageUrl && (<img src={imageUrl} height={150} alt='button-2' />) }
-            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            { imageUrl && (<img src={imageUrl} height={150} alt='image' />) }
           </Grid>
           <Grid container item xs={12}>
             <Field

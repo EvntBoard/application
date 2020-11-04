@@ -124,6 +124,11 @@ const GridManager = () => {
     return null
   }
 
+  console.log({
+    image: currentBoard.image,
+    color: currentBoard.color,
+  })
+
   return (
     <>
       <ModalBoard open={open} setOpen={setOpen} onSubmit={onSubmit} onReset={onReset} current={currentBoard} />
@@ -164,6 +169,8 @@ const GridManager = () => {
           </Toolbar>
         </AppBar>
         <div className='grid-main'>
+          { currentBoard?.color && (<div className='bg-color' style={{ height: '100%', width: '100%', backgroundColor: currentBoard.color }} />)}
+          { currentBoard?.image && (<img className='bg-image' src={currentBoard.image}  alt='bg-grid' />)}
           <Grid
             width={currentBoard.width}
             height={currentBoard.height}
