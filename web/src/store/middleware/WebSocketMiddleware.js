@@ -14,7 +14,7 @@ const middleware = store => next => action => {
     case wsConnect.type:
       // Configure the object
       try {
-        websocket = new WebSocket(action.payload?.url);
+        websocket = new WebSocket(action.payload);
 
         // Attach the callbacks
         websocket.onopen = () => store.dispatch(wsOnOpen());

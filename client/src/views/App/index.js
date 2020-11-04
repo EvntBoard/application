@@ -20,7 +20,6 @@ const App = () => {
       <div>
         <QrCode value={url} />
       </div>
-      <a rel="noreferrer" target='_blank' href={url}>Open board app there</a>
       <div onClick={onOpenBoard}>Open board app in your default browser</div>
     </Container>
   );
