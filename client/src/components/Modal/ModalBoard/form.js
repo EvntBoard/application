@@ -120,7 +120,7 @@ const FormModalBoard = ({ handleSubmit, onReset, setOpen, submitting, pristine, 
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            { imageUrl && (<img src={imageUrl} height={150} alt='bg-image' />) }
+            { imageUrl && (<img src={imageUrl} height={150} alt='bg-board' />) }
           </Grid>
         </Grid>
       </DialogContent>

@@ -124,11 +124,6 @@ const GridManager = () => {
     return null
   }
 
-  console.log({
-    image: currentBoard.image,
-    color: currentBoard.color,
-  })
-
   return (
     <>
       <ModalBoard open={open} setOpen={setOpen} onSubmit={onSubmit} onReset={onReset} current={currentBoard} />
