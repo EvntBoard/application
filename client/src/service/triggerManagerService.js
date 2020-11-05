@@ -13,3 +13,7 @@ export const triggerManagerOnEnd = (callback) => {
 export const triggerManagerOnError = (callback) => {
   window.app.triggerManager.onError(callback)
 }
+
+export const triggerManageNewEvent = (event) => {
+  window.app.triggerManager.newEvent(event)
+}

@@ -93,5 +93,8 @@ contextBridge.exposeInMainWorld('app', {
     onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
       ipcRenderer.on(TRIGGER_MANAGER.ON_ERROR, callback);
     },
+    newEvent: (event: any) => {
+      ipcRenderer.invoke(TRIGGER_MANAGER.NEW_EVENT, event);
+    },
   },
 });

@@ -6,8 +6,8 @@ import { ITrigger } from '../../../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
-import {isFunction} from "lodash";
-import services from "../exportedServices";
+import { isFunction } from 'lodash';
+import services from '../exportedServices';
 
 const locker = new Map<string, Mutex>();
 

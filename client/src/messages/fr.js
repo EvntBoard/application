@@ -6,6 +6,7 @@ const messagesFR = {
   [M.AppMenuBoard]: 'Board',
   [M.AppMenuTrigger]: 'Trigger',
   [M.AppMenuDebug]: 'Debug',
+  [M.AppMenuHelp]: 'Aide',
   [M.AppMenuSettings]: 'Configuration',
 
   // FIELD

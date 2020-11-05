@@ -4,6 +4,7 @@ const messages = {
   AppMenuBoard: 'app.menu.board',
   AppMenuTrigger: 'app.menu.trigger',
   AppMenuDebug: 'app.menu.debug',
+  AppMenuHelp: 'app.menu.help',
   AppMenuSettings: 'app.menu.settings',
 
   // Field

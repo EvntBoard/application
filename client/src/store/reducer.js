@@ -10,6 +10,7 @@ import triggerReducer from './trigger'
 import webserverReducer from './webserver'
 import workspaceReducer from './workspace'
 import triggerManagerReducer from './triggerManager'
+import appStateReducer from './appState'
 
 export default combineReducers({
   config: configReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   workspace: workspaceReducer,
   webserver: webserverReducer,
   triggerManager: triggerManagerReducer,
+  appState: appStateReducer,
 })

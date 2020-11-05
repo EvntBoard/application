@@ -1,28 +1,48 @@
-import React, {useEffect, useState} from 'react'
-import { Container } from '@material-ui/core'
-import QrCode from 'qrcode.react'
+import React, { useEffect, useMemo } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { isString } from 'lodash'
 
-import { webServerOpenApp, webServerGetUrl } from '../../service/webServerService'
+import {boardFindAll, selectors as boardSelectors} from '../../store/board'
+import {buttonFindAll, selectors as buttonSelectors} from '../../store/button'
 
-const App = () => {
-  const [url, setUrl] = useState("")
+import Grid from './components/Grid'
+
+import './assets/style.scss'
+import {triggerManageNewEvent} from '../../service/triggerManagerService'
+
+const Board = () => {
+  const dispatch = useDispatch()
+  const currentBoard = useSelector(boardSelectors.getCurrent)
+  const currentButtons = useSelector(buttonSelectors.buttonsGetCurrentForAppState)
 
   useEffect(() => {
-    webServerGetUrl().then(url => setUrl(url))
-  }, [])
+    dispatch(boardFindAll())
+    dispatch(buttonFindAll())
+  }, [dispatch])
 
-  const onOpenBoard = () => {
-    webServerOpenApp()
+  const onClick = (data) => {
+    triggerManageNewEvent({
+      event: 'click',
+      idButton: data.id,
+      idTrigger: data.idTrigger,
+    })
+  }
+
+  if (!currentBoard) {
+    return null
   }
 
   return (
-    <Container className="App">
-      <div>
-        <QrCode value={url} />
-      </div>
-      <div onClick={onOpenBoard}>Open board app in your default browser</div>
-    </Container>
+    <div className="home">
+      { currentBoard.color && <div className='bg-color' style={{ backgroundColor: currentBoard.color }} />}
+      { currentBoard.image && <img className='bg-image' src={currentBoard.image} alt='bg-board' />}
+      <Grid
+        board={currentBoard}
+        buttons={currentButtons}
+        onClick={onClick}
+      />
+    </div>
   );
 }
 
-export default App;
+export default Board;

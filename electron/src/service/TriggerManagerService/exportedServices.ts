@@ -1,7 +1,7 @@
 const services = {
   test: (aze: any) => {
-    console.log(aze)
-  }
-}
+    console.log(aze);
+  },
+};
 
-export default services
+export default services;

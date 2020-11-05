@@ -10,13 +10,13 @@ import { ITrigger } from '../types';
 import logger from './LoggerService';
 
 const DEFAULT_CONTENT = `const conditions = {
-  'click': (idTrigger, evntData) => {
-    console.log('waza')
-  }
+  'click': (idTrigger, evntData) => idTrigger === evntData.idTrigger
 }
 
 const reaction = async (evntData, services) => {
-  console.log('testt')
+  console.log('from reaction')
+  console.debug(JSON.stringify(evntData, 0, 2)
+  console.debug(JSON.stringify(services, 0, 2)
 }
   
 module.exports = {
@@ -87,7 +87,7 @@ export const triggerDelete = (trigger: Partial<ITrigger>): void => {
 
   const triggerDirPath = path.join(currentWorkspace.path, 'trigger');
   const triggerFilePath = path.join(triggerDirPath, `${trigger.id}.js`);
-  fs.unlinkSync(triggerFilePath)
+  fs.unlinkSync(triggerFilePath);
 };
 
 export const triggerEditFile = (trigger: Partial<ITrigger>): void => {

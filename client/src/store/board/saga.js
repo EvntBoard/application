@@ -28,22 +28,24 @@ import {
   boardSetDefaultFailed,
 } from './'
 
+import { appStateChangeCurrentBoard } from '../appState'
+
 function* onBoardFindAll() {
   try {
     const data = yield call(IPCboardFindAll)
     yield put(boardFindAllSuccess(data))
 
+    const currentBoardId = yield select(state => state.board.currentBoardId)
+
     // on set la current a celle par défaut
     const defaultBoard = find(data, { default: true })
-    console.log({ data, defaultBoard })
-    if (defaultBoard) {
+    if (currentBoardId === null) {
       yield put(boardChangeCurrentBoard(defaultBoard))
-    } else {
-      // malencontreusement il n'y a pas de default ...
-      // on prend la first et on la set comme default
-      const newDefault = first(data)
-      yield put(boardChangeCurrentBoard(newDefault))
-      yield put(boardSetDefault(newDefault))
+    }
+
+    const currentBoardIdAppState = yield select(state => state.appState.currentBoardId)
+    if (currentBoardIdAppState === null) {
+      yield put(appStateChangeCurrentBoard(defaultBoard))
     }
 
   } catch (e) {
