@@ -36,17 +36,17 @@ export default class TriggerRunnerQueueLocker implements ITriggerRunner {
 
       const eventsList = Object.keys(this.conditions);
 
-      this.unlisten = bus.on(eventsList, (data: any) => {
-        const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
-        if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
-          this.queue.push(data.id);
-          this.processEvent();
-        }
-      });
-
       if (!locker.has(this.locker)) {
         locker.set(this.locker, new Mutex());
       }
+
+      this.unlisten = bus.on(eventsList, (data: any) => {
+        const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
+        if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
+          this.queue.push(data);
+          this.processEvent();
+        }
+      });
     } catch (e) {
       logger.error(e);
       logger.error('Trigger Manager failed to load', triggerEntity);

@@ -3,7 +3,7 @@ import { Howl } from 'howler'
 export const onMediaPlay = () => {
   window.app.media.play((event, { file, volume, uniqueId }) => {
     new Howl({
-      html5: true,
+      html5: file.startsWith('http'),
       src: [file],
       autoplay: true,
       volume: volume || 1,
