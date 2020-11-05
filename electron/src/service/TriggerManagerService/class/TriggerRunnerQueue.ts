@@ -6,6 +6,7 @@ import { ITrigger } from '../../../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
+import services from "../exportedServices";
 
 export default class TriggerRunnerQueue implements ITriggerRunner {
   id: string;
@@ -59,7 +60,7 @@ export default class TriggerRunnerQueue implements ITriggerRunner {
 
       const data = this.queue.shift();
       startEvent(data);
-      this.reaction(data)
+      this.reaction(data, services)
         .then(() => {
           this.running = false;
           endEvent(data);

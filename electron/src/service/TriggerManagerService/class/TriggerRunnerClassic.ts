@@ -6,6 +6,7 @@ import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
+import services from "../exportedServices";
 
 export default class TriggerRunnerClassic implements ITriggerRunner {
   id: string;
@@ -44,7 +45,7 @@ export default class TriggerRunnerClassic implements ITriggerRunner {
 
   processEvent(data: any) {
     startEvent(data);
-    this.reaction(data)
+    this.reaction(data, services)
       .then(() => {
         endEvent(data);
       })

@@ -7,6 +7,7 @@ import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
 import {isFunction} from "lodash";
+import services from "../exportedServices";
 
 const locker = new Map<string, Mutex>();
 
@@ -68,7 +69,7 @@ export default class TriggerRunnerQueueLocker implements ITriggerRunner {
       locker.acquire().then((release: MutexInterface.Releaser) => {
         const data = this.queue.shift();
         startEvent(data);
-        this.reaction(data)
+        this.reaction(data, services)
           .then(() => {
             release();
             endEvent(data);

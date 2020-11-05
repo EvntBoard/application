@@ -1,7 +1,7 @@
 import * as Emittery from 'emittery';
 
 export type ITriggerCondition = (id: any, data: any) => boolean;
-export type ITriggerReaction = (data: any) => Promise<void>;
+export type ITriggerReaction = (data: any, services: any) => Promise<void>;
 
 export interface ITriggerRunner {
   id: string;

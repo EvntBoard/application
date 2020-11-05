@@ -10,12 +10,12 @@ import { ITrigger } from '../types';
 import logger from './LoggerService';
 
 const DEFAULT_CONTENT = `const conditions = {
-  'click': () => {
+  'click': (idTrigger, evntData) => {
     console.log('waza')
   }
 }
-  
-const reaction = () => {
+
+const reaction = async (evntData, services) => {
   console.log('testt')
 }
   
