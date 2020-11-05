@@ -15,8 +15,8 @@ const DEFAULT_CONTENT = `const conditions = {
 
 const reaction = async (evntData, services) => {
   console.log('from reaction')
-  console.debug(JSON.stringify(evntData, 0, 2)
-  console.debug(JSON.stringify(services, 0, 2)
+  console.debug(JSON.stringify(evntData, 0, 2))
+  console.debug(JSON.stringify(services, 0, 2))
 }
   
 module.exports = {

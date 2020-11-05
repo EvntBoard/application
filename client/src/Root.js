@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useRoutes } from 'react-router-dom'
 import { IntlProvider } from 'react-intl'
 import { useDispatch, useSelector } from 'react-redux'

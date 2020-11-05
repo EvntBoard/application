@@ -7,7 +7,6 @@ import App from './views/App'
 import Trigger from './views/Trigger'
 import Board from './views/Board'
 import Debug from './views/Debug'
-import Help from './views/Help'
 import ConfigGlobal from './views/ConfigGlobal'
 
 const routes = [
@@ -19,7 +18,6 @@ const routes = [
       { path: '/board', element: <Board /> },
       { path: '/trigger', element: <Trigger /> },
       { path: '/debug', element: <Debug /> },
-      { path: '/help', element: <Help /> },
       {
         path: '/config',
         element: <ConfigLayout />,

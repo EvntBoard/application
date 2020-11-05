@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { filter } from 'lodash'
 
 import { selectors } from '../board'
-import { selectors as appStateSelectors } from '../appState'
+import { selectors as tmSelectors } from '../triggerManager'
 
 export const basic = state => state.button
 
@@ -17,9 +17,9 @@ export const buttonsGetCurrent = createSelector(
   (buttons, idBoard) => filter(buttons, { idBoard })
 )
 
-export const buttonsGetCurrentForAppState = createSelector(
+export const buttonsGetCurrentForTM = createSelector(
   buttons,
-  appStateSelectors.currentId,
+  tmSelectors.currentId,
   (buttons, idBoard) => filter(buttons, { idBoard })
 )
 

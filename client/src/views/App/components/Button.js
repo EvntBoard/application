@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react'
-import { isString } from 'lodash'
 import { Paper } from '@material-ui/core'
 
 import { getContrastYIQ } from '../../Board/utils'

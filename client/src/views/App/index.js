@@ -15,7 +15,7 @@ import './assets/style.scss'
 const Board = () => {
   const dispatch = useDispatch()
   const currentBoard = useSelector(boardSelectors.getCurrent)
-  const currentButtons = useSelector(buttonSelectors.buttonsGetCurrentForAppState)
+  const currentButtons = useSelector(buttonSelectors.buttonsGetCurrentForTM)
   const [open, setOpen] = useState(false)
   const [url, setUrl] = useState(null)
 
@@ -62,7 +62,7 @@ const Board = () => {
             <MuiGrid item sm={5}>
               <Typography variant='h5'>QR Code</Typography>
                 <div style={{ padding: 16, backgroundColor: 'white', width: 160, borderRadius: 25, margin: 'auto' }}>
-                  <QrCode value={'aze'} />
+                  <QrCode value={url} />
                 </div>
             </MuiGrid>
             <MuiGrid container item sm={2}>

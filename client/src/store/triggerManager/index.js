@@ -5,6 +5,9 @@ export * as selectors from './selector'
 
 const PATH = 'TRIGGER_MANAGER'
 
+export const triggerManagerChangeCurrentBoard = createAction(`${PATH}_CHANGE_CURRENT_BOARD`)
+export const triggerManagerOnData = createAction(`${PATH}_ON_DATA`)
+
 export const triggerManagerReload = createAction(`${PATH}_RELOAD`)
 
 export const triggerManagerOnNew = createAction(`${PATH}_ON_NEW`)
@@ -13,10 +16,18 @@ export const triggerManagerOnEnd = createAction(`${PATH}_ON_END`)
 export const triggerManagerOnError = createAction(`${PATH}_ON_ERROR`)
 
 const INITIAL_STATE = {
+  currentBoardId: null,
+  data: {},
   events: []
 }
 
 const reducer = createReducer(INITIAL_STATE, {
+  [triggerManagerChangeCurrentBoard]: (state, action) => {
+    state.currentBoardId = action.payload.id
+  },
+  [triggerManagerOnData]: (state, action) => {
+    console.log(action)
+  },
   [triggerManagerReload]: () => {
     return INITIAL_STATE
   },

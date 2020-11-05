@@ -28,7 +28,7 @@ import {
   boardSetDefaultFailed,
 } from './'
 
-import { appStateChangeCurrentBoard } from '../appState'
+import { triggerManagerChangeCurrentBoard } from '../triggerManager'
 
 function* onBoardFindAll() {
   try {
@@ -43,9 +43,9 @@ function* onBoardFindAll() {
       yield put(boardChangeCurrentBoard(defaultBoard))
     }
 
-    const currentBoardIdAppState = yield select(state => state.appState.currentBoardId)
+    const currentBoardIdAppState = yield select(state => state.triggerManager.currentBoardId)
     if (currentBoardIdAppState === null) {
-      yield put(appStateChangeCurrentBoard(defaultBoard))
+      yield put(triggerManagerChangeCurrentBoard(defaultBoard))
     }
 
   } catch (e) {
@@ -85,9 +85,6 @@ function* onBoardDelete({ payload }) {
   try {
     yield call(IPCboardDelete, payload)
     yield put(boardDeleteSuccess(payload))
-
-    // c'était la board par défaut ! on va donc faire que la premiere de la liste
-    // soit la nouvelle defaut
 
     const allBoards = yield select((state) => state.board.boards)
 

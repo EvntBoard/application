@@ -4,7 +4,7 @@ import { template } from 'grid-template-parser'
 import Button from './Button'
 import { newToOld } from '../../Board/utils'
 
-const Preview = ({ board, buttons, onClick }) => {
+const Grid = ({ board, buttons, onClick }) => {
   const tpl = useMemo(() => {
     if (board) {
       return template({
@@ -40,4 +40,4 @@ const Preview = ({ board, buttons, onClick }) => {
   );
 }
 
-export default Preview
+export default Grid
