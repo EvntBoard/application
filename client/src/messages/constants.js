@@ -130,6 +130,10 @@ const messages = {
   AppTriggerButtonCancel: 'app.trigger.event.button.cancel',
   AppTriggerButtonSave: 'app.trigger.event.button.save',
 
+  // MAIN
+  AppMainQrCode: 'app.main.qrcode',
+  AppMainOr: 'app.main.or',
+  AppMainURL: 'app.main.url',
 }
 
 export default messages

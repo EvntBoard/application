@@ -130,6 +130,11 @@ const messagesFR = {
   [M.AppTriggerButtonEditFile]: 'Modifier le fichier du trigger',
   [M.AppTriggerButtonCancel]: 'Annuler',
   [M.AppTriggerButtonSave]: 'Enregistrer',
+
+  // MAIN
+  [M.AppMainQrCode]: 'QR Code',
+  [M.AppMainOr]: 'OU',
+  [M.AppMainURL]: 'Lien',
 }
 
 export default messagesFR

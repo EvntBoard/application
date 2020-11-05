@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dialog, Fab, DialogContent, Typography, Grid as MuiGrid, Chip, Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import QrCode from 'qrcode.react';
+import { useIntl } from 'react-intl'
 
 import Grid from './components/Grid'
 import { boardFindAll, selectors as boardSelectors } from '../../store/board'
 import { buttonFindAll, selectors as buttonSelectors } from '../../store/button'
 import { triggerManageNewEvent } from '../../service/triggerManagerService'
 import { webServerGetUrl, webServerOpenApp } from '../../service/webServerService'
+import M from '../../messages/constants'
 
 import './assets/style.scss'
 
 const Board = () => {
+  const intl = useIntl()
   const dispatch = useDispatch()
   const currentBoard = useSelector(boardSelectors.getCurrent)
   const currentButtons = useSelector(buttonSelectors.buttonsGetCurrentForTM)
@@ -60,16 +63,16 @@ const Board = () => {
         <DialogContent>
           <MuiGrid container style={{ textAlign: 'center' }}>
             <MuiGrid item sm={5}>
-              <Typography variant='h5'>QR Code</Typography>
+              <Typography variant='h5'>{intl.formatMessage({ id: M.AppMainQrCode })}</Typography>
                 <div style={{ padding: 16, backgroundColor: 'white', width: 160, borderRadius: 25, margin: 'auto' }}>
                   <QrCode value={url} />
                 </div>
             </MuiGrid>
             <MuiGrid container item sm={2}>
-              <Chip style={{ margin: 'auto' }} label='OR' color='primary' />
+              <Chip style={{ margin: 'auto' }} label={intl.formatMessage({ id: M.AppMainOr })} color='primary' />
             </MuiGrid>
             <MuiGrid item sm={5}>
-              <Typography variant='h5'>URL</Typography>
+              <Typography variant='h5'>{intl.formatMessage({ id: M.AppMainURL })}</Typography>
               <Button variant='contained' onClick={onOpenApp}>{url}</Button>
             </MuiGrid>
           </MuiGrid>
