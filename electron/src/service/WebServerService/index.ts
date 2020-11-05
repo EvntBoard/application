@@ -63,15 +63,18 @@ export const init = () => {
       logger.debug('WS connection');
       socket.on('message', (message: any) => {
         try {
-          const data = JSON.parse(message)
+          const data = JSON.parse(message);
           if (data.event) {
             newEvent(data);
           }
         } catch (e) {
-          logger.error(e)
+          logger.error(message);
+          logger.error(e);
         }
       });
     });
+
+    wsServer.on('error', () => {});
   } catch (e) {
     logger.error(e);
     mainWindowsSend(WEB_SERVER.ON_ERROR, {

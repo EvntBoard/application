@@ -12,6 +12,7 @@ import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate, selectors 
 import M from '../../messages/constants'
 
 import './assets/style.scss'
+import {triggerEditFile, triggerReload} from '../../service/triggerService'
 
 const SAMPLE_TRIGGER = {
   id: null,
@@ -19,8 +20,6 @@ const SAMPLE_TRIGGER = {
   locker: null,
   name: 'New Trigger',
   description: null,
-  events: [{ event: 'click', condition: `module.exports = (idTrigger, evntData) => triggerId === evntData.idTrigger` }],
-  reaction: `module.exports = async (evntData, services) => {\n  services.utils.log('test')\n}`
 }
 
 const Trigger = () => {
@@ -56,6 +55,14 @@ const Trigger = () => {
     setCurrent(null)
   }
 
+  const onEditFile = (trigger) => {
+    triggerEditFile(trigger)
+  }
+
+  const onReload = (trigger) => {
+    triggerReload(trigger)
+  }
+
   const onClickItem = (i) => {
     setCurrent(i)
   }
@@ -82,6 +89,8 @@ const Trigger = () => {
             onClick={onClickItem}
             onDupplicate={onDupplicateTrigger}
             onDelete={onDeleteTrigger}
+            onReload={onReload}
+            onEditFile={onEditFile}
           />)}
         </div>
         <div className='actions'>
@@ -95,6 +104,7 @@ const Trigger = () => {
               mutators={{ ...arrayMutators }}
               initialValues={current}
               onReset={onReset}
+              onEditFile={onEditFile}
               onSubmit={onSubmitFormTrigger}
               component={FormTrigger}
             />

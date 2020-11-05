@@ -1,50 +1,54 @@
-import { find } from 'lodash';
 import * as Emittery from 'emittery';
-import * as requireFromString from 'require-from-string';
 import { Mutex, MutexInterface } from 'async-mutex';
 
-import { ITriggerRunner, ITriggerRunnerEvents } from '../types';
+import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
 import { ITrigger } from '../../../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
+import { evalCodeFromFile } from '../utils';
+import logger from '../../LoggerService';
+import {isFunction} from "lodash";
 
 const locker = new Map<string, Mutex>();
 
 export default class TriggerRunnerQueueLocker implements ITriggerRunner {
   id: string;
-  reaction: (data: any) => Promise<void>;
-  events: Array<ITriggerRunnerEvents>;
+  reaction: ITriggerReaction;
+  conditions: Record<string, ITriggerCondition>;
   unlisten: Emittery.UnsubscribeFn;
   private locker: string;
   private queue: string[];
 
   constructor(triggerEntity: ITrigger) {
-    if (!triggerEntity.id) throw new Error('WTF !');
-    if (triggerEntity.locker === undefined)
-      throw new Error("locker should be set cause it's a trigger with QUEUE_LOCK type !");
-
-    this.queue = [];
-    this.id = triggerEntity.id;
-    this.locker = triggerEntity.locker;
-    this.reaction = requireFromString(triggerEntity.reaction);
-    this.events = triggerEntity.events.map((i) => ({
-      event: i.event,
-      condition: requireFromString(i.condition),
-    }));
-
-    const eventsList = this.events.map((i) => i.event);
-    this.unlisten = bus.on(eventsList, (data: any) => {
-      const eventRunner: ITriggerRunnerEvents | undefined = find(
-        this.events,
-        (i) => i.event === data.event
-      );
-      if (eventRunner !== undefined && eventRunner.condition(this.id, data)) {
-        this.queue.push(data.id);
-        this.processEvent();
+    try {
+      if (triggerEntity.locker === undefined) {
+        throw new Error("locker should be set cause it's a trigger with QUEUE_LOCK type !");
       }
-    });
 
-    if (!locker.has(this.locker)) {
-      locker.set(this.locker, new Mutex());
+      this.id = triggerEntity.id;
+      this.queue = [];
+      this.locker = triggerEntity.locker;
+
+      // load trigger file
+      const triggerData = evalCodeFromFile(triggerEntity);
+      this.reaction = triggerData.reaction;
+      this.conditions = triggerData.conditions;
+
+      const eventsList = Object.keys(this.conditions);
+
+      this.unlisten = bus.on(eventsList, (data: any) => {
+        const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
+        if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
+          this.queue.push(data.id);
+          this.processEvent();
+        }
+      });
+
+      if (!locker.has(this.locker)) {
+        locker.set(this.locker, new Mutex());
+      }
+    } catch (e) {
+      logger.error(e);
+      logger.error('Trigger Manager failed to load', triggerEntity);
     }
   }
 
@@ -53,7 +57,9 @@ export default class TriggerRunnerQueueLocker implements ITriggerRunner {
   }
 
   unload() {
-    this.unlisten();
+    if (isFunction(this.unlisten)) {
+      this.unlisten();
+    }
   }
 
   processEvent() {

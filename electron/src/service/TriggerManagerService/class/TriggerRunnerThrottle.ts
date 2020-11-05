@@ -1,41 +1,47 @@
-import { find } from 'lodash';
 import * as Emittery from 'emittery';
-import * as requireFromString from 'require-from-string';
 
-import { ITriggerRunner, ITriggerRunnerEvents } from '../types';
+import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
 import { ITrigger } from '../../../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
+import { evalCodeFromFile } from '../utils';
+import logger from '../../LoggerService';
+import {isFunction} from "lodash";
 
 export default class TriggerRunnerThrottle implements ITriggerRunner {
   id: string;
-  events: Array<ITriggerRunnerEvents>;
-  reaction: (data: any) => Promise<void>;
+  reaction: ITriggerReaction;
+  conditions: Record<string, ITriggerCondition>;
   unlisten: Emittery.UnsubscribeFn;
   private running: boolean;
 
   constructor(triggerEntity: ITrigger) {
-    this.running = false;
-    this.id = triggerEntity.id;
-    this.reaction = requireFromString(triggerEntity.reaction);
+    try {
+      this.id = triggerEntity.id;
+      this.running = false;
 
-    this.events = triggerEntity.events.map((i) => ({
-      event: i.event,
-      condition: requireFromString(i.condition),
-    }));
-    const eventsList = this.events.map((i) => i.event);
-    this.unlisten = bus.on(eventsList, (data: any) => {
-      const eventRunner: ITriggerRunnerEvents | undefined = find(
-        this.events,
-        (i) => i.event === data.event
-      );
-      if (eventRunner !== undefined && eventRunner.condition(this.id, data)) {
-        this.processEvent(data);
-      }
-    });
+      // load trigger file
+      const triggerData = evalCodeFromFile(triggerEntity);
+      this.reaction = triggerData.reaction;
+      this.conditions = triggerData.conditions;
+
+      const eventsList = Object.keys(this.conditions);
+
+      this.unlisten = bus.on(eventsList, (data: any) => {
+        const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
+        if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
+          this.processEvent(data);
+        }
+      });
+    } catch (e) {
+      logger.error(e);
+      logger.error('Trigger Manager failed to load', triggerEntity);
+    }
   }
 
   unload() {
-    this.unlisten();
+    if (isFunction(this.unlisten)) {
+      this.unlisten();
+    }
   }
 
   processEvent(data: any) {

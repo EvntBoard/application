@@ -6,6 +6,8 @@ import {
   triggerCreate,
   triggerFindAll,
   triggerFindOne,
+  triggerEditFile,
+  triggerReload,
 } from '../TriggerService';
 import { TRIGGER } from '../../utils/ipc';
 import { ITrigger } from '../../types';
@@ -19,4 +21,6 @@ export const init = () => {
   ipcMain.handle(TRIGGER.FIND_ONE, (_, id: string) => triggerFindOne(id));
   ipcMain.handle(TRIGGER.UPDATE, (_, data: ITrigger) => triggerUpdate(data));
   ipcMain.handle(TRIGGER.DELETE, (evt, data: ITrigger) => triggerDelete(data));
+  ipcMain.handle(TRIGGER.EDIT_FILE, (evt, data: ITrigger) => triggerEditFile(data));
+  ipcMain.handle(TRIGGER.RELOAD, (evt, data: ITrigger) => triggerReload(data));
 };

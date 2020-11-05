@@ -17,3 +17,12 @@ export const triggerUpdate = async (trigger) => {
 export const triggerDelete = async (trigger) => {
   return await window.app.trigger.delete(trigger)
 }
+
+export const triggerEditFile = (trigger) => {
+  window.app.trigger.editFile(trigger)
+}
+
+
+export const triggerReload = (trigger) => {
+  window.app.trigger.reload(trigger)
+}

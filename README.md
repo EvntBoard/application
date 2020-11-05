@@ -1,12 +1,6 @@
 https://d-fischer.github.io/branches/support/4.1/twitch/reference/classes/HelixUserAPI.html#getMe
 
 
-Generate HTTPS
+// pour faire des modules dynamiques !
 
-```
-openssl genrsa -out key.pem
-openssl req -new -key key.pem -out csr.pem
-openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
-rm csr.pem
-```
-
+https://medium.com/better-programming/how-to-create-and-load-custom-modules-dynamically-in-node-js-9f1174a39341

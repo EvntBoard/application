@@ -29,6 +29,8 @@ contextBridge.exposeInMainWorld('app', {
     findOne: (id: string) => ipcRenderer.invoke(TRIGGER.FIND_ONE, id),
     update: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.UPDATE, data),
     delete: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.DELETE, data),
+    editFile: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.EDIT_FILE, data),
+    reload: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.RELOAD, data),
   },
   board: {
     create: (data: IBoard) => ipcRenderer.invoke(BOARD.CREATE, data),

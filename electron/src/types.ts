@@ -1,8 +1,3 @@
-export interface ITriggerEvent {
-  event: string;
-  condition: string;
-}
-
 export enum ITriggerType {
   CLASSIC = 1,
   THROTTLE = 2,
@@ -16,8 +11,6 @@ export interface ITrigger {
   locker: string;
   type: ITriggerType;
   description: string;
-  reaction: string;
-  events: ITriggerEvent[];
   createdAt: Date;
   updatedAt: Date;
 }
