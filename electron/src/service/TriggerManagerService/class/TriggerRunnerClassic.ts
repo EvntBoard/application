@@ -6,7 +6,7 @@ import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
-import services from '../exportedServices';
+import services from '../service';
 
 export default class TriggerRunnerClassic implements ITriggerRunner {
   id: string;

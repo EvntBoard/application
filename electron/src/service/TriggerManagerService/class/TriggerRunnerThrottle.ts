@@ -1,12 +1,12 @@
 import * as Emittery from 'emittery';
+import { isFunction } from 'lodash';
 
 import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
 import { ITrigger } from '../../../types';
 import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
-import { isFunction } from 'lodash';
-import services from '../exportedServices';
+import services from '../service';
 
 export default class TriggerRunnerThrottle implements ITriggerRunner {
   id: string;

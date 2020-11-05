@@ -10,7 +10,7 @@ import {
   APP,
   WORKSPACE,
   WEB_SERVER,
-  TRIGGER_MANAGER,
+  TRIGGER_MANAGER, MEDIA,
 } from '../utils/ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp } from '../types';
 
@@ -97,4 +97,9 @@ contextBridge.exposeInMainWorld('app', {
       ipcRenderer.invoke(TRIGGER_MANAGER.NEW_EVENT, event);
     },
   },
+  media: {
+    play: async (callback: any) => {
+      ipcRenderer.on(MEDIA.PLAY, callback);
+    }
+  }
 });

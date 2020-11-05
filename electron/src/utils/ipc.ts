@@ -71,3 +71,8 @@ export enum TRIGGER_MANAGER {
   ON_END = `TRIGGER_MANAGER_ON_END`,
   ON_ERROR = `TRIGGER_MANAGER_ON_ERROR`,
 }
+
+export enum MEDIA {
+  PLAY = `MEDIA_PLAY`,
+  TTS = `MEDIA_TTS`,
+}
