@@ -32,7 +32,7 @@ const Board = () => {
   }, [currentBoard])
 
   const onClick = (data) => {
-    dispatch(wsSend({ event: 'click', idButton: data.id }))
+    dispatch(wsSend({ event: 'click', idTrigger: data.idTrigger }))
   }
 
   if (!currentBoard) {
