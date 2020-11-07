@@ -1,4 +1,4 @@
-import { EventBus } from "../TriggerManagerService/eventBus";
+import { EventBus } from '../TriggerManagerService/eventBus';
 
 export enum ModuleAvailable {
   TWITCH = 'twitch',

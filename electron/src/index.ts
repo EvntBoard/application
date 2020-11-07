@@ -6,6 +6,7 @@ import { registerProtocol as initRegisterProtocol } from './protocol';
 import { init as initIpc } from './service/IpcService';
 import { init as initTriggerManager } from './service/TriggerManagerService';
 import { init as initWebServer } from './service/WebServerService';
+import { init as initModuleManager } from './service/ModuleManager';
 import { createMainWindow } from './window/main';
 import logger from './service/LoggerService';
 
@@ -17,6 +18,7 @@ app.on('ready', async () => {
   await initIpc();
   await initTriggerManager();
   await initWebServer();
+  await initModuleManager();
   createMainWindow();
 });
 

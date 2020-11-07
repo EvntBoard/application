@@ -8,11 +8,11 @@ import logger from '../LoggerService';
 export const bus = new Emittery();
 
 export interface EventBus {
-  bus: Emittery,
-  newEvent: (data: any) => void,
-  startEvent: (data: any) => void,
-  endEvent: (data: any) => void,
-  errorEvent: (data: any, e: Error) => void,
+  bus: Emittery;
+  newEvent: (data: any) => void;
+  startEvent: (data: any) => void;
+  endEvent: (data: any) => void;
+  errorEvent: (data: any, e: Error) => void;
 }
 
 export const newEvent = (data: any) => {
@@ -62,6 +62,6 @@ const defaultBus: EventBus = {
   startEvent,
   endEvent,
   errorEvent,
-}
+};
 
-export default defaultBus
+export default defaultBus;
