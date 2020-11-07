@@ -1,1 +1,0 @@
-https://developer.elgato.com/documentation/stream-deck/sdk/exporting-your-plugin/
