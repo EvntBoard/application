@@ -8,6 +8,7 @@ import Trigger from './views/Trigger'
 import Board from './views/Board'
 import Debug from './views/Debug'
 import ConfigGlobal from './views/ConfigGlobal'
+import ConfigModule from './views/ConfigModule'
 
 const routes = [
   {
@@ -24,7 +25,7 @@ const routes = [
         children: [
           { path: '/', element: <Navigate to="/config/global" /> },
           { path: '/global', element: <ConfigGlobal /> },
-          { path: '/module', element: <div>module</div> },
+          { path: '/module', element: <ConfigModule /> },
           { path: '*', element: <Navigate to="/404" /> }
         ]
       },
