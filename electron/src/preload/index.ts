@@ -14,7 +14,7 @@ import {
   TRIGGER_MANAGER,
   MEDIA,
 } from '../utils/ipc';
-import {IButton, IBoard, ITrigger, ITheme, ILang, IApp, IModule} from '../types';
+import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IModule } from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {

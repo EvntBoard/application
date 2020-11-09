@@ -1,10 +1,10 @@
 import { EventBus } from '../TriggerManagerService/eventBus';
-import * as Joi from "joi";
+import * as Joi from 'joi';
 
 export interface IModuleBase {
   bus: EventBus;
   connected: boolean;
-  new(params: any, bus: EventBus) : IModuleBase;
+  new (params: any, bus: EventBus): IModuleBase;
   load: () => Promise<void>;
   unload: () => Promise<void>;
   reload: () => Promise<void>;
@@ -15,5 +15,5 @@ export interface IModuleExport {
   name: string;
   description: string;
   module: IModuleBase;
-  schema: Joi.Schema | null | undefined
+  schema: Joi.Schema | null | undefined;
 }

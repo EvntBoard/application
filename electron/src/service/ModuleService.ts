@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import { database } from '../database/local';
 import { IModule } from '../types';
+import { loadModule, reloadModule, unloadModule } from './ModuleManagerService';
 import logger from './LoggerService';
 
 export const moduleCreate = (module: IModule): IModule => {
@@ -9,12 +10,11 @@ export const moduleCreate = (module: IModule): IModule => {
   const id = uuid();
   database
     .get('modules')
-    .push({
-      ...module,
-      id,
-    })
+    .push({ ...module, id })
     .write();
-  return moduleFindOne(id);
+  const created = moduleFindOne(id);
+  loadModule(created).then(() => {});
+  return created;
 };
 
 export const moduleFindAll = (): IModule[] => {
@@ -32,17 +32,16 @@ export const moduleUpdate = (module: Partial<IModule>): IModule => {
   database
     .get('modules')
     .find({ id: module.id })
-    .assign({
-      ...module,
-      updatedAt: new Date(),
-    })
+    .assign({ ...module })
     .write();
 
-  return moduleFindOne(module.id);
+  const updated = moduleFindOne(module.id);
+  reloadModule(updated).then(() => {});
+  return updated;
 };
 
-export const moduleDelete = (module: Partial<IModule>): void => {
+export const moduleDelete = (module: IModule): void => {
   logger.debug('Module Service DELETE');
-
+  unloadModule(module).then(() => {});
   database.get('modules').remove({ id: module.id }).write();
 };
