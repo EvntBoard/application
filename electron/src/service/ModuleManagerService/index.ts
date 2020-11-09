@@ -1,10 +1,13 @@
 import { app } from 'electron';
 import { PluginManager } from 'live-plugin-manager';
 import * as path from 'path';
+import { isEmpty } from 'lodash';
+import * as Joi from 'joi';
 
-import { IModuleBase } from './types';
-import * as eventBus from '../TriggerManagerService/eventBus';
+import eventBus from '../TriggerManagerService/eventBus';
 import { moduleFindAll } from '../ModuleService';
+import { IModuleBase, IModuleExport } from './types';
+import logger from '../LoggerService'
 
 let manager: PluginManager;
 
@@ -13,42 +16,41 @@ export const init = async () => {
     pluginsPath: path.join(app.getPath('userData'), 'modules'),
   });
 
-  const installedModules = moduleFindAll();
+  const allModules = moduleFindAll();
 
   // uninstall default module :)
   await manager.uninstallAll();
 
-  await installedModules.map(async (module) => {
-    await manager.installFromGithub('EvntBoard/module-obs');
-  });
+  await allModules.map(async (moduleParams) => {
+    const installed = await manager.installFromGithub(moduleParams.name);
 
-  const allModules = await manager.list();
-
-  allModules.forEach(({ name }: any) => {
     try {
-      const customModule = manager.require(name);
+      const required : IModuleExport = manager.require(installed.name);
 
-      // don't load evntboard module :D
-      if (!customModule.hasOwnProperty('evntboard')) return;
+      // only load evntboard module :D
+      if (!required.hasOwnProperty('evntboard')) return;
 
       if (
-        !customModule.hasOwnProperty('name') ||
-        !customModule.hasOwnProperty('description') ||
-        !customModule.hasOwnProperty('module') ||
-        !customModule.hasOwnProperty('schema')
+        !required.hasOwnProperty('name') ||
+        !required.hasOwnProperty('description') ||
+        !required.hasOwnProperty('module') ||
+        !required.hasOwnProperty('schema')
       ) {
-        throw new Error(`${name} n'est pas un module evntboard chargeable`);
+        throw new Error(`"${installed.name}" don't implement the module interface ...`);
       }
 
-      // get config
+      const validationSchema = required.schema.validate(moduleParams.params)
 
-      const test: IModuleBase = new customModule.module(
-        { host: '127.0.0.1', port: 4444, password: '' },
-        eventBus
-      );
-      test.load();
+      if (isEmpty(validationSchema.error)) {
+        const test: IModuleBase = new required.module(moduleParams.params, eventBus);
+        logger.info(`${moduleParams.name} loaded !`)
+        await test.load();
+      } else {
+        throw new Error(`${moduleParams.name} config is not valid ...\n${validationSchema.error}`)
+      }
     } catch (e) {
-      console.error(e);
+      logger.error(e);
     }
+
   });
 };

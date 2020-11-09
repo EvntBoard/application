@@ -61,7 +61,7 @@ export interface IApp {
 
 export interface IModule {
   id: string;
-  evntboard: string;
+  name: string;
   params: any;
 }
 

@@ -4,6 +4,7 @@ import {
   BUTTON,
   BOARD,
   TRIGGER,
+  MODULE,
   MENU,
   THEME,
   LANG,
@@ -13,7 +14,7 @@ import {
   TRIGGER_MANAGER,
   MEDIA,
 } from '../utils/ipc';
-import { IButton, IBoard, ITrigger, ITheme, ILang, IApp } from '../types';
+import {IButton, IBoard, ITrigger, ITheme, ILang, IApp, IModule} from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
@@ -23,6 +24,13 @@ contextBridge.exposeInMainWorld('app', {
     findOne: (id: string) => ipcRenderer.invoke(BUTTON.FIND_ONE, id),
     update: (data: IButton) => ipcRenderer.invoke(BUTTON.UPDATE, data),
     delete: (data: IButton) => ipcRenderer.invoke(BUTTON.DELETE, data),
+  },
+  module: {
+    create: (data: IModule) => ipcRenderer.invoke(MODULE.CREATE, data),
+    findAll: () => ipcRenderer.invoke(MODULE.FIND_ALL),
+    findOne: (id: string) => ipcRenderer.invoke(MODULE.FIND_ONE, id),
+    update: (data: IModule) => ipcRenderer.invoke(MODULE.UPDATE, data),
+    delete: (data: IModule) => ipcRenderer.invoke(MODULE.DELETE, data),
   },
   trigger: {
     create: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.CREATE, data),
