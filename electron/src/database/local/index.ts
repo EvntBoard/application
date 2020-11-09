@@ -17,7 +17,7 @@ export let database: Lowdb.LowdbSync<LocalDatabaseSchema>;
 export const init = async () => {
   let currentWorkspace = workspaceGetCurrent();
   if (!currentWorkspace) {
-    workspaceSwitchTo(path.join(app.getPath('home'), 'new-evntboard'));
+    await workspaceSwitchTo(path.join(app.getPath('home'), 'new-evntboard'));
     currentWorkspace = workspaceGetCurrent();
   }
 

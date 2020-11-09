@@ -1,13 +1,7 @@
 import { EventBus } from '../TriggerManagerService/eventBus';
 
-export enum ModuleAvailable {
-  TWITCH = 'twitch',
-  OBS = 'obs',
-  SLOBS = 'slobs',
-}
-
 export class IModuleBase {
-  type: ModuleAvailable;
+  evntboard: string;
   bus: EventBus;
   connected: boolean;
   load: () => Promise<void>;

@@ -59,10 +59,17 @@ export interface IApp {
   password: string;
 }
 
+export interface IModule {
+  id: string;
+  evntboard: string;
+  params: any;
+}
+
 export interface LocalDatabaseSchema {
   triggers: ITrigger[];
   boards: IBoard[];
   buttons: IButton[];
+  modules: IModule[];
   menu: boolean;
   theme: ITheme;
   lang: ILang;

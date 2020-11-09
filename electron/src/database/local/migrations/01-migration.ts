@@ -9,6 +9,7 @@ export default {
     await db.set('triggers', []).write();
     await db.set('boards', []).write();
     await db.set('buttons', []).write();
+    await db.set('modules', []).write();
     await db.set('menu', true).write();
     await db.set('theme', ITheme.DARK).write();
     await db.set('lang', ILang.EN).write();
