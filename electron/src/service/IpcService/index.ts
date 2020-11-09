@@ -8,7 +8,8 @@ import { init as initIpcAppConfigService } from './IpcAppConfigService';
 import { init as initIpcWorkspaceService } from './IpcWorkspaceService';
 import { init as initIpcWebServerService } from './IpcWebServerService';
 import { init as initIpcTriggerManagerService } from './IpcTriggerManagerService';
-import { init as initIpcModuleService } from './IpcModuleService';
+import { init as initIpcPluginInstanceService } from './IpcPluginInstanceService';
+import { init as initIpcPluginService } from './IpcPluginService';
 
 import logger from '../LoggerService';
 
@@ -24,5 +25,6 @@ export const init = () => {
   initIpcWorkspaceService();
   initIpcWebServerService();
   initIpcTriggerManagerService();
-  initIpcModuleService();
+  initIpcPluginInstanceService();
+  initIpcPluginService();
 };

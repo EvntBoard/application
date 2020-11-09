@@ -1,3 +1,6 @@
+import * as Joi from 'joi';
+import { IPluginBase } from './service/PluginManagerService/types';
+
 export enum ITriggerType {
   CLASSIC = 1,
   THROTTLE = 2,
@@ -59,9 +62,18 @@ export interface IApp {
   password: string;
 }
 
-export interface IModule {
-  id: string;
+export type IPlugin = string;
+
+export interface IPluginEnhanced {
+  evntboard: string;
   name: string;
+  description: string;
+  schema: Joi.Schema | null | undefined;
+}
+
+export interface IPluginInstance {
+  id: string;
+  plugin: string;
   params: any;
 }
 
@@ -69,7 +81,8 @@ export interface LocalDatabaseSchema {
   triggers: ITrigger[];
   boards: IBoard[];
   buttons: IButton[];
-  modules: IModule[];
+  plugins: IPlugin[];
+  pluginsInstance: IPluginInstance[];
   menu: boolean;
   theme: ITheme;
   lang: ILang;

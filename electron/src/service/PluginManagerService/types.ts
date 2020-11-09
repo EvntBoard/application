@@ -1,19 +1,25 @@
 import { EventBus } from '../TriggerManagerService/eventBus';
 import * as Joi from 'joi';
 
-export interface IModuleBase {
+export interface IPluginBase {
   bus: EventBus;
   connected: boolean;
-  new (params: any, bus: EventBus): IModuleBase;
+  new (params: any, bus: EventBus): IPluginBase;
   load: () => Promise<void>;
   unload: () => Promise<void>;
   reload: () => Promise<void>;
 }
 
-export interface IModuleExport {
+export interface IPluginExport {
   evntboard: string;
   name: string;
   description: string;
-  module: IModuleBase;
+  module: IPluginBase;
   schema: Joi.Schema | null | undefined;
+}
+
+export interface ManagerPluginInstance {
+  id: string;
+  plugin: string;
+  instance: IPluginBase;
 }
