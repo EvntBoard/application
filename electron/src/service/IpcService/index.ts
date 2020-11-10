@@ -8,8 +8,8 @@ import { init as initIpcAppConfigService } from './IpcAppConfigService';
 import { init as initIpcWorkspaceService } from './IpcWorkspaceService';
 import { init as initIpcWebServerService } from './IpcWebServerService';
 import { init as initIpcTriggerManagerService } from './IpcTriggerManagerService';
-import { init as initIpcPluginInstanceService } from './IpcPluginInstanceService';
 import { init as initIpcPluginService } from './IpcPluginService';
+import { init as initIpcPluginInstanceService } from './IpcPluginInstanceService';
 
 import logger from '../LoggerService';
 

@@ -13,7 +13,8 @@ const messages = {
 
   // SETTINGS
   AppSettingsMenuGlobal: 'app.settings.menu.global',
-  AppSettingsMenuModule: 'app.settings.menu.module',
+  AppSettingsMenuPlugin: 'app.settings.menu.plugin',
+  AppSettingsMenuPluginInstance: 'app.settings.menu.plugin_instance',
 
   AppSettingsLanguage: 'app.settings.language',
   AppSettingsLanguageFR: 'app.settings.language.fr',
@@ -134,6 +135,23 @@ const messages = {
   AppMainQrCode: 'app.main.qrcode',
   AppMainOr: 'app.main.or',
   AppMainURL: 'app.main.url',
+
+  // CONFIG PLUGIN
+  AppSettingsPluginTitle: 'app.settings.plugin.title',
+  AppSettingsPluginButtonAdd: 'app.settings.plugin.button.add',
+  AppSettingsPluginPath: 'app.settings.plugin.path',
+  AppSettingsPluginName: 'app.settings.plugin.name',
+  AppSettingsPluginDescription: 'app.settings.plugin.description',
+  AppSettingsPluginRepo: 'app.settings.plugin.repo',
+
+  AppSettingsPluginModalAddTitle: 'app.settings.plugin.modal_add.title',
+  AppSettingsPluginModalAddInfos: 'app.settings.plugin.modal_add.infos',
+  AppSettingsPluginModalAddRepoLabel: 'app.settings.plugin.modal_add.repo.label',
+  AppSettingsPluginModalAddRepoPlaceholder: 'app.settings.plugin.modal_add.repo.placeholder',
+  AppSettingsPluginModalAddButtonCancel: 'app.settings.plugin.modal_add.button.cancel',
+  AppSettingsPluginModalAddButtonSave: 'app.settings.plugin.modal_add.button.save',
+
+  // CONFIG PLUGIN INSTANCE
 }
 
 export default messages

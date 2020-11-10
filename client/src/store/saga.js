@@ -9,7 +9,8 @@ import { themeSaga } from './theme'
 import { triggerSaga } from './trigger'
 import { webserverSaga } from './webserver'
 import { workspaceSaga } from './workspace'
-import { moduleSaga } from './module'
+import { pluginSaga } from './plugin'
+import { pluginInstanceSaga } from './pluginInstance'
 
 export default function* rootSaga() {
   yield all([
@@ -22,6 +23,7 @@ export default function* rootSaga() {
     triggerSaga(),
     webserverSaga(),
     workspaceSaga(),
-    moduleSaga(),
+    pluginSaga(),
+    pluginInstanceSaga(),
   ])
 }

@@ -27,9 +27,10 @@ contextBridge.exposeInMainWorld('app', {
     delete: (data: IButton) => ipcRenderer.invoke(BUTTON.DELETE, data),
   },
   plugin: {
-    create: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.CREATE, data),
-    findAll: () => ipcRenderer.invoke(PLUGIN.FIND_ALL),
-    delete: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.DELETE, data),
+    add: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.ADD, data),
+    get: () => ipcRenderer.invoke(PLUGIN.GET),
+    remove: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.REMOVE, data),
+    reload: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.RELOAD, data),
   },
   pluginInstance: {
     create: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.CREATE, data),
@@ -37,6 +38,7 @@ contextBridge.exposeInMainWorld('app', {
     findOne: (id: string) => ipcRenderer.invoke(PLUGIN_INSTANCE.FIND_ONE, id),
     update: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.UPDATE, data),
     delete: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.DELETE, data),
+    reload: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.RELOAD, data),
   },
   trigger: {
     create: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.CREATE, data),

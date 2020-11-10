@@ -1,4 +1,3 @@
-import * as Joi from 'joi';
 import { EventBus } from './service/TriggerManagerService/eventBus';
 
 export enum ITriggerType {
@@ -64,13 +63,6 @@ export interface IApp {
 
 export type IPlugin = string;
 
-export interface IPluginEnhanced {
-  evntboard: string;
-  name: string;
-  description: string;
-  schema: Joi.Schema | null | undefined;
-}
-
 export interface IPluginInstance {
   id: string;
   plugin: string;
@@ -100,27 +92,21 @@ export interface GlobalDatabaseSchema {
   workspaces: IWorkspace[];
 }
 
-// OTHERS
+// PLUGINS
 
-export interface IPluginBase {
-  bus: EventBus;
-  connected: boolean;
-  new (params: any, bus: EventBus): IPluginBase;
-  load: () => Promise<void>;
-  unload: () => Promise<void>;
-  reload: () => Promise<void>;
-}
-
-export interface IPluginExport {
+export interface IPluginManagerInstance {
   evntboard: string;
   name: string;
   description: string;
-  module: IPluginBase;
-  schema: Joi.Schema | null | undefined;
+  module: IPluginManagerInstanceModule;
+  schema: null | undefined;
 }
 
-export interface ManagerPluginInstance {
-  id: string;
-  plugin: string;
-  instance: IPluginBase;
+export interface IPluginManagerInstanceModule {
+  bus: EventBus;
+  connected: boolean;
+  new (params: any, bus: EventBus): IPluginManagerInstanceModule;
+  load: () => Promise<void>;
+  unload: () => Promise<void>;
+  reload: () => Promise<void>;
 }

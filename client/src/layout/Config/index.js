@@ -51,8 +51,11 @@ const ConfigLayout = () => {
               <MuiLink component={Link} to="/config/global" selected={activeItem === 'config-global'} variant="button" color="textPrimary" className={classes.link}>
                 {intl.formatMessage({ id: M.AppSettingsMenuGlobal })}
               </MuiLink>
-              <MuiLink component={Link} to="/config/module" selected={activeItem === 'config-module'} variant="button" color="textPrimary" className={classes.link}>
-                {intl.formatMessage({ id: M.AppSettingsMenuModule })}
+              <MuiLink component={Link} to="/config/plugin-instance" selected={activeItem === 'config-plugin-instance'} variant="button" color="textPrimary" className={classes.link}>
+                {intl.formatMessage({ id: M.AppSettingsMenuPluginInstance })}
+              </MuiLink>
+              <MuiLink component={Link} to="/config/plugin" selected={activeItem === 'config-plugin'} variant="button" color="textPrimary" className={classes.link}>
+                {intl.formatMessage({ id: M.AppSettingsMenuPlugin })}
               </MuiLink>
             </nav>
           </Toolbar>

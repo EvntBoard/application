@@ -14,7 +14,8 @@ const messagesEN = {
   [M.FieldDropzoneDragOrClick]: 'Drag \'n\' drop some files here, or click to select files',
 
   // SETTINGS
-  [M.AppSettingsMenuModule]: 'Module',
+  [M.AppSettingsMenuPlugin]: 'Plugin',
+  [M.AppSettingsMenuPluginInstance]: 'Plugin Instance',
   [M.AppSettingsMenuGlobal]: 'Global',
 
   [M.AppSettingsLanguage]: 'Language',
@@ -136,6 +137,21 @@ const messagesEN = {
   [M.AppMainQrCode]: 'QR Code',
   [M.AppMainOr]: 'OR',
   [M.AppMainURL]: 'Link',
+
+  // CONFIG PLUGIN
+  [M.AppSettingsPluginTitle]: 'Plugins list',
+  [M.AppSettingsPluginButtonAdd]: 'Add a plugin',
+  [M.AppSettingsPluginPath]: 'Path',
+  [M.AppSettingsPluginName]: 'Name',
+  [M.AppSettingsPluginDescription]: 'Description',
+  [M.AppSettingsPluginRepo]: 'Repository',
+
+  [M.AppSettingsPluginModalAddTitle]: 'Add a plugin',
+  [M.AppSettingsPluginModalAddInfos]: 'Github link',
+  [M.AppSettingsPluginModalAddRepoLabel]: 'Repository',
+  [M.AppSettingsPluginModalAddRepoPlaceholder]: 'EvntBoard/module-obs',
+  [M.AppSettingsPluginModalAddButtonCancel]: 'Cancel',
+  [M.AppSettingsPluginModalAddButtonSave]: 'Add',
 }
 
 export default messagesEN

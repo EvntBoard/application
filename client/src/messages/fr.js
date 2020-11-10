@@ -14,7 +14,8 @@ const messagesFR = {
   [M.FieldDropzoneDragOrClick]: 'Drag \'n\' drop des fichiers ici, ou clique pour selectionner tes fichiers',
 
   // SETTINGS
-  [M.AppSettingsMenuModule]: 'Module',
+  [M.AppSettingsMenuPlugin]: 'Plugin',
+  [M.AppSettingsMenuPluginInstance]: 'Plugin Instance',
   [M.AppSettingsMenuGlobal]: 'Globale',
 
   [M.AppSettingsLanguage]: 'Langue',
@@ -135,6 +136,21 @@ const messagesFR = {
   [M.AppMainQrCode]: 'QR Code',
   [M.AppMainOr]: 'OU',
   [M.AppMainURL]: 'Lien',
+
+  // CONFIG PLUGIN
+  [M.AppSettingsPluginTitle]: 'Liste des plugins',
+  [M.AppSettingsPluginButtonAdd]: 'Ajouter',
+  [M.AppSettingsPluginPath]: 'Path',
+  [M.AppSettingsPluginName]: 'Nom',
+  [M.AppSettingsPluginDescription]: 'Description',
+  [M.AppSettingsPluginRepo]: 'Repository',
+
+  [M.AppSettingsPluginModalAddTitle]: 'Ajouter un plugin',
+  [M.AppSettingsPluginModalAddInfos]: 'Lien Github',
+  [M.AppSettingsPluginModalAddRepoLabel]: 'Repository',
+  [M.AppSettingsPluginModalAddRepoPlaceholder]: 'EvntBoard/module-obs',
+  [M.AppSettingsPluginModalAddButtonCancel]: 'Annuler',
+  [M.AppSettingsPluginModalAddButtonSave]: 'Ajouter',
 }
 
 export default messagesFR

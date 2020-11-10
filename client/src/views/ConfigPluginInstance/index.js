@@ -3,46 +3,37 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useIntl } from 'react-intl'
 import { toUpper } from 'lodash'
 import { Form } from 'react-final-form'
-import arrayMutators from 'final-form-arrays'
 import { Button, TextField } from '@material-ui/core'
 
 import FormTrigger from './form'
 import Item from './Item'
-import { moduleCreate, moduleDelete, moduleFindAll, moduleUpdate, selectors as moduleSelectors } from "../../store/module";
+import { pluginInstanceUpdate, pluginInstanceDelete, pluginInstanceCreate, pluginInstanceFindAll, selectors as pluginISelectors } from "../../store/pluginInstance";
 import M from '../../messages/constants'
 
 import './assets/style.scss'
 
-const SAMPLE_TRIGGER = {
-  id: null,
-  type: 1,
-  locker: null,
-  name: 'New Trigger',
-  description: null,
-}
-
 const Trigger = () => {
   const intl = useIntl()
   const dispatch = useDispatch()
-  const modules = useSelector(moduleSelectors.moduleSelector)
+  const modules = useSelector(pluginISelectors.pluginInstances)
   const [current, setCurrent] = useState(null)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    dispatch(moduleFindAll())
+    dispatch(pluginInstanceFindAll())
   }, [dispatch])
 
   const onSubmitFormTrigger = async (data) => {
-    dispatch(moduleUpdate(data))
+    dispatch(pluginInstanceUpdate(data))
     return true
   }
 
   const onClickCreate = () => {
-    dispatch(moduleCreate({...SAMPLE_TRIGGER, }))
+    dispatch(pluginInstanceCreate({}))
   }
 
   const onDeleteTrigger = (data) => {
-    dispatch(moduleDelete(data))
+    dispatch(pluginInstanceDelete(data))
     setCurrent(null)
   }
 

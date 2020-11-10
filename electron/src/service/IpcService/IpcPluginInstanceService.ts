@@ -6,6 +6,7 @@ import {
   pluginInstanceDelete,
   pluginInstanceFindOne,
   pluginInstanceUpdate,
+  reloadPluginInstance,
 } from '../PluginInstanceService';
 import { PLUGIN_INSTANCE } from '../../utils/ipc';
 import { IPluginInstance } from '../../types';
@@ -20,5 +21,8 @@ export const init = () => {
   ipcMain.handle(PLUGIN_INSTANCE.UPDATE, (_, data: IPluginInstance) => pluginInstanceUpdate(data));
   ipcMain.handle(PLUGIN_INSTANCE.DELETE, (evt, data: IPluginInstance) =>
     pluginInstanceDelete(data)
+  );
+  ipcMain.handle(PLUGIN_INSTANCE.RELOAD, (evt, data: IPluginInstance) =>
+    reloadPluginInstance(data)
   );
 };
