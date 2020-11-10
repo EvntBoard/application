@@ -1,11 +1,11 @@
 import { find, get, size, has, filter } from 'lodash';
 import * as JsonSchema from 'json-schema';
 
-import { IPlugin, IPluginInstance, IPluginManagerInstanceModule } from '../../types';
-import { pluginInstanceFindAll } from '../PluginInstanceService';
-import { pluginManagerGet } from '../PluginManagerService';
-import eventBus from '../TriggerManagerService/eventBus';
-import logger from '../LoggerService';
+import { IPlugin, IPluginInstance, IPluginManagerInstanceModule } from '../types';
+import { pluginInstanceFindAll } from './PluginInstanceService';
+import { pluginManagerGet } from './PluginManagerService';
+import eventBus from './TriggerManagerService/eventBus';
+import logger from './LoggerService';
 
 export interface ManagerPluginInstance {
   id: string;
@@ -42,6 +42,7 @@ export const loadPluginInstance = async (pluginInstance: IPluginInstance) => {
         eventBus
       );
 
+      logger.info(`${pluginInstance.plugin} - ${pluginInstance.id} : instance loading ...`);
       await moduleInstance.load();
 
       instances.push({
@@ -49,8 +50,6 @@ export const loadPluginInstance = async (pluginInstance: IPluginInstance) => {
         plugin: pluginInstance.plugin,
         instance: moduleInstance,
       });
-
-      logger.info(`${pluginInstance.plugin} - ${pluginInstance.id} : instance loaded !`);
     } else {
       // remove from running things ...
       instances = instances.filter((instance) => instance.id !== pluginInstance.id);

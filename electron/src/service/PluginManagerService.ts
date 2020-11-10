@@ -2,10 +2,9 @@ import * as path from 'path';
 import { app } from 'electron';
 import { PluginManager } from 'live-plugin-manager';
 
-import { IPlugin } from '../../types';
-import { pluginGet } from '../PluginService';
-import { IPluginManagerInstance } from './types';
-import logger from '../LoggerService';
+import { IPlugin, IPluginManagerInstance } from '../types';
+import { pluginGet } from './PluginService';
+import logger from './LoggerService';
 
 let manager: PluginManager;
 

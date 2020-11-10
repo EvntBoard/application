@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import { database } from '../database/local';
 import { IPluginInstance } from '../types';
-import { loadPluginInstance, reloadPluginInstance } from './PluginInstanceManagerService';
+import {loadPluginInstance, reloadPluginInstance, unloadPluginInstance} from './PluginInstanceManagerService';
 import logger from './LoggerService';
 
 export const pluginInstanceCreate = (module: IPluginInstance): IPluginInstance => {
@@ -13,7 +13,7 @@ export const pluginInstanceCreate = (module: IPluginInstance): IPluginInstance =
     .push({ ...module })
     .write();
   const created = database.get('pluginsInstance').find({ id }).value();
-  loadPluginInstance(created).then(() => {});
+  loadPluginInstance(created);
   return created;
 };
 
@@ -36,6 +36,12 @@ export const pluginInstanceUpdate = (module: Partial<IPluginInstance>): IPluginI
     .write();
 
   const updated = database.get('pluginsInstance').find({ id: module.id }).value();
-  reloadPluginInstance(updated).then(() => {});
+  reloadPluginInstance(updated);
   return updated;
+};
+
+export const pluginInstanceDelete = (module: IPluginInstance): void => {
+  logger.debug('Plugin instance service DELETE');
+  unloadPluginInstance(module)
+  database.get('pluginsInstance').remove({ id: module.id }).write();
 };
