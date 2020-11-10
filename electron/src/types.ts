@@ -93,13 +93,12 @@ export interface GlobalDatabaseSchema {
 }
 
 // PLUGINS
-
 export interface IPluginManagerInstance {
   evntboard: string;
   name: string;
   description: string;
-  module: IPluginManagerInstanceModule;
   schema: null | undefined;
+  module: IPluginManagerInstanceModule;
 }
 
 export interface IPluginManagerInstanceModule {
@@ -109,4 +108,12 @@ export interface IPluginManagerInstanceModule {
   load: () => Promise<void>;
   unload: () => Promise<void>;
   reload: () => Promise<void>;
+}
+
+export interface IPluginManagerApi {
+  evntboard: string;
+  name: string;
+  description: string;
+  schema: null | undefined;
+  error: Error
 }
