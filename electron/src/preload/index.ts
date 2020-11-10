@@ -15,7 +15,7 @@ import {
   PLUGIN,
   PLUGIN_INSTANCE,
 } from '../utils/ipc';
-import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IModule } from '../types';
+import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin, IPluginInstance } from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
@@ -27,18 +27,16 @@ contextBridge.exposeInMainWorld('app', {
     delete: (data: IButton) => ipcRenderer.invoke(BUTTON.DELETE, data),
   },
   plugin: {
-    create: (data: IModule) => ipcRenderer.invoke(PLUGIN.CREATE, data),
+    create: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.CREATE, data),
     findAll: () => ipcRenderer.invoke(PLUGIN.FIND_ALL),
-    findOne: (id: string) => ipcRenderer.invoke(PLUGIN.FIND_ONE, id),
-    update: (data: IModule) => ipcRenderer.invoke(PLUGIN.UPDATE, data),
-    delete: (data: IModule) => ipcRenderer.invoke(PLUGIN.DELETE, data),
+    delete: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.DELETE, data),
   },
   pluginInstance: {
-    create: (data: IModule) => ipcRenderer.invoke(PLUGIN_INSTANCE.CREATE, data),
+    create: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.CREATE, data),
     findAll: () => ipcRenderer.invoke(PLUGIN_INSTANCE.FIND_ALL),
     findOne: (id: string) => ipcRenderer.invoke(PLUGIN_INSTANCE.FIND_ONE, id),
-    update: (data: IModule) => ipcRenderer.invoke(PLUGIN_INSTANCE.UPDATE, data),
-    delete: (data: IModule) => ipcRenderer.invoke(PLUGIN_INSTANCE.DELETE, data),
+    update: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.UPDATE, data),
+    delete: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.DELETE, data),
   },
   trigger: {
     create: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.CREATE, data),

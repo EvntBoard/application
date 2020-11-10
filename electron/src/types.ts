@@ -1,5 +1,5 @@
 import * as Joi from 'joi';
-import { IPluginBase } from './service/PluginManagerService/types';
+import { EventBus } from './service/TriggerManagerService/eventBus';
 
 export enum ITriggerType {
   CLASSIC = 1,
@@ -98,4 +98,29 @@ export interface IWorkspace {
 
 export interface GlobalDatabaseSchema {
   workspaces: IWorkspace[];
+}
+
+// OTHERS
+
+export interface IPluginBase {
+  bus: EventBus;
+  connected: boolean;
+  new (params: any, bus: EventBus): IPluginBase;
+  load: () => Promise<void>;
+  unload: () => Promise<void>;
+  reload: () => Promise<void>;
+}
+
+export interface IPluginExport {
+  evntboard: string;
+  name: string;
+  description: string;
+  module: IPluginBase;
+  schema: Joi.Schema | null | undefined;
+}
+
+export interface ManagerPluginInstance {
+  id: string;
+  plugin: string;
+  instance: IPluginBase;
 }
