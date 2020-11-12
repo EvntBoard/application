@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 
 import Item from './Item'
-import { pluginRemove, pluginGet, pluginAdd, selectors as pluginSelectors } from "../../store/plugin";
+import { pluginFindAll, pluginDelete, pluginCreate, pluginUpdate, selectors as pluginSelectors } from "../../store/plugin";
 import ModalAdd from './ModalAdd'
 import M from '../../messages/constants'
 
@@ -20,15 +20,15 @@ const Trigger = () => {
   const modules = useSelector(pluginSelectors.plugins)
 
   useEffect(() => {
-    dispatch(pluginGet())
+    dispatch(pluginFindAll())
   }, [dispatch])
 
   const onDeleteTrigger = (data) => {
-    dispatch(pluginRemove(data))
+    dispatch(pluginDelete(data))
   }
 
-  const onSubmit = ({ repo }) => {
-    dispatch(pluginAdd(repo))
+  const onSubmit = (data) => {
+    dispatch(pluginCreate(data))
     setOpen(false)
   }
 
@@ -70,9 +70,9 @@ const Trigger = () => {
               <Grid item xs={1} />
             </Grid>
             <Grid container item>
-              {modules.map(i => <Item
-                key={i.evntboard}
-                module={i}
+              {modules.map(item => <Item
+                key={item.id}
+                plugin={item}
                 onDelete={onDeleteTrigger}
               />)}
             </Grid>

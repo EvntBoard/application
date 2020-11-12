@@ -1,15 +1,19 @@
-export const pluginAdd = async (plugin) => {
-  return await window.app.plugin.add(plugin)
+export const pluginCreate = async (plugin) => {
+  return await window.app.plugin.create(plugin)
 }
 
-export const pluginGet = async () => {
-  return await window.app.plugin.get()
+export const pluginFindAll = async () => {
+  return await window.app.plugin.findAll()
 }
 
-export const pluginRemove = async (plugin) => {
-  return await window.app.plugin.remove(plugin)
+export const pluginFindOne = async (id) => {
+  return await window.app.plugin.findOne(id)
 }
 
-export const pluginReload = async (plugin) => {
-  return await window.app.plugin.reload(plugin)
+export const pluginUpdate = async (plugin) => {
+  return await window.app.plugin.update(plugin)
+}
+
+export const pluginDelete = async (plugin) => {
+  return await window.app.plugin.delete(plugin)
 }

@@ -1,17 +1,61 @@
-import React from 'react'
-import { Button, DialogTitle, DialogContent, DialogActions, IconButton, Typography } from '@material-ui/core'
+import React, {useCallback, useEffect, useState} from 'react'
+import {Button, DialogTitle, DialogContent, DialogActions, IconButton, Typography, Grid} from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useIntl } from 'react-intl'
-import { isNull, isEmpty } from 'lodash'
-import { Field } from 'react-final-form'
+import { isNull, isEmpty, debounce } from 'lodash'
+import {Field, useField} from 'react-final-form'
 
 import M from "../../../messages/constants";
 import InputField from '../../../components/Field/Input'
+import Select from '../../../components/Field/Select'
+import { pluginManagerPreload } from '../../../service/pluginManagerService'
 
 const required = (value) => isNull(value) || isEmpty(value)
 
+const options = [
+  {
+    label: 'NPM',
+    value: 'npm'
+  },
+  {
+    label: 'GitHub',
+    value: 'github'
+  },
+  {
+    label: 'Path',
+    value: 'path'
+  },
+]
+
 const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
   const intl = useIntl()
+  const [error, setError] = useState(null)
+  const [schema, setSchema] = useState(null)
+  const typeField = useField('type')
+  const pluginField = useField('plugin')
+
+  const typeFieldValue = typeField?.input?.value
+  const pluginFieldValue = pluginField?.input?.value
+
+  useEffect(() => {
+    preloadPlugin(typeFieldValue, pluginFieldValue)
+  }, [typeFieldValue, pluginFieldValue])
+
+  const preloadPlugin = useCallback(
+    debounce((type, plugin) => {
+      if (type && plugin) {
+        pluginManagerPreload({ type, plugin })
+        .then((data) => {
+          setError(null)
+          setSchema(data)
+        }).catch(e => {
+          setError(e)
+          setSchema(null)
+        })
+      }
+    }, 800),
+    []
+  );
 
   const onClickClose = () => {
     setOpen(false)
@@ -28,13 +72,30 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
         <Typography>
           {intl.formatMessage({ id: M.AppSettingsPluginModalAddInfos })}
         </Typography>
+        <Grid container item xs={12}>
+          <Field name="type" label={intl.formatMessage({ id: M.AppTriggerTypeLabel })} component={Select} options={options} />
+        </Grid>
         <Field
           validate={required}
-          name="repo"
+          name="plugin"
           label={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoLabel })}
           component={InputField}
           placeholder={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoPlaceholder })}
         />
+        {
+          error && (
+            <div>
+              {error?.message}
+            </div>
+          )
+        }
+        {
+          schema && (
+            <code>
+              {JSON.stringify(schema, 0, 2)}
+            </code>
+          )
+        }
       </DialogContent>
 
       <DialogActions>

@@ -7,7 +7,6 @@ import { init as initIpc } from './service/IpcService';
 import { init as initTriggerManager } from './service/TriggerManagerService';
 import { init as initWebServer } from './service/WebServerService';
 import { init as initPluginService } from './service/PluginManagerService';
-import { init as initPluginInstanceService } from './service/PluginInstanceManagerService';
 import { createMainWindow } from './window/main';
 import logger from './service/LoggerService';
 
@@ -20,7 +19,6 @@ app.on('ready', async () => {
   await initTriggerManager();
   await initWebServer();
   await initPluginService();
-  await initPluginInstanceService();
   createMainWindow();
 });
 

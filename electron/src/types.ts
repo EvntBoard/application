@@ -61,11 +61,10 @@ export interface IApp {
   password: string;
 }
 
-export type IPlugin = string;
-
-export interface IPluginInstance {
+export interface IPlugin {
   id: string;
   plugin: string;
+  type: string;
   params: any;
 }
 
@@ -74,7 +73,6 @@ export interface LocalDatabaseSchema {
   boards: IBoard[];
   buttons: IButton[];
   plugins: IPlugin[];
-  pluginsInstance: IPluginInstance[];
   menu: boolean;
   theme: ITheme;
   lang: ILang;
@@ -90,30 +88,4 @@ export interface IWorkspace {
 
 export interface GlobalDatabaseSchema {
   workspaces: IWorkspace[];
-}
-
-// PLUGINS
-export interface IPluginManagerInstance {
-  evntboard: string;
-  name: string;
-  description: string;
-  schema: null | undefined;
-  module: IPluginManagerInstanceModule;
-}
-
-export interface IPluginManagerInstanceModule {
-  bus: EventBus;
-  connected: boolean;
-  new (params: any, bus: EventBus): IPluginManagerInstanceModule;
-  load: () => Promise<void>;
-  unload: () => Promise<void>;
-  reload: () => Promise<void>;
-}
-
-export interface IPluginManagerApi {
-  evntboard: string;
-  name: string;
-  description: string;
-  schema: null | undefined;
-  error: Error
 }

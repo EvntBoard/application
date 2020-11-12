@@ -9,7 +9,6 @@ import Board from './views/Board'
 import Debug from './views/Debug'
 import ConfigGlobal from './views/ConfigGlobal'
 import ConfigPlugin from './views/ConfigPlugin'
-import ConfigPluginInstance from './views/ConfigPluginInstance'
 
 const routes = [
   {
@@ -27,7 +26,6 @@ const routes = [
           { path: '/', element: <Navigate to="/config/global" /> },
           { path: '/global', element: <ConfigGlobal /> },
           { path: '/plugin', element: <ConfigPlugin /> },
-          { path: '/plugin-instance', element: <ConfigPluginInstance /> },
           { path: '*', element: <Navigate to="/404" /> }
         ]
       },

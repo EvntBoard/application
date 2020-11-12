@@ -15,7 +15,6 @@ const messagesEN = {
 
   // SETTINGS
   [M.AppSettingsMenuPlugin]: 'Plugin',
-  [M.AppSettingsMenuPluginInstance]: 'Plugin Instance',
   [M.AppSettingsMenuGlobal]: 'Global',
 
   [M.AppSettingsLanguage]: 'Language',

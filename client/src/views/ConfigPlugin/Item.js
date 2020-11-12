@@ -6,24 +6,22 @@ import CachedIcon from '@material-ui/icons/Cached';
 
 import { pluginManagerInfo, pluginManagerReload } from '../../service/pluginManagerService'
 
-const ConfigPluginItem = ({ module, onDelete }) => {
-  const [pluginData, setPluginData] = useState({})
+const ConfigPluginItem = ({ plugin, onDelete }) => {
+  const [pluginData, setPluginData] = useState(null)
 
   useEffect(() => {
-    if (module) {
-      pluginManagerInfo(module).then(data => {
-        setPluginData(data)
-      })
-    }
-  }, [module])
+    pluginManagerInfo(plugin).then((data) => {
+      setPluginData(data)
+    })
+  }, [plugin])
 
   const innerOnClickDelete = () => {
-    onDelete(module)
+    onDelete(plugin)
   }
 
   const innerOnClickReload = () => {
-    pluginManagerReload(module).then(() => {
-      pluginManagerInfo(module).then(data => {
+    pluginManagerReload(plugin).then(() => {
+      pluginManagerInfo(plugin).then((data) => {
         setPluginData(data)
       })
     })
@@ -32,12 +30,13 @@ const ConfigPluginItem = ({ module, onDelete }) => {
   return (
     <Grid item container>
       <Grid container item alignItems='center' xs={1}>
-        <PowerIcon color={pluginData?.evntboard ? 'action' : 'error'}/>
+        <PowerIcon color={pluginData ? 'action' : 'error'}/>
       </Grid>
-      <Grid container item alignItems='center' xs={2}>{pluginData?.evntboard}</Grid>
+      <Grid container item alignItems='center' xs={1}>{plugin?.type}</Grid>
+      <Grid container item alignItems='center' xs={2}>{plugin?.plugin}</Grid>
       <Grid container item alignItems='center' xs={2}>{pluginData?.name}</Grid>
       <Grid container item alignItems='center' xs={2}>{pluginData?.description}</Grid>
-      <Grid container item alignItems='center' xs={3}>{module}</Grid>
+      <Grid container item alignItems='center' xs={2}>{pluginData?.evntboard}</Grid>
       <Grid container item alignItems='center' xs={1}>
         <IconButton onClick={innerOnClickReload}>
           <CachedIcon />

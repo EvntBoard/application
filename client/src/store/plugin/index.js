@@ -6,17 +6,21 @@ export * as selectors from './selector'
 
 const PATH = 'PLUGIN'
 
-export const pluginGet = createAction(`${PATH}_GET`)
-export const pluginGetSuccess = createAction(`${PATH}_GET_SUCCESS`)
-export const pluginGetFailed = createAction(`${PATH}_GET_FAILED`)
+export const pluginFindAll = createAction(`${PATH}_FINDALL`)
+export const pluginFindAllSuccess = createAction(`${PATH}_FINDALL_SUCCESS`)
+export const pluginFindAllFailed = createAction(`${PATH}_FINDALL_FAILED`)
 
-export const pluginAdd = createAction(`${PATH}_ADD`)
-export const pluginAddSuccess = createAction(`${PATH}_ADD_SUCCESS`)
-export const pluginAddFailed = createAction(`${PATH}_ADD_FAILED`)
+export const pluginCreate = createAction(`${PATH}_CREATE`)
+export const pluginCreateSuccess = createAction(`${PATH}_CREATE_SUCCESS`)
+export const pluginCreateFailed = createAction(`${PATH}_CREATE_FAILED`)
 
-export const pluginRemove = createAction(`${PATH}_REMOVE`)
-export const pluginRemoveSuccess = createAction(`${PATH}_REMOVE_SUCCESS`)
-export const pluginRemoveFailed = createAction(`${PATH}_REMOVE_FAILED`)
+export const pluginUpdate = createAction(`${PATH}_UPDATE`)
+export const pluginUpdateSuccess = createAction(`${PATH}_UPDATE_SUCCESS`)
+export const pluginUpdateFailed = createAction(`${PATH}_UPDATE_FAILED`)
+
+export const pluginDelete = createAction(`${PATH}_DELETE`)
+export const pluginDeleteSuccess = createAction(`${PATH}_DELETE_SUCCESS`)
+export const pluginDeleteFailed = createAction(`${PATH}_DELETE_FAILED`)
 
 const INITIAL_STATE = {
   // REAL DATA
@@ -25,16 +29,16 @@ const INITIAL_STATE = {
   // STATE MANAGEMENT
 
   // findAll
-  pluginGetLoading: false,
-  pluginGetSuccess: false,
-  pluginGetFailed: false,
-  pluginGetError: {},
+  pluginFindAllLoading: false,
+  pluginFindAllSuccess: false,
+  pluginFindAllFailed: false,
+  pluginFindAllError: {},
 
   // create
-  pluginAddLoading: false,
-  pluginAddSuccess: false,
-  pluginAddFailed: false,
-  pluginAddError: {},
+  pluginCreateLoading: false,
+  pluginCreateSuccess: false,
+  pluginCreateFailed: false,
+  pluginCreateError: {},
 
   // update
   pluginUpdateLoading: false,
@@ -43,65 +47,86 @@ const INITIAL_STATE = {
   pluginUpdateError: {},
 
   // delete
-  pluginRemoveLoading: false,
-  pluginRemoveSuccess: false,
-  pluginRemoveFailed: false,
-  pluginRemoveError: {},
+  pluginDeleteLoading: false,
+  pluginDeleteSuccess: false,
+  pluginDeleteFailed: false,
+  pluginDeleteError: {},
 }
 
 const reducer = createReducer(INITIAL_STATE, {
   // FIND ALL
-  [pluginGet]: (state) => {
-    state.pluginGetLoading = true
-    state.pluginGetSuccess = false
-    state.pluginGetFailed = false
-    state.pluginGetError = {}
+  [pluginFindAll]: (state) => {
+    state.pluginFindAllLoading = true
+    state.pluginFindAllSuccess = false
+    state.pluginFindAllFailed = false
+    state.pluginFindAllError = {}
   },
-  [pluginGetSuccess]: (state, action) => {
-    state.pluginGetLoading = false
-    state.pluginGetSuccess = true
+  [pluginFindAllSuccess]: (state, action) => {
+    state.pluginFindAllLoading = false
+    state.pluginFindAllSuccess = true
     state.plugins = action.payload
   },
-  [pluginGetFailed]: (state, action) => {
-    state.pluginGetLoading = false
-    state.pluginGetFailed = true
-    state.pluginGetError = action.payload
+  [pluginFindAllFailed]: (state, action) => {
+    state.pluginFindAllLoading = false
+    state.pluginFindAllFailed = true
+    state.pluginFindAllError = action.payload
   },
 
-  // ADD
-  [pluginAdd]: (state) => {
-    state.pluginAddLoading = true
-    state.pluginAddSuccess = false
-    state.pluginAddFailed = false
-    state.pluginAddError = {}
+  // CREATE
+  [pluginCreate]: (state) => {
+    state.pluginCreateLoading = true
+    state.pluginCreateSuccess = false
+    state.pluginCreateFailed = false
+    state.pluginCreateError = {}
   },
-  [pluginAddSuccess]: (state, action) => {
-    state.pluginAddLoading = false
-    state.pluginAddSuccess = true
+  [pluginCreateSuccess]: (state, action) => {
+    state.pluginCreateLoading = false
+    state.pluginCreateSuccess = true
     state.plugins.push(action.payload)
   },
-  [pluginAddFailed]: (state, action) => {
-    state.pluginAddLoading = false
-    state.pluginAddFailed = true
-    state.pluginAddError = action.payload
+  [pluginCreateFailed]: (state, action) => {
+    state.pluginCreateLoading = false
+    state.pluginCreateFailed = true
+    state.pluginCreateError = action.payload
   },
 
-  // REMOVE
-  [pluginRemove]: (state) => {
-    state.pluginRemoveLoading = true
-    state.pluginRemoveSuccess = false
-    state.pluginRemoveFailed = false
-    state.pluginRemoveError = {}
+  // UPDATE
+  [pluginUpdate]: (state) => {
+    state.pluginUpdateLoading = true
+    state.pluginUpdateSuccess = false
+    state.pluginUpdateFailed = false
+    state.pluginUpdateError = {}
   },
-  [pluginRemoveSuccess]: (state, action) => {
-    state.pluginRemoveLoading = false
-    state.pluginRemoveSuccess = true
+  [pluginUpdateSuccess]: (state, action) => {
+    state.pluginUpdateLoading = false
+    state.pluginUpdateSuccess = true
+    state.plugins = [
+      ...filter(state.plugins, i => i.id !== action.payload.id),
+      action.payload
+    ]
+  },
+  [pluginUpdateFailed]: (state, action) => {
+    state.pluginUpdateLoading = false
+    state.pluginUpdateFailed = true
+    state.pluginUpdateError = action.payload
+  },
+
+  // DELETE
+  [pluginDelete]: (state) => {
+    state.pluginDeleteLoading = true
+    state.pluginDeleteSuccess = false
+    state.pluginDeleteFailed = false
+    state.pluginDeleteError = {}
+  },
+  [pluginDeleteSuccess]: (state, action) => {
+    state.pluginDeleteLoading = false
+    state.pluginDeleteSuccess = true
     state.plugins = filter(state.plugins, i => i.id !== action.payload.id)
   },
-  [pluginRemoveFailed]: (state, action) => {
-    state.pluginRemoveLoading = false
-    state.pluginRemoveFailed = true
-    state.pluginRemoveError = action.payload
+  [pluginDeleteFailed]: (state, action) => {
+    state.pluginDeleteLoading = false
+    state.pluginDeleteFailed = true
+    state.pluginDeleteError = action.payload
   }
 })
 

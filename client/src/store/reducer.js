@@ -11,7 +11,7 @@ import webserverReducer from './webserver'
 import workspaceReducer from './workspace'
 import triggerManagerReducer from './triggerManager'
 import pluginReducer from './plugin'
-import pluginInstanceReducer from './pluginInstance'
+
 export default combineReducers({
   config: configReducer,
   board: boardReducer,
@@ -24,5 +24,4 @@ export default combineReducers({
   webserver: webserverReducer,
   triggerManager: triggerManagerReducer,
   plugin: pluginReducer,
-  pluginInstance: pluginInstanceReducer,
 })

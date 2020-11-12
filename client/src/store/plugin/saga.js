@@ -1,55 +1,69 @@
 import { put, takeEvery, all, call } from 'redux-saga/effects'
 
 import {
-  pluginGet as IPCpluginGet,
-  pluginAdd as IPCpluginAdd,
-  pluginRemove as IPCpluginRemove
+  pluginFindAll as IPCpluginFindAll,
+  pluginCreate as IPCpluginCreate,
+  pluginDelete as IPCpluginDelete,
+  pluginUpdate as IPCpluginUpdate,
 } from '../../service/pluginService'
 
 import {
-  pluginGet,
-  pluginGetSuccess,
-  pluginGetFailed,
-  pluginAdd,
-  pluginAddSuccess,
-  pluginAddFailed,
-  pluginRemove,
-  pluginRemoveSuccess,
-  pluginRemoveFailed,
+  pluginFindAll,
+  pluginFindAllSuccess,
+  pluginFindAllFailed,
+  pluginCreate,
+  pluginCreateSuccess,
+  pluginCreateFailed,
+  pluginUpdate,
+  pluginUpdateSuccess,
+  pluginUpdateFailed,
+  pluginDelete,
+  pluginDeleteSuccess,
+  pluginDeleteFailed,
 } from './'
 
-function* onModuleGet() {
+function* onPluginFindAll() {
   try {
-    const data = yield call(IPCpluginGet)
-    yield put(pluginGetSuccess(data))
+    const data = yield call(IPCpluginFindAll)
+    yield put(pluginFindAllSuccess(data))
   } catch (e) {
-    yield put(pluginGetFailed(e))
+    yield put(pluginFindAllFailed(e))
   }
 }
 
-function* onModuleAdd({ payload }) {
+function* onPluginCreate({ payload }) {
   try {
-    const data = yield call(IPCpluginAdd, payload)
-    yield put(pluginAddSuccess(data))
+    const data = yield call(IPCpluginCreate, payload)
+    yield put(pluginCreateSuccess(data))
   } catch (e) {
-    yield put(pluginAddFailed(e))
+    yield put(pluginCreateFailed(e))
   }
 }
 
-function* onModuleRemove({ payload }) {
+function* onPluginUpdate({ payload }) {
   try {
-    yield call(IPCpluginRemove, payload)
-    yield put(pluginRemoveSuccess(payload))
+    const data = yield call(IPCpluginUpdate, payload)
+    yield put(pluginUpdateSuccess(data))
   } catch (e) {
-    yield put(pluginRemoveFailed(e))
+    yield put(pluginUpdateFailed(e))
+  }
+}
+
+function* onPluginDelete({ payload }) {
+  try {
+    yield call(IPCpluginDelete, payload)
+    yield put(pluginDeleteSuccess(payload))
+  } catch (e) {
+    yield put(pluginDeleteFailed(e))
   }
 }
 
 export function* saga() {
   console.debug('SAGA - PLUGIN')
   yield all([
-    takeEvery(pluginGet.type, onModuleGet),
-    takeEvery(pluginAdd.type, onModuleAdd),
-    takeEvery(pluginRemove.type, onModuleRemove),
+    takeEvery(pluginFindAll.type, onPluginFindAll),
+    takeEvery(pluginCreate.type, onPluginCreate),
+    takeEvery(pluginUpdate.type, onPluginUpdate),
+    takeEvery(pluginDelete.type, onPluginDelete),
   ])
 }

@@ -13,9 +13,9 @@ import {
   TRIGGER_MANAGER,
   MEDIA,
   PLUGIN,
-  PLUGIN_INSTANCE, PLUGIN_MANAGER, PLUGIN_INSTANCE_MANAGER,
+  PLUGIN_MANAGER,
 } from '../utils/ipc';
-import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin, IPluginInstance } from '../types';
+import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin } from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
@@ -27,23 +27,16 @@ contextBridge.exposeInMainWorld('app', {
     delete: (data: IButton) => ipcRenderer.invoke(BUTTON.DELETE, data),
   },
   plugin: {
-    add: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.ADD, data),
-    get: () => ipcRenderer.invoke(PLUGIN.GET),
-    remove: (data: IPlugin) => ipcRenderer.invoke(PLUGIN.REMOVE, data),
-  },
-  pluginInstance: {
-    create: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.CREATE, data),
-    findAll: () => ipcRenderer.invoke(PLUGIN_INSTANCE.FIND_ALL),
-    findOne: (id: string) => ipcRenderer.invoke(PLUGIN_INSTANCE.FIND_ONE, id),
-    update: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.UPDATE, data),
-    delete: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.DELETE, data),
+    create: (data: IButton) => ipcRenderer.invoke(PLUGIN.CREATE, data),
+    findAll: () => ipcRenderer.invoke(PLUGIN.FIND_ALL),
+    findOne: (id: string) => ipcRenderer.invoke(PLUGIN.FIND_ONE, id),
+    update: (data: IButton) => ipcRenderer.invoke(PLUGIN.UPDATE, data),
+    delete: (data: IButton) => ipcRenderer.invoke(PLUGIN.DELETE, data),
   },
   pluginManager: {
     info: (data: IPlugin) => ipcRenderer.invoke(PLUGIN_MANAGER.INFO, data),
+    preload: (data: IPlugin) => ipcRenderer.invoke(PLUGIN_MANAGER.PRELOAD, data),
     reload: (data: IPlugin) => ipcRenderer.invoke(PLUGIN_MANAGER.RELOAD, data),
-  },
-  pluginInstanceManager: {
-    reload: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE_MANAGER.RELOAD, data),
   },
   trigger: {
     create: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.CREATE, data),
