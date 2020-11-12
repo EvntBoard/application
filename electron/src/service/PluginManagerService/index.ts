@@ -1,11 +1,11 @@
 import * as path from 'path';
 import { app } from 'electron';
-import { PluginManager } from 'live-plugin-manager';
-import { find } from 'lodash';
+import { IPluginInfo, PluginManager} from 'live-plugin-manager';
+import {find} from 'lodash';
 
-import { IPlugin } from '../../types';
-import { IPluginInstance, IPluginManagerInfo, IPluginManagerInstance } from './types';
-import { pluginFindAll } from '../PluginService';
+import {IPlugin} from '../../types';
+import {IPluginInstance, IPluginManagerInfo, IPluginManagerInstance} from './types';
+import {pluginFindAll} from '../PluginService';
 import eventBus from '../TriggerManagerService/eventBus';
 import logger from '../LoggerService';
 
@@ -85,13 +85,13 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
 
 export const unloadPlugin = async (plugin: IPlugin): Promise<void> => {
   logger.debug(`Plugin Service UNLOAD ${plugin.type} - ${plugin.plugin}`);
-  const pluginInstance = find(instances, { plugin: plugin.plugin });
+  const pluginInstance = find(instances, {plugin: plugin.plugin});
   await pluginInstance.instance.unload();
   await manager.uninstall(plugin.plugin);
 };
 
 export const infoPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo> => {
-  const pluginInstance = find(instances, { plugin: plugin.plugin });
+  const pluginInstance = find(instances, {plugin: plugin.plugin});
 
   return {
     evntboard: pluginInstance?.evntboard,
@@ -104,7 +104,7 @@ export const infoPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo> =
 export const preloadPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo> => {
   logger.debug(`Plugin Service PRELOAD ${plugin.type} - ${plugin.plugin}`);
 
-  let installed;
+  let installed: IPluginInfo;
   try {
     switch (plugin.type) {
       case 'npm':
@@ -135,12 +135,18 @@ export const preloadPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo
     throw new Error(`"${installed.name}" don't implement the plugin interface ...`);
   }
 
-  return {
+  const data = {
     evntboard: required?.evntboard,
     name: required?.name,
     description: required?.description,
     schema: required?.schema,
   };
+
+  setTimeout(() => {
+    manager.uninstall(installed.name);
+  }, 2000)
+
+  return data;
 };
 
 export const reloadPlugin = async (module: IPlugin): Promise<void> => {

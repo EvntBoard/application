@@ -3,12 +3,13 @@ import {Button, DialogTitle, DialogContent, DialogActions, IconButton, Typograph
 import { Close as CloseIcon } from '@material-ui/icons'
 import { useIntl } from 'react-intl'
 import { isNull, isEmpty, debounce } from 'lodash'
-import {Field, useField} from 'react-final-form'
+import { Field, useField } from 'react-final-form'
 
 import M from "../../../messages/constants";
 import InputField from '../../../components/Field/Input'
 import Select from '../../../components/Field/Select'
 import { pluginManagerPreload } from '../../../service/pluginManagerService'
+import FieldFormJSON from '../FieldFormJSON'
 
 const required = (value) => isNull(value) || isEmpty(value)
 
@@ -89,13 +90,7 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
             </div>
           )
         }
-        {
-          schema && (
-            <code>
-              {JSON.stringify(schema, 0, 2)}
-            </code>
-          )
-        }
+        <Field name='params' component={FieldFormJSON} schema={schema} />
       </DialogContent>
 
       <DialogActions>
