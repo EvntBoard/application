@@ -13,7 +13,7 @@ import {
   TRIGGER_MANAGER,
   MEDIA,
   PLUGIN,
-  PLUGIN_INSTANCE,
+  PLUGIN_INSTANCE, PLUGIN_MANAGER, PLUGIN_INSTANCE_MANAGER,
 } from '../utils/ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin, IPluginInstance } from '../types';
 
@@ -37,6 +37,13 @@ contextBridge.exposeInMainWorld('app', {
     findOne: (id: string) => ipcRenderer.invoke(PLUGIN_INSTANCE.FIND_ONE, id),
     update: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.UPDATE, data),
     delete: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE.DELETE, data),
+  },
+  pluginManager: {
+    info: (data: IPlugin) => ipcRenderer.invoke(PLUGIN_MANAGER.INFO, data),
+    reload: (data: IPlugin) => ipcRenderer.invoke(PLUGIN_MANAGER.RELOAD, data),
+  },
+  pluginInstanceManager: {
+    reload: (data: IPluginInstance) => ipcRenderer.invoke(PLUGIN_INSTANCE_MANAGER.RELOAD, data),
   },
   trigger: {
     create: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.CREATE, data),

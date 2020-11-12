@@ -62,7 +62,7 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
 };
 
 export const unloadPlugin = async (module: IPlugin): Promise<void> => {
-  logger.debug('Plugin Service UNLOAD');
+  logger.debug(`Plugin Service UNLOAD ${module}`);
   await plugins.delete(module);
   await manager.uninstall(module);
 };
@@ -77,10 +77,10 @@ export const infoPlugin = async (plugin: IPlugin): Promise<IPluginManagerApi> =>
   const pluginInstance: IPluginManagerInstance = plugins.get(plugin)
 
   return {
-    name: pluginInstance.name,
-    description: pluginInstance.description,
-    evntboard: pluginInstance.evntboard,
-    schema: pluginInstance.schema,
+    name: pluginInstance?.name,
+    description: pluginInstance?.description,
+    evntboard: pluginInstance?.evntboard,
+    schema: pluginInstance?.schema,
     error,
   }
 }
