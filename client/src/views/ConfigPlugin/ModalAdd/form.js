@@ -33,7 +33,7 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
   const [error, setError] = useState(null)
   const [schema, setSchema] = useState(null)
   const typeField = useField('type')
-  const pluginField = useField('plugin')
+  const pluginField = useField('name')
 
   const typeFieldValue = typeField?.input?.value
   const pluginFieldValue = pluginField?.input?.value
@@ -43,9 +43,9 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
   }, [typeFieldValue, pluginFieldValue])
 
   const preloadPlugin = useCallback(
-    debounce((type, plugin) => {
-      if (type && plugin) {
-        pluginManagerPreload({ type, plugin })
+    debounce((type, name) => {
+      if (type && name) {
+        pluginManagerPreload({ type, name })
         .then((data) => {
           setError(null)
           setSchema(data)
@@ -80,7 +80,7 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
           <Grid container item xs={12}>
             <Field
               validate={required}
-              name="plugin"
+              name="name"
               label={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoLabel })}
               component={InputField}
               placeholder={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoPlaceholder })}

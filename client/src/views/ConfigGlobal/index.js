@@ -65,7 +65,7 @@ function Config() {
   }
 
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth='sm' style={{ marginTop: 8 }} >
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Card>

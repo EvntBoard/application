@@ -63,7 +63,7 @@ export interface IApp {
 
 export interface IPlugin {
   id: string;
-  plugin: string;
+  name: string;
   type: string;
   params: any;
 }

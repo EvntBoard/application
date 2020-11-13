@@ -14,7 +14,7 @@ const messagesFR = {
   [M.FieldDropzoneDragOrClick]: 'Drag \'n\' drop des fichiers ici, ou clique pour selectionner tes fichiers',
 
   // SETTINGS
-  [M.AppSettingsMenuPlugin]: 'Plugin',
+  [M.AppMenuPlugin]: 'Plugin',
   [M.AppSettingsMenuGlobal]: 'Globale',
 
   [M.AppSettingsLanguage]: 'Langue',

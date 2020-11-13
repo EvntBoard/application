@@ -13,7 +13,7 @@ const messages = {
 
   // SETTINGS
   AppSettingsMenuGlobal: 'app.settings.menu.global',
-  AppSettingsMenuPlugin: 'app.settings.menu.plugin',
+  AppMenuPlugin: 'app.settings.menu.plugin',
 
   AppSettingsLanguage: 'app.settings.language',
   AppSettingsLanguageFR: 'app.settings.language.fr',

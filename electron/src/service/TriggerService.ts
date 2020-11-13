@@ -8,8 +8,11 @@ import { workspaceGetCurrent } from './WorkspaceService';
 import { database } from '../database/local';
 import { ITrigger } from '../types';
 import logger from './LoggerService';
+import { IPluginManager } from './PluginManagerService/types';
+import { Transform, TransformCallback } from 'stream';
 
-const DEFAULT_CONTENT = `const conditions = {
+const DEFAULT_CONTENT = `// EVNTBOARD - New Trigger - 
+const conditions = {
   'click': (idTrigger, evntData) => idTrigger === evntData.idTrigger
 }
 
@@ -64,6 +67,9 @@ export const triggerFindOne = (id: string): ITrigger => {
 
 export const triggerUpdate = (trigger: Partial<ITrigger>): ITrigger => {
   logger.debug('Trigger Service UPDATE');
+
+  const currentWorkspace = workspaceGetCurrent();
+
   database
     .get('triggers')
     .find({ id: trigger.id })
@@ -74,6 +80,12 @@ export const triggerUpdate = (trigger: Partial<ITrigger>): ITrigger => {
     .write();
 
   const updated = triggerFindOne(trigger.id);
+
+  // Update file header
+  const triggerFilePath = path.join(currentWorkspace.path, 'trigger', `${updated.id}.js`);
+
+  updateFileHeader(triggerFilePath, updated);
+
   reload(updated);
   return updated;
 };
@@ -99,4 +111,18 @@ export const triggerEditFile = (trigger: Partial<ITrigger>): void => {
 export const triggerReload = (trigger: ITrigger): void => {
   logger.debug('Trigger Service RELOAD TRIGGER FILE');
   reload(trigger);
+};
+
+const updateFileHeader = (filePath: string, plugin: ITrigger) => {
+  let data = fs.readFileSync(filePath, 'utf-8').toString();
+
+  if (data.startsWith('// EVNTBOARD')) {
+    const position = data.toString().indexOf('\n'); // find position of new line element
+    if (position != -1) {
+      // if new line element found
+      data = data.substr(position + 1); // subtract string based on first line length
+    }
+  }
+
+  fs.writeFileSync(filePath, `// EVNTBOARD - ${plugin.name} - ${plugin.description}\n${data}`);
 };

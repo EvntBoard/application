@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 import MainLayout from './layout/Main'
-import ConfigLayout from './layout/Config'
 import App from './views/App'
 import Trigger from './views/Trigger'
 import Board from './views/Board'
@@ -19,16 +18,8 @@ const routes = [
       { path: '/board', element: <Board /> },
       { path: '/trigger', element: <Trigger /> },
       { path: '/debug', element: <Debug /> },
-      {
-        path: '/config',
-        element: <ConfigLayout />,
-        children: [
-          { path: '/', element: <Navigate to="/config/global" /> },
-          { path: '/global', element: <ConfigGlobal /> },
-          { path: '/plugin', element: <ConfigPlugin /> },
-          { path: '*', element: <Navigate to="/404" /> }
-        ]
-      },
+      { path: '/plugin', element: <ConfigPlugin /> },
+      { path: '/config', element: <ConfigGlobal /> },
       { path: '/404', element: <div>404</div> },
       { path: '*', element: <Navigate to="/404" /> }
     ]

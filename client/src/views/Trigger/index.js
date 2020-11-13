@@ -9,17 +9,16 @@ import { Button, TextField } from '@material-ui/core'
 import FormTrigger from './form'
 import Item from './Item'
 import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate, selectors as triggerSelectors } from "../../store/trigger";
+import { triggerEditFile, triggerReload } from '../../service/triggerService'
 import M from '../../messages/constants'
 
 import './assets/style.scss'
-import {triggerEditFile, triggerReload} from '../../service/triggerService'
-
 const SAMPLE_TRIGGER = {
   id: null,
   type: 1,
   locker: null,
   name: 'New Trigger',
-  description: null,
+  description: '',
 }
 
 const Trigger = () => {

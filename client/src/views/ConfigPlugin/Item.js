@@ -35,13 +35,13 @@ const ConfigPluginItem = ({ plugin, onDelete, onEdit }) => {
   return (
     <Grid item container>
       <Grid container item alignItems='center' xs={1}>
-        <PowerIcon color={pluginData?.evntboard !== undefined ? 'action' : 'error'}/>
+        <PowerIcon color={pluginData?.id !== undefined ? 'action' : 'error'}/>
       </Grid>
       <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={1}>{plugin?.type}</Grid>
-      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{plugin?.plugin}</Grid>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{plugin?.name}</Grid>
       <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.name}</Grid>
       <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.description}</Grid>
-      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.evntboard}</Grid>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.id}</Grid>
       <Grid container item alignItems='center' xs={2}>
         <IconButton onClick={innerOnClickReload}>
           <CachedIcon />

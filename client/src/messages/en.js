@@ -14,7 +14,7 @@ const messagesEN = {
   [M.FieldDropzoneDragOrClick]: 'Drag \'n\' drop some files here, or click to select files',
 
   // SETTINGS
-  [M.AppSettingsMenuPlugin]: 'Plugin',
+  [M.AppMenuPlugin]: 'Plugin',
   [M.AppSettingsMenuGlobal]: 'Global',
 
   [M.AppSettingsLanguage]: 'Language',

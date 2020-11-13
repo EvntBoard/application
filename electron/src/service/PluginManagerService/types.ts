@@ -1,30 +1,29 @@
-import { EventBus } from '../TriggerManagerService/eventBus';
 import { IPlugin } from '../../types';
 
-export interface IPluginManagerInstanceModule {
-  bus: EventBus;
-  connected: boolean;
-  new (params: any, bus: EventBus): IPluginManagerInstanceModule;
+export interface IPluginManagerModule {
+  new (params: any, options: any): IPluginManagerModule;
   load: () => Promise<void>;
   unload: () => Promise<void>;
   reload: () => Promise<void>;
 }
 
-export interface IPluginManagerInstance {
-  evntboard: string;
+export interface IPluginManager {
+  id: string;
   name: string;
   description: string;
-  schema: object | null | undefined;
-  module: IPluginManagerInstanceModule;
+  schema: object | null | undefined | string;
+  plugin: IPluginManagerModule;
+  config: any;
 }
 
-export interface IPluginInstance extends IPlugin, IPluginManagerInstance {
-  instance: IPluginManagerInstanceModule;
+export interface IPluginManagerInstance extends IPlugin {
+  plugin: IPluginManager;
+  instance: IPluginManagerModule;
 }
 
 export interface IPluginManagerInfo {
-  evntboard: string;
+  id: string;
   name: string;
   description: string;
-  schema: object | null | undefined;
+  schema: object | null | undefined | string;
 }
