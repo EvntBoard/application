@@ -1,6 +1,7 @@
 .home {
   display: grid;
   flex-grow: 1;
+  overflow: hidden;
 
   .center {
     grid-column-start: 1;
