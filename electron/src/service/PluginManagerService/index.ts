@@ -1,11 +1,11 @@
 import * as path from 'path';
 import { app } from 'electron';
-import { IPluginInfo, PluginManager} from 'live-plugin-manager';
-import {find} from 'lodash';
+import { IPluginInfo, PluginManager } from 'live-plugin-manager';
+import { find, filter } from 'lodash';
 
-import {IPlugin} from '../../types';
-import {IPluginInstance, IPluginManagerInfo, IPluginManagerInstance} from './types';
-import {pluginFindAll} from '../PluginService';
+import { IPlugin } from '../../types';
+import { IPluginInstance, IPluginManagerInfo, IPluginManagerInstance } from './types';
+import { pluginFindAll } from '../PluginService';
 import eventBus from '../TriggerManagerService/eventBus';
 import logger from '../LoggerService';
 
@@ -85,15 +85,16 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
 
 export const unloadPlugin = async (plugin: IPlugin): Promise<void> => {
   logger.debug(`Plugin Service UNLOAD ${plugin.type} - ${plugin.plugin}`);
-  const pluginInstance = find(instances, {plugin: plugin.plugin});
+  const pluginInstance = find(instances, { plugin: plugin.plugin });
   if (pluginInstance) {
     await pluginInstance.instance.unload();
     await manager.uninstall(plugin.plugin);
+    instances = filter(instances, (i) => i.id !== plugin.id);
   }
 };
 
 export const infoPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo> => {
-  const pluginInstance = find(instances, {plugin: plugin.plugin});
+  const pluginInstance = find(instances, { plugin: plugin.plugin });
 
   return {
     evntboard: pluginInstance?.evntboard,
@@ -146,7 +147,7 @@ export const preloadPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo
 
   setTimeout(() => {
     manager.uninstall(installed.name);
-  }, 2000)
+  }, 2000);
 
   return data;
 };
@@ -160,13 +161,17 @@ export const execPlugin = async (plugin: string, method: string, ...params: any)
   const pluginInstance = find(instances, { evntboard: plugin });
 
   if (!pluginInstance) {
-    throw new Error(`${plugin} doesn't exist ...`)
+    throw new Error(`${plugin} doesn't exist ...`);
   }
 
   if (method in pluginInstance.instance) {
-    // @ts-ignore
-    return await pluginInstance.instance[method](...params)
+    try {
+      // @ts-ignore
+      return await pluginInstance.instance[method](...params);
+    } catch (e) {
+      console.log(e);
+    }
   } else {
-    throw new Error(`${method} doesn't exist in ${plugin} `)
+    throw new Error(`${method} doesn't exist in ${plugin} `);
   }
-}
+};

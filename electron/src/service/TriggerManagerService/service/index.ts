@@ -3,7 +3,7 @@ import { execPlugin } from '../../PluginManagerService';
 
 const services = {
   media,
-  plugin: execPlugin
+  plugin: execPlugin,
 };
 
 export default services;
