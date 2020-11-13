@@ -86,8 +86,10 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
 export const unloadPlugin = async (plugin: IPlugin): Promise<void> => {
   logger.debug(`Plugin Service UNLOAD ${plugin.type} - ${plugin.plugin}`);
   const pluginInstance = find(instances, {plugin: plugin.plugin});
-  await pluginInstance.instance.unload();
-  await manager.uninstall(plugin.plugin);
+  if (pluginInstance) {
+    await pluginInstance.instance.unload();
+    await manager.uninstall(plugin.plugin);
+  }
 };
 
 export const infoPlugin = async (plugin: IPlugin): Promise<IPluginManagerInfo> => {
@@ -153,3 +155,18 @@ export const reloadPlugin = async (module: IPlugin): Promise<void> => {
   await unloadPlugin(module);
   await loadPlugin(module);
 };
+
+export const execPlugin = async (plugin: string, method: string, ...params: any): Promise<any> => {
+  const pluginInstance = find(instances, { evntboard: plugin });
+
+  if (!pluginInstance) {
+    throw new Error(`${plugin} doesn't exist ...`)
+  }
+
+  if (method in pluginInstance.instance) {
+    // @ts-ignore
+    return await pluginInstance.instance[method](...params)
+  } else {
+    throw new Error(`${method} doesn't exist in ${plugin} `)
+  }
+}

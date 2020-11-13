@@ -1,19 +1,13 @@
 import Form from '@rjsf/material-ui'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 
 export default ({ input, schema }) => {
-  const [state, setState] = useState({})
-
-  useEffect(() => {
-    input.onChange(state)
-  }, [state])
-
   if (!schema) return null
 
   return (
     <Form
-      formData={state}
-      onChange={({ formData }) => { setState(formData) }}
+      formData={input.value}
+      onChange={({ formData }) => { input.onChange(formData) }}
       tagName='div'
       schema={schema.schema}
     >

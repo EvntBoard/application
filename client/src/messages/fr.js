@@ -143,6 +143,7 @@ const messagesFR = {
   [M.AppSettingsPluginName]: 'Nom',
   [M.AppSettingsPluginDescription]: 'Description',
   [M.AppSettingsPluginRepo]: 'Repository',
+  [M.AppSettingsPluginType]: 'Type',
 
   [M.AppSettingsPluginModalAddTitle]: 'Ajouter un plugin',
   [M.AppSettingsPluginModalAddInfos]: 'Lien Github',

@@ -141,6 +141,7 @@ const messages = {
   AppSettingsPluginPath: 'app.settings.plugin.path',
   AppSettingsPluginName: 'app.settings.plugin.name',
   AppSettingsPluginDescription: 'app.settings.plugin.description',
+  AppSettingsPluginType: 'app.settings.plugin.type',
   AppSettingsPluginRepo: 'app.settings.plugin.repo',
 
   AppSettingsPluginModalAddTitle: 'app.settings.plugin.modal_add.title',

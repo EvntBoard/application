@@ -3,10 +3,11 @@ import { Grid, IconButton } from '@material-ui/core'
 import PowerIcon from '@material-ui/icons/Power';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CachedIcon from '@material-ui/icons/Cached';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { pluginManagerInfo, pluginManagerReload } from '../../service/pluginManagerService'
 
-const ConfigPluginItem = ({ plugin, onDelete }) => {
+const ConfigPluginItem = ({ plugin, onDelete, onEdit }) => {
   const [pluginData, setPluginData] = useState(null)
 
   useEffect(() => {
@@ -27,22 +28,27 @@ const ConfigPluginItem = ({ plugin, onDelete }) => {
     })
   }
 
+  const innerOnClickEdit = () => {
+    onEdit(plugin)
+  }
+
   return (
     <Grid item container>
       <Grid container item alignItems='center' xs={1}>
-        <PowerIcon color={pluginData ? 'action' : 'error'}/>
+        <PowerIcon color={pluginData?.evntboard !== undefined ? 'action' : 'error'}/>
       </Grid>
-      <Grid container item alignItems='center' xs={1}>{plugin?.type}</Grid>
-      <Grid container item alignItems='center' xs={2}>{plugin?.plugin}</Grid>
-      <Grid container item alignItems='center' xs={2}>{pluginData?.name}</Grid>
-      <Grid container item alignItems='center' xs={2}>{pluginData?.description}</Grid>
-      <Grid container item alignItems='center' xs={2}>{pluginData?.evntboard}</Grid>
-      <Grid container item alignItems='center' xs={1}>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={1}>{plugin?.type}</Grid>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{plugin?.plugin}</Grid>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.name}</Grid>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.description}</Grid>
+      <Grid container item alignItems='center' style={{ overflowWrap: 'anywhere' }} xs={2}>{pluginData?.evntboard}</Grid>
+      <Grid container item alignItems='center' xs={2}>
         <IconButton onClick={innerOnClickReload}>
           <CachedIcon />
         </IconButton>
-      </Grid>
-      <Grid container item alignItems='center' xs={1}>
+        <IconButton onClick={innerOnClickEdit}>
+          <EditIcon />
+        </IconButton>
         <IconButton onClick={innerOnClickDelete}>
           <DeleteIcon />
         </IconButton>

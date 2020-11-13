@@ -73,16 +73,20 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
         <Typography>
           {intl.formatMessage({ id: M.AppSettingsPluginModalAddInfos })}
         </Typography>
-        <Grid container item xs={12}>
-          <Field name="type" label={intl.formatMessage({ id: M.AppTriggerTypeLabel })} component={Select} options={options} />
+        <Grid container spacing={2}>
+          <Grid container item xs={12}>
+            <Field name="type" label={intl.formatMessage({ id: M.AppTriggerTypeLabel })} component={Select} options={options} />
+          </Grid>
+          <Grid container item xs={12}>
+            <Field
+              validate={required}
+              name="plugin"
+              label={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoLabel })}
+              component={InputField}
+              placeholder={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoPlaceholder })}
+            />
+          </Grid>
         </Grid>
-        <Field
-          validate={required}
-          name="plugin"
-          label={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoLabel })}
-          component={InputField}
-          placeholder={intl.formatMessage({ id: M.AppSettingsPluginModalAddRepoPlaceholder })}
-        />
         {
           error && (
             <div>
@@ -90,7 +94,7 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
             </div>
           )
         }
-        <Field name='params' component={FieldFormJSON} schema={schema} />
+        <Field name='params' required component={FieldFormJSON} schema={schema} />
       </DialogContent>
 
       <DialogActions>
