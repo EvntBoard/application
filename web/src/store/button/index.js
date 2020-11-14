@@ -66,7 +66,7 @@ const reducer = createReducer(INITIAL_STATE, {
   },
 
   [buttonDeleteForBoard]: (state, action) => {
-    state.buttons = filter(state.buttons, i => i.idBoard !== action.payload.idBoard)
+    state.buttons = filter(state.buttons, i => i.idBoard !== action.payload.id)
   }
 })
 
