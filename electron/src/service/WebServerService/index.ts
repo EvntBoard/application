@@ -1,6 +1,6 @@
 import { shell } from 'electron';
 import * as express from 'express';
-import * as ws from 'ws';
+import { Server } from 'socket.io';
 import * as http from 'http';
 import * as path from 'path';
 import * as dns from 'dns';
@@ -16,7 +16,7 @@ import logger from '../LoggerService';
 
 let app: express.Application;
 let httpServer: http.Server;
-let wsServer: ws.Server;
+let wsServer: Server;
 
 export const init = () => {
   try {
@@ -24,6 +24,27 @@ export const init = () => {
     const appConfig = appGet();
 
     app = express();
+
+    httpServer = http.createServer(app);
+
+    wsServer = new Server(httpServer, { path: '/ws' });
+
+    wsServer.on('connection', (socket) => {
+      logger.debug('WS connection');
+
+      socket.on('newEvent', (message: any) => {
+        if (message.event) {
+          newEvent({
+            ...message,
+            meta: {
+              sender: socket.io,
+            },
+          });
+        } else {
+          logger.error(message);
+        }
+      });
+    });
 
     if (electronIsDev) {
       app.use(express.static(path.join(process.cwd(), 'build', 'web')));
@@ -33,7 +54,7 @@ export const init = () => {
 
     app.use('/api', apiRoute);
 
-    httpServer = app.listen(appConfig.port, appConfig.host);
+    httpServer.listen(appConfig.port, appConfig.host);
 
     httpServer.on('listening', () => {
       mainWindowsSend(WEB_SERVER.ON_OPEN, {
@@ -56,25 +77,6 @@ export const init = () => {
         error: null,
       });
     });
-
-    wsServer = new ws.Server({ server: httpServer, path: '/ws' });
-
-    wsServer.on('connection', (socket) => {
-      logger.debug('WS connection');
-      socket.on('message', (message: any) => {
-        try {
-          const data = JSON.parse(message);
-          if (data.event) {
-            newEvent(data);
-          }
-        } catch (e) {
-          logger.error(message);
-          logger.error(e);
-        }
-      });
-    });
-
-    wsServer.on('error', () => {});
   } catch (e) {
     logger.error(e);
     mainWindowsSend(WEB_SERVER.ON_ERROR, {
@@ -117,4 +119,8 @@ const getLocalIp = async (): Promise<string> => {
       }
     });
   });
+};
+
+export const broadcast = async (event: string, data: any) => {
+  wsServer.emit(event, data);
 };

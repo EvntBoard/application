@@ -3,6 +3,7 @@ import { IBoard, IButton } from '../types';
 import generateStringId from '../utils/generateStringId';
 import { moveFileToWorkspace } from '../utils/moveFileToWorkspace';
 import logger from './LoggerService';
+import { broadcast} from "./WebServerService";
 
 export const buttonCreate = (button: IButton): IButton => {
   logger.debug('Button Service CREATE');
@@ -17,7 +18,9 @@ export const buttonCreate = (button: IButton): IButton => {
       updatedAt: new Date(),
     })
     .write();
-  return database.get('buttons').find({ id }).value();
+  const created = database.get('buttons').find({ id }).value();
+  broadcast('buttonCreate', created)
+  return created
 };
 
 export const buttonFindAll = (): IButton[] => {
@@ -46,12 +49,15 @@ export const buttonUpdate = (button: Partial<IButton>): IButton => {
       updatedAt: new Date(),
     })
     .write();
-  return database.get('buttons').find({ id: button.id }).value();
+  const updated = database.get('buttons').find({ id: button.id }).value();
+  broadcast('buttonUpdate', updated)
+  return updated
 };
 
 export const buttonDelete = (button: Partial<IButton>): void => {
   logger.debug('Button Service DELETE');
   database.get('buttons').remove({ id: button.id }).write();
+  broadcast('buttonDelete', button)
 };
 
 export const buttonDeleteForBoard = (board: Partial<IBoard>): void => {

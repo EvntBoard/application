@@ -1,35 +1,55 @@
-import { ipcMain } from 'electron';
-import * as fs from 'fs';
 import * as path from 'path';
+import * as fs from 'fs';
 
-import { mainWindowsSend } from '../../MainWindowService';
 import { workspaceGetCurrent } from '../../WorkspaceService';
-import { MEDIA } from '../../../utils/ipc';
 
-export const play = (file: string, volume = 1) => {
-  return new Promise((resolve, reject) => {
-    const workspaceDir = workspaceGetCurrent();
-    const uniqueId = Math.random();
+const normalizePath = (file: string) => {
+  const currentWorkspace = workspaceGetCurrent();
 
-    if (file.startsWith('workspace://')) {
-      let filePath = path.join(workspaceDir.path, file.replace('workspace://', ''));
-      if (fs.existsSync(filePath)) {
-        mainWindowsSend(MEDIA.PLAY, { file, volume, uniqueId });
+  if (file.startsWith('workspace://')) {
+    return path.resolve(currentWorkspace.path, file.replace('workspace://', ''));
+  } else {
+    return path.resolve(currentWorkspace.path, 'tmp', file);
+  }
+};
 
-        ipcMain.once(`audio-${uniqueId}`, () => {
-          resolve();
-        });
-      } else {
-        reject(`File don\'t exist : ${file} !`);
-      }
-    } else if (file.startsWith('http://') || file.startsWith('https://')) {
-      mainWindowsSend(MEDIA.PLAY, { file, volume, uniqueId });
+export const read = (file: string) => {
+  try {
+    const filePath = normalizePath(file);
+    return fs.readFileSync(filePath, 'utf8');
+  } catch (e) {
+    return null;
+  }
+};
 
-      ipcMain.once(`audio-${uniqueId}`, () => {
-        resolve();
-      });
-    } else {
-      reject('File can only be in workspace:// or http:// or https:// !');
+export const write = (file: string, data: any) => {
+  try {
+    const filePath = normalizePath(file);
+
+    const dir = path.dirname(filePath);
+
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
     }
-  });
+
+    fs.writeFileSync(filePath, data, { mode: 0o755 });
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+export const append = (file: string, data: any) => {
+  try {
+    const filePath = normalizePath(file);
+
+    if (!fs.existsSync(filePath)) {
+      return write(filePath, data);
+    } else {
+      fs.appendFileSync(filePath, data);
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
 };

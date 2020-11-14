@@ -1,4 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
+import { filter } from 'lodash'
 
 export { saga as boardSaga } from './saga'
 export * as selectors from './selector'
@@ -10,6 +11,10 @@ export const boardChangeCurrentBoard = createAction(`${PATH}_CHANGE_CURRENT_BOAR
 export const boardFindAll = createAction(`${PATH}_FINDALL`)
 export const boardFindAllSuccess = createAction(`${PATH}_FINDALL_SUCCESS`)
 export const boardFindAllFailed = createAction(`${PATH}_FINDALL_FAILED`)
+
+export const boardCreate = createAction(`${PATH}_CREATE`)
+export const boardUpdate = createAction(`${PATH}_UPDATE`)
+export const boardDelete = createAction(`${PATH}_DELETE`)
 
 const INITIAL_STATE = {
   // REAL DATA
@@ -48,6 +53,24 @@ const reducer = createReducer(INITIAL_STATE, {
     state.boardFindAllFailed = true
     state.boardFindAllError = action.payload
   },
+
+  // CREATE
+  [boardCreate]: (state, action) => {
+    state.boards.push(action.payload)
+  },
+
+  // UPDATE
+  [boardUpdate]: (state, action) => {
+    state.boards = [
+      ...filter(state.boards, i => i.id !== action.payload.id),
+      action.payload
+    ]
+  },
+
+  // DELETE
+  [boardDelete]: (state, action) => {
+    state.boards = filter(state.boards, i => i.id !== action.payload.id)
+  }
 })
 
 export default reducer

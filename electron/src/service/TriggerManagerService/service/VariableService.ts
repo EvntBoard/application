@@ -1,35 +1,14 @@
-import { ipcMain } from 'electron';
-import * as fs from 'fs';
-import * as path from 'path';
+import { get as getLodash } from 'lodash';
 
-import { mainWindowsSend } from '../../MainWindowService';
-import { workspaceGetCurrent } from '../../WorkspaceService';
-import { MEDIA } from '../../../utils/ipc';
+const variable: any = {};
 
-export const play = (file: string, volume = 1) => {
-  return new Promise((resolve, reject) => {
-    const workspaceDir = workspaceGetCurrent();
-    const uniqueId = Math.random();
+// pour le client
+export const set = (key: string, data: any) => {
+  variable[key] = data;
+  return get(key);
+};
 
-    if (file.startsWith('workspace://')) {
-      let filePath = path.join(workspaceDir.path, file.replace('workspace://', ''));
-      if (fs.existsSync(filePath)) {
-        mainWindowsSend(MEDIA.PLAY, { file, volume, uniqueId });
-
-        ipcMain.once(`audio-${uniqueId}`, () => {
-          resolve();
-        });
-      } else {
-        reject(`File don\'t exist : ${file} !`);
-      }
-    } else if (file.startsWith('http://') || file.startsWith('https://')) {
-      mainWindowsSend(MEDIA.PLAY, { file, volume, uniqueId });
-
-      ipcMain.once(`audio-${uniqueId}`, () => {
-        resolve();
-      });
-    } else {
-      reject('File can only be in workspace:// or http:// or https:// !');
-    }
-  });
+// pour le client
+export const get = (key: string) => {
+  return getLodash(variable, key);
 };

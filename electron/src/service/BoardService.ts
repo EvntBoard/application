@@ -5,6 +5,7 @@ import { IBoard } from '../types';
 import { buttonDeleteForBoard } from './ButtonService';
 import { moveFileToWorkspace } from '../utils/moveFileToWorkspace';
 import logger from './LoggerService';
+import { broadcast } from "./WebServerService";
 
 export const boardCreate = (board: IBoard): IBoard => {
   logger.debug('Board Service CREATE');
@@ -19,7 +20,9 @@ export const boardCreate = (board: IBoard): IBoard => {
       updatedAt: new Date(),
     })
     .write();
-  return boardFindOne(id);
+  const created = boardFindOne(id);
+  broadcast('boardCreate', created)
+  return created
 };
 
 export const boardFindAll = (): IBoard[] => {
@@ -43,13 +46,16 @@ export const boardUpdate = (board: Partial<IBoard>): IBoard => {
       updatedAt: new Date(),
     })
     .write();
-  return boardFindOne(board.id);
+  const updated = boardFindOne(board.id);
+  broadcast('boardUpdate', updated)
+  return updated
 };
 
 export const boardDelete = (board: Partial<IBoard>): void => {
   logger.debug('Board Service DELETE');
   buttonDeleteForBoard(board);
   database.get('boards').remove({ id: board.id }).write();
+  broadcast('boardDelete', board)
 };
 
 export const boardSetDefault = (board: Partial<IBoard>): IBoard => {

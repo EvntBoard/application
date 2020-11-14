@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { isString } from 'lodash'
 
-import { selectors as wsSelectors, wsSend } from '../../store/websocket'
+import { selectors as wsSelectors, wsNewEvent } from '../../store/websocket'
 import { selectors as boardSelectors } from '../../store/board'
 import { selectors as buttonSelectors } from '../../store/button'
 
@@ -32,7 +32,7 @@ const Board = () => {
   }, [currentBoard])
 
   const onClick = (data) => {
-    dispatch(wsSend({ event: 'click', idTrigger: data.idTrigger }))
+    dispatch(wsNewEvent({ event: 'click', idTrigger: data.idTrigger }))
   }
 
   if (!currentBoard) {
