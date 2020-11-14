@@ -5,7 +5,7 @@ export * as selectors from './selector'
 const PATH = 'WEBSOCKET'
 
 export const wsConnect = createAction(`${PATH}_CONNECT`)
-export const wsNewEvent = createAction(`${PATH}_NEW_EVENT`)
+export const wsCreateEvent = createAction(`${PATH}_NEW_EVENT`)
 export const wsDisconnect = createAction(`${PATH}_DISCONNECT`)
 export const wsOnClose = createAction(`${PATH}_ON_CLOSE`)
 export const wsOnError = createAction(`${PATH}_ON_ERROR`)

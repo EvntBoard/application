@@ -2,7 +2,7 @@ import { io as SocketIoClient } from 'socket.io-client'
 
 import {
   wsConnect,
-  wsNewEvent,
+  wsCreateEvent,
   wsDisconnect,
   wsOnClose,
   wsOnError,
@@ -27,6 +27,7 @@ const middleware = store => next => action => {
         websocket.onerror = (event) => store.dispatch(wsOnError(event));
         websocket.onclose = (event) => store.dispatch(wsOnClose(event));
 
+        // Board
         websocket.on('boardCreate', (board) => {
           store.dispatch(boardCreate(board))
         })
@@ -40,7 +41,7 @@ const middleware = store => next => action => {
           store.dispatch(buttonDeleteForBoard(board))
         })
 
-
+        // Button
         websocket.on('buttonCreate', (button) => {
           store.dispatch(buttonCreate(button))
         })
@@ -53,12 +54,28 @@ const middleware = store => next => action => {
           store.dispatch(buttonDelete(button))
         })
 
+        // Lang
         websocket.on('langSet', (lang) => {
           store.dispatch(langOnChange(lang))
         })
 
+        // Theme
         websocket.on('themeSet', (theme) => {
           store.dispatch(themeOnChange(theme))
+        })
+
+        // events
+        websocket.on('newEvent', (evnt) => {
+          console.log({ newEvent: evnt })
+        })
+        websocket.on('startEvent', (evnt) => {
+          console.log({ startEvent: evnt })
+        })
+        websocket.on('endEvent', (evnt) => {
+          console.log({ endEvent: evnt })
+        })
+        websocket.on('errorEvent', (evnt, error) => {
+          console.log({ errorEvent: evnt, error })
         })
 
       } catch (e) {
@@ -66,8 +83,8 @@ const middleware = store => next => action => {
       }
       break;
 
-    case wsNewEvent.type:
-      websocket.emit('newEvent', action.payload)
+    case wsCreateEvent.type:
+      websocket.emit('createEvent', action.payload)
       break;
 
     case wsDisconnect.type:

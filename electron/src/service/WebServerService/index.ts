@@ -32,13 +32,13 @@ export const init = () => {
     wsServer.on('connection', (socket) => {
       logger.debug('WS connection');
 
-      socket.on('newEvent', (message: any) => {
+      socket.on('createEvent', (message: any) => {
         if (message.event) {
           newEvent({
             ...message,
             meta: {
-              sender: socket.io,
-            },
+              sender: socket.id
+            }
           });
         } else {
           logger.error(message);
@@ -121,6 +121,6 @@ const getLocalIp = async (): Promise<string> => {
   });
 };
 
-export const broadcast = async (event: string, data: any) => {
-  wsServer.emit(event, data);
+export const broadcast = async (event: string, data: any, e?: Error) => {
+  wsServer.emit(event, data, e);
 };

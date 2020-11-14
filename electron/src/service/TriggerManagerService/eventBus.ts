@@ -2,6 +2,7 @@ import * as Emittery from 'emittery';
 import { v4 as uuid } from 'uuid';
 
 import { mainWindowsSend } from '../MainWindowService';
+import { broadcast } from '../WebServerService';
 import { TRIGGER_MANAGER } from '../../utils/ipc';
 import logger from '../LoggerService';
 
@@ -20,6 +21,7 @@ export const newEvent = (data: any) => {
   const meta = {
     uniqueId,
     newDate: new Date(),
+    ...data.meta
   };
 
   switch (data.event) {
@@ -30,20 +32,25 @@ export const newEvent = (data: any) => {
       break;
   }
 
-  bus.emit(data.event, { ...data, meta });
-  mainWindowsSend(TRIGGER_MANAGER.ON_NEW, { ...data, meta });
+  const event = { ...data, meta };
+
+  bus.emit(data.event, event);
+  mainWindowsSend(TRIGGER_MANAGER.ON_NEW, event);
+  broadcast('newEvent', event);
 };
 
 export const startEvent = (data: any) => {
   logger.debug(`start event [${data.meta.uniqueId}] ${data.event}`);
   data.meta.startDate = new Date();
   mainWindowsSend(TRIGGER_MANAGER.ON_START, data);
+  broadcast('startEvent', data);
 };
 
 export const endEvent = (data: any) => {
   logger.debug(`end event [${data.meta.uniqueId}] ${data.event}`);
   data.meta.endDate = new Date();
   mainWindowsSend(TRIGGER_MANAGER.ON_END, data);
+  broadcast('endEvent', data);
 };
 
 export const errorEvent = (data: any, e: Error) => {
@@ -51,6 +58,7 @@ export const errorEvent = (data: any, e: Error) => {
   logger.error(`${e.name} : ${e.message}`);
   data.meta.errorDate = new Date();
   mainWindowsSend(TRIGGER_MANAGER.ON_ERROR, data, e);
+  broadcast('errorEvent', data, e);
 };
 
 const defaultBus: EventBus = {

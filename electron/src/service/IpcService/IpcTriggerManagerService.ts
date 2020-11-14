@@ -7,6 +7,11 @@ import logger from '../LoggerService';
 export const init = () => {
   logger.debug('IPC TRIGGER_MANAGER init');
   ipcMain.handle(TRIGGER_MANAGER.NEW_EVENT, (_, data) => {
-    newEvent(data);
+    newEvent({
+      ...data,
+      meta: {
+        sender: 'ipc'
+      }
+    });
   });
 };
