@@ -9,7 +9,7 @@ import {
   wsOnOpen
 } from '../websocket'
 import { boardCreate, boardUpdate, boardDelete } from '../board'
-import { buttonCreate, buttonUpdate, buttonDelete } from '../button'
+import { buttonCreate, buttonUpdate, buttonDelete, buttonDeleteForBoard } from '../button'
 import { langOnChange } from '../lang'
 import { themeOnChange } from '../theme'
 
@@ -37,6 +37,7 @@ const middleware = store => next => action => {
 
         websocket.on('boardDelete', (board) => {
           store.dispatch(boardDelete(board))
+          store.dispatch(buttonDeleteForBoard(board))
         })
 
 

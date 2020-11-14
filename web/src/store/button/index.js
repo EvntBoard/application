@@ -13,6 +13,7 @@ export const buttonFindAllFailed = createAction(`${PATH}_FINDALL_FAILED`)
 export const buttonCreate = createAction(`${PATH}_CREATE`)
 export const buttonUpdate = createAction(`${PATH}_UPDATE`)
 export const buttonDelete = createAction(`${PATH}_DELETE`)
+export const buttonDeleteForBoard = createAction(`${PATH}_DELETE_FOR_BOARD`)
 
 const INITIAL_STATE = {
   // REAL DATA
@@ -62,6 +63,10 @@ const reducer = createReducer(INITIAL_STATE, {
   // DELETE
   [buttonDelete]: (state, action) => {
     state.buttons = filter(state.buttons, i => i.id !== action.payload.id)
+  },
+
+  [buttonDeleteForBoard]: (state, action) => {
+    state.buttons = filter(state.buttons, i => i.idBoard !== action.payload.idBoard)
   }
 })
 
