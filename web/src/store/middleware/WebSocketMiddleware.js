@@ -1,3 +1,5 @@
+import { io as SocketIoClient } from 'socket.io-client'
+
 import {
   wsConnect,
   wsSend,
@@ -14,7 +16,7 @@ const middleware = store => next => action => {
     case wsConnect.type:
       // Configure the object
       try {
-        websocket = new WebSocket(action.payload);
+        websocket = new SocketIoClient({ path: '/ws' });
 
         // Attach the callbacks
         websocket.onopen = () => store.dispatch(wsOnOpen());
@@ -29,7 +31,7 @@ const middleware = store => next => action => {
       break;
 
     case wsSend.type:
-      websocket.send(JSON.stringify(action.payload));
+      websocket.send(action.payload);
       break;
 
     case wsDisconnect.type:

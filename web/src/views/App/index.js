@@ -21,18 +21,11 @@ const App = () => {
   const connectedWS = useSelector(wsSelectors.connected)
 
   useEffect(() => {
-    let url
-    if (window.location.port === '6123') {
-      url = `ws://${window.location.hostname}:5123/ws`
-    } else {
-      url = `ws://${window.location.host}/ws`
-    }
-
     dispatch(langGet())
     dispatch(themeGet())
     dispatch(buttonFindAll())
     dispatch(boardFindAll())
-    dispatch(wsConnect(url))
+    dispatch(wsConnect())
   }, [dispatch])
 
   useEffect(() => {
