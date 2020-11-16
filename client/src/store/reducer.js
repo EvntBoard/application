@@ -11,6 +11,8 @@ import webserverReducer from './webserver'
 import workspaceReducer from './workspace'
 import triggerManagerReducer from './triggerManager'
 import pluginReducer from './plugin'
+import sessionReducer from './session'
+import cacheReducer from './cache'
 
 export default combineReducers({
   config: configReducer,
@@ -24,4 +26,6 @@ export default combineReducers({
   webserver: webserverReducer,
   triggerManager: triggerManagerReducer,
   plugin: pluginReducer,
+  session: sessionReducer,
+  cache: cacheReducer,
 })

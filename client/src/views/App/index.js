@@ -6,8 +6,10 @@ import QrCode from 'qrcode.react';
 import { useIntl } from 'react-intl'
 
 import Grid from './components/Grid'
-import { boardFindAll, selectors as boardSelectors } from '../../store/board'
-import { buttonFindAll, selectors as buttonSelectors } from '../../store/button'
+import { cacheGet} from '../../store/cache'
+import { sessionGet, selectors } from '../../store/session'
+import { boardFindAll } from '../../store/board'
+import { buttonFindAll } from '../../store/button'
 import { triggerManageNewEvent } from '../../service/triggerManagerService'
 import { webServerGetUrl, webServerOpenApp } from '../../service/webServerService'
 import M from '../../messages/constants'
@@ -17,14 +19,16 @@ import './assets/style.scss'
 const Board = () => {
   const intl = useIntl()
   const dispatch = useDispatch()
-  const currentBoard = useSelector(boardSelectors.getCurrent)
-  const currentButtons = useSelector(buttonSelectors.buttonsGetCurrentForTM)
+  const currentBoard = useSelector(selectors.getCurrentBoardForSession)
+  const currentButtons = useSelector(selectors.getCurrentButtonsForSession)
   const [open, setOpen] = useState(false)
   const [url, setUrl] = useState(null)
 
   useEffect(() => {
     dispatch(boardFindAll())
     dispatch(buttonFindAll())
+    dispatch(sessionGet())
+    dispatch(cacheGet())
   }, [dispatch])
 
   useEffect(() => {

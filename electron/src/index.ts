@@ -7,6 +7,8 @@ import { init as initIpc } from './service/IpcService';
 import { init as initTriggerManager } from './service/TriggerManagerService';
 import { init as initWebServer } from './service/WebServerService';
 import { init as initPluginService } from './service/PluginManagerService';
+import { init as initSessionService } from './service/SessionService';
+import { init as initCacheService } from './service/CacheService';
 import { createMainWindow } from './window/main';
 import logger from './service/LoggerService';
 
@@ -15,10 +17,12 @@ app.on('ready', async () => {
   await initGlobalDB();
   await initLocalDB();
   await initRegisterProtocol();
-  await initIpc();
   await initTriggerManager();
   await initWebServer();
   await initPluginService();
+  await initSessionService();
+  await initCacheService();
+  await initIpc();
   createMainWindow();
 });
 

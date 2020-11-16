@@ -12,7 +12,11 @@ import { workspaceOnChange } from '../service/workspaceService'
 import { webserverOnOpen, webserverOnClose, webserverOnError } from '../store/webserver'
 import { workspaceOnChange as actionWorkspaceOnChange } from '../store/workspace'
 import { triggerManagerOnStart, triggerManagerOnNew, triggerManagerOnError, triggerManagerOnEnd } from '../store/triggerManager'
+import { sessionOnChange as actionSessionOnChange } from '../store/session'
+import { cacheOnChange as actionCacheOnChange } from '../store/cache'
 import { onMediaPlay } from '../service/mediaService'
+import { sessionOnChange } from '../service/sessionService'
+import { cacheOnChange } from '../service/cacheService'
 
 const useOnData = () => {
   const dispatch = useDispatch()
@@ -42,6 +46,14 @@ const useOnData = () => {
     })
     triggerManagerOnErrorService((event, data, error) => {
       dispatch(triggerManagerOnError({ ...data, error }))
+    })
+
+    sessionOnChange((event, data) => {
+      dispatch(actionSessionOnChange(data))
+    })
+
+    cacheOnChange((event, data) => {
+      dispatch(actionCacheOnChange(data))
     })
 
     onMediaPlay()

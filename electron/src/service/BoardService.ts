@@ -68,3 +68,8 @@ export const boardSetDefault = (board: Partial<IBoard>): IBoard => {
 
   return database.get('boards').find({ default: true }).value();
 };
+
+export const boardGetDefault = (): IBoard => {
+  logger.debug('Board Service GET_DEFAULT');
+  return database.get('boards').find({ default: true }).value();
+};

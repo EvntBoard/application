@@ -13,6 +13,7 @@ import { newEvent } from '../TriggerManagerService/eventBus';
 import { WEB_SERVER } from '../../utils/ipc';
 import apiRoute from './api';
 import logger from '../LoggerService';
+import {newSession} from "../SessionService";
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -32,13 +33,16 @@ export const init = () => {
     wsServer.on('connection', (socket) => {
       logger.debug('WS connection');
 
+      // create new session
+      newSession(socket.id)
+
       socket.on('createEvent', (message: any) => {
         if (message.event) {
           newEvent({
             ...message,
             meta: {
-              sender: socket.id
-            }
+              sender: socket.id,
+            },
           });
         } else {
           logger.error(message);
@@ -121,6 +125,14 @@ const getLocalIp = async (): Promise<string> => {
   });
 };
 
-export const broadcast = async (event: string, data: any, e?: Error) => {
-  wsServer.emit(event, data, e);
+export const broadcast = async (event: string, ...params: any[]) => {
+  wsServer.emit(event, ...params);
+};
+
+export const broadcastToClient = async (id:string, event: string, ...params: any[]) => {
+  try {
+    wsServer.sockets.sockets.get(id).emit(event, ...params);
+  } catch (e) {
+    console.error(e)
+  }
 };

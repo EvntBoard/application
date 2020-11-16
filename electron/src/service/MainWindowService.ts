@@ -1,7 +1,7 @@
 import { mainWindow } from '../window/main';
 
-export const mainWindowsSend = (type: string, data: any, other?: any): any => {
+export const mainWindowsSend = (type: string, ...params: any[]): any => {
   if (mainWindow) {
-    return mainWindow.webContents.send(type, data, other);
+    return mainWindow.webContents.send(type, ...params);
   }
 };

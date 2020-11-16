@@ -12,6 +12,8 @@ import { boardCreate, boardUpdate, boardDelete } from '../board'
 import { buttonCreate, buttonUpdate, buttonDelete, buttonDeleteForBoard } from '../button'
 import { langOnChange } from '../lang'
 import { themeOnChange } from '../theme'
+import { sessionOnChange } from '../session'
+import { cacheOnChange } from '../cache'
 
 let websocket;
 
@@ -23,9 +25,9 @@ const middleware = store => next => action => {
         websocket = new SocketIoClient({ path: '/ws' });
 
         // Attach the callbacks
-        websocket.onopen = () => store.dispatch(wsOnOpen());
-        websocket.onerror = (event) => store.dispatch(wsOnError(event));
-        websocket.onclose = (event) => store.dispatch(wsOnClose(event));
+        websocket.on('connect', () => store.dispatch(wsOnOpen(websocket.id)));
+        websocket.on('error', (event) => store.dispatch(wsOnError(event)));
+        websocket.on('disconnect', (event) => store.dispatch(wsOnClose(event)));
 
         // Board
         websocket.on('boardCreate', (board) => {
@@ -76,6 +78,16 @@ const middleware = store => next => action => {
         })
         websocket.on('errorEvent', (evnt, error) => {
           console.log({ errorEvent: evnt, error })
+        })
+
+        // session
+        websocket.on('sessionUpdate', (data) => {
+          store.dispatch(sessionOnChange(data))
+        })
+
+        // cache
+        websocket.on('cacheUpdate', (data) => {
+          store.dispatch(cacheOnChange(data))
         })
 
       } catch (e) {

@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { isString } from 'lodash'
 
 import { selectors as wsSelectors, wsCreateEvent } from '../../store/websocket'
-import { selectors as boardSelectors } from '../../store/board'
-import { selectors as buttonSelectors } from '../../store/button'
+import { selectors as sessionSelectors, sessionGet } from '../../store/session'
 
 import Grid from './components/Grid'
 
@@ -15,8 +14,12 @@ const Board = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const connected = useSelector(wsSelectors.connected)
-  const currentBoard = useSelector(boardSelectors.getCurrent)
-  const currentButtons = useSelector(buttonSelectors.buttonsForCurrentBoards)
+  const currentBoard = useSelector(sessionSelectors.getCurrentBoardForSession)
+  const currentButtons = useSelector(sessionSelectors.getCurrentButtonsForSession)
+
+  useEffect(() => {
+    dispatch(sessionGet())
+  }, [])
 
   useEffect(() => {
     if (!connected) {

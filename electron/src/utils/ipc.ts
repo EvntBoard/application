@@ -72,6 +72,16 @@ export enum TRIGGER_MANAGER {
   ON_ERROR = `TRIGGER_MANAGER_ON_ERROR`,
 }
 
+export enum CACHE {
+  GET = `CACHE_GET`,
+  ON_CHANGE = `CACHE_ON_CHANGE`,
+}
+
+export enum SESSION {
+  GET = `SESSION_GET`,
+  ON_CHANGE = `SESSION_ON_CHANGE`,
+}
+
 export enum MEDIA {
   PLAY = `MEDIA_PLAY`,
   TTS = `MEDIA_TTS`,

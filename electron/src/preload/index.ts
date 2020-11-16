@@ -14,6 +14,8 @@ import {
   MEDIA,
   PLUGIN,
   PLUGIN_MANAGER,
+  SESSION,
+  CACHE,
 } from '../utils/ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin } from '../types';
 
@@ -110,6 +112,18 @@ contextBridge.exposeInMainWorld('app', {
     },
     newEvent: (event: any) => {
       ipcRenderer.invoke(TRIGGER_MANAGER.NEW_EVENT, event);
+    },
+  },
+  session: {
+    get: () => ipcRenderer.invoke(SESSION.GET),
+    onChange: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(SESSION.ON_CHANGE, callback);
+    },
+  },
+  cache: {
+    get: () => ipcRenderer.invoke(CACHE.GET),
+    onChange: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(CACHE.ON_CHANGE, callback);
     },
   },
   media: {

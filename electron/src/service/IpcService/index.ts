@@ -10,6 +10,8 @@ import { init as initIpcWebServerService } from './IpcWebServerService';
 import { init as initIpcTriggerManagerService } from './IpcTriggerManagerService';
 import { init as initIpcPluginService } from './IpcPluginService';
 import { init as initIpcPluginManagerService } from './IpcPluginManagerService';
+import { init as initIpcSessionService } from './IpcSessionService';
+import { init as initIpcCacheService } from './IpcCacheService';
 
 import logger from '../LoggerService';
 
@@ -27,4 +29,6 @@ export const init = () => {
   initIpcTriggerManagerService();
   initIpcPluginService();
   initIpcPluginManagerService();
+  initIpcSessionService();
+  initIpcCacheService();
 };

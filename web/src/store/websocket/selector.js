@@ -6,3 +6,8 @@ export const connected = createSelector(
   basic,
   state => state.connected
 )
+
+export const id = createSelector(
+  basic,
+  state => state.id
+)

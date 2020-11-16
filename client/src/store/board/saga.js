@@ -28,8 +28,6 @@ import {
   boardSetDefaultFailed,
 } from './'
 
-import { triggerManagerChangeCurrentBoard } from '../triggerManager'
-
 function* onBoardFindAll() {
   try {
     const data = yield call(IPCboardFindAll)
@@ -41,11 +39,6 @@ function* onBoardFindAll() {
     const defaultBoard = find(data, { default: true })
     if (currentBoardId === null) {
       yield put(boardChangeCurrentBoard(defaultBoard))
-    }
-
-    const currentBoardIdAppState = yield select(state => state.triggerManager.currentBoardId)
-    if (currentBoardIdAppState === null) {
-      yield put(triggerManagerChangeCurrentBoard(defaultBoard))
     }
 
   } catch (e) {

@@ -4,6 +4,8 @@ import { boardSaga } from './board'
 import { buttonSaga } from './button'
 import { langSaga } from './lang'
 import { themeSaga } from './theme'
+import { sessionSaga } from './session'
+import { cacheSaga } from './cache'
 
 export default function* rootSaga() {
   yield all([
@@ -11,5 +13,7 @@ export default function* rootSaga() {
     buttonSaga(),
     langSaga(),
     themeSaga(),
+    sessionSaga(),
+    cacheSaga(),
   ])
 }

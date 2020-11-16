@@ -21,7 +21,7 @@ export const newEvent = (data: any) => {
   const meta = {
     uniqueId,
     newDate: new Date(),
-    ...data.meta
+    ...data.meta,
   };
 
   switch (data.event) {

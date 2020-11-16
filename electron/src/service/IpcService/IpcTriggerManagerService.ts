@@ -10,8 +10,8 @@ export const init = () => {
     newEvent({
       ...data,
       meta: {
-        sender: 'ipc'
-      }
+        sender: 'ipc',
+      },
     });
   });
 };

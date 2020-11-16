@@ -49,7 +49,7 @@ const GridManager = () => {
   const currentBoard = useSelector(boardSelectors.getCurrent)
   const loadingBoard = useSelector(boardSelectors.findAllLoading)
 
-  const buttons = useSelector(btnSelectors.buttonsGetCurrent)
+  const buttons = useSelector(btnSelectors.getCurrent)
   const loadingButton = useSelector(btnSelectors.findAllLoading)
 
   const [open, setOpen] = useState(false)

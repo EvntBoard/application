@@ -10,6 +10,8 @@ import { triggerSaga } from './trigger'
 import { webserverSaga } from './webserver'
 import { workspaceSaga } from './workspace'
 import { pluginSaga } from './plugin'
+import { sessionSaga } from './session'
+import { cacheSaga } from './cache'
 
 export default function* rootSaga() {
   yield all([
@@ -23,5 +25,7 @@ export default function* rootSaga() {
     webserverSaga(),
     workspaceSaga(),
     pluginSaga(),
+    cacheSaga(),
+    sessionSaga(),
   ])
 }
