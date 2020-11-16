@@ -1,5 +1,5 @@
 import { boardGetDefault } from './BoardService';
-import {broadcast, broadcastToClient} from './WebServerService';
+import { broadcastToClient } from './WebServerService';
 import { mainWindowsSend } from './MainWindowService';
 import { SESSION } from '../utils/ipc';
 
