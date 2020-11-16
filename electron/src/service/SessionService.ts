@@ -18,14 +18,19 @@ export const newSession = (session: string) => {
 };
 
 export const getSession = (session: string = 'ipc') => {
-  return sessions.get(session);
+ if (sessions) {
+   return sessions.get(session);
+ }
+ return null
 };
 
 export const setSession = (value: string, session: string = 'ipc') => {
-  sessions.set(session, value);
-  if (session === 'ipc') {
-    mainWindowsSend(SESSION.ON_CHANGE, value);
-  } else {
-    broadcastToClient(session, 'sessionUpdate', value);
+  if (sessions) {
+    sessions.set(session, value);
+    if (session === 'ipc') {
+      mainWindowsSend(SESSION.ON_CHANGE, value);
+    } else {
+      broadcastToClient(session, 'sessionUpdate', value);
+    }
   }
 };
