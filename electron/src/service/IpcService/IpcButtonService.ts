@@ -8,7 +8,7 @@ import {
   buttonFindOne,
   buttonFindAllByBoardId,
 } from '../ButtonService';
-import { BUTTON } from '../../utils/ipc';
+import { BUTTON } from '../../preload/ipc';
 import { IButton } from '../../types';
 
 import logger from '../LoggerService';

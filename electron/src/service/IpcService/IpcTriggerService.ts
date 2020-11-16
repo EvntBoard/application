@@ -9,7 +9,7 @@ import {
   triggerEditFile,
   triggerReload,
 } from '../TriggerService';
-import { TRIGGER } from '../../utils/ipc';
+import { TRIGGER } from '../../preload/ipc';
 import { ITrigger } from '../../types';
 
 import logger from '../LoggerService';

@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { appGet, appSet } from '../AppConfigService';
-import { APP } from '../../utils/ipc';
+import { APP } from '../../preload/ipc';
 import { IApp } from '../../types';
 import logger from '../LoggerService';
 

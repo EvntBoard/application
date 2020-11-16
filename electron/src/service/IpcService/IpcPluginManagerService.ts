@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { reloadPlugin, infoPlugin, preloadPlugin } from '../PluginManagerService';
-import { PLUGIN_MANAGER } from '../../utils/ipc';
+import { PLUGIN_MANAGER } from '../../preload/ipc';
 import { IPlugin } from '../../types';
 
 import logger from '../LoggerService';

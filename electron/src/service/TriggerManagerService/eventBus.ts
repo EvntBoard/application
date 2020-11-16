@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { mainWindowsSend } from '../MainWindowService';
 import { broadcast } from '../WebServerService';
-import { TRIGGER_MANAGER } from '../../utils/ipc';
+import { TRIGGER_MANAGER } from '../../preload/ipc';
 import logger from '../LoggerService';
 
 export const bus = new Emittery();

@@ -8,7 +8,7 @@ import {
   boardFindOne,
   boardSetDefault,
 } from '../BoardService';
-import { BOARD } from '../../utils/ipc';
+import { BOARD } from '../../preload/ipc';
 import { IBoard } from '../../types';
 
 import logger from '../LoggerService';

@@ -1,7 +1,7 @@
 import { ipcMain, shell, dialog } from 'electron';
 
 import { workspaceGetCurrent, workspaceSwitchTo, workspaceFindAll } from '../WorkspaceService';
-import { WORKSPACE } from '../../utils/ipc';
+import { WORKSPACE } from '../../preload/ipc';
 import logger from '../LoggerService';
 
 export const init = () => {

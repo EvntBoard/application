@@ -1,7 +1,7 @@
 import { boardGetDefault } from './BoardService';
 import { broadcastToClient } from './WebServerService';
 import { mainWindowsSend } from './MainWindowService';
-import { SESSION } from '../utils/ipc';
+import { SESSION } from '../preload/ipc';
 
 let sessions: Map<string, string>;
 
@@ -26,6 +26,6 @@ export const setSession = (value: string, session: string = 'ipc') => {
   if (session === 'ipc') {
     mainWindowsSend(SESSION.ON_CHANGE, value);
   } else {
-    broadcastToClient(session, 'sessionUpdate', value)
+    broadcastToClient(session, 'sessionUpdate', value);
   }
 };

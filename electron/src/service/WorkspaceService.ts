@@ -9,7 +9,7 @@ import {
 import { reload as reloadWebServer } from './WebServerService';
 import { init as reloadSessionService } from './SessionService';
 import { mainWindowsSend } from './MainWindowService';
-import { WORKSPACE } from '../utils/ipc';
+import { WORKSPACE } from '../preload/ipc';
 
 export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> => {
   database.get('workspaces').find({ current: true }).assign({ current: false }).write();

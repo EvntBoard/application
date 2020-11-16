@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { themeGet, themeSet } from '../ThemeService';
-import { THEME } from '../../utils/ipc';
+import { THEME } from '../../preload/ipc';
 import { ITheme } from '../../types';
 
 import logger from '../LoggerService';

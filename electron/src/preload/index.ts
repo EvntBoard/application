@@ -16,7 +16,7 @@ import {
   PLUGIN_MANAGER,
   SESSION,
   CACHE,
-} from '../utils/ipc';
+} from './ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin } from '../types';
 
 contextBridge.exposeInMainWorld('app', {

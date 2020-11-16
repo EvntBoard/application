@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { newEvent } from '../TriggerManagerService/eventBus';
-import { TRIGGER_MANAGER } from '../../utils/ipc';
+import { TRIGGER_MANAGER } from '../../preload/ipc';
 import logger from '../LoggerService';
 
 export const init = () => {

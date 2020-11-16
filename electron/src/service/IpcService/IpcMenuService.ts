@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { menuGet, menuSet } from '../MenuService';
-import { MENU } from '../../utils/ipc';
+import { MENU } from '../../preload/ipc';
 import logger from '../LoggerService';
 
 export const init = () => {

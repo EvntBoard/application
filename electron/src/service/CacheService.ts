@@ -3,7 +3,7 @@ import { find, filter, cloneDeep } from 'lodash';
 import { IBoard, IButton } from '../types';
 import { broadcast } from './WebServerService';
 import { mainWindowsSend } from './MainWindowService';
-import { CACHE } from '../utils/ipc';
+import { CACHE } from '../preload/ipc';
 
 interface ICache {
   boards: Partial<IBoard>[];

@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { getSession } from '../SessionService';
-import { SESSION } from '../../utils/ipc';
+import { SESSION } from '../../preload/ipc';
 import logger from '../LoggerService';
 
 export const init = () => {

@@ -10,10 +10,10 @@ import * as electronIsDev from 'electron-is-dev';
 import { appGet } from '../AppConfigService';
 import { mainWindowsSend } from '../MainWindowService';
 import { newEvent } from '../TriggerManagerService/eventBus';
-import { WEB_SERVER } from '../../utils/ipc';
+import { WEB_SERVER } from '../../preload/ipc';
 import apiRoute from './api';
 import logger from '../LoggerService';
-import {newSession} from "../SessionService";
+import { newSession } from '../SessionService';
 
 let app: express.Application;
 let httpServer: http.Server;
@@ -34,7 +34,7 @@ export const init = () => {
       logger.debug('WS connection');
 
       // create new session
-      newSession(socket.id)
+      newSession(socket.id);
 
       socket.on('createEvent', (message: any) => {
         if (message.event) {
@@ -129,10 +129,10 @@ export const broadcast = async (event: string, ...params: any[]) => {
   wsServer.emit(event, ...params);
 };
 
-export const broadcastToClient = async (id:string, event: string, ...params: any[]) => {
+export const broadcastToClient = async (id: string, event: string, ...params: any[]) => {
   try {
     wsServer.sockets.sockets.get(id).emit(event, ...params);
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
 };

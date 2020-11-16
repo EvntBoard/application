@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import { mainWindowsSend } from '../../MainWindowService';
 import { workspaceGetCurrent } from '../../WorkspaceService';
-import { MEDIA } from '../../../utils/ipc';
+import { MEDIA } from '../../../preload/ipc';
 
 export const play = (file: string, volume = 1) => {
   return new Promise((resolve, reject) => {

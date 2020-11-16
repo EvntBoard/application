@@ -7,7 +7,7 @@ import {
   pluginFindAll,
   pluginFindOne,
 } from '../PluginService';
-import { PLUGIN } from '../../utils/ipc';
+import { PLUGIN } from '../../preload/ipc';
 import { IPlugin } from '../../types';
 
 import logger from '../LoggerService';

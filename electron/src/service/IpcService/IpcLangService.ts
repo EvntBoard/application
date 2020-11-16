@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { langGet, langSet } from '../LangService';
-import { LANG } from '../../utils/ipc';
+import { LANG } from '../../preload/ipc';
 import { ILang } from '../../types';
 
 import logger from '../LoggerService';

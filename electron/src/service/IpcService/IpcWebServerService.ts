@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 
 import { getStatus, openApp, getUrl } from '../WebServerService';
-import { WEB_SERVER } from '../../utils/ipc';
+import { WEB_SERVER } from '../../preload/ipc';
 
 import logger from '../LoggerService';
 
