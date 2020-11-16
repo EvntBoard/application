@@ -29,17 +29,17 @@ const Debug = () => {
               let StatusComponent
               switch (row.meta.status) {
                 case 'start':
-                  StatusComponent = () => <AlarmIcon />
+                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="start"><AlarmIcon /></Tooltip>
                   break
                 case 'end':
-                  StatusComponent = () => <AlarmOffIcon />
+                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="end"><AlarmOffIcon /></Tooltip>
                   break
                 case 'error':
-                  StatusComponent = () => <Tooltip title={<code>{JSON.stringify(row?.meta?.error?.message)}</code>} aria-label="error"><ErrorOutlineIcon /></Tooltip>
+                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="error"><ErrorOutlineIcon /></Tooltip>
                   break
                 case 'new':
                 default:
-                  StatusComponent = () => <AlarmAddIcon />
+                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="new"><AlarmAddIcon /></Tooltip>
                   break
               }
               return (

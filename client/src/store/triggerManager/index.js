@@ -45,7 +45,7 @@ const reducer = createReducer(INITIAL_STATE, {
         ...action.payload,
         meta: {
           ...currentEvent.meta,
-          ...action.payload,
+          ...action.payload.meta,
           status: 'start',
         }
       }
@@ -62,7 +62,7 @@ const reducer = createReducer(INITIAL_STATE, {
         ...action.payload,
         meta: {
           ...currentEvent.meta,
-          ...action.payload,
+          ...action.payload.meta,
           status: 'end',
         }
       }
