@@ -2,11 +2,11 @@ import * as Emittery from 'emittery';
 import { isFunction } from 'lodash';
 
 import { ITrigger } from '../../../types';
-import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
-import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
+import { bus, startEvent, errorEvent, endEvent } from '../../EventBusService';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
 import services from '../service';
+import { IEvent, ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../../../otherTypes';
 
 export default class TriggerRunnerClassic implements ITriggerRunner {
   id: string;
@@ -25,7 +25,7 @@ export default class TriggerRunnerClassic implements ITriggerRunner {
 
       const eventsList = Object.keys(this.conditions);
 
-      this.unlisten = bus.on(eventsList, (data: any) => {
+      this.unlisten = bus.on(eventsList, (data: IEvent) => {
         const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
         if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
           this.processEvent(data);

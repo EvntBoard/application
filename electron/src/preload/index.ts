@@ -10,7 +10,8 @@ import {
   APP,
   WORKSPACE,
   WEB_SERVER,
-  TRIGGER_MANAGER,
+  EVENT_BUS,
+  EVENT_HISTORY,
   MEDIA,
   PLUGIN,
   PLUGIN_MANAGER,
@@ -97,22 +98,23 @@ contextBridge.exposeInMainWorld('app', {
       ipcRenderer.on(WORKSPACE.ON_CHANGE, callback);
     },
   },
-  triggerManager: {
+  eventBus: {
     onNew: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(TRIGGER_MANAGER.ON_NEW, callback);
+      ipcRenderer.on(EVENT_BUS.ON_NEW, callback);
     },
     onStart: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(TRIGGER_MANAGER.ON_START, callback);
+      ipcRenderer.on(EVENT_BUS.ON_START, callback);
     },
     onEnd: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(TRIGGER_MANAGER.ON_END, callback);
+      ipcRenderer.on(EVENT_BUS.ON_END, callback);
     },
     onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(TRIGGER_MANAGER.ON_ERROR, callback);
+      ipcRenderer.on(EVENT_BUS.ON_ERROR, callback);
     },
-    newEvent: (event: any) => {
-      ipcRenderer.invoke(TRIGGER_MANAGER.NEW_EVENT, event);
-    },
+    newEvent: (event: any) => ipcRenderer.invoke(EVENT_BUS.NEW, event),
+  },
+  eventHistory: {
+    get: () => ipcRenderer.invoke(EVENT_HISTORY.GET),
   },
   session: {
     get: () => ipcRenderer.invoke(SESSION.GET),

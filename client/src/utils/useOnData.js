@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux'
 
 import { webServerOnClose, webServerOnError, webServerOnOpen } from '../service/webServerService'
 import {
-  triggerManagerOnEnd as triggerManagerOnEndService,
-  triggerManagerOnError as triggerManagerOnErrorService,
-  triggerManagerOnNew as triggerManagerOnNewService,
-  triggerManagerOnStart as triggerManagerOnStartService,
-} from '../service/triggerManagerService'
+  eventBusOnEnd as eventHistoryOnEndService,
+  eventBusOnError as eventHistoryOnErrorService,
+  eventBusOnNew as eventHistoryOnNewService,
+  eventBusOnStart as eventHistoryOnStartService,
+} from '../service/eventBusService'
 import { workspaceOnChange } from '../service/workspaceService'
 import { webserverOnOpen, webserverOnClose, webserverOnError } from '../store/webserver'
 import { workspaceOnChange as actionWorkspaceOnChange } from '../store/workspace'
-import { triggerManagerOnStart, triggerManagerOnNew, triggerManagerOnError, triggerManagerOnEnd } from '../store/triggerManager'
+import { eventHistoryOnStart, eventHistoryOnNew, eventHistoryOnError, eventHistoryOnEnd } from '../store/eventHistory'
 import { sessionOnChange as actionSessionOnChange } from '../store/session'
 import { cacheOnChange as actionCacheOnChange } from '../store/cache'
 import { onMediaPlay } from '../service/mediaService'
@@ -35,17 +35,17 @@ const useOnData = () => {
       dispatch(actionWorkspaceOnChange())
     })
 
-    triggerManagerOnNewService((event, data) => {
-      dispatch(triggerManagerOnNew(data))
+    eventHistoryOnNewService((event, data) => {
+      dispatch(eventHistoryOnNew(data))
     })
-    triggerManagerOnStartService((event, data) => {
-      dispatch(triggerManagerOnStart(data))
+    eventHistoryOnStartService((event, data) => {
+      dispatch(eventHistoryOnStart(data))
     })
-    triggerManagerOnEndService((event, data) => {
-      dispatch(triggerManagerOnEnd(data))
+    eventHistoryOnEndService((event, data) => {
+      dispatch(eventHistoryOnEnd(data))
     })
-    triggerManagerOnErrorService((event, data, error) => {
-      dispatch(triggerManagerOnError({ ...data, error }))
+    eventHistoryOnErrorService((event, data, error) => {
+      dispatch(eventHistoryOnError({ ...data, error }))
     })
 
     sessionOnChange((event, data) => {

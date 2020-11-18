@@ -18,10 +18,10 @@ export const newSession = (session: string) => {
 };
 
 export const getSession = (session: string = 'ipc') => {
- if (sessions) {
-   return sessions.get(session);
- }
- return null
+  if (sessions) {
+    return sessions.get(session);
+  }
+  return null;
 };
 
 export const setSession = (value: string, session: string = 'ipc') => {

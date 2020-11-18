@@ -1,9 +1,9 @@
 import triggerBuilder from './TriggerRunnerBuilder';
 import { triggerFindAll } from '../TriggerService';
-import { ITriggerRunner } from './types';
 import { ITrigger } from '../../types';
 
 import logger from '../LoggerService';
+import { ITriggerRunner } from '../../otherTypes';
 
 let triggersRunning: Map<string, ITriggerRunner>;
 

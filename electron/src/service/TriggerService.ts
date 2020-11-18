@@ -8,8 +8,6 @@ import { workspaceGetCurrent } from './WorkspaceService';
 import { database } from '../database/local';
 import { ITrigger } from '../types';
 import logger from './LoggerService';
-import { IPluginManager } from './PluginManagerService/types';
-import { Transform, TransformCallback } from 'stream';
 
 const DEFAULT_CONTENT = `// EVNTBOARD - New Trigger - 
 const conditions = {

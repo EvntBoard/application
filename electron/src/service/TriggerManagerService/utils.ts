@@ -4,7 +4,7 @@ import { has, isFunction, isObject } from 'lodash';
 
 import { workspaceGetCurrent } from '../WorkspaceService';
 import { ITrigger } from '../../types';
-import { ITriggerFile } from './types';
+import { ITriggerFile } from '../../otherTypes';
 
 export const evalCodeFromFile = (triggerEntity: ITrigger): ITriggerFile => {
   const workspace = workspaceGetCurrent();

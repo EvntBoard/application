@@ -9,7 +9,7 @@ import * as electronIsDev from 'electron-is-dev';
 
 import { appGet } from '../AppConfigService';
 import { mainWindowsSend } from '../MainWindowService';
-import { newEvent } from '../TriggerManagerService/eventBus';
+import { newEvent } from '../EventBusService';
 import { WEB_SERVER } from '../../preload/ipc';
 import apiRoute from './api';
 import logger from '../LoggerService';

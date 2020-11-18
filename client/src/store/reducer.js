@@ -9,7 +9,7 @@ import themeReducer from './theme'
 import triggerReducer from './trigger'
 import webserverReducer from './webserver'
 import workspaceReducer from './workspace'
-import triggerManagerReducer from './triggerManager'
+import eventHistoryReducer from './eventHistory'
 import pluginReducer from './plugin'
 import sessionReducer from './session'
 import cacheReducer from './cache'
@@ -24,7 +24,7 @@ export default combineReducers({
   trigger: triggerReducer,
   workspace: workspaceReducer,
   webserver: webserverReducer,
-  triggerManager: triggerManagerReducer,
+  eventHistory: eventHistoryReducer,
   plugin: pluginReducer,
   session: sessionReducer,
   cache: cacheReducer,

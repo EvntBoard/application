@@ -12,6 +12,7 @@ import { workspaceSaga } from './workspace'
 import { pluginSaga } from './plugin'
 import { sessionSaga } from './session'
 import { cacheSaga } from './cache'
+import { eventHistorySaga } from './eventHistory'
 
 export default function* rootSaga() {
   yield all([
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     pluginSaga(),
     cacheSaga(),
     sessionSaga(),
+    eventHistorySaga(),
   ])
 }

@@ -2,12 +2,12 @@ import * as Emittery from 'emittery';
 import { Mutex, MutexInterface } from 'async-mutex';
 import { isFunction } from 'lodash';
 
-import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../types';
 import { ITrigger } from '../../../types';
-import { bus, startEvent, errorEvent, endEvent } from '../eventBus';
+import { bus, startEvent, errorEvent, endEvent } from '../../EventBusService';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
 import services from '../service';
+import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../../../otherTypes';
 
 const locker = new Map<string, Mutex>();
 

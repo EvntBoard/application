@@ -10,7 +10,7 @@ import { cacheGet} from '../../store/cache'
 import { sessionGet, selectors } from '../../store/session'
 import { boardFindAll } from '../../store/board'
 import { buttonFindAll } from '../../store/button'
-import { triggerManageNewEvent } from '../../service/triggerManagerService'
+import { eventBusNewEvent } from '../../service/eventBusService'
 import { webServerGetUrl, webServerOpenApp } from '../../service/webServerService'
 import M from '../../messages/constants'
 
@@ -38,7 +38,7 @@ const Board = () => {
   }, [])
 
   const onClick = (data) => {
-    triggerManageNewEvent({
+    eventBusNewEvent({
       event: 'click',
       idButton: data.id,
       idTrigger: data.idTrigger,

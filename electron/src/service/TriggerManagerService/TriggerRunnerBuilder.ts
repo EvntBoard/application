@@ -4,7 +4,7 @@ import TriggerRunnerQueue from './class/TriggerRunnerQueue';
 import TriggerRunnerQueueLocker from './class/TriggerRunnerQueueLocker';
 
 import { ITrigger, ITriggerType } from '../../types';
-import { ITriggerRunner } from './types';
+import { ITriggerRunner } from '../../otherTypes';
 
 export default (triggerEntity: ITrigger): ITriggerRunner => {
   switch (triggerEntity.type) {

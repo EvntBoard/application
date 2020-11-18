@@ -1,5 +1,3 @@
-import { EventBus } from './service/TriggerManagerService/eventBus';
-
 export enum ITriggerType {
   CLASSIC = 1,
   THROTTLE = 2,

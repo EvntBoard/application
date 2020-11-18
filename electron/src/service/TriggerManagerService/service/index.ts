@@ -11,11 +11,11 @@ import {
   changeButtonText,
 } from '../../CacheService';
 import { execPlugin } from '../../PluginManagerService';
-import { newEvent, endEvent, errorEvent, startEvent } from '../eventBus';
+import { newEvent, endEvent, errorEvent, startEvent } from '../../EventBusService';
 import { setSession } from '../../SessionService';
-import {buttonFindOne} from "../../ButtonService";
-import {IBoard, IButton} from "../../../types";
-import {boardFindOne} from "../../BoardService";
+import { buttonFindOne } from '../../ButtonService';
+import { IBoard, IButton } from '../../../types';
+import { boardFindOne } from '../../BoardService';
 
 const services = {
   media,
@@ -26,17 +26,17 @@ const services = {
   board: {
     getImage: (id: string) => {
       if (id) {
-        const board: IBoard = boardFindOne(id)
-        return board.image
+        const board: IBoard = boardFindOne(id);
+        return board.image;
       }
-      return null
+      return null;
     },
     getColor: (id: string) => {
       if (id) {
-        const board: IBoard = boardFindOne(id)
-        return board.color
+        const board: IBoard = boardFindOne(id);
+        return board.color;
       }
-      return null
+      return null;
     },
     updateImage: changeBoardImage,
     updateColor: changeBoardColor,
@@ -45,24 +45,24 @@ const services = {
   button: {
     getImage: (id: string) => {
       if (id) {
-        const button: IButton = buttonFindOne(id)
-        return button.image
+        const button: IButton = buttonFindOne(id);
+        return button.image;
       }
-      return null
+      return null;
     },
     getColor: (id: string) => {
       if (id) {
-        const button: IButton = buttonFindOne(id)
-        return button.color
+        const button: IButton = buttonFindOne(id);
+        return button.color;
       }
-      return null
+      return null;
     },
     getText: (id: string) => {
       if (id) {
-        const button: IButton = buttonFindOne(id)
-        return button.text
+        const button: IButton = buttonFindOne(id);
+        return button.text;
       }
-      return null
+      return null;
     },
     updateColor: changeButtonColor,
     updateImage: changeButtonImage,

@@ -4,9 +4,9 @@ import { IPluginInfo, PluginManager } from 'live-plugin-manager';
 import { find, filter } from 'lodash';
 
 import { IPlugin } from '../../types';
-import { IPluginManager, IPluginManagerInfo, IPluginManagerInstance } from './types';
+import { IPluginManager, IPluginManagerInfo, IPluginManagerInstance } from '../../otherTypes';
 import { pluginFindAll } from '../PluginService';
-import evntBus from '../TriggerManagerService/eventBus';
+import evntBus from '../EventBusService';
 import logger from '../LoggerService';
 
 let manager: PluginManager;

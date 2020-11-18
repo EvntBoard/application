@@ -1,32 +1,56 @@
 import { find, filter, orderBy } from 'lodash'
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
+export { saga as eventHistorySaga } from './saga'
 export * as selectors from './selector'
 
-const PATH = 'TRIGGER_MANAGER'
+const PATH = 'EVENT_HISTORY'
 
-export const triggerManagerOnData = createAction(`${PATH}_ON_DATA`)
+export const eventHistoryGet = createAction(`${PATH}_GET`)
+export const eventHistoryGetSuccess = createAction(`${PATH}_GET_SUCCESS`)
+export const eventHistoryGetFailed = createAction(`${PATH}_GET_FAILED`)
 
-export const triggerManagerReload = createAction(`${PATH}_RELOAD`)
+export const eventHistoryReload = createAction(`${PATH}_RELOAD`)
 
-export const triggerManagerOnNew = createAction(`${PATH}_ON_NEW`)
-export const triggerManagerOnStart = createAction(`${PATH}_ON_START`)
-export const triggerManagerOnEnd = createAction(`${PATH}_ON_END`)
-export const triggerManagerOnError = createAction(`${PATH}_ON_ERROR`)
+export const eventHistoryOnNew = createAction(`${PATH}_ON_NEW`)
+export const eventHistoryOnStart = createAction(`${PATH}_ON_START`)
+export const eventHistoryOnEnd = createAction(`${PATH}_ON_END`)
+export const eventHistoryOnError = createAction(`${PATH}_ON_ERROR`)
 
 const INITIAL_STATE = {
-  data: {},
-  events: []
+  events: [],
+
+  // get
+  eventHistoryGetLoading: false,
+  eventHistoryGetSuccess: false,
+  eventHistoryGetFailed: false,
+  eventHistoryGetError: {},
 }
 
 const reducer = createReducer(INITIAL_STATE, {
-  [triggerManagerOnData]: (state, action) => {
-    console.log(action)
+  // GET
+  [eventHistoryGet]: (state) => {
+    state.eventHistoryGetLoading = true
+    state.eventHistoryGetSuccess = false
+    state.eventHistoryGetFailed = false
+    state.eventHistoryGetError = {}
   },
-  [triggerManagerReload]: () => {
+  [eventHistoryGetSuccess]: (state, action) => {
+    state.eventHistoryGetLoading = false
+    state.eventHistoryGetSuccess = true
+    state.events = action.payload
+  },
+  [eventHistoryGetFailed]: (state, action) => {
+    state.eventHistoryGetLoading = false
+    state.eventHistoryGetFailed = true
+    state.eventHistoryGetError = action.payload
+    state.events = []
+  },
+
+  [eventHistoryReload]: () => {
     return INITIAL_STATE
   },
-  [triggerManagerOnNew]: (state, action) => {
+  [eventHistoryOnNew]: (state, action) => {
     state.events.push({
       ...action.payload,
       meta: {
@@ -36,7 +60,7 @@ const reducer = createReducer(INITIAL_STATE, {
       }
     })
   },
-  [triggerManagerOnStart]: (state, action) => {
+  [eventHistoryOnStart]: (state, action) => {
     const currentEvent = find(state.events, (i) => i.meta.uniqueId === action.payload.meta.uniqueId)
     const newEvents = [
       ...filter(state.events, i => i.meta.uniqueId !== action.payload.meta.uniqueId),
@@ -53,7 +77,7 @@ const reducer = createReducer(INITIAL_STATE, {
 
     state.events = orderBy(newEvents, ['meta.newDate'], 'desc')
   },
-  [triggerManagerOnEnd]: (state, action) => {
+  [eventHistoryOnEnd]: (state, action) => {
     const currentEvent = find(state.events, (i) => i.meta.uniqueId === action.payload.meta.uniqueId)
     const newEvents = [
       ...filter(state.events, i => i.meta.uniqueId !== action.payload.meta.uniqueId),
@@ -69,7 +93,7 @@ const reducer = createReducer(INITIAL_STATE, {
     ]
     state.events = orderBy(newEvents, ['meta.newDate'], 'desc')
   },
-  [triggerManagerOnError]: (state, action) => {
+  [eventHistoryOnError]: (state, action) => {
     const currentEvent = find(state.events, (i) => i.meta.uniqueId === action.payload.meta.uniqueId)
     const newEvents = [
       ...filter(state.events, i => i.meta.uniqueId !== action.payload.meta.uniqueId),

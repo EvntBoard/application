@@ -7,11 +7,12 @@ import { init as initIpcLangService } from './IpcLangService';
 import { init as initIpcAppConfigService } from './IpcAppConfigService';
 import { init as initIpcWorkspaceService } from './IpcWorkspaceService';
 import { init as initIpcWebServerService } from './IpcWebServerService';
-import { init as initIpcTriggerManagerService } from './IpcTriggerManagerService';
 import { init as initIpcPluginService } from './IpcPluginService';
 import { init as initIpcPluginManagerService } from './IpcPluginManagerService';
 import { init as initIpcSessionService } from './IpcSessionService';
 import { init as initIpcCacheService } from './IpcCacheService';
+import { init as initIpcEventHistoryService } from './IpcEventHistoryService';
+import { init as initIpcEventBusService } from './IpcEventBusService';
 
 import logger from '../LoggerService';
 
@@ -26,9 +27,10 @@ export const init = () => {
   initIpcAppConfigService();
   initIpcWorkspaceService();
   initIpcWebServerService();
-  initIpcTriggerManagerService();
   initIpcPluginService();
   initIpcPluginManagerService();
   initIpcSessionService();
   initIpcCacheService();
+  initIpcEventHistoryService();
+  initIpcEventBusService();
 };

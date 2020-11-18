@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { FormattedDate, FormattedTime } from 'react-intl';
 import { Container, Tooltip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
 import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
@@ -7,11 +7,11 @@ import AlarmOffIcon from '@material-ui/icons/AlarmOff';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import AlarmIcon from '@material-ui/icons/Alarm';
 
-import { selectors as tmSelectors } from '../../store/triggerManager'
+import { selectors as historySelectors } from '../../store/eventHistory'
 
 const Debug = () => {
 
-  const data = useSelector(tmSelectors.events)
+  const data = useSelector(historySelectors.events)
 
   return (
     <Container maxWidth={false} className="Debug">

@@ -10,6 +10,7 @@ import routes from './routes'
 import { darkTheme, lightTheme } from './themes'
 import { langGet, selectors as langSelectors } from './store/lang'
 import { themeGet, selectors as themeSelectors } from './store/theme'
+import { eventHistoryGet } from './store/eventHistory'
 import useOnData from './utils/useOnData'
 
 const Root = () => {
@@ -21,6 +22,7 @@ const Root = () => {
   useEffect(() => {
     dispatch(langGet())
     dispatch(themeGet())
+    dispatch(eventHistoryGet())
   }, [dispatch])
 
   const routing = useRoutes(routes)

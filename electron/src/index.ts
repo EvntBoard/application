@@ -9,6 +9,7 @@ import { init as initWebServer } from './service/WebServerService';
 import { init as initPluginService } from './service/PluginManagerService';
 import { init as initSessionService } from './service/SessionService';
 import { init as initCacheService } from './service/CacheService';
+import { init as initEventHistoryService } from './service/EventHistoryService';
 import { createMainWindow } from './window/main';
 import logger from './service/LoggerService';
 
@@ -17,6 +18,7 @@ app.on('ready', async () => {
   await initGlobalDB();
   await initLocalDB();
   await initRegisterProtocol();
+  await initEventHistoryService();
   await initTriggerManager();
   await initWebServer();
   await initPluginService();
