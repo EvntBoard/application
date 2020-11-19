@@ -11,10 +11,10 @@ import logger from './LoggerService';
 
 const DEFAULT_CONTENT = `// EVNTBOARD - New Trigger - 
 const conditions = {
-  'click': (idTrigger, evntData) => idTrigger === evntData.idTrigger
+  'click': (idTrigger, { payload: evntData }) => idTrigger === evntData.idTrigger
 }
 
-const reaction = async (evntData, services) => {
+const reaction = async ({ payload: evntData }, services) => {
   console.log('from reaction')
   console.debug(JSON.stringify(evntData, 0, 2))
   console.debug(JSON.stringify(services, 0, 2))
