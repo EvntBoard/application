@@ -14,7 +14,6 @@
     "grid-template-parser": "^0.3.2",
     "history": "^5.0.0",
     "howler": "^2.2.1",
-    "immer": "^8.0.0",
     "qrcode.react": "^1.0.0",
     "react": "^17.0.1",
     "react-color": "^2.18.1",

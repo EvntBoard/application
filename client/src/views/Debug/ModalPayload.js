@@ -3,11 +3,24 @@ import { Dialog } from '@material-ui/core'
 
 import {makeStyles} from '@material-ui/core/styles'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   paperTest: {
     overflow: 'auto'
   }
 }))
+
+function replacer(key, value) {
+  const originalObject = this[key];
+  if(originalObject instanceof Map) {
+    const mapObject = {}
+    originalObject.forEach((value1, key1) => {
+      mapObject[key1] = value1
+    });
+    return mapObject
+  } else {
+    return value;
+  }
+}
 
 const ModalBoardSettings = ({ open, setOpen, current }) => {
   const classes = useStyles()
@@ -31,7 +44,7 @@ const ModalBoardSettings = ({ open, setOpen, current }) => {
         paper: classes.paperTest
       }}
     >
-      <pre><code>{JSON.stringify(current, null, 2)}</code></pre>
+      <pre><code>{JSON.stringify(current, replacer, 2)}</code></pre>
     </Dialog>
   )
 }

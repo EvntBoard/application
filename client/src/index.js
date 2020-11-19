@@ -7,6 +7,16 @@ import GlobalStyles from './components/GlobalStyles'
 import Root from './Root'
 import store from './store'
 
+Map.prototype.inspect = function() {
+  return `Map(${mapEntriesToString(this.entries())})`
+}
+
+function mapEntriesToString(entries) {
+  return Array
+    .from(entries, ([k, v]) => `\n  ${k}: ${v}`)
+    .join("") + "\n";
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <>

@@ -17,7 +17,9 @@ export const newEvent = (event: string, payload: any) => {
     emittedAt: new Date(),
   };
 
-  logger.debug(`New event [${newEvent.id}] ${newEvent.event}`);
+  if (newEvent.event !== 'obs-stream-status') {
+    logger.debug(`New event [${newEvent.id}] ${newEvent.event}`);
+  }
 
   bus.emit(newEvent.event, newEvent);
   historyPush(newEvent);
