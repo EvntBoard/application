@@ -2,7 +2,8 @@ import * as Emittery from 'emittery';
 import { isFunction } from 'lodash';
 
 import { ITrigger } from '../../../types';
-import { bus, startEvent, errorEvent, endEvent } from '../../EventBusService';
+import { onEvent } from '../../EventBusService';
+import { historyProcessStart, historyProcessEnd, historyProcessError } from '../../EventHistoryService';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
 import services from '../service';
@@ -25,7 +26,7 @@ export default class TriggerRunnerClassic implements ITriggerRunner {
 
       const eventsList = Object.keys(this.conditions);
 
-      this.unlisten = bus.on(eventsList, (data: IEvent) => {
+      this.unlisten = onEvent(eventsList, (data: IEvent) => {
         const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
         if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
           this.processEvent(data);
@@ -43,14 +44,14 @@ export default class TriggerRunnerClassic implements ITriggerRunner {
     }
   }
 
-  processEvent(data: any) {
-    startEvent(data);
+  processEvent(data: IEvent) {
+    historyProcessStart({ idEvent: data.id, idTrigger: this.id });
     this.reaction(data, services)
       .then(() => {
-        endEvent(data);
+        historyProcessEnd({ idEvent: data.id, idTrigger: this.id });
       })
       .catch((e: Error) => {
-        errorEvent(data, e);
+        historyProcessError({ idEvent: data.id, idTrigger: this.id }, e);
       });
   }
 }

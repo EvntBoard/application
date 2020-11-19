@@ -38,11 +38,9 @@ export const init = () => {
 
       socket.on('createEvent', (message: any) => {
         if (message.event) {
-          newEvent({
+          newEvent(message.event, {
             ...message,
-            meta: {
-              sender: socket.id,
-            },
+            emitter: socket.id
           });
         } else {
           logger.error(message);

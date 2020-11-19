@@ -71,14 +71,15 @@ export enum CACHE {
 
 export enum EVENT_HISTORY {
   GET = `EVENT_HISTORY_GET`,
-}
-
-export enum EVENT_BUS {
-  NEW = `EVENT_BUS_NEW`,
+  GET_PROCESS = `EVENT_HISTORY_GET_PROCESS`,
   ON_NEW = `EVENT_BUS_ON_NEW`,
   ON_START = `EVENT_BUS_ON_START`,
   ON_END = `EVENT_BUS_ON_END`,
   ON_ERROR = `EVENT_BUS_ON_ERROR`,
+}
+
+export enum EVENT_BUS {
+  NEW = `EVENT_BUS_NEW`,
 }
 
 export enum SESSION {

@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux'
 
 import { webServerOnClose, webServerOnError, webServerOnOpen } from '../service/webServerService'
 import {
-  eventBusOnEnd as eventHistoryOnEndService,
-  eventBusOnError as eventHistoryOnErrorService,
-  eventBusOnNew as eventHistoryOnNewService,
-  eventBusOnStart as eventHistoryOnStartService,
-} from '../service/eventBusService'
+  eventHistoryOnEnd as eventHistoryOnEndService,
+  eventHistoryOnError as eventHistoryOnErrorService,
+  eventHistoryOnNew as eventHistoryOnNewService,
+  eventHistoryOnStart as eventHistoryOnStartService,
+} from '../service/eventHistoryService'
 import { workspaceOnChange } from '../service/workspaceService'
 import { webserverOnOpen, webserverOnClose, webserverOnError } from '../store/webserver'
 import { workspaceOnChange as actionWorkspaceOnChange } from '../store/workspace'
-import { eventHistoryOnStart, eventHistoryOnNew, eventHistoryOnError, eventHistoryOnEnd } from '../store/eventHistory'
+import { eventHistoryProcessOnStart, eventHistoryOnNew, eventHistoryProcessOnError, eventHistoryProcessOnEnd } from '../store/eventHistory'
 import { sessionOnChange as actionSessionOnChange } from '../store/session'
 import { cacheOnChange as actionCacheOnChange } from '../store/cache'
 import { onMediaPlay } from '../service/mediaService'
@@ -39,13 +39,13 @@ const useOnData = () => {
       dispatch(eventHistoryOnNew(data))
     })
     eventHistoryOnStartService((event, data) => {
-      dispatch(eventHistoryOnStart(data))
+      dispatch(eventHistoryProcessOnStart(data))
     })
     eventHistoryOnEndService((event, data) => {
-      dispatch(eventHistoryOnEnd(data))
+      dispatch(eventHistoryProcessOnEnd(data))
     })
-    eventHistoryOnErrorService((event, data, error) => {
-      dispatch(eventHistoryOnError({ ...data, error }))
+    eventHistoryOnErrorService((event, data) => {
+      dispatch(eventHistoryProcessOnError(data))
     })
 
     sessionOnChange((event, data) => {

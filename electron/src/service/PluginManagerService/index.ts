@@ -6,7 +6,7 @@ import { find, filter } from 'lodash';
 import { IPlugin } from '../../types';
 import { IPluginManager, IPluginManagerInfo, IPluginManagerInstance } from '../../otherTypes';
 import { pluginFindAll } from '../PluginService';
-import evntBus from '../EventBusService';
+import { onEvent, newEvent } from '../EventBusService';
 import logger from '../LoggerService';
 
 let manager: PluginManager;
@@ -72,7 +72,7 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
     throw new Error(`"${installed.name}" don't implement the plugin interface ...`);
   }
 
-  const instance = new required.plugin(plugin.params, { logger, evntBus });
+  const instance = new required.plugin(plugin.params, { logger, evntBus: { onEvent, newEvent } });
 
   const pluginInstance = {
     ...plugin,

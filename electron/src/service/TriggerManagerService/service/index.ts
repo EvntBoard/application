@@ -11,7 +11,7 @@ import {
   changeButtonText,
 } from '../../CacheService';
 import { execPlugin } from '../../PluginManagerService';
-import { newEvent, endEvent, errorEvent, startEvent } from '../../EventBusService';
+import { newEvent } from '../../EventBusService';
 import { setSession } from '../../SessionService';
 import { buttonFindOne } from '../../ButtonService';
 import { IBoard, IButton } from '../../../types';
@@ -68,7 +68,7 @@ const services = {
     updateImage: changeButtonImage,
     updateText: changeButtonText,
   },
-  event: { newEvent, endEvent, errorEvent, startEvent },
+  event: { newEvent },
   plugin: execPlugin,
 };
 

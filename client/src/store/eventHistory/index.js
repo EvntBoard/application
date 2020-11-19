@@ -1,4 +1,3 @@
-import { find, filter, orderBy } from 'lodash'
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
 export { saga as eventHistorySaga } from './saga'
@@ -10,21 +9,34 @@ export const eventHistoryGet = createAction(`${PATH}_GET`)
 export const eventHistoryGetSuccess = createAction(`${PATH}_GET_SUCCESS`)
 export const eventHistoryGetFailed = createAction(`${PATH}_GET_FAILED`)
 
-export const eventHistoryReload = createAction(`${PATH}_RELOAD`)
+export const eventHistoryProcessGet = createAction(`${PATH}_PROCESS_GET`)
+export const eventHistoryProcessGetSuccess = createAction(`${PATH}_PROCESS_GET_SUCCESS`)
+export const eventHistoryProcessGetFailed = createAction(`${PATH}_PROCESS_GET_FAILED`)
 
 export const eventHistoryOnNew = createAction(`${PATH}_ON_NEW`)
-export const eventHistoryOnStart = createAction(`${PATH}_ON_START`)
-export const eventHistoryOnEnd = createAction(`${PATH}_ON_END`)
-export const eventHistoryOnError = createAction(`${PATH}_ON_ERROR`)
+export const eventHistoryProcessOnStart = createAction(`${PATH}_PROCESS_ON_START`)
+export const eventHistoryProcessOnEnd = createAction(`${PATH}_PROCESS_ON_END`)
+export const eventHistoryProcessOnError = createAction(`${PATH}_PROCESS_ON_ERROR`)
+
+const keyToMapKey = (key) => {
+  return `${key.idTrigger}:${key.idEvent}`
+}
 
 const INITIAL_STATE = {
   events: [],
+  process: new Map(),
 
   // get
   eventHistoryGetLoading: false,
   eventHistoryGetSuccess: false,
   eventHistoryGetFailed: false,
   eventHistoryGetError: {},
+
+  // get
+  eventHistoryProcessGetLoading: false,
+  eventHistoryProcessGetSuccess: false,
+  eventHistoryProcessGetFailed: false,
+  eventHistoryProcessGetError: {},
 }
 
 const reducer = createReducer(INITIAL_STATE, {
@@ -47,68 +59,38 @@ const reducer = createReducer(INITIAL_STATE, {
     state.events = []
   },
 
-  [eventHistoryReload]: () => {
-    return INITIAL_STATE
+  // GET PROCESS
+  [eventHistoryProcessGet]: (state) => {
+    state.eventHistoryProcessGetLoading = true
+    state.eventHistoryProcessGetSuccess = false
+    state.eventHistoryProcessGetFailed = false
+    state.eventHistoryProcessGetError = {}
   },
-  [eventHistoryOnNew]: (state, action) => {
-    state.events.push({
-      ...action.payload,
-      meta: {
-        ...action.payload.meta,
-        status: 'new',
-        error: {}
-      }
-    })
+  [eventHistoryProcessGetSuccess]: (state, action) => {
+    state.eventHistoryProcessGetLoading = false
+    state.eventHistoryProcessGetSuccess = true
+    state.process = action.payload
   },
-  [eventHistoryOnStart]: (state, action) => {
-    const currentEvent = find(state.events, (i) => i.meta.uniqueId === action.payload.meta.uniqueId)
-    const newEvents = [
-      ...filter(state.events, i => i.meta.uniqueId !== action.payload.meta.uniqueId),
-      {
-        ...currentEvent,
-        ...action.payload,
-        meta: {
-          ...currentEvent.meta,
-          ...action.payload.meta,
-          status: 'start',
-        }
-      }
-    ]
+  [eventHistoryProcessGetFailed]: (state, action) => {
+    state.eventHistoryProcessGetLoading = false
+    state.eventHistoryProcessGetFailed = true
+    state.eventHistoryProcessGetError = action.payload
+    state.process = new Map()
+  },
 
-    state.events = orderBy(newEvents, ['meta.newDate'], 'desc')
+
+  [eventHistoryOnNew]: (state, action) => {
+    state.events.push(action.payload)
   },
-  [eventHistoryOnEnd]: (state, action) => {
-    const currentEvent = find(state.events, (i) => i.meta.uniqueId === action.payload.meta.uniqueId)
-    const newEvents = [
-      ...filter(state.events, i => i.meta.uniqueId !== action.payload.meta.uniqueId),
-      {
-        ...currentEvent,
-        ...action.payload,
-        meta: {
-          ...currentEvent.meta,
-          ...action.payload.meta,
-          status: 'end',
-        }
-      }
-    ]
-    state.events = orderBy(newEvents, ['meta.newDate'], 'desc')
+
+  [eventHistoryProcessOnStart]: (state, action) => {
+    state.process.set(keyToMapKey(action.payload.key), action.payload.value)
   },
-  [eventHistoryOnError]: (state, action) => {
-    const currentEvent = find(state.events, (i) => i.meta.uniqueId === action.payload.meta.uniqueId)
-    const newEvents = [
-      ...filter(state.events, i => i.meta.uniqueId !== action.payload.meta.uniqueId),
-      {
-        ...currentEvent,
-        ...action.payload,
-        meta: {
-          ...currentEvent.meta,
-          ...action.payload.meta,
-          status: 'error',
-          error: action.payload.error,
-        }
-      }
-    ]
-    state.events = orderBy(newEvents, ['meta.newDate'], 'desc')
+  [eventHistoryProcessOnEnd]: (state, action) => {
+    state.process.set(keyToMapKey(action.payload.key), action.payload.value)
+  },
+  [eventHistoryProcessOnError]: (state, action) => {
+    state.process.set(keyToMapKey(action.payload.key), action.payload.value)
   },
 })
 

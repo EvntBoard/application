@@ -1,16 +1,21 @@
 import { put, takeEvery, all, call } from 'redux-saga/effects'
 
 import {
-  eventHistoryGet as IPCeventHistoryGet
+  eventHistoryGet as IPCeventHistoryGet,
+  eventHistoryGetProcess as IPCeventHistoryProccessGet
 } from '../../service/eventHistoryService'
 
 import {
   eventHistoryGet,
   eventHistoryGetFailed,
-  eventHistoryGetSuccess
+  eventHistoryGetSuccess,
+
+  eventHistoryProcessGet,
+  eventHistoryProcessGetFailed,
+  eventHistoryProcessGetSuccess
 } from './'
 
-function* onLangGet() {
+function* onEventHistoryGet() {
   try {
     const data = yield call(IPCeventHistoryGet)
     yield put(eventHistoryGetSuccess(data))
@@ -19,9 +24,19 @@ function* onLangGet() {
   }
 }
 
+function* onEventHistoryProcessGet() {
+  try {
+    const data = yield call(IPCeventHistoryProccessGet)
+    yield put(eventHistoryProcessGetSuccess(data))
+  } catch (e) {
+    yield put(eventHistoryProcessGetFailed(e))
+  }
+}
+
 export function* saga() {
   console.debug('SAGA - EVENT HISTORY')
   yield all([
-    takeEvery(eventHistoryGet.type, onLangGet),
+    takeEvery(eventHistoryGet.type, onEventHistoryGet),
+    takeEvery(eventHistoryProcessGet.type, onEventHistoryProcessGet),
   ])
 }

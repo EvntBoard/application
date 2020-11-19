@@ -24,7 +24,7 @@ const SAMPLE_TRIGGER = {
 const Trigger = () => {
   const intl = useIntl()
   const dispatch = useDispatch()
-  const triggers = useSelector(triggerSelectors.triggerSelector)
+  const triggers = useSelector(triggerSelectors.triggers)
   const [current, setCurrent] = useState(null)
   const [search, setSearch] = useState('')
 
@@ -34,11 +34,13 @@ const Trigger = () => {
 
   const onSubmitFormTrigger = async (data) => {
     dispatch(triggerUpdate(data))
+    setCurrent(null)
     return true
   }
 
   const onClickCreate = () => {
     dispatch(triggerCreate({...SAMPLE_TRIGGER, }))
+    setCurrent(null)
   }
 
   const onDeleteTrigger = (data) => {

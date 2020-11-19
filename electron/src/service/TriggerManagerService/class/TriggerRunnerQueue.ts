@@ -2,18 +2,19 @@ import * as Emittery from 'emittery';
 import { isFunction } from 'lodash';
 
 import { ITrigger } from '../../../types';
-import { bus, startEvent, errorEvent, endEvent } from '../../EventBusService';
+import { onEvent } from '../../EventBusService';
+import { historyProcessStart, historyProcessEnd, historyProcessError } from '../../EventHistoryService';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
 import services from '../service';
-import { ITriggerCondition, ITriggerReaction, ITriggerRunner } from '../../../otherTypes';
+import {IEvent, ITriggerCondition, ITriggerReaction, ITriggerRunner} from '../../../otherTypes';
 
 export default class TriggerRunnerQueue implements ITriggerRunner {
   id: string;
   reaction: ITriggerReaction;
   conditions: Record<string, ITriggerCondition>;
   unlisten: Emittery.UnsubscribeFn;
-  private queue: string[];
+  private queue: IEvent[];
   private running: boolean;
 
   constructor(triggerEntity: ITrigger) {
@@ -29,7 +30,7 @@ export default class TriggerRunnerQueue implements ITriggerRunner {
 
       const eventsList = Object.keys(this.conditions);
 
-      this.unlisten = bus.on(eventsList, (data: any) => {
+      this.unlisten = onEvent(eventsList, (data: IEvent) => {
         const triggerCondition: ITriggerCondition | undefined = this.conditions[data.event];
         if (triggerCondition !== undefined && triggerCondition(this.id, data)) {
           this.processEvent(data);
@@ -41,7 +42,7 @@ export default class TriggerRunnerQueue implements ITriggerRunner {
     }
   }
 
-  processEvent(data: any) {
+  processEvent(data: IEvent) {
     this.queue.push(data);
     if (!this.running) {
       this.process();
@@ -59,16 +60,16 @@ export default class TriggerRunnerQueue implements ITriggerRunner {
       this.running = true;
 
       const data = this.queue.shift();
-      startEvent(data);
+      historyProcessStart({ idEvent: data.id, idTrigger: this.id });
       this.reaction(data, services)
         .then(() => {
           this.running = false;
-          endEvent(data);
+          historyProcessEnd({ idEvent: data.id, idTrigger: this.id });
           this.process();
         })
         .catch((e: Error) => {
           this.running = false;
-          errorEvent(data, e);
+          historyProcessError({ idEvent: data.id, idTrigger: this.id }, e);
           this.process();
         });
     }

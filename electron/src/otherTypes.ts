@@ -29,22 +29,19 @@ export interface IEvent {
   payload: any | null | undefined;
 }
 
-export interface IProcessEvent {
+export interface IProcessEventKey {
   idTrigger: string;
   idEvent: string;
+}
+
+export interface IProcessEventData {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   errorDate: Date | null | undefined;
   error: Error | null | undefined;
 }
 
-export interface EventBus {
-  bus: Emittery;
-  newEvent: (data: any) => void;
-  startEvent: (data: any) => void;
-  endEvent: (data: any) => void;
-  errorEvent: (data: any, e: Error) => void;
-}
+export type IProcessEvent = Map<string, IProcessEventData>;
 
 // Cache
 

@@ -38,8 +38,7 @@ const Board = () => {
   }, [])
 
   const onClick = (data) => {
-    eventBusNewEvent({
-      event: 'click',
+    eventBusNewEvent('click', {
       idButton: data.id,
       idTrigger: data.idTrigger,
     })

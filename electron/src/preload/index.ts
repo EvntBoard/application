@@ -99,22 +99,23 @@ contextBridge.exposeInMainWorld('app', {
     },
   },
   eventBus: {
-    onNew: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(EVENT_BUS.ON_NEW, callback);
-    },
-    onStart: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(EVENT_BUS.ON_START, callback);
-    },
-    onEnd: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(EVENT_BUS.ON_END, callback);
-    },
-    onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(EVENT_BUS.ON_ERROR, callback);
-    },
-    newEvent: (event: any) => ipcRenderer.invoke(EVENT_BUS.NEW, event),
+    newEvent: (event: string, data: any) => ipcRenderer.invoke(EVENT_BUS.NEW, event, data),
   },
   eventHistory: {
     get: () => ipcRenderer.invoke(EVENT_HISTORY.GET),
+    getProcess: () => ipcRenderer.invoke(EVENT_HISTORY.GET_PROCESS),
+    onNew: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(EVENT_HISTORY.ON_NEW, callback);
+    },
+    onStart: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(EVENT_HISTORY.ON_START, callback);
+    },
+    onEnd: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(EVENT_HISTORY.ON_END, callback);
+    },
+    onError: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
+      ipcRenderer.on(EVENT_HISTORY.ON_ERROR, callback);
+    },
   },
   session: {
     get: () => ipcRenderer.invoke(SESSION.GET),

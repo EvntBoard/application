@@ -6,13 +6,10 @@ import logger from '../LoggerService';
 
 export const init = () => {
   logger.debug('IPC EVENT BUS init');
-  ipcMain.handle(EVENT_BUS.NEW, (_, data) => {
-    newEvent({
+  ipcMain.handle(EVENT_BUS.NEW, (_, event, data) => {
+    newEvent(event, {
       ...data,
-      meta: {
-        ...data.meta,
-        sender: 'ipc',
-      },
+      emitter: 'ipc',
     });
   });
 };

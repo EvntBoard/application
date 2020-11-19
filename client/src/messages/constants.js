@@ -150,8 +150,6 @@ const messages = {
   AppSettingsPluginModalAddRepoPlaceholder: 'app.settings.plugin.modal_add.repo.placeholder',
   AppSettingsPluginModalAddButtonCancel: 'app.settings.plugin.modal_add.button.cancel',
   AppSettingsPluginModalAddButtonSave: 'app.settings.plugin.modal_add.button.save',
-
-  // CONFIG PLUGIN INSTANCE
 }
 
 export default messages

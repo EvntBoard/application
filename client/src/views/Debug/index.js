@@ -1,63 +1,131 @@
-import React, {useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { FormattedDate, FormattedTime } from 'react-intl';
-import { Container, Tooltip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
-import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
-import AlarmOffIcon from '@material-ui/icons/AlarmOff';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import AlarmIcon from '@material-ui/icons/Alarm';
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useTable, useExpanded } from 'react-table'
+import { FormattedDate, FormattedTime, useIntl } from 'react-intl'
+import {Container, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip} from '@material-ui/core'
+import DescriptionIcon from '@material-ui/icons/Description';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
+import { triggerFindAll } from '../../store/trigger'
 import { selectors as historySelectors } from '../../store/eventHistory'
+import TriggerForEvent from './TriggerForEvent'
+import ModalPayload from './ModalPayload'
+import M from '../../messages/constants'
+
+import './assets/style.scss'
 
 const Debug = () => {
-
+  const intl = useIntl()
+  const [open, setOpen] = useState(false)
+  const [current, setCurrent] = useState(null)
+  const dispatch = useDispatch()
   const data = useSelector(historySelectors.events)
 
+  useEffect(() => {
+    dispatch(triggerFindAll())
+  }, [])
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: () => null,
+        id: 'expander',
+        Cell: ({ row }) => (
+          <span {...row.getToggleRowExpandedProps()}>
+            {row.isExpanded ? <ExpandMoreIcon /> : <ChevronRightIcon />}
+          </span>
+        ),
+      },
+      {
+        Header: 'Date',
+        accessor: 'emittedAt',
+        Cell: (cell) => (
+          <>
+            <FormattedDate value={new Date(cell.value)} />
+            &nbsp;
+            <FormattedTime value={new Date(cell.value)} hour='numeric' minute='numeric' second='numeric' />
+          </>
+        )
+      },
+      {
+        Header: 'Event',
+        accessor: 'event',
+      },
+      {
+        Header: 'Payload',
+        accessor: 'payload',
+        Cell: (cell) => {
+          const innerOnClick = () => {
+            setCurrent(cell.row.original)
+            setOpen(true)
+          }
+
+          return (
+            <IconButton onClick={innerOnClick}>
+              <DescriptionIcon />
+            </IconButton>
+          )
+        }
+      },
+    ],
+    []
+  )
+
+  const  {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    visibleColumns,
+  } = useTable({ columns, data }, useExpanded)
+
   return (
-    <Container maxWidth={false} className="Debug">
-      <TableContainer component={Paper} >
-        <Table aria-label="simple table" stickyHeader>
+    <>
+      <ModalPayload open={open} setOpen={setOpen} current={current} />
+      <Container maxWidth={false} className="Debug">
+        <Table aria-label="simple table" stickyHeader {...getTableProps()}>
           <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Event</TableCell>
-              <TableCell>Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row) => {
-              let StatusComponent
-              switch (row.meta.status) {
-                case 'start':
-                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="start"><AlarmIcon /></Tooltip>
-                  break
-                case 'end':
-                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="end"><AlarmOffIcon /></Tooltip>
-                  break
-                case 'error':
-                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="error"><ErrorOutlineIcon /></Tooltip>
-                  break
-                case 'new':
-                default:
-                  StatusComponent = () => <Tooltip title={<pre><code>{JSON.stringify(row, null, 2)}</code></pre>} aria-label="new"><AlarmAddIcon /></Tooltip>
-                  break
-              }
-              return (
-                <TableRow key={row.meta.uniqueId}>
-                  <TableCell>
-                    <FormattedDate value={row.meta.newDate} />
-                    &nbsp;
-                    <FormattedTime value={row.meta.newDate} hour='numeric' minute='numeric' second='numeric' />
+            {headerGroups.map(headerGroup => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => (
+                  <TableCell {...column.getHeaderProps()}>
+                    {column.render('Header')}
                   </TableCell>
-                  <TableCell>{row.event}</TableCell>
-                  <TableCell><StatusComponent /></TableCell>
-                </TableRow>
+                ))}
+              </TableRow>
+            ))}
+          </TableHead>
+          <TableBody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row)
+              return (
+                <React.Fragment key={row.id}>
+                  <TableRow {...row.getRowProps()}>
+                    {
+                      row.cells.map(cell => {
+                        return (
+                          <TableCell {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                          </TableCell>
+                        )
+                      })}
+                  </TableRow>
+                  {row.isExpanded ? (
+                    <TableRow>
+                      <TableCell colSpan={visibleColumns.length}>
+                        <TriggerForEvent row={row} />
+                      </TableCell>
+                    </TableRow>
+                  ) : null}
+                </React.Fragment>
               )
             })}
           </TableBody>
         </Table>
-      </TableContainer>
-    </Container>
+      </Container>
+    </>
   );
 }
 
