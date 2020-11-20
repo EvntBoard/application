@@ -19,7 +19,9 @@ linux:
   category: Utility
 nsis:
   oneClick: false
-publish: always
+
+publish:
+  provider: github
 
 extraResources:
   lib
