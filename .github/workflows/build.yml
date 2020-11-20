@@ -22,7 +22,8 @@ jobs:
       - name: Build client
         run: |
           cd client
-          yarn
+          yarn cache clean
+          yarn install --network-timeout 1000000
           yarn build
         env:
           CI: false
@@ -30,7 +31,8 @@ jobs:
       - name: Build web
         run: |
           cd web
-          yarn
+          yarn cache clean
+          yarn install --network-timeout 1000000
           yarn build
         env:
           CI: false
