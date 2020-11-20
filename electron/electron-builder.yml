@@ -19,7 +19,7 @@ linux:
   category: Utility
 nsis:
   oneClick: false
-#publish: null
+publish: always
 
 extraResources:
   lib
