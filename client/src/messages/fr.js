@@ -151,6 +151,17 @@ const messagesFR = {
   [M.AppSettingsPluginModalAddRepoPlaceholder]: 'EvntBoard/module-obs',
   [M.AppSettingsPluginModalAddButtonCancel]: 'Annuler',
   [M.AppSettingsPluginModalAddButtonSave]: 'Ajouter',
+
+  // DEBUG
+  [M.AppDebugTableTriggerLabel]: 'Trigger',
+  [M.AppDebugTableTriggerStartDate]: 'Date de début',
+  [M.AppDebugTableTriggerEndDate]: 'Date de fin',
+  [M.AppDebugTableTriggerErrorDate]: 'Date de l\'erreur',
+  [M.AppDebugTableTriggerError]: 'Erreur',
+  [M.AppDebugTableTriggerNoData]: 'Aucun trigger n\'a traiter cet event',
+  [M.AppDebugTableTriggerEmittedAt]: 'Date d\'émission',
+  [M.AppDebugTableTriggerEvent]: 'Événement',
+  [M.AppDebugTableTriggerAction]: 'Action',
 }
 
 export default messagesFR

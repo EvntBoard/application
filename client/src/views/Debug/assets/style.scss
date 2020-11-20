@@ -3,3 +3,24 @@
     white-space: pre-wrap;
   }
 }
+
+.itemList {
+  .item {
+    display: flex;
+  }
+}
+
+.ReactVirtualized__Grid,
+.ReactVirtualized__Table__Grid,
+.ReactVirtualized__Grid__innerScrollContainer {
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.ReactVirtualized__Table__headerColumn, .ReactVirtualized__Table__rowColumn {
+  margin: 0;
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent;
+}

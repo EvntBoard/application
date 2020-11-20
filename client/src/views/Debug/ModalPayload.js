@@ -1,7 +1,8 @@
 import React from 'react'
-import { Dialog } from '@material-ui/core'
-
+import {Dialog, Divider, Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
+
+import TriggerForEvent from './TriggerForEvent'
 
 const useStyles = makeStyles(() => ({
   paperTest: {
@@ -16,7 +17,7 @@ function replacer(key, value) {
     originalObject.forEach((value1, key1) => {
       mapObject[key1] = value1
     });
-    return mapObject
+    return { MAP: mapObject }
   } else {
     return value;
   }
@@ -38,13 +39,25 @@ const ModalBoardSettings = ({ open, setOpen, current }) => {
       open={open}
       onClose={innerOnClose}
       fullWidth
-      maxWidth="sm"
+      maxWidth="lg"
       className='debug-modal'
       classes={{
         paper: classes.paperTest
       }}
     >
-      <pre><code>{JSON.stringify(current, replacer, 2)}</code></pre>
+      <Grid container style={{ padding: 8 }}>
+        <Grid item xs={12}>
+          <TriggerForEvent id={current?.id} />
+        </Grid>
+        <Grid item xs={12} style={{ paddingTop: 4, paddingBottom: 4 }}>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
+          <div style={{ maxHeight: 500, overflow: 'auto'}}>
+            <pre><code>{JSON.stringify(current, replacer, 2)}</code></pre>
+          </div>
+        </Grid>
+      </Grid>
     </Dialog>
   )
 }

@@ -150,6 +150,17 @@ const messages = {
   AppSettingsPluginModalAddRepoPlaceholder: 'app.settings.plugin.modal_add.repo.placeholder',
   AppSettingsPluginModalAddButtonCancel: 'app.settings.plugin.modal_add.button.cancel',
   AppSettingsPluginModalAddButtonSave: 'app.settings.plugin.modal_add.button.save',
+
+  // DEBUG
+  AppDebugTableTriggerLabel: 'app.debug.table.trigger.label',
+  AppDebugTableTriggerStartDate: 'app.debug.table.trigger.startDate',
+  AppDebugTableTriggerEndDate: 'app.debug.table.trigger.endDate',
+  AppDebugTableTriggerErrorDate: 'app.debug.table.trigger.errorDate',
+  AppDebugTableTriggerError: 'app.debug.table.trigger.error',
+  AppDebugTableTriggerNoData: 'app.debug.table.trigger.noData',
+  AppDebugTableTriggerEmittedAt: 'app.debug.table.event.emittedAt',
+  AppDebugTableTriggerEvent: 'app.debug.table.event.event',
+  AppDebugTableTriggerAction: 'app.debug.table.event.action',
 }
 
 export default messages
