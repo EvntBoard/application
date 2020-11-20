@@ -8,20 +8,25 @@ files:
   - package.json
 dmg:
   icon: ./assets/logo.png
+  publish:
+    - github
 win:
   icon: ./assets/logo.png
+  publish:
+    - github
   target:
     - portable
 linux:
   icon: ./assets/logo.png
+  publish:
+    - github
   target:
     - AppImage
   category: Utility
 nsis:
   oneClick: false
 
-publish:
-  provider: github
+publish: onTag
 
 extraResources:
   lib
