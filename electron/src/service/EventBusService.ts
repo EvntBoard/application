@@ -26,5 +26,5 @@ export const newEvent = (event: string, payload: any) => {
 };
 
 export const onEvent = (event: string | string[], listener: (eventData?: unknown) => void) => {
-  return bus.on(event, listener)
-}
+  return bus.on(event, listener);
+};

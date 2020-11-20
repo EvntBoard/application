@@ -3,7 +3,11 @@ import { isFunction } from 'lodash';
 
 import { ITrigger } from '../../../types';
 import { onEvent } from '../../EventBusService';
-import { historyProcessStart, historyProcessEnd, historyProcessError } from '../../EventHistoryService';
+import {
+  historyProcessStart,
+  historyProcessEnd,
+  historyProcessError,
+} from '../../EventHistoryService';
 import { evalCodeFromFile } from '../utils';
 import logger from '../../LoggerService';
 import services from '../service';

@@ -40,7 +40,7 @@ export const init = () => {
         if (message.event) {
           newEvent(message.event, {
             ...message,
-            emitter: socket.id
+            emitter: socket.id,
           });
         } else {
           logger.error(message);

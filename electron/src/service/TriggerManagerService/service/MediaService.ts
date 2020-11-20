@@ -6,7 +6,7 @@ import { mainWindowsSend } from '../../MainWindowService';
 import { workspaceGetCurrent } from '../../WorkspaceService';
 import { MEDIA } from '../../../preload/ipc';
 
-export const play = (file: string, volume = 1) => {
+export const play = (file: string, volume = 1): Promise<void> => {
   return new Promise((resolve, reject) => {
     const workspaceDir = workspaceGetCurrent();
     const uniqueId = Math.random();

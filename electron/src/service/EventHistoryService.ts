@@ -14,19 +14,20 @@ const SAMPLE_PROCESS_EVENT: IProcessEventData = {
   endDate: null,
   error: null,
   errorDate: null,
-}
+};
 
 const keyToMapKey = (key: IProcessEventKey): string => {
-  return `${key.idTrigger}:${key.idEvent}`
-}
+  return `${key.idTrigger}:${key.idEvent}`;
+};
 
 export const init = () => {
   history = [];
   historyProcess = new Map<string, IProcessEventData>();
 };
 
-export const historyGet = (): Array<IEvent> => reverse(sortBy(history, [(o: IEvent) => o.emittedAt]));
-export const historyProcessGet = (): IProcessEvent => historyProcess
+export const historyGet = (): Array<IEvent> =>
+  reverse(sortBy(history, [(o: IEvent) => o.emittedAt]));
+export const historyProcessGet = (): IProcessEvent => historyProcess;
 
 export const historyPush = (event: IEvent): void => {
   const storedEvent = find(history, (e: IEvent) => e.id === event.id);
