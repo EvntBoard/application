@@ -1,6 +1,9 @@
 name: Build/release
 
-on: push
+on:
+  push:
+    tags:
+      - "v*"
 
 jobs:
   release:
@@ -46,6 +49,7 @@ jobs:
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
+          args: -c.snap.publish=github
           package_root: electron
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)

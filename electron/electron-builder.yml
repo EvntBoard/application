@@ -1,33 +1,20 @@
 appId: fr.evandikt.evntboard
 productName: EvntBoard
 files:
-  - lib/**/*
   - assets/**/*
   - build/**/*
   - node_modules/**/*
   - package.json
 dmg:
   icon: ./assets/logo.png
-  publish:
-    - github
 win:
   icon: ./assets/logo.png
-  publish:
-    - github
   target:
     - portable
 linux:
   icon: ./assets/logo.png
-  publish:
-    - github
   target:
     - AppImage
   category: Utility
 nsis:
   oneClick: false
-
-publish: onTag
-
-extraResources:
-  lib
-
