@@ -18,11 +18,13 @@ import GridOnIcon from '@material-ui/icons/GridOn';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import ExtensionIcon from '@material-ui/icons/Extension';
+import BugReportIcon from '@material-ui/icons/BugReport';
 
 import { menuGet, menuSet, selectors as menuSelectors } from '../../../store/menu'
 import M from '../../../messages/constants'
 import Logo from '../../../assets/logo.png'
 import { useStyles } from './styles'
+import { helpOpenIssue } from '../../../service/helpService'
 
 const Menu = () => {
   const dispatch = useDispatch()
@@ -49,6 +51,10 @@ const Menu = () => {
   const handleDrawerClose = () => {
     dispatch(menuSet(!open));
   };
+
+  const onClickIssue = () => {
+    helpOpenIssue()
+  }
 
   return (
     <Drawer
@@ -91,6 +97,12 @@ const Menu = () => {
             <ExtensionIcon />
           </ListItemIcon>
           <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuPlugin })} />
+        </ListItem>
+        <ListItem classes={{ selected: classes.listItemColor }} button onClick={onClickIssue}>
+          <ListItemIcon className={classes.menuItemColor}>
+            <BugReportIcon />
+          </ListItemIcon>
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuBugs })} />
         </ListItem>
       </List>
       <List>

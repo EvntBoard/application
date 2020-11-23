@@ -17,6 +17,7 @@ import {
   PLUGIN_MANAGER,
   SESSION,
   CACHE,
+  HELP,
 } from './ipc';
 import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin } from '../types';
 
@@ -133,5 +134,8 @@ contextBridge.exposeInMainWorld('app', {
     play: async (callback: any) => {
       ipcRenderer.on(MEDIA.PLAY, callback);
     },
+  },
+  help: {
+    openIssue: () => ipcRenderer.invoke(HELP.OPEN_ISSUE),
   },
 });

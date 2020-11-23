@@ -6,6 +6,8 @@ const messages = {
   AppMenuDebug: 'app.menu.debug',
   AppMenuHelp: 'app.menu.help',
   AppMenuSettings: 'app.menu.settings',
+  AppMenuPlugin: 'app.settings.menu.plugin',
+  AppMenuBugs: 'app.menu.bugs',
 
   // Field
   FieldDropzoneDropHere: 'app.field.dropzone.drop_here',
@@ -13,7 +15,6 @@ const messages = {
 
   // SETTINGS
   AppSettingsMenuGlobal: 'app.settings.menu.global',
-  AppMenuPlugin: 'app.settings.menu.plugin',
 
   AppSettingsLanguage: 'app.settings.language',
   AppSettingsLanguageFR: 'app.settings.language.fr',

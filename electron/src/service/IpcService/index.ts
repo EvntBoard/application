@@ -13,6 +13,7 @@ import { init as initIpcSessionService } from './IpcSessionService';
 import { init as initIpcCacheService } from './IpcCacheService';
 import { init as initIpcEventHistoryService } from './IpcEventHistoryService';
 import { init as initIpcEventBusService } from './IpcEventBusService';
+import { init as initIpcHelpService } from './IpcHelpService';
 
 import logger from '../LoggerService';
 
@@ -33,4 +34,5 @@ export const init = () => {
   initIpcCacheService();
   initIpcEventHistoryService();
   initIpcEventBusService();
+  initIpcHelpService();
 };

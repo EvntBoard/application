@@ -8,6 +8,7 @@ const messagesFR = {
   [M.AppMenuDebug]: 'Debug',
   [M.AppMenuHelp]: 'Aide',
   [M.AppMenuSettings]: 'Configuration',
+  [M.AppMenuBugs]: 'Issues',
 
   // FIELD
   [M.FieldDropzoneDropHere]: 'Drop ton fichier ici ...',
