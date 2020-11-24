@@ -8,7 +8,7 @@ import { Button, TextField } from '@material-ui/core'
 
 import FormTrigger from './form'
 import Item from './Item'
-import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate, selectors as triggerSelectors } from "../../store/trigger";
+import { triggerCreate, triggerDelete, triggerFindAll, triggerUpdate, triggerDuplicate, selectors as triggerSelectors } from "../../store/trigger";
 import { triggerEditFile, triggerReload } from '../../service/triggerService'
 import M from '../../messages/constants'
 
@@ -49,7 +49,7 @@ const Trigger = () => {
   }
 
   const onDupplicateTrigger = (data) => {
-    dispatch(triggerCreate({...data, id: null, name: `DUP-${data.name}` }))
+    dispatch(triggerDuplicate(data))
   }
 
   const onReset = () => {

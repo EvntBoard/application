@@ -8,6 +8,7 @@ import {
   triggerFindOne,
   triggerEditFile,
   triggerReload,
+  triggerDuplicate,
 } from '../TriggerService';
 import { TRIGGER } from '../../preload/ipc';
 import { ITrigger } from '../../types';
@@ -23,4 +24,5 @@ export const init = () => {
   ipcMain.handle(TRIGGER.DELETE, (evt, data: ITrigger) => triggerDelete(data));
   ipcMain.handle(TRIGGER.EDIT_FILE, (evt, data: ITrigger) => triggerEditFile(data));
   ipcMain.handle(TRIGGER.RELOAD, (evt, data: ITrigger) => triggerReload(data));
+  ipcMain.handle(TRIGGER.DUPLICATE, (evt, data: ITrigger) => triggerDuplicate(data));
 };

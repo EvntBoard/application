@@ -47,6 +47,7 @@ contextBridge.exposeInMainWorld('app', {
     findAll: () => ipcRenderer.invoke(TRIGGER.FIND_ALL),
     findOne: (id: string) => ipcRenderer.invoke(TRIGGER.FIND_ONE, id),
     update: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.UPDATE, data),
+    duplicate: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.DUPLICATE, data),
     delete: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.DELETE, data),
     editFile: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.EDIT_FILE, data),
     reload: (data: ITrigger) => ipcRenderer.invoke(TRIGGER.RELOAD, data),

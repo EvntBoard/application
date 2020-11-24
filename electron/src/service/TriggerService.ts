@@ -124,3 +124,25 @@ const updateFileHeader = (filePath: string, plugin: ITrigger) => {
 
   fs.writeFileSync(filePath, `// EVNTBOARD - ${plugin.name} - ${plugin.description}\n${data}`);
 };
+
+export const triggerDuplicate = (trigger: ITrigger): ITrigger => {
+  logger.debug('Trigger Service DUPLICATE');
+  const currentWorkspace = workspaceGetCurrent();
+
+  const oldTrigger: ITrigger = triggerFindOne(trigger.id);
+  const newTrigger: ITrigger = triggerCreate({ ...oldTrigger, name: `${oldTrigger.name} - NEW`, id: null });
+
+  // create default file :)
+  const triggerDirPath = path.join(currentWorkspace.path, 'trigger');
+  const triggerOldFilePath = path.join(triggerDirPath, `${oldTrigger.id}.js`);
+  const triggerNewFilePath = path.join(triggerDirPath, `${newTrigger.id}.js`);
+
+  if (!fs.existsSync(triggerDirPath)) {
+    fs.mkdirSync(triggerDirPath);
+  }
+
+  fs.copyFileSync(triggerOldFilePath, triggerNewFilePath);
+
+  load(newTrigger);
+  return newTrigger;
+};

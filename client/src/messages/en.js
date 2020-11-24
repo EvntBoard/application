@@ -107,12 +107,12 @@ const messagesEN = {
   [M.AppTriggerSearch]: 'Search',
   [M.AppTriggerButtonCreate]: 'New trigger',
 
-  [M.AppTriggerOptionsClassic]: 'Classoc',
+  [M.AppTriggerOptionsClassic]: 'Classic',
   [M.AppTriggerOptionsThrottle]: 'Throttle',
   [M.AppTriggerOptionsQueue]: 'Queue',
   [M.AppTriggerOptionsQueueLock]: 'Queue Lock',
 
-  [M.AppTriggerMenuDupplicate]: 'Dupplicate',
+  [M.AppTriggerMenuDupplicate]: 'Duplicate',
   [M.AppTriggerMenuEdit]: 'Edit',
   [M.AppTriggerMenuDelete]: 'Delete',
   [M.AppTriggerMenuEditFile]: 'Edit file',

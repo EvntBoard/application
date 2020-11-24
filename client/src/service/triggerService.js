@@ -19,10 +19,13 @@ export const triggerDelete = async (trigger) => {
 }
 
 export const triggerEditFile = (trigger) => {
-  window.app.trigger.editFile(trigger)
+  return window.app.trigger.editFile(trigger)
 }
 
-
 export const triggerReload = (trigger) => {
-  window.app.trigger.reload(trigger)
+  return window.app.trigger.reload(trigger)
+}
+
+export const triggerDuplicate = (trigger) => {
+  return window.app.trigger.duplicate(trigger)
 }

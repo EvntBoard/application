@@ -5,6 +5,7 @@ import {
   triggerCreate as IPCtriggerCreate,
   triggerDelete as IPCtriggerDelete,
   triggerUpdate as IPCtriggerUpdate,
+  triggerDuplicate as IPCtriggerDuplicate,
 } from '../../service/triggerService'
 
 import {
@@ -20,6 +21,9 @@ import {
   triggerDelete,
   triggerDeleteSuccess,
   triggerDeleteFailed,
+  triggerDuplicate,
+  triggerDuplicateSuccess,
+  triggerDuplicateFailed
 } from './'
 
 function* onTriggerFindAll() {
@@ -37,6 +41,15 @@ function* onTriggerCreate({ payload }) {
     yield put(triggerCreateSuccess(data))
   } catch (e) {
     yield put(triggerCreateFailed(e))
+  }
+}
+
+function* onTriggerDuplicate({ payload }) {
+  try {
+    const data = yield call(IPCtriggerDuplicate, payload)
+    yield put(triggerDuplicateSuccess(data))
+  } catch (e) {
+    yield put(triggerDuplicateFailed(e))
   }
 }
 
@@ -65,5 +78,6 @@ export function* saga() {
     takeEvery(triggerCreate.type, onTriggerCreate),
     takeEvery(triggerUpdate.type, onTriggerUpdate),
     takeEvery(triggerDelete.type, onTriggerDelete),
+    takeEvery(triggerDuplicate.type, onTriggerDuplicate),
   ])
 }

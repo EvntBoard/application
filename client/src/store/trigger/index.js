@@ -18,6 +18,10 @@ export const triggerUpdate = createAction(`${PATH}_UPDATE`)
 export const triggerUpdateSuccess = createAction(`${PATH}_UPDATE_SUCCESS`)
 export const triggerUpdateFailed = createAction(`${PATH}_UPDATE_FAILED`)
 
+export const triggerDuplicate = createAction(`${PATH}_DUPLICATE`)
+export const triggerDuplicateSuccess = createAction(`${PATH}_DUPLICATE_SUCCESS`)
+export const triggerDuplicateFailed = createAction(`${PATH}_DUPLICATE_FAILED`)
+
 export const triggerDelete = createAction(`${PATH}_DELETE`)
 export const triggerDeleteSuccess = createAction(`${PATH}_DELETE_SUCCESS`)
 export const triggerDeleteFailed = createAction(`${PATH}_DELETE_FAILED`)
@@ -45,6 +49,12 @@ const INITIAL_STATE = {
   triggerUpdateSuccess: false,
   triggerUpdateFailed: false,
   triggerUpdateError: {},
+
+  // duplicate
+  triggerDuplicateLoading: false,
+  triggerDuplicateSuccess: false,
+  triggerDuplicateFailed: false,
+  triggerDuplicateError: {},
 
   // delete
   triggerDeleteLoading: false,
@@ -89,6 +99,25 @@ const reducer = createReducer(INITIAL_STATE, {
     state.triggerCreateFailed = true
     state.triggerCreateError = action.payload
   },
+
+  // Duplicate
+  [triggerDuplicate]: (state) => {
+    state.triggerDuplicateLoading = true
+    state.triggerDuplicateSuccess = false
+    state.triggerDuplicateFailed = false
+    state.triggerDuplicateError = {}
+  },
+  [triggerDuplicateSuccess]: (state, action) => {
+    state.triggerDuplicateLoading = false
+    state.triggerDuplicateSuccess = true
+    state.triggers.push(action.payload)
+  },
+  [triggerDuplicateFailed]: (state, action) => {
+    state.triggerDuplicateLoading = false
+    state.triggerDuplicateFailed = true
+    state.triggerDuplicateError = action.payload
+  },
+
 
   // UPDATE
   [triggerUpdate]: (state) => {
