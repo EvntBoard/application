@@ -14,7 +14,7 @@ import { workspaceOnChange as actionWorkspaceOnChange } from '../store/workspace
 import { eventHistoryProcessOnStart, eventHistoryOnNew, eventHistoryProcessOnError, eventHistoryProcessOnEnd } from '../store/eventHistory'
 import { sessionOnChange as actionSessionOnChange } from '../store/session'
 import { cacheOnChange as actionCacheOnChange } from '../store/cache'
-import { onMediaPlay } from '../service/mediaService'
+import { onMediaPlay, onTtsPlay } from '../service/mediaService'
 import { sessionOnChange } from '../service/sessionService'
 import { cacheOnChange } from '../service/cacheService'
 
@@ -57,6 +57,7 @@ const useOnData = () => {
     })
 
     onMediaPlay()
+    onTtsPlay()
   }, [dispatch])
 }
 export default useOnData

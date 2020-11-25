@@ -132,8 +132,11 @@ contextBridge.exposeInMainWorld('app', {
     },
   },
   media: {
-    play: async (callback: any) => {
-      ipcRenderer.on(MEDIA.PLAY, callback);
+    play: (callback: any) => {
+      return ipcRenderer.on(MEDIA.PLAY, callback);
+    },
+    tts: (callback: any) => {
+      return ipcRenderer.on(MEDIA.TTS, callback);
     },
   },
   help: {

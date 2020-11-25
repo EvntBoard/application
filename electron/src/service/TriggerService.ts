@@ -130,7 +130,11 @@ export const triggerDuplicate = (trigger: ITrigger): ITrigger => {
   const currentWorkspace = workspaceGetCurrent();
 
   const oldTrigger: ITrigger = triggerFindOne(trigger.id);
-  const newTrigger: ITrigger = triggerCreate({ ...oldTrigger, name: `${oldTrigger.name} - NEW`, id: null });
+  const newTrigger: ITrigger = triggerCreate({
+    ...oldTrigger,
+    name: `${oldTrigger.name} - NEW`,
+    id: null,
+  });
 
   // create default file :)
   const triggerDirPath = path.join(currentWorkspace.path, 'trigger');

@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 
 import { init as initGlobalDB } from './database/global';
 import { init as initLocalDB } from './database/local';
