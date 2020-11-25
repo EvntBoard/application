@@ -1,11 +1,11 @@
-import { get as getLodash } from 'lodash';
+import { get as getLodash, set as setLodash } from 'lodash';
 
 const variable: any = {};
 
 // pour le client
 export const set = (key: string, data: any) => {
-  variable[key] = data;
-  return get(key);
+  setLodash(variable, key, data);
+  return getLodash(variable, key);
 };
 
 // pour le client

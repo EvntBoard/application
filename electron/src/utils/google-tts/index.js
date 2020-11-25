@@ -11,17 +11,17 @@ var tts = require('./api');
  * @return  Promise(url: String)
  */
 module.exports = (text, lang = 'en', speed = 1, timeout = 10000) => {
-  const MAX = 200;  // Max string length
+  const MAX = 200; // Max string length
 
   const isSpace = (s, i) => /\s/.test(s.charAt(i));
   const lastIndexOfSpace = (s, left, right) => {
     for (let i = right; i >= left; i--) {
       if (isSpace(s, i)) return i;
     }
-    return -1;  // not found
+    return -1; // not found
   };
 
-  return key(timeout).then(key => {
+  return key(timeout).then((key) => {
     const result = [];
     const addResult = (text, start, end) => {
       const str = text.slice(start, end + 1);
@@ -30,11 +30,10 @@ module.exports = (text, lang = 'en', speed = 1, timeout = 10000) => {
 
     let start = 0;
     for (;;) {
-
       // check text's length
       if (text.length - start <= MAX) {
         addResult(text, start, text.length - 1);
-        break;  // end of text
+        break; // end of text
       }
 
       // check whether the word is cut in the middle.
