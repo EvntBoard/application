@@ -3,6 +3,7 @@ export enum ITriggerType {
   THROTTLE = 2,
   QUEUE = 3,
   QUEUE_LOCK = 4,
+  THROTTLE_LOCK = 5,
 }
 
 export interface ITrigger {

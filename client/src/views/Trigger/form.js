@@ -29,6 +29,10 @@ const options = [
     label: 'Queue Lock',
     value: 4
   },
+  {
+    label: 'Throttle Lock',
+    value: 5
+  },
 ]
 
 const parse = value => (isNaN(parseInt(value, 10)) ? "" : parseInt(value, 10));
@@ -63,7 +67,7 @@ const TriggerForm = ({ handleSubmit, onReset, onEditFile, submitting, pristine, 
         <Grid container item xs={12}>
           <Field parse={parse} validate={requiredNumber} name="type" label={intl.formatMessage({ id: M.AppTriggerTypeLabel })} component={Select} options={options} />
         </Grid>
-        { typeField.input.value === 4 && (
+        { typeField.input.value >= 4 && (
           <Grid container item xs={12}>
             <Field validate={required} name="locker" label={intl.formatMessage({ id: M.AppTriggerLockerLabel })} component={Input} placeholder={intl.formatMessage({ id: M.AppTriggerLockerPlaceholder })} />
           </Grid>
