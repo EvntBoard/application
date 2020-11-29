@@ -8,6 +8,7 @@ import Board from './views/Board'
 import Debug from './views/Debug'
 import ConfigGlobal from './views/ConfigGlobal'
 import ConfigPlugin from './views/ConfigPlugin'
+import Test from './views/Test'
 
 const routes = [
   {
@@ -15,6 +16,7 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: '/', element: <App /> },
+      { path: '/test', element: <Test /> },
       { path: '/board', element: <Board /> },
       { path: '/trigger', element: <Trigger /> },
       { path: '/debug', element: <Debug /> },

@@ -98,6 +98,12 @@ const Menu = () => {
           </ListItemIcon>
           <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuPlugin })} />
         </ListItem>
+        <ListItem classes={{ selected: classes.listItemColor }} button component={Link} to="/test" selected={activeItem === 'test'}>
+          <ListItemIcon className={classes.menuItemColor}>
+            <ExtensionIcon />
+          </ListItemIcon>
+          <ListItemText className={classes.menuItemColor} primary={intl.formatMessage({ id: M.AppMenuPlugin })} />
+        </ListItem>
         <ListItem classes={{ selected: classes.listItemColor }} button onClick={onClickIssue}>
           <ListItemIcon className={classes.menuItemColor}>
             <BugReportIcon />
