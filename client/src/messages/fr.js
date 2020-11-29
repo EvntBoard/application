@@ -21,6 +21,7 @@ const messagesFR = {
   [M.AppSettingsLanguage]: 'Langue',
   [M.AppSettingsLanguageFR]: '🇫🇷 Francais',
   [M.AppSettingsLanguageEN]: '🇺🇸 Anglais',
+  [M.AppSettingsLanguagePTBR]: '🇧🇷 Portugais (Brésil)',
 
   [M.AppSettingsTheme]: 'Theme',
   [M.AppSettingsThemeLight]: '☀️ Clair',

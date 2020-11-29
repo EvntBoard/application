@@ -19,6 +19,7 @@ const messages = {
   AppSettingsLanguage: 'app.settings.language',
   AppSettingsLanguageFR: 'app.settings.language.fr',
   AppSettingsLanguageEN: 'app.settings.language.en',
+  AppSettingsLanguagePTBR: 'app.settings.language.ptbr',
 
   AppSettingsTheme: 'app.settings.theme',
   AppSettingsThemeDark: 'app.settings.theme.dark',
