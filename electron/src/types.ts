@@ -52,6 +52,7 @@ export enum ITheme {
 export enum ILang {
   EN = 'en',
   FR = 'fr',
+  PT_BR = 'pt-br',
 }
 
 export interface IApp {
