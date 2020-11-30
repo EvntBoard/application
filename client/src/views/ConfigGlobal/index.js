@@ -78,7 +78,7 @@ function Config() {
               >
                 <MenuItem value='fr'>{intl.formatMessage({ id: M.AppSettingsLanguageFR })}</MenuItem>
                 <MenuItem value='en'>{intl.formatMessage({ id: M.AppSettingsLanguageEN })}</MenuItem>
-                <MenuItem value='pt-br'>{intl.formatMessage({ id: M.AppSettingsLanguage })}</MenuItem>
+                <MenuItem value='pt-br'>{intl.formatMessage({ id: M.AppSettingsLanguagePTBR })}</MenuItem>
               </Select>
             </CardContent>
           </Card>

@@ -12,15 +12,15 @@ const messagesPTBR = {
 
   // FIELD
   [M.FieldDropzoneDropHere]: 'Arraste os arquivos aqui ...',
-  [M.FieldDropzoneDragOrClick]: 'Arraste \'n\' e solte alguns arquivos aqui, ou clique em selecionar arquivos',
+  [M.FieldDropzoneDragOrClick]: 'Arraste e solte alguns arquivos aqui, ou clique em selecionar arquivos',
 
   // SETTINGS
   [M.AppMenuPlugin]: 'Extensões',
   [M.AppSettingsMenuGlobal]: 'Global',
 
   [M.AppSettingsLanguage]: 'Idioma',
-  [M.AppSettingsLanguageFR]: '🇫🇷 French',
-  [M.AppSettingsLanguageEN]: '🇺🇸 English',
+  [M.AppSettingsLanguageFR]: '🇫🇷 Francês',
+  [M.AppSettingsLanguageEN]: '🇺🇸 Inglês',
   [M.AppSettingsLanguagePTBR]: '🇧🇷 Português',
 
   [M.AppSettingsTheme]: 'Tema',
