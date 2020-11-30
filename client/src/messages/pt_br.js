@@ -86,7 +86,7 @@ const messagesPTBR = {
 
   [M.ModalButtonImageExternalLabel]: 'URL da imagem',
 
-  [M.ModalButtonTriggerLabel]: 'Gatilho linkado',
+  [M.ModalButtonTriggerLabel]: 'Trigger linkado',
 
   [M.ModalButtonButtonCancel]: 'Cancelar',
   [M.ModalButtonButtonSave]: 'Salvar',
@@ -119,8 +119,8 @@ const messagesPTBR = {
   [M.AppTriggerMenuEditFile]: 'Editar arquivo',
   [M.AppTriggerMenuReload]: 'Recarregar',
 
-  [M.AppTriggerCreate]: 'Criar um gatilho',
-  [M.AppTriggerUpdate]: 'Atualizar um gatilho',
+  [M.AppTriggerCreate]: 'Criar um trigger',
+  [M.AppTriggerUpdate]: 'Atualizar um trigger',
 
   [M.AppTriggerNameLabel]: 'Nome',
   [M.AppTriggerNamePlaceholder]: 'Exemplo: um nome de exemplo',
@@ -130,7 +130,7 @@ const messagesPTBR = {
   [M.AppTriggerLockerPlaceholder]: 'Exemplo: channel-twitch',
   [M.AppTriggerDescriptionLabel]: 'Descrição',
   [M.AppTriggerDescriptionPlaceholder]: 'Exemplo: gerenciar seguidores da twitch',
-  [M.AppTriggerButtonEditFile]: 'Alterar arquivo de gatilho',
+  [M.AppTriggerButtonEditFile]: 'Alterar arquivo de trigger',
   [M.AppTriggerButtonCancel]: 'Cancelar',
   [M.AppTriggerButtonSave]: 'Salvar',
 
@@ -156,12 +156,12 @@ const messagesPTBR = {
   [M.AppSettingsPluginModalAddButtonSave]: 'Adicionar',
 
   // DEBUG
-  [M.AppDebugTableTriggerLabel]: 'Gatilho',
+  [M.AppDebugTableTriggerLabel]: 'Trigger',
   [M.AppDebugTableTriggerStartDate]: 'Data inicial',
   [M.AppDebugTableTriggerEndDate]: 'Data final',
   [M.AppDebugTableTriggerErrorDate]: 'Data do erro',
   [M.AppDebugTableTriggerError]: 'Erro',
-  [M.AppDebugTableTriggerNoData]: 'Qualquer gatilho processou esse evento',
+  [M.AppDebugTableTriggerNoData]: 'Qualquer trigger processou esse evento',
   [M.AppDebugTableTriggerEmittedAt]: 'Emitido há',
   [M.AppDebugTableTriggerEvent]: 'Evento',
   [M.AppDebugTableTriggerAction]: 'Ação',
