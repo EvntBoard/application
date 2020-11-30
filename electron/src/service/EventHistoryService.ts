@@ -34,8 +34,11 @@ const historyKeySet = (key: IProcessEventKey, value: IProcessEventData): IProces
     historyProcess = [
       ...filter(historyProcess, (i) => !isEqual(i.key.idTrigger, key.idTrigger) && !isEqual(i.key.idEvent, key.idEvent)),
       {
-        ...data,
-        ...value
+        key,
+        value: {
+          ...data?.value,
+          ...value
+        }
       }
     ]
   } else {
