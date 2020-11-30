@@ -80,7 +80,7 @@ export const historyProcessError = (key: IProcessEventKey, error: Error): void =
       ...cloneDeep(SAMPLE_PROCESS_EVENT),
       ...already,
       errorDate: new Date(),
-      error,
+      error
     };
     historyProcess.set(keyToMapKey(key), newData);
     mainWindowsSend(EVENT_HISTORY.ON_ERROR, { key, value: newData });

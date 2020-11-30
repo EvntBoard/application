@@ -50,7 +50,9 @@ export default ({ process }) => {
           </>
         )}
       </TableCell>
-      <TableCell><pre><code>{JSON.stringify(process.error, null, 2)}</code></pre></TableCell>
+      <TableCell>
+        {process.error && <pre><code>{process.error.name} : {process.error.message}</code></pre>}
+      </TableCell>
     </TableRow>
   )
 }

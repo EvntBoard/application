@@ -7,6 +7,8 @@ import GlobalStyles from './components/GlobalStyles'
 import Root from './Root'
 import store from './store'
 
+import './assets/style.scss'
+
 Map.prototype.inspect = function() {
   return `Map(${mapEntriesToString(this.entries())})`
 }
