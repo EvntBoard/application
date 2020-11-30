@@ -8,6 +8,7 @@ import { buttonFindAll, selectors as btnSelectors } from '../../store/button'
 import { wsConnect, selectors as wsSelectors } from '../../store/websocket'
 import { themeGet, selectors as themeSelectors } from '../../store/theme'
 import { langGet, selectors as langSelectors } from '../../store/lang'
+import { eventHistoryGet, eventHistoryProcessGet } from '../../store/eventHistory'
 import { cacheGet } from '../../store/cache'
 
 const App = () => {
@@ -28,6 +29,8 @@ const App = () => {
     dispatch(cacheGet())
     dispatch(buttonFindAll())
     dispatch(boardFindAll())
+    dispatch(eventHistoryGet())
+    dispatch(eventHistoryProcessGet())
     dispatch(wsConnect())
   }, [dispatch])
 

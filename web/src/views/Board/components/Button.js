@@ -1,12 +1,27 @@
 import React, { useMemo, useState } from 'react'
-import { isString } from 'lodash'
+import { isString, size } from 'lodash'
 import { Paper } from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import CachedIcon from '@material-ui/icons/Cached';
 
+import { selectors as ehSelectors } from "../../../store/eventHistory"
 import { getContrastYIQ } from '../../../utils/utils'
 import text2png from '../../../utils/txtToPng'
 
 const Button = ({ button: buttonP, onClick }) => {
   const [clicked, setClicked] = useState(false)
+  const data = useSelector(ehSelectors.process)
+
+  const processed = useMemo(() => {
+    const processedData = []
+    console.log(data)
+    // data.forEach((value, key) => {
+    //   if (key.includes(buttonP.idTrigger) && value.errorDate === null && value.endDate === null) {
+    //     processedData.push(value)
+    //   }
+    // })
+    return processedData
+  }, [data, buttonP])
 
   const button = { ...buttonP } // custom state
 
@@ -60,6 +75,12 @@ const Button = ({ button: buttonP, onClick }) => {
             color: button.color ? getContrastYIQ(button.color) : null
           }}
         >
+          { size(processed) > 0 ? (
+            <Paper className='running'>
+              <CachedIcon fontSize='large' />
+              {size(processed) > 1 && <span>{size(processed)}</span>}
+            </Paper>
+          ) : null}
           { image && <img src={image}  alt='' /> }
           { textImage && <img className='button-content-text' src={textImage} alt='' /> }
           <div className='layer' onClick={onClickButton} onMouseDown={onMouseDown} onMouseUp={onMouseUp} />

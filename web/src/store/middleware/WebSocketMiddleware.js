@@ -15,6 +15,8 @@ import { themeOnChange } from '../theme'
 import { sessionOnChange } from '../session'
 import { cacheOnChange } from '../cache'
 
+import { eventHistoryOnNew, eventHistoryProcessOnStart, eventHistoryProcessOnEnd, eventHistoryProcessOnError } from '../eventHistory'
+
 let websocket;
 
 const middleware = store => next => action => {
@@ -67,17 +69,19 @@ const middleware = store => next => action => {
         })
 
         // events
-        websocket.on('newEvent', (evnt) => {
-          console.log({ newEvent: evnt })
+        websocket.on('newEvent', (data) => {
+          store.dispatch(eventHistoryOnNew(data))
         })
-        websocket.on('startEvent', (evnt) => {
-          console.log({ startEvent: evnt })
+
+        // process
+        websocket.on('startProcessEvent', (data) => {
+          store.dispatch(eventHistoryProcessOnStart(data))
         })
-        websocket.on('endEvent', (evnt) => {
-          console.log({ endEvent: evnt })
+        websocket.on('endProcessEvent', (data) => {
+          store.dispatch(eventHistoryProcessOnEnd(data))
         })
-        websocket.on('errorEvent', (evnt, error) => {
-          console.log({ errorEvent: evnt, error })
+        websocket.on('errorProcessEvent', (data) => {
+          store.dispatch(eventHistoryProcessOnError(data))
         })
 
         // session

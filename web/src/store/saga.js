@@ -6,6 +6,7 @@ import { langSaga } from './lang'
 import { themeSaga } from './theme'
 import { sessionSaga } from './session'
 import { cacheSaga } from './cache'
+import { eventHistorySaga } from './eventHistory'
 
 export default function* rootSaga() {
   yield all([
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     themeSaga(),
     sessionSaga(),
     cacheSaga(),
+    eventHistorySaga()
   ])
 }

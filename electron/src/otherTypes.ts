@@ -41,7 +41,10 @@ export interface IProcessEventData {
   error: Error | null | undefined;
 }
 
-export type IProcessEvent = Map<string, IProcessEventData>;
+export interface IProcessEvent {
+  key: IProcessEventKey,
+  value: IProcessEventData
+}
 
 // Cache
 

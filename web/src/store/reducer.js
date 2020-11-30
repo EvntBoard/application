@@ -7,6 +7,7 @@ import themeReducer from './theme'
 import websocketReducer from './websocket'
 import cacheReducer from './cache'
 import sessionReducer from './session'
+import eventHistoryReducer from './eventHistory'
 
 export default combineReducers({
   board: boardReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   websocket: websocketReducer,
   cache: cacheReducer,
   session: sessionReducer,
+  eventHistory: eventHistoryReducer
 })

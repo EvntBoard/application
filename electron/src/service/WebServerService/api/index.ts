@@ -7,6 +7,8 @@ import langRouter from './lang';
 import workspaceRouter from './workspace';
 import cacheRouter from './cache';
 import sessionRouter from './session';
+import eventhistoryRouter from './eventhistory';
+import processhistoryRouter from './processhistory';
 
 const router = express.Router();
 
@@ -21,5 +23,7 @@ router.use('/lang', langRouter);
 router.use('/workspace', workspaceRouter);
 router.use('/cache', cacheRouter);
 router.use('/session', sessionRouter);
+router.use('/eventhistory', eventhistoryRouter);
+router.use('/processhistory', processhistoryRouter);
 
 export default router;
