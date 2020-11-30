@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { sortBy, reverse } from 'lodash'
+import { sortBy, reverse, find } from 'lodash'
 
 const basic = state => state.eventHistory
 

@@ -3,6 +3,11 @@
   flex-grow: 1;
   overflow: hidden;
 
+  @keyframes rotation {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
   .center {
     grid-column-start: 1;
     grid-column-end: 2;
@@ -76,6 +81,31 @@
         img {
           @extend .center;
           z-index: 2;
+        }
+
+        .running  {
+          @extend .center;
+          position: relative;
+          z-index: 4;
+          word-wrap: break-word;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          white-space: pre-wrap;
+          user-select: none;
+          height: 40px;
+          width: 40px;
+          margin: auto;
+
+          svg {
+            animation: rotation 1s linear 0s infinite;
+          }
+
+          span {
+            position: absolute;
+            padding-top: 4px;
+          }
         }
 
         .layer {
