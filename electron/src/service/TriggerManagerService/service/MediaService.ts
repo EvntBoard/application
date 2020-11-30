@@ -56,7 +56,7 @@ export const tts = async (text: string, volume = 1, lang: string, speed: 1): Pro
     files.push(filePath);
   }
 
-  await new Promise((resolve) => {
+  await new Promise<void>((resolve) => {
     mainWindowsSend(MEDIA.TTS, {
       files: files.map((i) => i.replace(workspaceDir.path, 'workspace://')),
       volume,
