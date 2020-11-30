@@ -24,6 +24,33 @@ export const init = () => {
 export const historyGet = (): Array<IEvent> =>
   reverse(sortBy(history, [(o: IEvent) => o.emittedAt]));
 
+const historyKeyGet = (key: IProcessEventKey): IProcessEvent => {
+  return find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent))
+}
+
+const historyKeySet = (key: IProcessEventKey, value: IProcessEventData): IProcessEvent => {
+  const data = historyKeyGet(key);
+  if (data) {
+    historyProcess = [
+      ...filter(historyProcess, (i) => !isEqual(i.key.idTrigger, key.idTrigger) && !isEqual(i.key.idEvent, key.idEvent)),
+      {
+        ...data,
+        ...value
+      }
+    ]
+  } else {
+    const newData = {
+      key,
+      value
+    }
+    historyProcess = [
+      ...historyProcess,
+      newData
+    ]
+    return newData
+  }
+}
+
 export const historyProcessGet = (): Array<IProcessEvent> => historyProcess;
 
 export const historyPush = (event: IEvent): void => {
@@ -43,22 +70,22 @@ export const historyProcessStart = (key: IProcessEventKey): void => {
   logger.debug(`start process event [${key.idTrigger}] - "${key.idEvent}"`);
 
   if (key && key.idEvent && key.idTrigger) {
-    const already = find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent));
+    const already = historyKeyGet(key);
     if (already === undefined) {
-      const newData: IProcessEvent = {
-        key,
-        value: {
-          ...cloneDeep(SAMPLE_PROCESS_EVENT),
-          startDate: new Date(),
-        },
-      };
+      const newData = {
+        ...cloneDeep(SAMPLE_PROCESS_EVENT),
+        startDate: new Date(),
+      }
 
-      historyProcess = [
-        ...historyProcess,
-        newData
-      ]
-      mainWindowsSend(EVENT_HISTORY.ON_START, newData);
-      broadcast('startProcessEvent', newData);
+      historyKeySet(key, newData)
+      mainWindowsSend(EVENT_HISTORY.ON_START, {
+        key,
+        value: newData
+      });
+      broadcast('startProcessEvent', {
+        key,
+        value: newData
+      });
     } else {
       console.error('Weird how did you get there ?!');
     }
@@ -68,40 +95,54 @@ export const historyProcessStart = (key: IProcessEventKey): void => {
 export const historyProcessEnd = (key: IProcessEventKey): void => {
   logger.debug(`end process event [${key.idTrigger}] - "${key.idEvent}"`);
   if (key && key.idEvent && key.idTrigger) {
-    const already = find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent));
+    const already = historyKeyGet(key);
 
-    const newData: IProcessEvent = {
-      key,
-      value: {
-        ...cloneDeep(SAMPLE_PROCESS_EVENT),
-        ...already.value,
-        endDate: new Date(),
-      },
+    const newData: IProcessEventData = {
+      ...cloneDeep(SAMPLE_PROCESS_EVENT),
+      ...already?.value,
+      endDate: new Date(),
     };
 
-    historyProcess = [...filter(historyProcess, (i) => !isEqual(i.key.idTrigger, key.idTrigger) && !isEqual(i.key.idEvent, key.idEvent)), newData];
-    mainWindowsSend(EVENT_HISTORY.ON_END, newData);
-    broadcast('endProcessEvent', newData);
+    historyKeySet(key, newData);
+    mainWindowsSend(EVENT_HISTORY.ON_END, {
+      key,
+      value: newData
+    });
+    broadcast('endProcessEvent', {
+      key,
+      value: newData
+    });
   }
 };
 
 export const historyProcessError = (key: IProcessEventKey, error: Error): void => {
   logger.debug(`error process event [${key.idTrigger}] - "${key.idEvent}"`);
   if (key && key.idEvent && key.idTrigger) {
-    const already = find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent));
+    const already = historyKeyGet(key);
 
-    const newData: IProcessEvent = {
+    let newData: IProcessEventData = cloneDeep(SAMPLE_PROCESS_EVENT)
+
+    if (already && already.value) {
+      newData = {
+        ...newData,
+        ...already?.value,
+      }
+    }
+
+    newData = {
+      ...newData,
+      errorDate: new Date(),
+      error,
+    }
+
+    historyKeySet(key, newData);
+    mainWindowsSend(EVENT_HISTORY.ON_ERROR, {
       key,
-      value: {
-        ...cloneDeep(SAMPLE_PROCESS_EVENT),
-        ...already.value,
-        errorDate: new Date(),
-        error,
-      },
-    };
-
-    historyProcess = [...filter(historyProcess, (i) => !isEqual(i.key, key)), newData];
-    mainWindowsSend(EVENT_HISTORY.ON_ERROR, newData);
-    broadcast('errorProcessEvent', newData);
+      value: newData
+    });
+    broadcast('errorProcessEvent', {
+      key,
+      value: newData
+    });
   }
 };
