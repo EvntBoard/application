@@ -165,12 +165,8 @@ export const execPlugin = async (plugin: string, method: string, ...params: any)
   }
 
   if (method in pluginInstance.instance) {
-    try {
-      // @ts-ignore
-      return await pluginInstance.instance[method](...params);
-    } catch (e) {
-      console.log(e);
-    }
+    // @ts-ignore
+    return await pluginInstance.instance[method](...params);
   } else {
     throw new Error(`${method} doesn't exist in ${plugin} `);
   }
