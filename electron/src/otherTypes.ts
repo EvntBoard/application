@@ -42,8 +42,8 @@ export interface IProcessEventData {
 }
 
 export interface IProcessEvent {
-  key: IProcessEventKey,
-  value: IProcessEventData
+  key: IProcessEventKey;
+  value: IProcessEventData;
 }
 
 // Cache

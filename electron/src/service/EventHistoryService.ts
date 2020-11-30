@@ -16,10 +16,6 @@ const SAMPLE_PROCESS_EVENT: IProcessEventData = {
   errorDate: null,
 };
 
-const keyToMapKey = (key: IProcessEventKey): string => {
-  return `${key.idTrigger}:${key.idEvent}`;
-};
-
 export const init = () => {
   history = [];
   historyProcess = [];
@@ -47,21 +43,24 @@ export const historyProcessStart = (key: IProcessEventKey): void => {
   logger.debug(`start process event [${key.idTrigger}] - "${key.idEvent}"`);
 
   if (key && key.idEvent && key.idTrigger) {
-    const alreadyIndex = find(historyProcess, { key });
-    if (alreadyIndex === null) {
-      const newData: IProcessEvent =  {
+    const already = find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent));
+    if (already === undefined) {
+      const newData: IProcessEvent = {
         key,
         value: {
           ...cloneDeep(SAMPLE_PROCESS_EVENT),
           startDate: new Date(),
-        }
-      }
+        },
+      };
 
-      historyProcess.push()
+      historyProcess = [
+        ...historyProcess,
+        newData
+      ]
       mainWindowsSend(EVENT_HISTORY.ON_START, newData);
       broadcast('startProcessEvent', newData);
     } else {
-      console.error('Weird how did you get there ?!')
+      console.error('Weird how did you get there ?!');
     }
   }
 };
@@ -69,21 +68,18 @@ export const historyProcessStart = (key: IProcessEventKey): void => {
 export const historyProcessEnd = (key: IProcessEventKey): void => {
   logger.debug(`end process event [${key.idTrigger}] - "${key.idEvent}"`);
   if (key && key.idEvent && key.idTrigger) {
-    const already = find(historyProcess, { key });
+    const already = find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent));
 
-    const newData: IProcessEvent =  {
+    const newData: IProcessEvent = {
       key,
       value: {
         ...cloneDeep(SAMPLE_PROCESS_EVENT),
-        ...already,
+        ...already.value,
         endDate: new Date(),
-      }
-    }
+      },
+    };
 
-    historyProcess = [
-      ...filter(historyProcess, i => !isEqual(i.key, key)),
-      newData
-    ];
+    historyProcess = [...filter(historyProcess, (i) => !isEqual(i.key.idTrigger, key.idTrigger) && !isEqual(i.key.idEvent, key.idEvent)), newData];
     mainWindowsSend(EVENT_HISTORY.ON_END, newData);
     broadcast('endProcessEvent', newData);
   }
@@ -92,22 +88,19 @@ export const historyProcessEnd = (key: IProcessEventKey): void => {
 export const historyProcessError = (key: IProcessEventKey, error: Error): void => {
   logger.debug(`error process event [${key.idTrigger}] - "${key.idEvent}"`);
   if (key && key.idEvent && key.idTrigger) {
-    const already = find(historyProcess, { key });
+    const already = find(historyProcess, (i) => isEqual(i.key.idTrigger, key.idTrigger) && isEqual(i.key.idEvent, key.idEvent));
 
-    const newData: IProcessEvent =  {
+    const newData: IProcessEvent = {
       key,
       value: {
         ...cloneDeep(SAMPLE_PROCESS_EVENT),
-        ...already,
+        ...already.value,
         errorDate: new Date(),
-        error
-      }
-    }
+        error,
+      },
+    };
 
-    historyProcess = [
-      ...filter(historyProcess, i => !isEqual(i.key, key)),
-      newData
-    ];
+    historyProcess = [...filter(historyProcess, (i) => !isEqual(i.key, key)), newData];
     mainWindowsSend(EVENT_HISTORY.ON_ERROR, newData);
     broadcast('errorProcessEvent', newData);
   }

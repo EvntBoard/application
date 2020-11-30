@@ -1,7 +1,8 @@
 import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {useIntl} from 'react-intl'
-import {Paper, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core'
+import {filter} from 'lodash'
+import { Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core'
 
 import {selectors} from '../../store/eventHistory'
 import TriggerProcessForEvent from './TriggerProcessForEvent'
@@ -12,16 +13,7 @@ export default  ({ id }) => {
   const data = useSelector(selectors.process)
 
   const processed = useMemo(() => {
-    const processedData = []
-    data.forEach((value, key) => {
-      if (key.includes(id)) {
-        processedData.push({
-          idTrigger: key.split(':')[0],
-          ...value
-        })
-      }
-    })
-    return processedData
+    return filter(data, (i) => i.key.idEvent === id)
   }, [data, id])
 
   return (
@@ -39,7 +31,7 @@ export default  ({ id }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {processed.map((process) => <TriggerProcessForEvent key={process.idTrigger} process={process} />)}
+              {processed.map((process) => <TriggerProcessForEvent key={process.key.idTrigger} process={process} />)}
             </TableBody>
           </Table>
         ) : (

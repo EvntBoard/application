@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
+import { isEqual, filter } from 'lodash'
 
 export { saga as eventHistorySaga } from './saga'
 export * as selectors from './selector'
@@ -18,13 +19,9 @@ export const eventHistoryProcessOnStart = createAction(`${PATH}_PROCESS_ON_START
 export const eventHistoryProcessOnEnd = createAction(`${PATH}_PROCESS_ON_END`)
 export const eventHistoryProcessOnError = createAction(`${PATH}_PROCESS_ON_ERROR`)
 
-const keyToMapKey = (key) => {
-  return `${key.idTrigger}:${key.idEvent}`
-}
-
 const INITIAL_STATE = {
   events: [],
-  process: new Map(),
+  process: [],
 
   // get
   eventHistoryGetLoading: false,
@@ -91,7 +88,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         eventHistoryProcessGetLoading: false,
         eventHistoryProcessGetFailed: true,
         eventHistoryProcessGetError: action.payload,
-        process: new Map()
+        process: []
       }
 
 
@@ -105,26 +102,29 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
 
     case eventHistoryProcessOnStart.type:
-      const newProcessStart = new Map(state.process)
-      newProcessStart.set(keyToMapKey(action.payload.key), action.payload.value)
       return {
         ...state,
-        process: newProcessStart
+        process: [
+          ...state.process,
+          action.payload
+        ]
       }
 
     case eventHistoryProcessOnEnd.type:
-      const newProcessEnd = new Map(state.process)
-      newProcessEnd.set(keyToMapKey(action.payload.key), action.payload.value)
       return {
         ...state,
-        process: newProcessEnd
+        process: [
+          ...filter(state.process, (i) => !isEqual(i.key, action.payload.key)),
+          action.payload
+        ]
       }
     case eventHistoryProcessOnError.type:
-      const newProcessError = new Map(state.process)
-      newProcessError.set(keyToMapKey(action.payload.key), action.payload.value)
       return {
         ...state,
-        process: newProcessError
+        process: [
+          ...filter(state.process, (i) => !isEqual(i.key, action.payload.key)),
+          action.payload
+        ]
       }
 
     default:

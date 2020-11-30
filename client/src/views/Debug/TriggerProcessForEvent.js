@@ -10,48 +10,48 @@ export default ({ process }) => {
   const triggers = useSelector(triggerSelectors.triggers)
 
   const trigger = useMemo(() => {
-    return find(triggers, { id: process.idTrigger })
-  }, [process.idTrigger, triggers])
+    return find(triggers, { id: process.key.idTrigger })
+  }, [process.key.idTrigger, triggers])
 
 
   return (
     <TableRow>
       <TableCell>{trigger?.name}</TableCell>
       <TableCell>
-        { process.startDate && (
+        { process.value.startDate && (
           <>
-            <FormattedDate value={new Date(process.startDate)} />
+            <FormattedDate value={new Date(process.value.startDate)} />
             &nbsp;
-            <FormattedTime value={new Date(process.startDate)} hour='numeric' minute='numeric' second='numeric' />
+            <FormattedTime value={new Date(process.value.startDate)} hour='numeric' minute='numeric' second='numeric' />
             &nbsp;
-            {process.startDate?.getMilliseconds()}ms
+            {process.value.startDate?.getMilliseconds()}ms
           </>
         )}
       </TableCell>
       <TableCell>
-        { process.endDate && (
+        { process.value.endDate && (
           <>
-            <FormattedDate value={new Date(process.endDate)} />
+            <FormattedDate value={new Date(process.value.endDate)} />
             &nbsp;
-            <FormattedTime value={new Date(process.endDate)} hour='numeric' minute='numeric' second='numeric' />
+            <FormattedTime value={new Date(process.value.endDate)} hour='numeric' minute='numeric' second='numeric' />
             &nbsp;
-            {process.endDate?.getMilliseconds()}ms
+            {process.value.endDate?.getMilliseconds()}ms
           </>
         )}
       </TableCell>
       <TableCell>
-        { process.errorDate && (
+        { process.value.errorDate && (
           <>
-            <FormattedDate value={new Date(process.errorDate)} />
+            <FormattedDate value={new Date(process.value.errorDate)} />
             &nbsp;
-            <FormattedTime value={new Date(process.errorDate)} hour='numeric' minute='numeric' second='numeric' />
+            <FormattedTime value={new Date(process.value.errorDate)} hour='numeric' minute='numeric' second='numeric' />
             &nbsp;
-            {process.errorDate?.getMilliseconds()}ms
+            {process.value.errorDate?.getMilliseconds()}ms
           </>
         )}
       </TableCell>
       <TableCell>
-        {process.error && <pre><code>{process.error.name} : {process.error.message}</code></pre>}
+        {process.value.error && <pre><code>{process.value.error.name} : {process.value.error.message}</code></pre>}
       </TableCell>
     </TableRow>
   )

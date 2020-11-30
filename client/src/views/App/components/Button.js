@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Paper } from '@material-ui/core'
-import { size } from 'lodash'
+import { size, filter } from 'lodash'
 import CachedIcon from '@material-ui/icons/Cached';
 
 import { selectors as ehSelectors } from '../../../store/eventHistory'
@@ -13,13 +13,7 @@ const Button = ({ button: buttonP, onClick }) => {
   const data = useSelector(ehSelectors.process)
 
   const processed = useMemo(() => {
-    const processedData = []
-    data.forEach((value, key) => {
-      if (key.includes(buttonP.idTrigger) && value.errorDate === null && value.endDate === null) {
-        processedData.push(value)
-      }
-    })
-    return processedData
+    return filter(data, (i) => i.key.idTrigger === buttonP.idTrigger && i.value.errorDate === null && i.value.endDate === null)
   }, [data, buttonP])
 
   const button = { ...buttonP } // custom state
