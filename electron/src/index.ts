@@ -10,6 +10,7 @@ import { init as initPluginService } from './service/PluginManagerService';
 import { init as initSessionService } from './service/SessionService';
 import { init as initCacheService } from './service/CacheService';
 import { init as initEventHistoryService } from './service/EventHistoryService';
+import { newEvent } from './service/EventBusService';
 import { createMainWindow } from './window/main';
 import logger from './service/LoggerService';
 
@@ -21,14 +22,16 @@ app.on('ready', async () => {
   await initEventHistoryService();
   await initTriggerManager();
   await initWebServer();
+  await initIpc();
+  newEvent('app-load')
   await initPluginService();
   await initSessionService();
   await initCacheService();
-  await initIpc();
   createMainWindow();
 });
 
 app.on('window-all-closed', () => {
+  newEvent('app-unload', {})
   if (process.platform !== 'darwin') app.quit();
 });
 

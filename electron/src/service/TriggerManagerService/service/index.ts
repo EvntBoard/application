@@ -40,7 +40,7 @@ const services = {
     },
     updateImage: changeBoardImage,
     updateColor: changeBoardColor,
-    switch: (boardId: string, sender: string) => setSession(boardId, sender),
+    switch: (boardId: string, emitter: string) => setSession(boardId, emitter),
   },
   button: {
     getImage: (id: string) => {

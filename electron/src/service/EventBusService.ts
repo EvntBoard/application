@@ -8,12 +8,12 @@ import logger from './LoggerService';
 
 const bus = new Emittery();
 
-export const newEvent = (event: string, payload: any) => {
+export const newEvent = (event: string, payload?: any) => {
   const newEvent: IEvent = {
     id: uuid(),
     event,
     payload: omit(payload, 'emitter'),
-    emitter: payload?.emitter,
+    emitter: payload?.emitter || null,
     emittedAt: new Date(),
   };
 
