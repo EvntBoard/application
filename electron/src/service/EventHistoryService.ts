@@ -1,13 +1,17 @@
-import { sortBy, find, reverse, cloneDeep, filter, isEqual } from 'lodash';
+import { sortBy, find, reverse, cloneDeep, filter } from 'lodash';
+import differenceInSeconds from 'date-fns/differenceInSeconds';
 
 import logger from './LoggerService';
 import { IEvent, IProcessEvent, IProcessEventData, IProcessEventKey } from '../otherTypes';
 import { EVENT_HISTORY } from '../preload/ipc';
 import { mainWindowsSend } from './MainWindowService';
 import { broadcast } from './WebServerService';
+import { appDebugGet } from './DebugConfigService';
+import { IAppDebug } from "../types";
 
 let history: Array<IEvent>;
 let historyProcess: Map<string, IProcessEventData>;
+let interval: NodeJS.Timeout = null;
 
 const SAMPLE_PROCESS_EVENT: IProcessEventData = {
   startDate: null,
@@ -23,7 +27,29 @@ const keyToMapKey = (key: IProcessEventKey): string => {
 export const init = () => {
   history = [];
   historyProcess = new Map<string, IProcessEventData>();
+
+  if (interval) {
+    clearInterval(interval)
+  }
+
+  interval = setInterval(purge, 2000)
 };
+
+const purge = () => {
+  const debugConfig: IAppDebug = appDebugGet()
+  const currentDate = new Date()
+  const toDelete = filter(history, (i) => differenceInSeconds(currentDate, i.emittedAt) >= debugConfig.keepEventTime)
+
+  toDelete.forEach((i) => {
+    historyProcess.forEach((value, key) => {
+      if (key.includes(i.id)) {
+        historyProcess.delete(key)
+      }
+    })
+  })
+
+  history = [...filter(history, (i) => differenceInSeconds(currentDate, i.emittedAt) < debugConfig.keepEventTime)]
+}
 
 export const historyGet = (): Array<IEvent> => reverse(sortBy(history, [(o: IEvent) => o.emittedAt]));
 

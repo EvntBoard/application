@@ -26,6 +26,7 @@
   "dependencies": {
     "async-mutex": "^0.2.4",
     "axios": "^0.21.0",
+    "date-fns": "^2.16.1",
     "electron-is-dev": "^1.2.0",
     "electron-log": "^4.2.4",
     "emittery": "^0.7.2",
