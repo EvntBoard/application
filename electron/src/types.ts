@@ -61,6 +61,10 @@ export interface IApp {
   password: string;
 }
 
+export interface IAppDebug {
+  keepEventTime: number;
+}
+
 export interface IPlugin {
   id: string;
   name: string;
@@ -77,6 +81,7 @@ export interface LocalDatabaseSchema {
   theme: ITheme;
   lang: ILang;
   app: IApp;
+  debug: IAppDebug;
 }
 
 // Global BASE

@@ -47,6 +47,11 @@ export enum APP {
   SET = `APP_SET`,
 }
 
+export enum DEBUG {
+  GET = `DEBUG_GET`,
+  SET = `DEBUG_SET`,
+}
+
 export enum WEB_SERVER {
   GET_STATUS = `WEB_SERVER_GET_STATUS`,
   GET_URL = `WEB_SERVER_GET_URL`,

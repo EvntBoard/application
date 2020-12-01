@@ -37,6 +37,11 @@ const messagesPTBR = {
   [M.AppSettingsGlobalButtonCancel]: 'Cancelar',
   [M.AppSettingsGlobalButtonSave]: 'Salvar',
 
+  [M.AppSettingsGlobalDebugKeep]: 'Debug',
+  [M.AppSettingsGlobalDebug]: 'Time during which events are saved ( in seconds )',
+  [M.AppSettingsGlobalDebugButtonCancel]: 'Cancelar',
+  [M.AppSettingsGlobalDebugButtonSave]: 'Salvar',
+
   [M.AppSettingsWorkspace]: 'Área de trabalho',
   [M.AppSettingsWorkspaceCurrent]: 'Atual',
   [M.AppSettingsWorkspaceChange]: 'Alterar',

@@ -13,6 +13,7 @@ import eventHistoryReducer from './eventHistory'
 import pluginReducer from './plugin'
 import sessionReducer from './session'
 import cacheReducer from './cache'
+import debugConfigReducer from './debugConfig'
 
 export default combineReducers({
   config: configReducer,
@@ -28,4 +29,5 @@ export default combineReducers({
   plugin: pluginReducer,
   session: sessionReducer,
   cache: cacheReducer,
+  debugConfig: debugConfigReducer
 })

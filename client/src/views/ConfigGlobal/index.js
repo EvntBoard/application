@@ -12,12 +12,14 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 
 import FormApp from './FormApp'
+import FormDebug from './FormDebug'
 import { workspaceOpenCurrent, workspaceSelectNew } from '../../service/workspaceService'
 import { themeGet, themeSet, selectors as themeSelectors } from '../../store/theme'
 import { langGet, langSet, selectors as langSelectors } from '../../store/lang'
 import { configGet, configSet, selectors as configSelectors } from '../../store/config'
 import { workspaceGet, workspaceSet, selectors as workspaceSelectors } from '../../store/workspace'
 import { webserverGet, selectors as webserverSelectors } from '../../store/webserver'
+import { debugConfigGet, debugConfigSet, selectors as debugConfigSelectors } from '../../store/debugConfig'
 import M from '../../messages/constants'
 
 function Config() {
@@ -26,6 +28,7 @@ function Config() {
   const theme = useSelector(themeSelectors.theme)
   const lang = useSelector(langSelectors.lang)
   const config = useSelector(configSelectors.config)
+  const debugConfig = useSelector(debugConfigSelectors.config)
   const workspace = useSelector(workspaceSelectors.workspace)
   const webServerStatus = useSelector(webserverSelectors.webserverIsConnectedSelector)
 
@@ -35,6 +38,7 @@ function Config() {
     dispatch(configGet())
     dispatch(workspaceGet())
     dispatch(webserverGet())
+    dispatch(debugConfigGet())
   }, [dispatch])
 
   const onOpenCurrentWorkspace = () => {
@@ -62,6 +66,10 @@ function Config() {
 
   const onChangeConfig = (data) => {
     dispatch(configSet(data))
+  }
+
+  const onChangeDebugConfig = (data) => {
+    dispatch(debugConfigSet(data))
   }
 
   return (
@@ -137,6 +145,18 @@ function Config() {
                 onSubmit={onChangeConfig}
                 initialValues={config}
                 component={FormApp}
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent style={{ display: "flex", flexDirection: "column" }}>
+              <Typography style={{ flexGrow: 1 }} variant='h6' color='primary'>{intl.formatMessage({ id: M.AppSettingsGlobalDebug })}</Typography>
+              <Form
+                onSubmit={onChangeDebugConfig}
+                initialValues={debugConfig}
+                component={FormDebug}
               />
             </CardContent>
           </Card>

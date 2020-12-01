@@ -35,6 +35,11 @@ const messages = {
   AppSettingsGlobalButtonCancel: 'app.settings.global.button.cancel',
   AppSettingsGlobalButtonSave: 'app.settings.global.button.save',
 
+  AppSettingsGlobalDebug: 'app.settings.global.debug',
+  AppSettingsGlobalDebugKeep: 'app.settings.global.debug.keepEventTime',
+  AppSettingsGlobalDebugButtonCancel: 'app.settings.global.debug.cancel',
+  AppSettingsGlobalDebugButtonSave: 'app.settings.global.debug.save',
+
   AppSettingsWorkspace: 'app.settings.workspace',
   AppSettingsWorkspaceCurrent: 'app.settings.workspace.current',
   AppSettingsWorkspaceChange: 'app.settings.workspace.change',

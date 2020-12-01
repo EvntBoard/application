@@ -37,6 +37,11 @@ const messagesFR = {
   [M.AppSettingsGlobalButtonCancel]: 'Annuler',
   [M.AppSettingsGlobalButtonSave]: 'Sauvegarder',
 
+  [M.AppSettingsGlobalDebugKeep]: 'Débug',
+  [M.AppSettingsGlobalDebug]: 'Durée pendant laquelle les évènements sont sauvegarder ( en secondes )',
+  [M.AppSettingsGlobalDebugButtonCancel]: 'Annuler',
+  [M.AppSettingsGlobalDebugButtonSave]: 'Sauvegarder',
+
   [M.AppSettingsWorkspace]: 'Espace de travail',
   [M.AppSettingsWorkspaceCurrent]: 'Actuel',
   [M.AppSettingsWorkspaceChange]: 'Changer',

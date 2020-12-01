@@ -13,6 +13,7 @@ import { pluginSaga } from './plugin'
 import { sessionSaga } from './session'
 import { cacheSaga } from './cache'
 import { eventHistorySaga } from './eventHistory'
+import { debugConfigSaga } from './debugConfig'
 
 export default function* rootSaga() {
   yield all([
@@ -29,5 +30,6 @@ export default function* rootSaga() {
     cacheSaga(),
     sessionSaga(),
     eventHistorySaga(),
+    debugConfigSaga(),
   ])
 }

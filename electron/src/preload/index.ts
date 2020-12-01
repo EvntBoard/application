@@ -18,8 +18,9 @@ import {
   SESSION,
   CACHE,
   HELP,
+  DEBUG,
 } from './ipc';
-import { IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin } from '../types';
+import {IButton, IBoard, ITrigger, ITheme, ILang, IApp, IPlugin, IAppDebug} from '../types';
 
 contextBridge.exposeInMainWorld('app', {
   button: {
@@ -75,6 +76,10 @@ contextBridge.exposeInMainWorld('app', {
   appConfig: {
     set: (appConfig: IApp) => ipcRenderer.invoke(APP.SET, appConfig),
     get: () => ipcRenderer.invoke(APP.GET),
+  },
+  debugConfig: {
+    set: (appConfig: IAppDebug) => ipcRenderer.invoke(DEBUG.SET, appConfig),
+    get: () => ipcRenderer.invoke(DEBUG.GET),
   },
   webServer: {
     openApp: () => ipcRenderer.invoke(WEB_SERVER.OPEN),

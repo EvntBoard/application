@@ -11,6 +11,7 @@ import { createMigration } from '../utils';
 import { LocalDatabaseSchema } from '../../types';
 
 import mig1 from './migrations/01-migration';
+import mig2 from './migrations/02-migration';
 
 export let database: Lowdb.LowdbSync<LocalDatabaseSchema>;
 
@@ -35,7 +36,10 @@ export const init = async () => {
     storageOptions: {
       path: path.join(currentWorkspace.path, 'meta.json'),
     },
-    migrations: [createMigration<LocalDatabaseSchema>(database, mig1)],
+    migrations: [
+      createMigration<LocalDatabaseSchema>(database, mig1),
+      createMigration<LocalDatabaseSchema>(database, mig2),
+    ],
   });
 
   await umzug.up();
