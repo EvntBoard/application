@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import { isEqual, filter } from 'lodash'
+import { isEqual, filter, find } from 'lodash'
 
 export { saga as eventHistorySaga } from './saga'
 export * as selectors from './selector'
@@ -111,19 +111,21 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
 
     case eventHistoryProcessOnEnd.type:
-      return {
-        ...state,
-        process: [
-          ...filter(state.process, (i) => !isEqual(i.key, action.payload.key)),
-          action.payload
-        ]
-      }
     case eventHistoryProcessOnError.type:
+      const oldState = find(state.process, (i) => isEqual(i.key, action.payload.key))
+      console.log({
+        oldState,
+        payload: action.payload,
+      })
       return {
         ...state,
         process: [
           ...filter(state.process, (i) => !isEqual(i.key, action.payload.key)),
-          action.payload
+          {
+            ...oldState,
+            ...action.payload
+          }
+
         ]
       }
 
