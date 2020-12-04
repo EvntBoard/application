@@ -6,6 +6,8 @@ import * as path from 'path';
 import * as dns from 'dns';
 import * as os from 'os';
 import * as electronIsDev from 'electron-is-dev';
+import * as cors from 'cors';
+import { CorsOptions } from "cors";
 
 import { appGet } from '../AppConfigService';
 import { mainWindowsSend } from '../MainWindowService';
@@ -19,6 +21,10 @@ let app: express.Application;
 let httpServer: http.Server;
 let wsServer: Server;
 
+const corsConfig: CorsOptions = {
+  origin: '*'
+}
+
 export const init = () => {
   try {
     logger.debug('WebServer init');
@@ -26,9 +32,15 @@ export const init = () => {
 
     app = express();
 
+    app.use(cors(corsConfig));
+    app.options('*', cors(corsConfig));
+
     httpServer = http.createServer(app);
 
-    wsServer = new Server(httpServer, { path: '/ws' });
+    wsServer = new Server(httpServer, {
+      path: '/ws',
+      cors: corsConfig
+    });
 
     wsServer.on('connection', (socket) => {
       logger.debug('WS connection');
