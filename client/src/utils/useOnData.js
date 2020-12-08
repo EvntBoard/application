@@ -8,9 +8,7 @@ import {
   eventHistoryOnNew as eventHistoryOnNewService,
   eventHistoryOnStart as eventHistoryOnStartService,
 } from '../service/eventHistoryService'
-import { workspaceOnChange } from '../service/workspaceService'
 import { webserverOnOpen, webserverOnClose, webserverOnError } from '../store/webserver'
-import { workspaceOnChange as actionWorkspaceOnChange } from '../store/workspace'
 import { eventHistoryProcessOnStart, eventHistoryOnNew, eventHistoryProcessOnError, eventHistoryProcessOnEnd } from '../store/eventHistory'
 import { sessionOnChange as actionSessionOnChange } from '../store/session'
 import { cacheOnChange as actionCacheOnChange } from '../store/cache'
@@ -30,9 +28,6 @@ const useOnData = () => {
     })
     webServerOnError((event, error) => {
       dispatch(webserverOnError(error))
-    })
-    workspaceOnChange(() => {
-      dispatch(actionWorkspaceOnChange())
     })
 
     eventHistoryOnNewService((event, data) => {

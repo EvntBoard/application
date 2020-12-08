@@ -96,9 +96,6 @@ contextBridge.exposeInMainWorld('app', {
     switch: (workspace: string) => ipcRenderer.invoke(WORKSPACE.SWITCH, workspace),
     openCurrent: () => ipcRenderer.invoke(WORKSPACE.OPEN_CURENT),
     selectNew: () => ipcRenderer.invoke(WORKSPACE.SELECT_NEW),
-    onChange: (callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
-      ipcRenderer.on(WORKSPACE.ON_CHANGE, callback);
-    },
   },
   eventBus: {
     newEvent: (event: string, data: any) => ipcRenderer.invoke(EVENT_BUS.NEW, event, data),

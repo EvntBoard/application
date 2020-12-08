@@ -8,8 +8,9 @@ import {
 
 import { reload as reloadWebServer } from './WebServerService';
 import { init as reloadSessionService } from './SessionService';
-import { mainWindowsSend } from './MainWindowService';
-import { WORKSPACE } from '../preload/ipc';
+import { mainWindowReload } from './MainWindowService';
+import { init as reloadPlugins, unloadAllPlugin } from './PluginManagerService';
+import { init as reloadEventHistoryService } from './EventHistoryService';
 
 export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> => {
   database.get('workspaces').find({ current: true }).assign({ current: false }).write();
@@ -26,12 +27,17 @@ export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> 
 
   // reload database
   await triggerManagerUnloadAll();
+  await unloadAllPlugin();
+  await reloadEventHistoryService();
+
   await initLocalDB();
   await initTriggerManager();
   await reloadWebServer();
   await reloadSessionService();
+  await reloadPlugins();
 
-  mainWindowsSend(WORKSPACE.ON_CHANGE);
+  // force reload mainwindow
+  mainWindowReload()
 
   return newWorkspace;
 };

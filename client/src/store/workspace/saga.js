@@ -15,11 +15,6 @@ import {
   workspaceOnChange
 } from './'
 
-import { themeGet } from '../theme'
-import { langGet } from '../lang'
-import { configGet } from '../config'
-import { menuGet } from '../menu'
-
 function* onWorkspaceGet() {
   try {
     const data = yield call(IPCworkspaceGetCurrent)
@@ -38,20 +33,10 @@ function* onWorkspaceSet({ payload }) {
   }
 }
 
-function* onWorkspaceChange() {
-  yield all([
-    put(themeGet()),
-    put(langGet()),
-    put(configGet()),
-    put(menuGet())
-  ])
-}
-
 export function* saga() {
   console.debug('SAGA - WORKSPACE')
   yield all([
     takeEvery(workspaceGet.type, onWorkspaceGet),
-    takeEvery(workspaceSet.type, onWorkspaceSet),
-    takeEvery(workspaceOnChange.type, onWorkspaceChange),
+    takeEvery(workspaceSet.type, onWorkspaceSet)
   ])
 }

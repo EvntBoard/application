@@ -85,6 +85,14 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
   await pluginInstance.instance.load();
 };
 
+export const unloadAllPlugin = async (): Promise<void> => {
+  logger.debug(`Plugin Service UNLOAD ALL`);
+  await Promise.all(instances.map(async (pluginInstance) => {
+    await pluginInstance.instance.unload();
+    await manager.uninstall(pluginInstance.name);
+  }))
+}
+
 export const unloadPlugin = async (plugin: IPlugin): Promise<void> => {
   logger.debug(`Plugin Service UNLOAD ${plugin.type} - ${plugin.name}`);
   const pluginInstance: IPluginManagerInstance = find(instances, { id: plugin.id });

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style type="text/css">
+        html, body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        :root{
+            --main-color: #9b59b6;
+            background-color: transparent;
+        }
+
+        .title {
+            font-size: 32px;
+            padding: 8px 0;
+            color: var(--main-color);
+        }
+
+        .full {
+            flex-grow: 1;
+        }
+
+        .container {
+            background-color: #f5f6fa;
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+
+        }
+
+        .lds-hourglass {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-hourglass:after {
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            width: 0;
+            height: 0;
+            margin: 8px;
+            box-sizing: border-box;
+            border: 32px solid var(--main-color);
+            border-color: var(--main-color) transparent var(--main-color) transparent;
+            animation: lds-hourglass 1.2s infinite;
+        }
+        @keyframes lds-hourglass {
+            0% {
+                transform: rotate(0);
+                animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            }
+            50% {
+                transform: rotate(900deg);
+                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+            100% {
+                transform: rotate(1800deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class='container'>
+    <div class="full">
+        <div class="title">EvntBoard</div>
+        <div>Another way to customize your stream !</div>
+    </div>
+    <div class="lds-hourglass"></div>
+</div>
+</body>
+</html>

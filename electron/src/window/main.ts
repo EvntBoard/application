@@ -3,6 +3,8 @@ import * as url from 'url';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 
+import { loadingWindow } from './loading'
+
 export let mainWindow: BrowserWindow = null;
 
 export const createMainWindow = () => {
@@ -11,8 +13,8 @@ export const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     minWidth: 800,
     minHeight: 600,
-    width: 1400,
-    height: 700,
+    width: 800,
+    height: 600,
     show: false,
     webPreferences: {
       preload: isDev
@@ -28,10 +30,8 @@ export const createMainWindow = () => {
   });
 
   if (isDev) {
-    mainWindow.show();
     mainWindow.loadURL('http://localhost:4123');
-    // mainWindow.webContents.openDevTools({ mode: 'detach' });
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
     mainWindow.loadURL(
       url.format({
@@ -40,7 +40,22 @@ export const createMainWindow = () => {
         slashes: true,
       })
     );
-    mainWindow.webContents.once('did-finish-load', () => mainWindow.show());
+
     mainWindow.setMenu(null);
   }
+
+  mainWindow.webContents.on('did-start-loading', () => {
+    mainWindow.hide()
+    loadingWindow.show()
+  })
+
+  mainWindow.webContents.on('did-stop-loading', () => {
+    loadingWindow.hide()
+    mainWindow.show()
+  })
+
+  mainWindow.webContents.once('did-finish-load', () => {
+    loadingWindow.hide()
+    mainWindow.show()
+  });
 };

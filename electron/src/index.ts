@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow } from 'electron';
 
 import { init as initGlobalDB } from './database/global';
 import { init as initLocalDB } from './database/local';
@@ -11,6 +11,7 @@ import { init as initSessionService } from './service/SessionService';
 import { init as initCacheService } from './service/CacheService';
 import { init as initEventHistoryService } from './service/EventHistoryService';
 import { createMainWindow } from './window/main';
+import { createLoadingWindow } from './window/loading';
 import logger from './service/LoggerService';
 
 app.on('ready', async () => {
@@ -25,6 +26,7 @@ app.on('ready', async () => {
   await initSessionService();
   await initCacheService();
   await initIpc();
+  createLoadingWindow();
   createMainWindow();
 });
 

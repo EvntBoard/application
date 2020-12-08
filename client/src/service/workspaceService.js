@@ -17,7 +17,3 @@ export const workspaceOpenCurrent = async () => {
 export const workspaceSelectNew = async () => {
   return await window.app.workspace.selectNew()
 }
-
-export const workspaceOnChange = (callback) => {
-  window.app.workspace.onChange(callback)
-}

@@ -26,8 +26,8 @@ const changeCacheValue = (
 ): ICache => {
   let newCache: ICache = cloneDeep(cache);
 
-  if (!(type in newCache)) {
-    throw new Error(`No prop ${type} in session`);
+  if (!type || !newCache || !(type in newCache)) {
+    return
   }
 
   // @ts-ignore

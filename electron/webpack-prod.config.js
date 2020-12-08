@@ -24,11 +24,11 @@ module.exports = [
       ],
     },
     plugins: [
-      // new CopyPlugin({
-      //   patterns: [
-      //     { from: './src/lang', to: path.resolve(__dirname, 'build', 'lang') }
-      //   ],
-      // }),
+      new CopyPlugin({
+        patterns: [
+          { from: path.resolve(__dirname, 'assets'), to: path.resolve(__dirname, 'build', 'client') }
+        ],
+      }),
     ],
     externals: [nodeExternals()],
     resolve: {
