@@ -94,6 +94,11 @@ const middleware = store => next => action => {
           store.dispatch(cacheOnChange(data))
         })
 
+        // workspace change
+        websocket.on('workspaceUpdate', () => {
+          window.location.reload(false)
+        })
+
       } catch (e) {
         store.dispatch(wsOnError(e));
       }

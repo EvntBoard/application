@@ -6,7 +6,7 @@ import {
   unloadAll as triggerManagerUnloadAll,
 } from './TriggerManagerService';
 
-import { reload as reloadWebServer } from './WebServerService';
+import {broadcast, reload as reloadWebServer} from './WebServerService';
 import { init as reloadSessionService } from './SessionService';
 import { mainWindowReload } from './MainWindowService';
 import { init as reloadPlugins, unloadAllPlugin } from './PluginManagerService';
@@ -32,9 +32,13 @@ export const workspaceSwitchTo = async (workspace: string): Promise<IWorkspace> 
 
   await initLocalDB();
   await initTriggerManager();
-  await reloadWebServer();
+
+
   await reloadSessionService();
   await reloadPlugins();
+
+  broadcast('workspaceUpdate');
+  await reloadWebServer();
 
   // force reload mainwindow
   mainWindowReload()
