@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 
-const FieldTextArea = ({ disabled, required, label, placeholder, input }) => {
+const FieldTextArea = ({ disabled, required, label, placeholder, helperText, input }) => {
   return (
     <TextField
       variant="filled"
@@ -13,6 +13,7 @@ const FieldTextArea = ({ disabled, required, label, placeholder, input }) => {
       placeholder={placeholder}
       value={input.value}
       onChange={input.onChange}
+      helperText={helperText}
       multiline
     />
   )

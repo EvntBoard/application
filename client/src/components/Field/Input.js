@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
 
-const FieldInput = ({ disabled, label, required, placeholder, input, type }) => {
+const FieldInput = ({ disabled, label, helperText, required, placeholder, input, type }) => {
   return (
     <TextField
       variant="filled"
@@ -13,6 +13,7 @@ const FieldInput = ({ disabled, label, required, placeholder, input, type }) => 
       onChange={input.onChange}
       inputProps={{ type }}
       style={{ flexGrow: 1 }}
+      helperText={helperText}
     />
   )
 }
