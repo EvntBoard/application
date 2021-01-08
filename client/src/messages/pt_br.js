@@ -154,6 +154,7 @@ const messagesPTBR = {
   [M.AppSettingsPluginModalAddRepoPlaceholder]: 'EvntBoard/module-obs',
   [M.AppSettingsPluginModalAddButtonCancel]: 'Cancelar',
   [M.AppSettingsPluginModalAddButtonSave]: 'Adicionar',
+  [M.AppSettingsPluginModalAddSchemaLoading]: 'Loading plugin schema ...',
 
   [M.AppSettingsPluginModalDeleteTitle]: 'Delete a plugin',
   [M.AppSettingsPluginModalDeleteInfo]: '...',

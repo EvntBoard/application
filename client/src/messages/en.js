@@ -154,6 +154,7 @@ const messagesEN = {
   [M.AppSettingsPluginModalAddRepoPlaceholder]: 'EvntBoard/module-obs',
   [M.AppSettingsPluginModalAddButtonCancel]: 'Cancel',
   [M.AppSettingsPluginModalAddButtonSave]: 'Add',
+  [M.AppSettingsPluginModalAddSchemaLoading]: 'Loading plugin schema ...',
 
   [M.AppSettingsPluginModalDeleteTitle]: 'Delete a plugin',
   [M.AppSettingsPluginModalDeleteInfo]: '...',

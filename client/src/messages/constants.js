@@ -152,6 +152,7 @@ const messages = {
   AppSettingsPluginModalAddRepoPlaceholder: 'app.settings.plugin.modal_add.repo.placeholder',
   AppSettingsPluginModalAddButtonCancel: 'app.settings.plugin.modal_add.button.cancel',
   AppSettingsPluginModalAddButtonSave: 'app.settings.plugin.modal_add.button.save',
+  AppSettingsPluginModalAddSchemaLoading: 'app.settings.plugin.modal_add.schema.loading',
 
   AppSettingsPluginModalDeleteTitle: 'app.settings.plugin.modal_delete.title',
   AppSettingsPluginModalDeleteInfo: 'app.settings.plugin.modal_delete.infos',

@@ -77,12 +77,12 @@ const Trigger = () => {
         current={current}
       />
       <Container className='plugin'>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid container item xs={12}>
             <Grid style={{ flexGrow: 1 }}>
               <Typography variant='h4'>{intl.formatMessage({ id: M.AppSettingsPluginTitle })}</Typography>
             </Grid>
-            <Grid>
+            <Grid style={{ padding: 4 }}>
               <Button variant='contained' onClick={onOpenModalAdd}>{intl.formatMessage({ id: M.AppSettingsPluginButtonAdd })}</Button>
             </Grid>
           </Grid>

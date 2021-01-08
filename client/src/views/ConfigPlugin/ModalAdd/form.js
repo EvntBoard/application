@@ -30,6 +30,7 @@ const options = [
 
 const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
   const intl = useIntl()
+  const [loadingSchema, setLoadingSchema] = useState(false)
   const [error, setError] = useState(null)
   const [schema, setSchema] = useState(null)
   const typeField = useField('type')
@@ -45,13 +46,17 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
   const preloadPlugin = useCallback(
     debounce((type, name) => {
       if (type && name) {
+        setError(null)
+        setLoadingSchema(true)
         pluginManagerPreload({ type, name })
         .then((data) => {
           setError(null)
           setSchema(data)
+          setLoadingSchema(false)
         }).catch(e => {
           setError(e)
           setSchema(null)
+          setLoadingSchema(false)
         })
       }
     }, 800),
@@ -91,6 +96,13 @@ const FormModalPluginAdd = ({ handleSubmit, onReset, setOpen, submitting }) => {
           error && (
             <div>
               {error?.message}
+            </div>
+          )
+        }
+        {
+          loadingSchema && (
+            <div>
+              Chargement en cours
             </div>
           )
         }
