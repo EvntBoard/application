@@ -153,6 +153,11 @@ const messages = {
   AppSettingsPluginModalAddButtonCancel: 'app.settings.plugin.modal_add.button.cancel',
   AppSettingsPluginModalAddButtonSave: 'app.settings.plugin.modal_add.button.save',
 
+  AppSettingsPluginModalDeleteTitle: 'app.settings.plugin.modal_delete.title',
+  AppSettingsPluginModalDeleteInfo: 'app.settings.plugin.modal_delete.infos',
+  AppSettingsPluginModalDeleteButtonCancel: 'app.settings.plugin.modal_delete.button.cancel',
+  AppSettingsPluginModalDeleteButtonSave: 'app.settings.plugin.modal_delete.button.save',
+
   // DEBUG
   AppDebugTableTriggerLabel: 'app.debug.table.trigger.label',
   AppDebugTableTriggerStartDate: 'app.debug.table.trigger.startDate',

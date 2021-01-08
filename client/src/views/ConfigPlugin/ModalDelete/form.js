@@ -15,20 +15,20 @@ const FormModalBoardDelete = ({ handleSubmit, onReset, setOpen, submitting }) =>
   return (
     <form onSubmit={handleSubmit}>
       <DialogTitle style={{ display: 'flex' }}>
-        {intl.formatMessage({ id: M.ModalBoardDeleteTitle })}
+        {intl.formatMessage({ id: M.AppSettingsPluginModalDeleteTitle })}
         <IconButton onClick={onClickClose}><CloseIcon /></IconButton>
       </DialogTitle>
 
       <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
-        {intl.formatMessage({ id: M.ModalBoardDeleteInfo })}
+        {intl.formatMessage({ id: M.AppSettingsPluginModalDeleteInfo })}
       </DialogContent>
 
       <DialogActions>
         <Button onClick={onReset}>
-          {intl.formatMessage({ id: M.ModalBoardDeleteButtonCancel })}
+          {intl.formatMessage({ id: M.AppSettingsPluginModalDeleteButtonCancel })}
         </Button>
         <Button type="submit" variant="contained" color="primary" disabled={submitting}>
-          {intl.formatMessage({ id: M.ModalBoardDeleteButtonSave })}
+          {intl.formatMessage({ id: M.AppSettingsPluginModalDeleteButtonSave })}
         </Button>
       </DialogActions>
     </form>

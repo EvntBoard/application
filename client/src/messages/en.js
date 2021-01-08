@@ -155,6 +155,11 @@ const messagesEN = {
   [M.AppSettingsPluginModalAddButtonCancel]: 'Cancel',
   [M.AppSettingsPluginModalAddButtonSave]: 'Add',
 
+  [M.AppSettingsPluginModalDeleteTitle]: 'Delete a plugin',
+  [M.AppSettingsPluginModalDeleteInfo]: '...',
+  [M.AppSettingsPluginModalDeleteButtonCancel]: 'Cancel',
+  [M.AppSettingsPluginModalDeleteButtonSave]: 'Delete',
+
   // DEBUG
   [M.AppDebugTableTriggerLabel]: 'Trigger',
   [M.AppDebugTableTriggerStartDate]: 'Start date',
