@@ -163,6 +163,9 @@ const messages = {
   AppDebugTableTriggerEmittedAt: 'app.debug.table.event.emittedAt',
   AppDebugTableTriggerEvent: 'app.debug.table.event.event',
   AppDebugTableTriggerAction: 'app.debug.table.event.action',
+  AppDebugFilterEvent: 'app.debug.filter.event',
+  AppDebugFilterStartDate: 'app.debug.filter.start_date',
+  AppDebugFilterEndDate: 'app.debug.filter.end_date',
 }
 
 export default messages

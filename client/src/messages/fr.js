@@ -164,6 +164,9 @@ const messagesFR = {
   [M.AppDebugTableTriggerEmittedAt]: 'Date d\'émission',
   [M.AppDebugTableTriggerEvent]: 'Événement',
   [M.AppDebugTableTriggerAction]: 'Action',
+  [M.AppDebugFilterEvent]: 'Événement',
+  [M.AppDebugFilterStartDate]: 'Date de début',
+  [M.AppDebugFilterEndDate]: 'Date de fin',
 }
 
 export default messagesFR

@@ -165,6 +165,9 @@ const messagesPTBR = {
   [M.AppDebugTableTriggerEmittedAt]: 'Emitido há',
   [M.AppDebugTableTriggerEvent]: 'Evento',
   [M.AppDebugTableTriggerAction]: 'Ação',
+  [M.AppDebugFilterEvent]: 'Event',
+  [M.AppDebugFilterStartDate]: 'Start Date',
+  [M.AppDebugFilterEndDate]: 'End Date',
 }
 
 export default messagesPTBR

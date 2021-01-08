@@ -165,6 +165,9 @@ const messagesEN = {
   [M.AppDebugTableTriggerEmittedAt]: 'Emitted At',
   [M.AppDebugTableTriggerEvent]: 'Event',
   [M.AppDebugTableTriggerAction]: 'Action',
+  [M.AppDebugFilterEvent]: 'Event',
+  [M.AppDebugFilterStartDate]: 'Start Date',
+  [M.AppDebugFilterEndDate]: 'End Date',
 }
 
 export default messagesEN

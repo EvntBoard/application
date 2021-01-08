@@ -9,6 +9,7 @@
     "@rjsf/core": "^2.4.0",
     "@rjsf/material-ui": "^2.4.0",
     "clsx": "^1.1.1",
+    "date-fns": "^2.16.1",
     "final-form": "^4.20.1",
     "final-form-arrays": "^3.0.2",
     "grid-template-parser": "^0.3.2",
