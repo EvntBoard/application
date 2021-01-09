@@ -2,8 +2,8 @@ import { ipcMain } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import * as googleTTS from '../../../utils/google-tts';
-import * as downloader from '../../../utils/google-tts/downloader';
+import { googleTTS } from '../../../utils/googleTTS';
+import { download } from '../../../utils/googleTTSdownloader';
 import { mainWindowsSend } from '../../MainWindowService';
 import { workspaceGetCurrent } from '../../WorkspaceService';
 import { MEDIA } from '../../../preload/ipc';
@@ -46,13 +46,13 @@ export const tts = async (text: string, volume = 1, lang: string, speed: 1): Pro
     fs.mkdirSync(ttsFolderPath);
   }
 
-  const urls: string[] = await googleTTS(text, lang, speed);
+  const urls: string[] = await googleTTS(text, lang);
   const files: string[] = [];
 
   for (const url of urls) {
     const urlId = Math.random();
     let filePath = path.join(workspaceDir.path, 'tts', `${uniqueId}-${urlId}.mp3`);
-    await downloader(url, filePath);
+    await download(url, filePath);
     files.push(filePath);
   }
 
@@ -63,6 +63,10 @@ export const tts = async (text: string, volume = 1, lang: string, speed: 1): Pro
       uniqueId,
     });
     ipcMain.once(`tts-${uniqueId}`, () => {
+      // delete each file on tts folder :)
+      files.map((i) => fs.unlinkSync(i));
+      console.log(files);
+      // finished
       resolve();
     });
   });

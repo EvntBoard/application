@@ -8,6 +8,6 @@ export const mainWindowsSend = (type: string, ...params: any[]): any => {
 
 export const mainWindowReload = () => {
   if (mainWindow) {
-    return mainWindow.reload()
+    return mainWindow.reload();
   }
-}
+};

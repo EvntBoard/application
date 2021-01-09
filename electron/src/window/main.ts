@@ -3,7 +3,7 @@ import * as url from 'url';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
 
-import { loadingWindow } from './loading'
+import { loadingWindow } from './loading';
 
 export let mainWindow: BrowserWindow = null;
 
@@ -45,17 +45,17 @@ export const createMainWindow = () => {
   }
 
   mainWindow.webContents.on('did-start-loading', () => {
-    mainWindow.hide()
-    loadingWindow.show()
-  })
+    mainWindow.hide();
+    loadingWindow.show();
+  });
 
   mainWindow.webContents.on('did-stop-loading', () => {
-    loadingWindow.hide()
-    mainWindow.show()
-  })
+    loadingWindow.hide();
+    mainWindow.show();
+  });
 
   mainWindow.webContents.once('did-finish-load', () => {
-    loadingWindow.hide()
-    mainWindow.show()
+    loadingWindow.hide();
+    mainWindow.show();
   });
 };

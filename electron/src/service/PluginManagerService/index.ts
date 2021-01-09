@@ -87,11 +87,13 @@ export const loadPlugin = async (plugin: IPlugin): Promise<void> => {
 
 export const unloadAllPlugin = async (): Promise<void> => {
   logger.debug(`Plugin Service UNLOAD ALL`);
-  await Promise.all(instances.map(async (pluginInstance) => {
-    await pluginInstance.instance.unload();
-    await manager.uninstall(pluginInstance.name);
-  }))
-}
+  await Promise.all(
+    instances.map(async (pluginInstance) => {
+      await pluginInstance.instance.unload();
+      await manager.uninstall(pluginInstance.name);
+    })
+  );
+};
 
 export const unloadPlugin = async (plugin: IPlugin): Promise<void> => {
   logger.debug(`Plugin Service UNLOAD ${plugin.type} - ${plugin.name}`);

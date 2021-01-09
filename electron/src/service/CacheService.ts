@@ -27,7 +27,7 @@ const changeCacheValue = (
   let newCache: ICache = cloneDeep(cache);
 
   if (!type || !newCache || !(type in newCache)) {
-    return
+    return;
   }
 
   // @ts-ignore

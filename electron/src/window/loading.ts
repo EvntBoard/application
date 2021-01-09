@@ -26,11 +26,13 @@ export const createLoadingWindow = () => {
 
   loadingWindow.setMenu(null);
 
-  loadingWindow.loadURL(url.format({
-    pathname: 'loading.html',
-    protocol: 'file:',
-    slashes: true,
-  }));
+  loadingWindow.loadURL(
+    url.format({
+      pathname: 'loading.html',
+      protocol: 'file:',
+      slashes: true,
+    })
+  );
 
   loadingWindow.webContents.once('did-finish-load', () => loadingWindow.show());
 };

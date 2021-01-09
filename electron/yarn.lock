@@ -2436,6 +2436,13 @@ globby@^11.0.1:
     merge2 "^1.3.0"
     slash "^3.0.0"
 
+google-tts-api@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/google-tts-api/-/google-tts-api-2.0.1.tgz#f90e3a7283c47effd6b349b125d37c6f88d822ea"
+  integrity sha512-gFYSMusgxU7ad6+lTjG7xuFajIK6LxlXXkFMKQCZTzzEbDwXz4n3Ljc57c4PCxP/PvOZ4tJCgRGWiPJaAyToLg==
+  dependencies:
+    axios "^0.21.0"
+
 got@^11.7.0:
   version "11.8.0"
   resolved "https://registry.yarnpkg.com/got/-/got-11.8.0.tgz#be0920c3586b07fd94add3b5b27cb28f49e6545f"

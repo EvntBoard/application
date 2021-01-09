@@ -25,13 +25,14 @@ export const init = () => {
   historyProcess = new Map<string, IProcessEventData>();
 };
 
-export const historyGet = (): Array<IEvent> => reverse(sortBy(history, [(o: IEvent) => o.emittedAt]));
+export const historyGet = (): Array<IEvent> =>
+  reverse(sortBy(history, [(o: IEvent) => o.emittedAt]));
 
 const historyKeyGet = (key: IProcessEventKey): IProcessEvent => {
   return {
     key,
-    value: historyProcess.get(keyToMapKey(key))
-  }
+    value: historyProcess.get(keyToMapKey(key)),
+  };
 };
 
 const historyKeySet = (key: IProcessEventKey, value: Partial<IProcessEventData>): IProcessEvent => {
@@ -40,32 +41,32 @@ const historyKeySet = (key: IProcessEventKey, value: Partial<IProcessEventData>)
   const newData = {
     ...cloneDeep(SAMPLE_PROCESS_EVENT),
     ...data.value,
-    ...value
-  }
+    ...value,
+  };
 
-  historyProcess.set(keyToMapKey(key), newData)
+  historyProcess.set(keyToMapKey(key), newData);
 
   return {
     key,
-    value: newData
-  }
+    value: newData,
+  };
 };
 
 export const historyProcessGet = (): Array<IProcessEvent> => {
-  const data: Array<IProcessEvent> = []
+  const data: Array<IProcessEvent> = [];
 
   historyProcess.forEach((value, key) => {
-    const [idTrigger, idEvent] = key.split(':')
+    const [idTrigger, idEvent] = key.split(':');
     data.push({
       key: {
         idEvent,
         idTrigger,
       },
-      value
-    })
-  })
+      value,
+    });
+  });
 
-  return data
+  return data;
 };
 
 export const historyPush = (event: IEvent): void => {
@@ -87,7 +88,7 @@ export const historyProcessStart = (key: IProcessEventKey): void => {
   if (key && key.idEvent && key.idTrigger) {
     const newData = {
       startDate: new Date(),
-    }
+    };
 
     historyKeySet(key, newData);
     mainWindowsSend(EVENT_HISTORY.ON_START, historyKeyGet(key));

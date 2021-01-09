@@ -7,7 +7,7 @@ import * as dns from 'dns';
 import * as os from 'os';
 import * as electronIsDev from 'electron-is-dev';
 import * as cors from 'cors';
-import { CorsOptions } from "cors";
+import { CorsOptions } from 'cors';
 
 import { appGet } from '../AppConfigService';
 import { mainWindowsSend } from '../MainWindowService';
@@ -22,8 +22,8 @@ let httpServer: http.Server;
 let wsServer: Server;
 
 const corsConfig: CorsOptions = {
-  origin: '*'
-}
+  origin: '*',
+};
 
 export const init = () => {
   try {
@@ -39,7 +39,7 @@ export const init = () => {
 
     wsServer = new Server(httpServer, {
       path: '/ws',
-      cors: corsConfig
+      cors: corsConfig,
     });
 
     wsServer.on('connection', (socket) => {

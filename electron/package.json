@@ -32,6 +32,7 @@
     "electron-log": "^4.2.4",
     "emittery": "^0.7.2",
     "express": "^4.17.1",
+    "google-tts-api": "^2.0.1",
     "json-schema": "^0.2.5",
     "live-plugin-manager": "^0.15.1",
     "lodash": "^4.17.20",
